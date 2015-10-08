@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kmad-model SYSTEM "file:KMADModelJT.dtd">
+<kmad-model version="1.3">
+    <project classkmad="project.Project" idkmad="K1"/>
+    <task classkmad="tache.Task" id-task-point="K3" id-task-subtasks-list="K7 K10 K13 K16 " idkmad="K4">
+        <task-name>mettre en vente un photo</task-name>
+        <task-numero>Racine   </task-numero>
+        <task-observation/>
+        <task-executant>ABS</task-executant>
+        <task-modality>COGN</task-modality>
+        <task-optional>false</task-optional>
+        <task-interruptible>false</task-interruptible>
+        <task-decomposition>SEQ</task-decomposition>
+        <task-precondition>true</task-precondition>
+        <task-descriptionprecondition>have a seller acount</task-descriptionprecondition>
+        <task-effetsdebord>void</task-effetsdebord>
+        <task-iteration>[1]</task-iteration>
+        <point classkmad="tache.Point" idkmad="K3">
+            <point-x>736</point-x>
+            <point-y>128</point-y>
+        </point>
+        <task classkmad="tache.Task" id-task-point="K6" idkmad="K7">
+            <task-name>Upload photographie</task-name>
+            <task-numero>1</task-numero>
+            <task-observation/>
+            <task-executant>ABS</task-executant>
+            <task-modality>COGN</task-modality>
+            <task-optional>false</task-optional>
+            <task-interruptible>false</task-interruptible>
+            <task-decomposition>LEAF</task-decomposition>
+            <task-precondition>true</task-precondition>
+            <task-effetsdebord>void</task-effetsdebord>
+            <task-iteration>[1]</task-iteration>
+            <point classkmad="tache.Point" idkmad="K6">
+                <point-x>550</point-x>
+                <point-y>331</point-y>
+            </point>
+        </task>
+        <task classkmad="tache.Task" id-task-point="K9" idkmad="K10">
+            <task-name>Ajouter description</task-name>
+            <task-numero>2</task-numero>
+            <task-observation/>
+            <task-executant>ABS</task-executant>
+            <task-modality>COGN</task-modality>
+            <task-optional>true</task-optional>
+            <task-interruptible>false</task-interruptible>
+            <task-decomposition>LEAF</task-decomposition>
+            <task-precondition>true</task-precondition>
+            <task-effetsdebord>void</task-effetsdebord>
+            <task-iteration>[1]</task-iteration>
+            <point classkmad="tache.Point" idkmad="K9">
+                <point-x>789</point-x>
+                <point-y>331</point-y>
+            </point>
+        </task>
+        <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
+            <task-name>Définir un prix</task-name>
+            <task-numero>3</task-numero>
+            <task-observation/>
+            <task-executant>ABS</task-executant>
+            <task-modality>COGN</task-modality>
+            <task-optional>false</task-optional>
+            <task-interruptible>false</task-interruptible>
+            <task-decomposition>LEAF</task-decomposition>
+            <task-precondition>true</task-precondition>
+            <task-effetsdebord>void</task-effetsdebord>
+            <task-iteration>[1]</task-iteration>
+            <point classkmad="tache.Point" idkmad="K12">
+                <point-x>1003</point-x>
+                <point-y>331</point-y>
+            </point>
+        </task>
+        <task classkmad="tache.Task" id-task-point="K15" id-task-subtasks-list="K19 " idkmad="K16">
+            <task-name>valider </task-name>
+            <task-numero>4</task-numero>
+            <task-observation/>
+            <task-executant>ABS</task-executant>
+            <task-modality>COGN</task-modality>
+            <task-optional>false</task-optional>
+            <task-interruptible>false</task-interruptible>
+            <task-decomposition>LEAF</task-decomposition>
+            <task-precondition>true</task-precondition>
+            <task-effetsdebord>void</task-effetsdebord>
+            <task-iteration>[1]</task-iteration>
+            <point classkmad="tache.Point" idkmad="K15">
+                <point-x>1174</point-x>
+                <point-y>331</point-y>
+            </point>
+            <task classkmad="tache.Task" id-task-point="K18" idkmad="K19">
+                <task-name>Consulter résumé</task-name>
+                <task-numero>4.1</task-numero>
+                <task-observation/>
+                <task-executant>ABS</task-executant>
+                <task-modality>COGN</task-modality>
+                <task-optional>false</task-optional>
+                <task-interruptible>false</task-interruptible>
+                <task-decomposition>LEAF</task-decomposition>
+                <task-precondition>true</task-precondition>
+                <task-effetsdebord>void</task-effetsdebord>
+                <task-iteration>[1]</task-iteration>
+                <point classkmad="tache.Point" idkmad="K18">
+                    <point-x>1154</point-x>
+                    <point-y>562</point-y>
+                </point>
+            </task>
+        </task>
+    </task>
+</kmad-model>
