@@ -1,7 +1,6 @@
 package fr.ujf.m2pgi;
 
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Produces;
 
 @Stateless
 public class HelloWorldBean {
@@ -14,4 +13,5 @@ public class HelloWorldBean {
 	public String sayHello() {
 		return message;
 	}
+	
 }

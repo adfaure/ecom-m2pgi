@@ -18,10 +18,7 @@ package fr.ujf.m2pgi.test;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.logging.Logger;
-
 import javax.ejb.EJB;
-import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
