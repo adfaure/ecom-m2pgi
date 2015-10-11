@@ -1,11 +1,10 @@
 define([ 'angular' , './../app'], function (angular) {
 	
 
-	function HelloWorldController($scope) {
-	  $scope.helloWorld = 'Hello world !';
+	return HelloWorldController = function($scope, $http) {
+	  $http.get("rest/hello").success(function(res) {
+		  $scope.helloWorld = res.hello;
+	  });
 	};
 	
-	HelloWorldController.$inject=['$scope'];
-	
-	return HelloWorldController;
 });

@@ -8,7 +8,7 @@ public class HelloWorldBean {
 	private String message;
 	
 	public HelloWorldBean() {
-		message = "Hello world ! ";
+		message = "EJB Hello world !  ";
 	}
 	
 	public String sayHello() {
