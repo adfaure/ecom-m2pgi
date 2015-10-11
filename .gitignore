@@ -2,3 +2,5 @@
 .classpath
 .settings
 .project
+.tern-project
+bower_components/
