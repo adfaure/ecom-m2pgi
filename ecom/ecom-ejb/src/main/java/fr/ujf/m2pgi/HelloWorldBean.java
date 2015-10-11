@@ -4,6 +4,7 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class HelloWorldBean {
+	
 	private String message;
 	
 	public HelloWorldBean() {
