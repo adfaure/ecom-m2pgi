@@ -100,8 +100,8 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K15">
-                    <point-x>1349</point-x>
-                    <point-y>599</point-y>
+                    <point-x>1326</point-x>
+                    <point-y>612</point-y>
                 </point>
             </task>
             <task classkmad="tache.Task" id-task-point="K18" idkmad="K19">
