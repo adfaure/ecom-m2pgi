@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- JBoss, Home of Professional Open Source Copyright 2013, Red Hat, Inc. 
-	and/or its affiliates, and individual contributors by the @authors tag. See 
-	the copyright.txt in the distribution for a full listing of individual contributors. 
-	Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-	use this file except in compliance with the License. You may obtain a copy 
-	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-	by applicable law or agreed to in writing, software distributed under the 
-	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-	OF ANY KIND, either express or implied. See the License for the specific 
+<!-- JBoss, Home of Professional Open Source Copyright 2013, Red Hat, Inc.
+	and/or its affiliates, and individual contributors by the @authors tag. See
+	the copyright.txt in the distribution for a full listing of individual contributors.
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not
+	use this file except in compliance with the License. You may obtain a copy
+	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
+	by applicable law or agreed to in writing, software distributed under the
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+	OF ANY KIND, either express or implied. See the License for the specific
 	language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -18,7 +18,9 @@
 		<groupId>fr.ujf.m2pgi</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-
+	<properties>
+		<project.webapp.src>src/main/webapp/</project.webapp.src>
+	</properties>
 	<artifactId>ecom-web</artifactId>
 	<packaging>war</packaging>
 
@@ -43,7 +45,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Import the JAX-RS API, we use provided scope as the API is included 
+		<!-- Import the JAX-RS API, we use provided scope as the API is included
 			in JBoss WildFly -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
@@ -51,7 +53,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Import the CDI API, we use provided scope as the API is included in 
+		<!-- Import the CDI API, we use provided scope as the API is included in
 			JBoss WildFly -->
 		<dependency>
 			<groupId>javax.enterprise</groupId>
@@ -59,7 +61,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Import the JSF API, we use provided scope as the API is included in 
+		<!-- Import the JSF API, we use provided scope as the API is included in
 			JBoss WildFly -->
 		<dependency>
 			<groupId>org.jboss.spec.javax.faces</groupId>
@@ -67,7 +69,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Import the JPA API, we use provided scope as the API is included in 
+		<!-- Import the JPA API, we use provided scope as the API is included in
 			JBoss WildFly -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
@@ -129,7 +131,7 @@
 				</configuration>
 				<executions>
 					<execution>
-						<!-- optional: you don't really need execution ids, but it looks nice 
+						<!-- optional: you don't really need execution ids, but it looks nice
 							in your build log. -->
 						<id>install node and npm</id>
 						<goals>
@@ -141,7 +143,7 @@
 							<nodeVersion>v0.10.18</nodeVersion>
 							<npmVersion>1.3.8</npmVersion>
 							<!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
-							<!-- optional: where to install node and npm. Defaults to the working 
+							<!-- optional: where to install node and npm. Defaults to the working
 								directory -->
 							<installDirectory>target</installDirectory>
 						</configuration>
@@ -156,10 +158,10 @@
 						<phase>generate-resources</phase>
 
 						<configuration>
-							<!-- optional: The default argument is actually "install", so unless 
-								you need to run some other npm command, you can remove this whole <configuration> 
+							<!-- optional: The default argument is actually "install", so unless
+								you need to run some other npm command, you can remove this whole <configuration>
 								section. -->
-							<workingDirectory>src/main/webapp/</workingDirectory>
+							<workingDirectory>${project.webapp.src}</workingDirectory>
 							<arguments>install</arguments>
 						</configuration>
 					</execution>
@@ -170,11 +172,11 @@
 						</goals>
 
 						<!-- optional: the default phase is "generate-resources" -->
-						<phase>generate-resources</phase>						
+						<phase>generate-resources</phase>
 						<configuration>
-							<!-- optional: if not specified, it will run Grunt's default task 
+							<!-- optional: if not specified, it will run Grunt's default task
 								(and you can remove this whole <configuration> section.) -->
-							<workingDirectory>src/main/webapp/</workingDirectory>	
+								<workingDirectory>${project.webapp.src}</workingDirectory>
 						</configuration>
 					</execution>
 				</executions>

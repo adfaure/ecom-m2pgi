@@ -14,10 +14,13 @@ ecomApp.config(function ($routeProvider) {
             templateUrl: './js/templates/mainTemplate.html',
             controller: 'MainController'
         })
-        .when('/hello', {
+        .when('/helloWorld', {
             templateUrl: './js/templates/helloWorld.html',
             controller: 'HelloWorldController'
         })
+        .otherwise({
+            redirectTo: '/'
+        });
 });
 
 ecomApp.controller('HelloWorldController', hwController);
