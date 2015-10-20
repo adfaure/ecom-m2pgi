@@ -17,8 +17,8 @@ public class RESTHelloworld {
 	
 	@GET
 	@Produces("application/json")
-	public String sayHello() { //TODO those methods will need to return a javax.ws.rs.core.Response
-		return "{ \"hello\" : \"" + hello.sayHello() + "\"}";		
+	public HelloWorldBean sayHello() { //TODO those methods will need to return a javax.ws.rs.core.Response
+		return hello;
 	}
 	
 	@GET

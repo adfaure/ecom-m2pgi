@@ -2,7 +2,8 @@ var angular = require('angular');
 
 var HelloWorldController = function($scope, $http) {
   $http.get("rest/hello").success(function(res) {
-	  $scope.helloWorld = res.hello;
+	  console.log(res);
+	  $scope.message = res.message;
   });
 };
 
