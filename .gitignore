@@ -1,6 +1,7 @@
 */target/*
+.idea
 .classpath
 .settings
 .project
 .tern-project
-bower_components/
+node_modules/
