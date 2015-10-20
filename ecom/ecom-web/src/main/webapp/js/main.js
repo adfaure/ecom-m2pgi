@@ -18,7 +18,6 @@ ecomApp.config(function ($routeProvider) {
             templateUrl: './js/templates/helloWorld.html',
             controller: 'HelloWorldController'
         })
-
 });
 
 ecomApp.controller('HelloWorldController', hwController);
