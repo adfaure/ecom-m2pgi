@@ -16,8 +16,8 @@
         <task-iteration>[1]</task-iteration>
         <task-descriptioniteration>Autant de fois que l'utilisateur veut</task-descriptioniteration>
         <point classkmad="tache.Point" idkmad="K3">
-            <point-x>918</point-x>
-            <point-y>106</point-y>
+            <point-x>739</point-x>
+            <point-y>110</point-y>
         </point>
         <task classkmad="tache.Task" id-task-point="K9" id-task-subtasks-list="K13 K16 K19 " idkmad="K10">
             <task-name>Faire une recherche</task-name>
@@ -25,15 +25,15 @@
             <task-observation/>
             <task-executant>ABS</task-executant>
             <task-modality>COGN</task-modality>
-            <task-optional>false</task-optional>
+            <task-optional>true</task-optional>
             <task-interruptible>false</task-interruptible>
             <task-decomposition>ALT</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
             <task-iteration>[1]while(  )</task-iteration>
             <point classkmad="tache.Point" idkmad="K9">
-                <point-x>409</point-x>
-                <point-y>319</point-y>
+                <point-x>226</point-x>
+                <point-y>287</point-y>
             </point>
             <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
                 <task-name>Rechercher un mot</task-name>
@@ -48,12 +48,12 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K12">
-                    <point-x>123</point-x>
-                    <point-y>513</point-y>
+                    <point-x>42</point-x>
+                    <point-y>448</point-y>
                 </point>
             </task>
             <task classkmad="tache.Task" id-task-point="K15" idkmad="K16">
-                <task-name>Cliquer sur un tag</task-name>
+                <task-name>Choisir un tag</task-name>
                 <task-numero>1.2</task-numero>
                 <task-observation/>
                 <task-executant>INT</task-executant>
@@ -65,8 +65,8 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K15">
-                    <point-x>313</point-x>
-                    <point-y>513</point-y>
+                    <point-x>249</point-x>
+                    <point-y>450</point-y>
                 </point>
             </task>
             <task classkmad="tache.Task" id-task-point="K18" idkmad="K19">
@@ -82,8 +82,8 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K18">
-                    <point-x>486</point-x>
-                    <point-y>513</point-y>
+                    <point-x>405</point-x>
+                    <point-y>450</point-y>
                 </point>
             </task>
         </task>
@@ -100,11 +100,11 @@
             <task-effetsdebord>void</task-effetsdebord>
             <task-iteration>[1]</task-iteration>
             <point classkmad="tache.Point" idkmad="K59">
-                <point-x>647</point-x>
-                <point-y>319</point-y>
+                <point-x>529</point-x>
+                <point-y>287</point-y>
             </point>
         </task>
-        <task classkmad="tache.Task" id-task-point="K56" id-task-subtasks-list="K22 K25 " idkmad="K57">
+        <task classkmad="tache.Task" id-task-point="K56" id-task-subtasks-list="K22 K79 K25 " idkmad="K57">
             <task-name>Agir sur la photo</task-name>
             <task-numero>3</task-numero>
             <task-observation/>
@@ -118,11 +118,11 @@
             <task-iteration>[1]</task-iteration>
             <task-descriptioniteration>Autant de fois que l'utilisateur veut</task-descriptioniteration>
             <point classkmad="tache.Point" idkmad="K56">
-                <point-x>1181</point-x>
-                <point-y>246</point-y>
+                <point-x>808</point-x>
+                <point-y>287</point-y>
             </point>
             <task classkmad="tache.Task" id-task-point="K21" idkmad="K22">
-                <task-name>Mettre la photo en favoris</task-name>
+                <task-name>Ajouter aux favoris</task-name>
                 <task-numero>3.1</task-numero>
                 <task-observation/>
                 <task-executant>INT</task-executant>
@@ -134,12 +134,12 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K21">
-                    <point-x>740</point-x>
-                    <point-y>482</point-y>
+                    <point-x>635</point-x>
+                    <point-y>448</point-y>
                 </point>
             </task>
-            <task classkmad="tache.Task" id-task-point="K24" idkmad="K25">
-                <task-name>Signaler</task-name>
+            <task classkmad="tache.Task" id-task-point="K78" idkmad="K79">
+                <task-name>Ajouter au panier</task-name>
                 <task-numero>3.2</task-numero>
                 <task-observation/>
                 <task-executant>INT</task-executant>
@@ -150,9 +150,26 @@
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
+                <point classkmad="tache.Point" idkmad="K78">
+                    <point-x>827</point-x>
+                    <point-y>446</point-y>
+                </point>
+            </task>
+            <task classkmad="tache.Task" id-task-point="K24" idkmad="K25">
+                <task-name>Signaler</task-name>
+                <task-numero>3.3</task-numero>
+                <task-observation/>
+                <task-executant>INT</task-executant>
+                <task-modality>COGN</task-modality>
+                <task-optional>false</task-optional>
+                <task-interruptible>false</task-interruptible>
+                <task-decomposition>LEAF</task-decomposition>
+                <task-precondition>true</task-precondition>
+                <task-effetsdebord>void</task-effetsdebord>
+                <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K24">
-                    <point-x>996</point-x>
-                    <point-y>427</point-y>
+                    <point-x>984</point-x>
+                    <point-y>446</point-y>
                 </point>
             </task>
         </task>
@@ -170,8 +187,8 @@
             <task-iteration>[1]</task-iteration>
             <task-descriptioniteration>Autant de fois que l'utilisateur veut</task-descriptioniteration>
             <point classkmad="tache.Point" idkmad="K30">
-                <point-x>1342</point-x>
-                <point-y>450</point-y>
+                <point-x>1268</point-x>
+                <point-y>285</point-y>
             </point>
             <task classkmad="tache.Task" id-task-point="K33" idkmad="K34">
                 <task-name>Acceder aux albums de la photo</task-name>
@@ -186,8 +203,8 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K33">
-                    <point-x>856</point-x>
-                    <point-y>640</point-y>
+                    <point-x>1101</point-x>
+                    <point-y>446</point-y>
                 </point>
             </task>
             <task classkmad="tache.Task" id-task-point="K62" idkmad="K63">
@@ -203,8 +220,8 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K62">
-                    <point-x>1261</point-x>
-                    <point-y>640</point-y>
+                    <point-x>1408</point-x>
+                    <point-y>450</point-y>
                 </point>
             </task>
             <task classkmad="tache.Task" id-task-point="K39" idkmad="K40">
@@ -220,8 +237,8 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K39">
-                    <point-x>1525</point-x>
-                    <point-y>616</point-y>
+                    <point-x>1588</point-x>
+                    <point-y>450</point-y>
                 </point>
             </task>
         </task>
