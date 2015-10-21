@@ -29,7 +29,7 @@
             <task-decomposition>LEAF</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
+            <task-iteration>true</task-iteration>
             <point classkmad="tache.Point" idkmad="K6">
                 <point-x>128</point-x>
                 <point-y>321</point-y>
@@ -46,7 +46,7 @@
             <task-decomposition>LEAF</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
+            <task-iteration>true</task-iteration>
             <point classkmad="tache.Point" idkmad="K9">
                 <point-x>534</point-x>
                 <point-y>321</point-y>
@@ -63,7 +63,7 @@
             <task-decomposition>LEAF</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
+            <task-iteration>true</task-iteration>
             <point classkmad="tache.Point" idkmad="K15">
                 <point-x>875</point-x>
                 <point-y>321</point-y>
@@ -80,7 +80,7 @@
             <task-decomposition>ALT</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
+            <task-iteration>true</task-iteration>
             <point classkmad="tache.Point" idkmad="K18">
                 <point-x>1118</point-x>
                 <point-y>321</point-y>
@@ -115,13 +115,13 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K24">
-                    <point-x>1248</point-x>
-                    <point-y>583</point-y>
+                    <point-x>1358</point-x>
+                    <point-y>555</point-y>
                 </point>
             </task>
         </task>
         <task classkmad="tache.Task" id-task-point="K36" idkmad="K37">
-            <task-name> consulter les statistique du site</task-name>
+            <task-name> Consulter les statistiques du site</task-name>
             <task-numero>5</task-numero>
             <task-observation/>
             <task-executant>ABS</task-executant>
@@ -131,7 +131,7 @@
             <task-decomposition>LEAF</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
+            <task-iteration>true</task-iteration>
             <point classkmad="tache.Point" idkmad="K36">
                 <point-x>1425</point-x>
                 <point-y>321</point-y>
