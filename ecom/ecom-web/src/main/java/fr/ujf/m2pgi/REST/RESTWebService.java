@@ -13,6 +13,7 @@ public class RESTWebService extends Application {
 	  public Set<Class<?>> getClasses() {
 	    Set<Class<?>> classes = new HashSet<Class<?>>();
 	    classes.add(RESTHelloworld.class);
+	    classes.add(RESTMemberServlet.class);
 	    return classes;
 	  }  
 	}
