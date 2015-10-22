@@ -1,9 +1,29 @@
-var angular = require('angular');
+/** JQuery */
+var $ = jQuery = require('jquery');
+
+/** Bootstrap */
+var bootsrap = require('bootstrap');
+
+/** Angular deps */
+var angular      = require('angular');
 var angularRoute = require('angular-route');
 
-var mainController = require('./controllers/MainController');
-var hwController = require('./controllers/HelloWorldController');
+/**
+ * Controllers
+ */
+var mainController        = require('./controllers/MainController');
+var hwController          = require('./controllers/HelloWorldController');
+var inscriptionController = require('./controllers/InscriptionController')
 
+/**
+ * Services
+ */
+var memberService = require('./services/MemberService')
+
+/**
+ *
+ * @type {module}
+ */
 var ecomApp = angular.module('ecomApp', ['ngRoute']);
 
 
@@ -11,19 +31,21 @@ ecomApp.config(function ($routeProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl: './js/templates/mainTemplate.html',
-            controller: 'MainController'
+            templateUrl : './js/templates/mainTemplate.html',
+            controller  : 'MainController'
         })
-        .when('/helloWorld', {
-            templateUrl: './js/templates/helloWorld.html',
-            controller: 'HelloWorldController'
+        .when('/inscription' , {
+            templateUrl : './js/templates/inscription.html',
+            controller  : 'inscriptionController'
         })
         .otherwise({
             redirectTo: '/'
         });
 });
 
-ecomApp.controller('HelloWorldController', hwController);
+ecomApp.factory('memberService' , memberService );
+
+ecomApp.controller('inscriptionController', inscriptionController);
 
 ecomApp.controller('MainController', mainController);
 

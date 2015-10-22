@@ -7,13 +7,23 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 
-@ApplicationPath("rest")
+/**
+ *
+ */
+@ApplicationPath("api")
 public class RESTWebService extends Application {
-	  @Override
-	  public Set<Class<?>> getClasses() {
-	    Set<Class<?>> classes = new HashSet<Class<?>>();
-	    classes.add(RESTHelloworld.class);
-	    classes.add(RESTMemberServlet.class);
-	    return classes;
-	  }  
-	}
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Set<Class<?>> getClasses() {
+        Set<Class<?>> classes = new HashSet<Class<?>>();
+        classes.add(RESTHelloworld.class);
+        classes.add(RESTMemberServlet.class);
+        classes.add(RESTSellerServlet.class);
+        return classes;
+    }
+
+}

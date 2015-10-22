@@ -3,13 +3,14 @@ DROP TABLE "seller";
 DROP TABLE "member";
 
 CREATE TABLE IF NOT EXISTS "member" (
-	 memberID bigint CONSTRAINT member_firstkey PRIMARY KEY,
+	 memberID SERIAL,
 	 login varchar(15) UNIQUE NOT NULL,
 	 password varchar(50) NOT NULL, 
 	 firstName varchar(50),
 	 lastName varchar(50),
 	 accountType char NOT NULL,
-	 email varchar(25) 
+	 email varchar(25),
+	 CONSTRAINT member_firstkey PRIMARY KEY(memberID)
 );
 
 CREATE TABLE IF NOT EXISTS  "seller" (
@@ -28,14 +29,29 @@ CREATE TABLE "photo" (
 	 PRIMARY KEY(photoID)
 );
 
--- Insert a dummy tuple
+
 INSERT INTO "member" VALUES (
 	0,
 	'dadou',
 	'dadou',
 	'Adrien',
 	'Faure',
-	'N',	
+	'M',	
 	null
+);
+
+INSERT INTO "member" VALUES (
+	1,
+	'bob',
+	'bob',
+	'Bobbine',
+	'rouleau',
+	's',	
+	null
+);
+
+INSERT INTO "seller" VALUES (
+	1,
+	'bobrib'
 );
 

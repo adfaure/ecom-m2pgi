@@ -8,6 +8,9 @@ import javax.persistence.Query;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.entities.Member;
 
+/**
+ *
+ */
 @Stateless 
 @SuppressWarnings("unchecked")
 public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDAO {
@@ -24,9 +27,9 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 	}
 
 	@Override
-	public MemberDTO getMemberrDTO(Member member) {
+	public MemberDTO getMemberDTO(Member member) {
 		MemberDTO mDTO = new MemberDTO();
-		mDTO.setEmailAdress(member.getEmailAdress());
+		mDTO.setEmail(member.getEmail());
 		mDTO.setFirstName(member.getFirstName());
 		mDTO.setLastName(member.getLastName());
 		mDTO.setAccountType(member.getAccountType());
@@ -38,7 +41,14 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 
 	@Override
 	public Member getMember(MemberDTO member) {
-		return null;
+		Member memberEntity =  new Member();
+		memberEntity.setAccountType(member.getAccountType());
+		memberEntity.setEmail(member.getEmail());
+		memberEntity.setFirstName(member.getFirstName());
+		memberEntity.setLastName(member.getLastName());
+		memberEntity.setLogin(member.getLogin());
+		memberEntity.setPassword(member.getPassword());
+		return memberEntity;
 	}
 	
 }

@@ -38,6 +38,5 @@ public interface IGeneriqueDAO<entityType> {
 	 * @return
 	 */
 	entityType update(entityType t);
-	
-	
+
 }

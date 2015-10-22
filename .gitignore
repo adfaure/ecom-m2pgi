@@ -6,3 +6,5 @@
 .tern-project
 node_modules/
 app.js
+*.log
+*.iml

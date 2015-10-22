@@ -40,7 +40,7 @@ public class MemberDTO implements Serializable {
 	 * 
 	 */
 	@XmlElement
-	private String emailAdress;
+	private String email;
 	
 	/**
 	 * 
@@ -84,12 +84,12 @@ public class MemberDTO implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getEmailAdress() {
-		return emailAdress;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailAdress(String emailAdress) {
-		this.emailAdress = emailAdress;
+	public void setEmail(String emailAdress) {
+		this.email = emailAdress;
 	}
 
 	public String getLogin() {

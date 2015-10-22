@@ -4,7 +4,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
-import fr.ujf.m2pgi.database.DAO.MemberDAOImpl;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.entities.Member;
 
@@ -30,14 +29,14 @@ public class MemberService {
 	public MemberDTO getMemberByLogin(String login) {
 		Member memberEntity = memberDao.findMemberByLogin(login);
 		if(memberEntity != null)
-			return memberDao.getMemberrDTO(memberEntity);
+			return memberDao.getMemberDTO(memberEntity);
 		return null;
 	}
 	
 	public MemberDTO getMemberbyId(long id) {
 		Member memberEntity = memberDao.find(id);
 		if(memberEntity != null)
-			return memberDao.getMemberrDTO(memberEntity);
+			return memberDao.getMemberDTO(memberEntity);
 		return null;
 	}
 }

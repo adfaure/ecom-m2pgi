@@ -20,7 +20,7 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	 * @param member
 	 * @return
 	 */
-	MemberDTO getMemberrDTO(Member member);
+	MemberDTO getMemberDTO(Member member);
 	
 	/**
 	 * 

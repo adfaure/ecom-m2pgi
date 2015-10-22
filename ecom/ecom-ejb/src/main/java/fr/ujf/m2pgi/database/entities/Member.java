@@ -1,14 +1,6 @@
 package fr.ujf.m2pgi.database.entities;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 
@@ -16,32 +8,33 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="Member")
+@Table(name="member")
 @Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="accountType",discriminatorType=DiscriminatorType.CHAR)
-@DiscriminatorValue(value="N")
+@DiscriminatorValue(value = "N")
 public class Member {
 
 	@Id
-	private long memberID;
+	@Column(name="memberID" ,columnDefinition = "serial")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	protected long memberID;
 
 	@Column(name="login")
-	private String login;
+	protected String login;
 
 	@Column(name="password")
-	private String password; //FIXME find a way to encrypte this
+	protected String password; //FIXME find a way to encrypte this
 
-	@Column(name="firstname")
-	private String firstName;
+	@Column(name="firstName")
+	protected String firstName;
 
-	@Column(name="lastname")
-	private String lastName;
+	@Column(name="lastName")
+	protected String lastName;
 	
 	@Column(name="email")
-	private String email;
+	protected String email;
 	
 	@Column(name="accountType")
-	private char accountType;
+	protected char accountType;
 
 	public long getMemberID() {
 		return memberID;
@@ -67,14 +60,6 @@ public class Member {
 		this.lastName = lastName;
 	}
 
-	public String getEmailAdress() {
-		return email;
-	}
-
-	public void setEmailAdress(String emailAdress) {
-		this.email = emailAdress;
-	}
-	
 	public String getLogin() {
 		return login;
 	}
@@ -85,6 +70,10 @@ public class Member {
 
 	public char getAccountType() {
 		return this.accountType;
+	}
+
+	public void setAccountType(char accountType) {
+		this.accountType = accountType;
 	}
 
 	public String getPassword() {
@@ -103,8 +92,5 @@ public class Member {
 		this.email = email;
 	}
 
-	public void setAccountType(char accountType) {
-		this.accountType = accountType;
-	}
-	
+
 }

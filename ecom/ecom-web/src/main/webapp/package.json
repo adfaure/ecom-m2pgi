@@ -6,12 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+
+  "bootstrap": {
+    "depends": [
+      "jquery:jQuery"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "angular": "^1.4.7",
     "angular-route": "^1.4.7",
-    "grunt-cli": "0.1.13"
+    "bootstrap": "^3.3.5",
+    "grunt-cli": "0.1.13",
+    "jquery": "^2.1.4"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
