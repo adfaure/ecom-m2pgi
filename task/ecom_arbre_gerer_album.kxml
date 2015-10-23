@@ -2,7 +2,7 @@
 <!DOCTYPE kmad-model SYSTEM "file:KMADModelJT.dtd">
 <kmad-model version="1.3">
     <project classkmad="project.Project" idkmad="K1"/>
-    <task classkmad="tache.Task" id-task-point="K3" id-task-subtasks-list="K7 K22 K28 " idkmad="K4">
+    <task classkmad="tache.Task" id-task-point="K3" id-task-subtasks-list="K7 K22 K10 " idkmad="K4">
         <task-name>Gérer les albums</task-name>
         <task-numero>Racine   </task-numero>
         <task-observation/>
@@ -16,8 +16,8 @@
         <task-iteration>[1]</task-iteration>
         <task-descriptioniteration>while not satisfied</task-descriptioniteration>
         <point classkmad="tache.Point" idkmad="K3">
-            <point-x>1620</point-x>
-            <point-y>108</point-y>
+            <point-x>1274</point-x>
+            <point-y>106</point-y>
         </point>
         <task classkmad="tache.Task" id-task-point="K6" idkmad="K7">
             <task-name>Créer un album</task-name>
@@ -36,8 +36,8 @@
                 <point-y>323</point-y>
             </point>
         </task>
-        <task classkmad="tache.Task" id-task-point="K21" id-task-subtasks-list="K10 K13 K16 K19 K74 K83 " idkmad="K22">
-            <task-name>Sélectionner un album</task-name>
+        <task classkmad="tache.Task" id-task-point="K21" id-task-subtasks-list="K13 K83 K19 K74 " idkmad="K22">
+            <task-name>Editer un album</task-name>
             <task-numero>2</task-numero>
             <task-observation/>
             <task-executant>INT</task-executant>
@@ -50,11 +50,11 @@
             <task-iteration>[1]</task-iteration>
             <task-descriptioniteration>while not satisfied</task-descriptioniteration>
             <point classkmad="tache.Point" idkmad="K21">
-                <point-x>1596</point-x>
+                <point-x>1278</point-x>
                 <point-y>323</point-y>
             </point>
-            <task classkmad="tache.Task" id-task-point="K9" idkmad="K10">
-                <task-name>Supprimer l'album</task-name>
+            <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
+                <task-name>Modifier la description de l'album</task-name>
                 <task-numero>2.1</task-numero>
                 <task-observation/>
                 <task-executant>ABS</task-executant>
@@ -65,13 +65,13 @@
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K9">
-                    <point-x>712</point-x>
-                    <point-y>605</point-y>
+                <point classkmad="tache.Point" idkmad="K12">
+                    <point-x>642</point-x>
+                    <point-y>596</point-y>
                 </point>
             </task>
-            <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
-                <task-name>Modifier la description de l'album</task-name>
+            <task classkmad="tache.Task" id-task-point="K82" idkmad="K83">
+                <task-name>Modifier les tags de l'album</task-name>
                 <task-numero>2.2</task-numero>
                 <task-observation/>
                 <task-executant>ABS</task-executant>
@@ -82,13 +82,13 @@
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K12">
-                    <point-x>985</point-x>
-                    <point-y>612</point-y>
+                <point classkmad="tache.Point" idkmad="K82">
+                    <point-x>1040</point-x>
+                    <point-y>596</point-y>
                 </point>
             </task>
-            <task classkmad="tache.Task" id-task-point="K15" idkmad="K16">
-                <task-name>Ajouter une photographie à l'album</task-name>
+            <task classkmad="tache.Task" id-task-point="K18" idkmad="K19">
+                <task-name>Voir contenu de l'album</task-name>
                 <task-numero>2.3</task-numero>
                 <task-observation/>
                 <task-executant>ABS</task-executant>
@@ -99,31 +99,14 @@
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>true</task-iteration>
-                <point classkmad="tache.Point" idkmad="K15">
-                    <point-x>1326</point-x>
-                    <point-y>612</point-y>
-                </point>
-            </task>
-            <task classkmad="tache.Task" id-task-point="K18" idkmad="K19">
-                <task-name>Enlever une photographie de l'album</task-name>
-                <task-numero>2.4</task-numero>
-                <task-observation/>
-                <task-executant>ABS</task-executant>
-                <task-modality>COGN</task-modality>
-                <task-optional>false</task-optional>
-                <task-interruptible>false</task-interruptible>
-                <task-decomposition>LEAF</task-decomposition>
-                <task-precondition>true</task-precondition>
-                <task-effetsdebord>void</task-effetsdebord>
-                <task-iteration>true</task-iteration>
                 <point classkmad="tache.Point" idkmad="K18">
-                    <point-x>1693</point-x>
-                    <point-y>612</point-y>
+                    <point-x>1363</point-x>
+                    <point-y>596</point-y>
                 </point>
             </task>
             <task classkmad="tache.Task" id-task-point="K73" id-task-subtasks-list="K96 K77 " idkmad="K74">
                 <task-name>Gérer la vente de l'album</task-name>
-                <task-numero>2.5</task-numero>
+                <task-numero>2.4</task-numero>
                 <task-observation/>
                 <task-executant>ABS</task-executant>
                 <task-modality>COGN</task-modality>
@@ -134,12 +117,12 @@
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K73">
-                    <point-x>2183</point-x>
-                    <point-y>599</point-y>
+                    <point-x>1800</point-x>
+                    <point-y>589</point-y>
                 </point>
                 <task classkmad="tache.Task" id-task-point="K95" idkmad="K96">
                     <task-name>Mettre l'album en vente</task-name>
-                    <task-numero>2.5.1</task-numero>
+                    <task-numero>2.4.1</task-numero>
                     <task-observation/>
                     <task-executant>ABS</task-executant>
                     <task-modality>COGN</task-modality>
@@ -150,13 +133,13 @@
                     <task-effetsdebord>void</task-effetsdebord>
                     <task-iteration>[1]</task-iteration>
                     <point classkmad="tache.Point" idkmad="K95">
-                        <point-x>2013</point-x>
-                        <point-y>798</point-y>
+                        <point-x>1670</point-x>
+                        <point-y>782</point-y>
                     </point>
                 </task>
                 <task classkmad="tache.Task" id-task-point="K76" idkmad="K77">
                     <task-name>Retirer l'album de la vente</task-name>
-                    <task-numero>2.5.2</task-numero>
+                    <task-numero>2.4.2</task-numero>
                     <task-observation/>
                     <task-executant>ABS</task-executant>
                     <task-modality>COGN</task-modality>
@@ -167,31 +150,14 @@
                     <task-effetsdebord>void</task-effetsdebord>
                     <task-iteration>[1]</task-iteration>
                     <point classkmad="tache.Point" idkmad="K76">
-                        <point-x>2343</point-x>
-                        <point-y>798</point-y>
+                        <point-x>2000</point-x>
+                        <point-y>782</point-y>
                     </point>
                 </task>
             </task>
-            <task classkmad="tache.Task" id-task-point="K82" idkmad="K83">
-                <task-name>Ajouter un tag à l'album</task-name>
-                <task-numero>2.7</task-numero>
-                <task-observation/>
-                <task-executant>ABS</task-executant>
-                <task-modality>COGN</task-modality>
-                <task-optional>false</task-optional>
-                <task-interruptible>false</task-interruptible>
-                <task-decomposition>LEAF</task-decomposition>
-                <task-precondition>true</task-precondition>
-                <task-effetsdebord>void</task-effetsdebord>
-                <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K82">
-                    <point-x>2625</point-x>
-                    <point-y>599</point-y>
-                </point>
-            </task>
         </task>
-        <task classkmad="tache.Task" id-task-point="K27" idkmad="K28">
-            <task-name>Gérer une photographie d'un album</task-name>
+        <task classkmad="tache.Task" id-task-point="K9" idkmad="K10">
+            <task-name>Supprimer l'album</task-name>
             <task-numero>3</task-numero>
             <task-observation/>
             <task-executant>ABS</task-executant>
@@ -202,8 +168,8 @@
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
             <task-iteration>[1]</task-iteration>
-            <point classkmad="tache.Point" idkmad="K27">
-                <point-x>2783</point-x>
+            <point classkmad="tache.Point" idkmad="K9">
+                <point-x>1973</point-x>
                 <point-y>323</point-y>
             </point>
         </task>

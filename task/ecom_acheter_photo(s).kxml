@@ -24,7 +24,7 @@
             <task-observation/>
             <task-executant>ABS</task-executant>
             <task-modality>COGN</task-modality>
-            <task-optional>false</task-optional>
+            <task-optional>true</task-optional>
             <task-interruptible>false</task-interruptible>
             <task-decomposition>LEAF</task-decomposition>
             <task-precondition>true</task-precondition>
@@ -71,7 +71,7 @@
             </task>
             <task classkmad="tache.Task" id-task-point="K63" id-task-subtasks-list="K19 K67 " idkmad="K64">
                 <task-name>Modifier mon panier</task-name>
-                <task-numero>2.3</task-numero>
+                <task-numero>2.2</task-numero>
                 <task-observation/>
                 <task-executant>ABS</task-executant>
                 <task-modality>COGN</task-modality>
@@ -80,15 +80,14 @@
                 <task-decomposition>ALT</task-decomposition>
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
-                <task-iteration>true
-</task-iteration>
+                <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K63">
                     <point-x>530</point-x>
                     <point-y>373</point-y>
                 </point>
                 <task classkmad="tache.Task" id-task-point="K18" idkmad="K19">
                     <task-name>Supprimer une photo</task-name>
-                    <task-numero>2.3.1</task-numero>
+                    <task-numero>2.2.1</task-numero>
                     <task-observation/>
                     <task-executant>INT</task-executant>
                     <task-modality>COGN</task-modality>
@@ -106,7 +105,7 @@
                 </task>
                 <task classkmad="tache.Task" id-task-point="K66" idkmad="K67">
                     <task-name>Supprimer un album</task-name>
-                    <task-numero>2.3.2</task-numero>
+                    <task-numero>2.2.2</task-numero>
                     <task-observation/>
                     <task-executant>INT</task-executant>
                     <task-modality>COGN</task-modality>
@@ -125,7 +124,7 @@
             </task>
             <task classkmad="tache.Task" id-task-point="K39" id-task-subtasks-list="K43 K46 " idkmad="K40">
                 <task-name>S'identifier</task-name>
-                <task-numero>2.4</task-numero>
+                <task-numero>2.3</task-numero>
                 <task-observation/>
                 <task-executant>ABS</task-executant>
                 <task-modality>COGN</task-modality>
@@ -141,7 +140,7 @@
                 </point>
                 <task classkmad="tache.Task" id-task-point="K42" idkmad="K43">
                     <task-name>Créer un compte</task-name>
-                    <task-numero>2.4.1</task-numero>
+                    <task-numero>2.3.1</task-numero>
                     <task-observation/>
                     <task-executant>INT</task-executant>
                     <task-importance>HIGH</task-importance>
@@ -159,8 +158,8 @@
                     </point>
                 </task>
                 <task classkmad="tache.Task" id-task-point="K45" idkmad="K46">
-                    <task-name>Se loger</task-name>
-                    <task-numero>2.4.2</task-numero>
+                    <task-name>Se loguer</task-name>
+                    <task-numero>2.3.2</task-numero>
                     <task-observation/>
                     <task-executant>INT</task-executant>
                     <task-modality>COGN</task-modality>
@@ -179,7 +178,7 @@
             </task>
             <task classkmad="tache.Task" id-task-point="K21" idkmad="K22">
                 <task-name>Valider mon panier</task-name>
-                <task-numero>2.5</task-numero>
+                <task-numero>2.4</task-numero>
                 <task-observation/>
                 <task-executant>INT</task-executant>
                 <task-modality>COGN</task-modality>

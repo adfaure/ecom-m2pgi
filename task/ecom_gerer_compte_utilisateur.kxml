@@ -2,7 +2,7 @@
 <!DOCTYPE kmad-model SYSTEM "file:KMADModelJT.dtd">
 <kmad-model version="1.3">
     <project classkmad="project.Project" idkmad="K1"/>
-    <task classkmad="tache.Task" id-task-point="K6" id-task-subtasks-list="K57 K19 K13 K22 K25 K28 " idkmad="K7">
+    <task classkmad="tache.Task" id-task-point="K6" id-task-subtasks-list="K57 K70 K28 " idkmad="K7">
         <task-name>Gérer compte utilisateur</task-name>
         <task-numero>Racine   </task-numero>
         <task-observation/>
@@ -10,7 +10,7 @@
         <task-modality>COGN</task-modality>
         <task-optional>false</task-optional>
         <task-interruptible>false</task-interruptible>
-        <task-decomposition>ALT</task-decomposition>
+        <task-decomposition>SEQ</task-decomposition>
         <task-precondition>true</task-precondition>
         <task-effetsdebord>void</task-effetsdebord>
         <task-iteration>[1]</task-iteration>
@@ -35,8 +35,8 @@
                 <point-y>245</point-y>
             </point>
         </task>
-        <task classkmad="tache.Task" id-task-point="K18" id-task-subtasks-list="K37 K40 " idkmad="K19">
-            <task-name>Gérer les favoris</task-name>
+        <task classkmad="tache.Task" id-task-point="K69" id-task-subtasks-list="K19 K13 K22 K25 " idkmad="K70">
+            <task-name>Gérer le compte</task-name>
             <task-numero>2</task-numero>
             <task-observation/>
             <task-executant>ABS</task-executant>
@@ -46,30 +46,64 @@
             <task-decomposition>ALT</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
-            <point classkmad="tache.Point" idkmad="K18">
-                <point-x>325</point-x>
-                <point-y>245</point-y>
+            <task-iteration>true</task-iteration>
+            <point classkmad="tache.Point" idkmad="K69">
+                <point-x>711</point-x>
+                <point-y>233</point-y>
             </point>
-            <task classkmad="tache.Task" id-task-point="K36" idkmad="K37">
-                <task-name>Consulter les favoris</task-name>
+            <task classkmad="tache.Task" id-task-point="K18" id-task-subtasks-list="K37 K40 " idkmad="K19">
+                <task-name>Gérer les favoris</task-name>
                 <task-numero>2.1</task-numero>
                 <task-observation/>
                 <task-executant>ABS</task-executant>
                 <task-modality>COGN</task-modality>
                 <task-optional>false</task-optional>
                 <task-interruptible>false</task-interruptible>
-                <task-decomposition>LEAF</task-decomposition>
+                <task-decomposition>ALT</task-decomposition>
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K36">
-                    <point-x>193</point-x>
-                    <point-y>433</point-y>
+                <point classkmad="tache.Point" idkmad="K18">
+                    <point-x>388</point-x>
+                    <point-y>469</point-y>
                 </point>
+                <task classkmad="tache.Task" id-task-point="K36" idkmad="K37">
+                    <task-name>Consulter les favoris</task-name>
+                    <task-numero>2.1.1</task-numero>
+                    <task-observation/>
+                    <task-executant>ABS</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>false</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>LEAF</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-iteration>[1]</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K36">
+                        <point-x>256</point-x>
+                        <point-y>656</point-y>
+                    </point>
+                </task>
+                <task classkmad="tache.Task" id-task-point="K39" idkmad="K40">
+                    <task-name>Supprimer des favoris</task-name>
+                    <task-numero>2.1.2</task-numero>
+                    <task-observation/>
+                    <task-executant>ABS</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>false</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>LEAF</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-iteration>true</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K39">
+                        <point-x>478</point-x>
+                        <point-y>656</point-y>
+                    </point>
+                </task>
             </task>
-            <task classkmad="tache.Task" id-task-point="K39" idkmad="K40">
-                <task-name>Supprimer des favoris</task-name>
+            <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
+                <task-name>Consulter l'historique des achats</task-name>
                 <task-numero>2.2</task-numero>
                 <task-observation/>
                 <task-executant>ABS</task-executant>
@@ -79,103 +113,86 @@
                 <task-decomposition>LEAF</task-decomposition>
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
+                <task-descriptioneffetsdebord>Retélécharger une photo acheter</task-descriptioneffetsdebord>
+                <task-iteration>[1]</task-iteration>
+                <task-descriptioniteration>while(NeeIt)</task-descriptioniteration>
+                <point classkmad="tache.Point" idkmad="K12">
+                    <point-x>570</point-x>
+                    <point-y>469</point-y>
+                </point>
+            </task>
+            <task classkmad="tache.Task" id-task-point="K21" id-task-subtasks-list="K31 K34 " idkmad="K22">
+                <task-name>Upgrader en compte vendeur</task-name>
+                <task-numero>2.3</task-numero>
+                <task-observation/>
+                <task-executant>ABS</task-executant>
+                <task-modality>COGN</task-modality>
+                <task-optional>false</task-optional>
+                <task-interruptible>false</task-interruptible>
+                <task-decomposition>SEQ</task-decomposition>
+                <task-precondition>true</task-precondition>
+                <task-effetsdebord>void</task-effetsdebord>
+                <task-iteration>[1]</task-iteration>
+                <point classkmad="tache.Point" idkmad="K21">
+                    <point-x>900</point-x>
+                    <point-y>469</point-y>
+                </point>
+                <task classkmad="tache.Task" id-task-point="K30" idkmad="K31">
+                    <task-name>Fournir les informations bancaires </task-name>
+                    <task-numero>2.3.1</task-numero>
+                    <task-observation/>
+                    <task-executant>ABS</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>false</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>LEAF</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-iteration>[1]</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K30">
+                        <point-x>748</point-x>
+                        <point-y>656</point-y>
+                    </point>
+                </task>
+                <task classkmad="tache.Task" id-task-point="K33" idkmad="K34">
+                    <task-name>Valider</task-name>
+                    <task-numero>2.3.2</task-numero>
+                    <task-observation/>
+                    <task-executant>ABS</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>false</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>LEAF</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-iteration>[1]</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K33">
+                        <point-x>1106</point-x>
+                        <point-y>656</point-y>
+                    </point>
+                </task>
+            </task>
+            <task classkmad="tache.Task" id-task-point="K24" idkmad="K25">
+                <task-name>Modifier les informations du compte</task-name>
+                <task-numero>2.4</task-numero>
+                <task-observation/>
+                <task-executant>ABS</task-executant>
+                <task-modality>COGN</task-modality>
+                <task-optional>false</task-optional>
+                <task-interruptible>false</task-interruptible>
+                <task-decomposition>LEAF</task-decomposition>
+                <task-precondition>true</task-precondition>
+                <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>true</task-iteration>
-                <point classkmad="tache.Point" idkmad="K39">
-                    <point-x>415</point-x>
-                    <point-y>433</point-y>
+                <point classkmad="tache.Point" idkmad="K24">
+                    <point-x>1224</point-x>
+                    <point-y>469</point-y>
                 </point>
             </task>
-        </task>
-        <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
-            <task-name>Consulter l'historique des achats</task-name>
-            <task-numero>3</task-numero>
-            <task-observation/>
-            <task-executant>ABS</task-executant>
-            <task-modality>COGN</task-modality>
-            <task-optional>false</task-optional>
-            <task-interruptible>false</task-interruptible>
-            <task-decomposition>LEAF</task-decomposition>
-            <task-precondition>true</task-precondition>
-            <task-effetsdebord>void</task-effetsdebord>
-            <task-descriptioneffetsdebord>Retélécharger une photo acheter</task-descriptioneffetsdebord>
-            <task-iteration>[1]</task-iteration>
-            <task-descriptioniteration>while(needIt)</task-descriptioniteration>
-            <point classkmad="tache.Point" idkmad="K12">
-                <point-x>561</point-x>
-                <point-y>245</point-y>
-            </point>
-        </task>
-        <task classkmad="tache.Task" id-task-point="K21" id-task-subtasks-list="K31 K34 " idkmad="K22">
-            <task-name>Upgrader en compte vendeur</task-name>
-            <task-numero>4</task-numero>
-            <task-observation/>
-            <task-executant>ABS</task-executant>
-            <task-modality>COGN</task-modality>
-            <task-optional>false</task-optional>
-            <task-interruptible>false</task-interruptible>
-            <task-decomposition>SEQ</task-decomposition>
-            <task-precondition>true</task-precondition>
-            <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
-            <point classkmad="tache.Point" idkmad="K21">
-                <point-x>958</point-x>
-                <point-y>245</point-y>
-            </point>
-            <task classkmad="tache.Task" id-task-point="K30" idkmad="K31">
-                <task-name>Fournir les informations bancaires </task-name>
-                <task-numero>4.1</task-numero>
-                <task-observation/>
-                <task-executant>ABS</task-executant>
-                <task-modality>COGN</task-modality>
-                <task-optional>false</task-optional>
-                <task-interruptible>false</task-interruptible>
-                <task-decomposition>LEAF</task-decomposition>
-                <task-precondition>true</task-precondition>
-                <task-effetsdebord>void</task-effetsdebord>
-                <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K30">
-                    <point-x>812</point-x>
-                    <point-y>433</point-y>
-                </point>
-            </task>
-            <task classkmad="tache.Task" id-task-point="K33" idkmad="K34">
-                <task-name>Valider</task-name>
-                <task-numero>4.2</task-numero>
-                <task-observation/>
-                <task-executant>ABS</task-executant>
-                <task-modality>COGN</task-modality>
-                <task-optional>false</task-optional>
-                <task-interruptible>false</task-interruptible>
-                <task-decomposition>LEAF</task-decomposition>
-                <task-precondition>true</task-precondition>
-                <task-effetsdebord>void</task-effetsdebord>
-                <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K33">
-                    <point-x>1162</point-x>
-                    <point-y>433</point-y>
-                </point>
-            </task>
-        </task>
-        <task classkmad="tache.Task" id-task-point="K24" idkmad="K25">
-            <task-name>Modifier les informations du compte</task-name>
-            <task-numero>5</task-numero>
-            <task-observation/>
-            <task-executant>ABS</task-executant>
-            <task-modality>COGN</task-modality>
-            <task-optional>false</task-optional>
-            <task-interruptible>false</task-interruptible>
-            <task-decomposition>LEAF</task-decomposition>
-            <task-precondition>true</task-precondition>
-            <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>true</task-iteration>
-            <point classkmad="tache.Point" idkmad="K24">
-                <point-x>1196</point-x>
-                <point-y>601</point-y>
-            </point>
         </task>
         <task classkmad="tache.Task" id-task-point="K27" idkmad="K28">
             <task-name>Déconnexion</task-name>
-            <task-numero>6</task-numero>
+            <task-numero>3</task-numero>
             <task-observation/>
             <task-executant>ABS</task-executant>
             <task-modality>COGN</task-modality>
@@ -186,8 +203,8 @@
             <task-effetsdebord>void</task-effetsdebord>
             <task-iteration>[1]</task-iteration>
             <point classkmad="tache.Point" idkmad="K27">
-                <point-x>1430</point-x>
-                <point-y>245</point-y>
+                <point-x>1495</point-x>
+                <point-y>233</point-y>
             </point>
         </task>
     </task>
