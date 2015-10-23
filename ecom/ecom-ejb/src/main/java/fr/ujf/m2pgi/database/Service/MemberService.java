@@ -17,8 +17,9 @@ public class MemberService {
 	 * 
 	 * @param member
 	 */
-	public void createMember(MemberDTO member) {
-		memberDao.create(memberDao.getMember(member));
+	public MemberDTO createMember(MemberDTO member) {
+		MemberDTO res = memberDao.getMemberDTO(memberDao.create(memberDao.getMember(member)));
+		return res;
 	}
 	
 	/**
