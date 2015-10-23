@@ -173,7 +173,7 @@
                 </point>
             </task>
         </task>
-        <task classkmad="tache.Task" id-task-point="K30" id-task-subtasks-list="K34 K63 K40 " idkmad="K31">
+        <task classkmad="tache.Task" id-task-point="K30" id-task-subtasks-list="K63 K40 " idkmad="K31">
             <task-name>Chercher d'autres photos d'un album</task-name>
             <task-numero>4</task-numero>
             <task-observation/>
@@ -190,8 +190,8 @@
                 <point-x>1268</point-x>
                 <point-y>285</point-y>
             </point>
-            <task classkmad="tache.Task" id-task-point="K33" idkmad="K34">
-                <task-name>Acceder aux albums de la photo</task-name>
+            <task classkmad="tache.Task" id-task-point="K62" idkmad="K63">
+                <task-name>Choisir un album</task-name>
                 <task-numero>4.1</task-numero>
                 <task-observation/>
                 <task-executant>INT</task-executant>
@@ -202,13 +202,13 @@
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K33">
-                    <point-x>1101</point-x>
-                    <point-y>446</point-y>
+                <point classkmad="tache.Point" idkmad="K62">
+                    <point-x>1213</point-x>
+                    <point-y>450</point-y>
                 </point>
             </task>
-            <task classkmad="tache.Task" id-task-point="K62" idkmad="K63">
-                <task-name>Choisir un album</task-name>
+            <task classkmad="tache.Task" id-task-point="K39" idkmad="K40">
+                <task-name>Voir les photos de l'album</task-name>
                 <task-numero>4.2</task-numero>
                 <task-observation/>
                 <task-executant>INT</task-executant>
@@ -219,25 +219,8 @@
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K62">
-                    <point-x>1408</point-x>
-                    <point-y>450</point-y>
-                </point>
-            </task>
-            <task classkmad="tache.Task" id-task-point="K39" idkmad="K40">
-                <task-name>Voir les photos de l'album</task-name>
-                <task-numero>4.3</task-numero>
-                <task-observation/>
-                <task-executant>INT</task-executant>
-                <task-modality>COGN</task-modality>
-                <task-optional>false</task-optional>
-                <task-interruptible>false</task-interruptible>
-                <task-decomposition>LEAF</task-decomposition>
-                <task-precondition>true</task-precondition>
-                <task-effetsdebord>void</task-effetsdebord>
-                <task-iteration>[1]</task-iteration>
                 <point classkmad="tache.Point" idkmad="K39">
-                    <point-x>1588</point-x>
+                    <point-x>1473</point-x>
                     <point-y>450</point-y>
                 </point>
             </task>

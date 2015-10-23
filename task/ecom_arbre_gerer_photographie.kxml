@@ -19,7 +19,7 @@
             <point-y>152</point-y>
         </point>
         <task classkmad="tache.Task" id-task-point="K6" idkmad="K7">
-            <task-name>Téléverser une photographie</task-name>
+            <task-name>Téléverser une(des) photographie(s)</task-name>
             <task-numero>1</task-numero>
             <task-observation/>
             <task-executant>ABS</task-executant>
@@ -44,7 +44,7 @@
             <task-modality>COGN</task-modality>
             <task-optional>false</task-optional>
             <task-interruptible>false</task-interruptible>
-            <task-decomposition>ALT</task-decomposition>
+            <task-decomposition>PAR</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
             <task-iteration>[1]</task-iteration>
