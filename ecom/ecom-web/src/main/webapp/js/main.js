@@ -14,7 +14,6 @@ var angularRoute = require('angular-route');
 var mainController        = require('./controllers/MainController');
 var hwController          = require('./controllers/HelloWorldController');
 var inscriptionController = require('./controllers/InscriptionController');
-var alertController	      = require('./controllers/AlertController');
 
 /**
  * Services
