@@ -35,7 +35,15 @@ public class SellerDAOImpl extends GeneriqueDAOImpl<Seller> implements ISellerDA
      */
     @Override
     public Seller getSeller(SellerDTO sellerDTO) {
-        return null;
+        Seller newSeller = new Seller();
+        newSeller.setAccountType(sellerDTO.getAccountType());
+        newSeller.setEmail(sellerDTO.getEmail());
+        newSeller.setFirstName(sellerDTO.getFirstName());
+        newSeller.setLastName(sellerDTO.getLastName());
+        newSeller.setLogin(sellerDTO.getLogin());
+        newSeller.setPassword(sellerDTO.getPassword());
+        newSeller.setRIB(sellerDTO.getRIB());
+        return newSeller;
     }
 
     /**

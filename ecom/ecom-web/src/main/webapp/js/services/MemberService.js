@@ -23,11 +23,17 @@ function memberService($http) {
     }
 
     function Create(user) {
-        return $http.post('api/members', user).then(handleSuccess, handleError('Error creating user'));
+    	var validUser = parseUser(user);
+    	if(validUser != null)
+    		return $http.post('api/members', user).then(handleSuccess, handleError('Error creating user'));
+    	return { success : false, message : "not valid user"};
     }
 
     function Update(user) {
-        return $http.put('api/members/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+    	var validUser = parseUser(user);
+    	if(validUser != null)
+    		return $http.put('api/members/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+    	return {success : false, message : "not valid user"};
     }
 
     function Delete(id) {
@@ -45,6 +51,26 @@ function memberService($http) {
             return { success: false, message: error };
         };
     }
+    
+    function parseUser(user) {
+    	var validUser = {
+	                     email: "",
+	                     firstName: "",
+	                     lastName: "",
+	                     accountType: 'N'
+	                 };
+    	
+    	if(!user.login) return null;
+    	if(!user.password) return null;
+    	
+    	validUser.login = user.login;
+    	validUser.email = user.email;
+    	validUser.firstNale = user.firstName;
+    	validUser.lastName = user.lastName;
+    	validUser.password = user.password;
+    	return validUser;
+    }
+    
 };
 
 module.exports = memberService;

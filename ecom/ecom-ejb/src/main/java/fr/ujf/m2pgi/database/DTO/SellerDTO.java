@@ -4,15 +4,35 @@ import fr.ujf.m2pgi.database.entities.Photo;
 
 import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
- * Created by dadou on 22/10/15.
+ * Created by FAURE Adrien on 22/10/15.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class SellerDTO extends MemberDTO {
 
-    private Collection<Photo> photos;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2501469459177868852L;
 
+	/**
+	 * 
+	 */
+	private Collection<Photo> photos;
+    
+	/**
+	 * 
+	 */
+    @XmlElement
     private String RIB;
 
+    
     public String getRIB() {
         return RIB;
     }
