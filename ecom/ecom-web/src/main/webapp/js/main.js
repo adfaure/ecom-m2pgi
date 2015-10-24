@@ -50,7 +50,6 @@ ecomApp.factory('sellerService' , sellerService );
 
 ecomApp.controller('inscriptionController', inscriptionController);
 ecomApp.controller('MainController', mainController);
-ecomApp.controller('AlertController', alertController);
 
 
 module.exports = ecomApp;

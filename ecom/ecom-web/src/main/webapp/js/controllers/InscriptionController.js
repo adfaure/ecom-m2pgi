@@ -44,6 +44,9 @@ var InscriptionController = function ($scope, memberService, sellerService) {
         }
     };
     
+    $scope.toogleAlert = function() {
+    	$scope.alert = !$scope.alert;
+    }
     
 };
 
