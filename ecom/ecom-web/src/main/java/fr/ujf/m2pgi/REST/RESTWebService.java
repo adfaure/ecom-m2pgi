@@ -1,11 +1,11 @@
 package fr.ujf.m2pgi.REST;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-
 
 /**
  *
@@ -25,5 +25,6 @@ public class RESTWebService extends Application {
         classes.add(RESTSellerServlet.class);
         return classes;
     }
+  
 
 }

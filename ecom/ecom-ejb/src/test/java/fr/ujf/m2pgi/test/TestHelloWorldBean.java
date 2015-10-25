@@ -17,6 +17,7 @@
 package fr.ujf.m2pgi.test;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import javax.ejb.EJB;
 
@@ -50,6 +51,7 @@ public class TestHelloWorldBean {
     @Test
     public void testRegister() throws Exception {
     	assertNotNull(helloBean);
+   //     fail();
     }
 
 }

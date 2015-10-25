@@ -13,12 +13,13 @@ var angularRoute = require('angular-route');
  */
 var mainController        = require('./controllers/MainController');
 var hwController          = require('./controllers/HelloWorldController');
-var inscriptionController = require('./controllers/InscriptionController')
+var inscriptionController = require('./controllers/InscriptionController');
 
 /**
  * Services
  */
-var memberService = require('./services/MemberService')
+var memberService = require('./services/MemberService');
+var sellerService = require('./services/SellerService');
 
 /**
  *
@@ -44,9 +45,11 @@ ecomApp.config(function ($routeProvider) {
 });
 
 ecomApp.factory('memberService' , memberService );
+ecomApp.factory('sellerService' , sellerService );
+
 
 ecomApp.controller('inscriptionController', inscriptionController);
-
 ecomApp.controller('MainController', mainController);
+
 
 module.exports = ecomApp;
