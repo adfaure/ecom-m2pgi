@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="member")
 @Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorValue(value = "N")
+@DiscriminatorValue(value = "M")
 public class Member {
 
 	@Id

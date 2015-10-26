@@ -15,19 +15,32 @@
 </head>
 
 <body>
-<ul class="nav nav-tabs">
-    <li role="presentation" class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            Menu  <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-        </ul>
-    </li>
-    <li>
-        <a href="#/inscription"> Sign in </a>
-    </li>
-</ul>
 
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-static-top" data-ng-controller="headerController">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"> ECOM </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav nav-tabs">
+                <li data-ng-if="!auth">
+                    <a href="#/inscription"> Sign up </a>
+                </li>
+                <li data-ng-if="!auth">
+                    <a href="#/login"> Sign in </a>
+                </li>
+                <li data-ng-if="auth">
+                    <a href="#/" ng-click="logout()"> Log out </a>
+                </li>
+                <li data-ng-if="auth">
+                   <a href="#/profil"> {{ user.lastName}} {{ user.firstName }} </a>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
 
 <div class="container">
     <div data-ng-view></div>

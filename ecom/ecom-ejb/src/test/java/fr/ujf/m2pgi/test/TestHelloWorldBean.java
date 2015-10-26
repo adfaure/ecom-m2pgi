@@ -30,28 +30,21 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import fr.ujf.m2pgi.HelloWorldBean;
-
 @RunWith(Arquillian.class)
 public class TestHelloWorldBean {
 	
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(HelloWorldBean.class)
                 .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 // Deploy our test datasource
                 .addAsWebInfResource("test-ds.xml", "test-ds.xml");
     }
 
-    @EJB
-    HelloWorldBean helloBean;
 
     @Test
     public void testRegister() throws Exception {
-    	assertNotNull(helloBean);
-   //     fail();
     }
 
 }
