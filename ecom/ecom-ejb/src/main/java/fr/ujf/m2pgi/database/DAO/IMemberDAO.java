@@ -5,6 +5,9 @@ import javax.ejb.Local;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.entities.Member;
 
+/**
+ *
+ */
 @Local
 public interface IMemberDAO extends IGeneriqueDAO<Member> {
 
