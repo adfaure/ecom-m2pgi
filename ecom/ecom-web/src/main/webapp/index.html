@@ -31,7 +31,7 @@
                     <a href="#/login"> Login </a>
                 </li>
                 <li data-ng-if="auth">
-                    <a href="#/logout"> Log out </a>
+                    <a href="#" ng-click="logout()"> Log out </a>
                 </li>
                 <li data-ng-if="auth">
                    <a href="#/profil"> {{ user.lastName}} {{ user.firstName }} </a>

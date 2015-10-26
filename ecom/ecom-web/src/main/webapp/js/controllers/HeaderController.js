@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var headerController = function($scope, apiToken) {
+var headerController = function($scope, apiToken, authentificationService) {
     $scope.auth = false;
     $scope.$watch(
         apiToken.isAuthentificated, function(isAuth) {
@@ -11,6 +11,8 @@ var headerController = function($scope, apiToken) {
             }
         }
     )
+
+    $scope.logout = authentificationService.logout;
 };
 
 module.exports = headerController;
