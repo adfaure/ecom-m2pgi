@@ -7,7 +7,6 @@ var headerController = function($scope, apiToken, authentificationService) {
             $scope.auth = isAuth;
             if($scope.auth) {
                 $scope.user = apiToken.getUser();
-                console.log($scope.user);
             }
         }
     )

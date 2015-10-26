@@ -72,11 +72,14 @@ public class RESTAuthentification {
 
     @POST
     @Path("/logout")
+    @Produces("application/json")
     @Allow(groups="seller;members;admin")
     public Response logout() {
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute("principal", null);
-        return Response.ok().build();
+        Map resJson = new HashMap<String, Object>();
+        resJson.put("message", "success");
+        return Response.ok().entity(resJson).build();
     }
 
 }
