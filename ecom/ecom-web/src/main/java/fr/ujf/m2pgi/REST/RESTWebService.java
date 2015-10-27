@@ -9,6 +9,7 @@ import javax.ws.rs.core.Application;
 import fr.ujf.m2pgi.REST.Interceptors.SecurityInterceptor;
 import fr.ujf.m2pgi.REST.Resources.RESTAuthentification;
 import fr.ujf.m2pgi.REST.Resources.RESTMemberServlet;
+import fr.ujf.m2pgi.REST.Resources.RESTPhotosServlet;
 import fr.ujf.m2pgi.REST.Resources.RESTSellerServlet;
 
 /**
@@ -28,6 +29,7 @@ public class RESTWebService extends Application {
         classes.add(RESTMemberServlet.class);
         classes.add(RESTSellerServlet.class);
         classes.add(SecurityInterceptor.class);
+        classes.add(RESTPhotosServlet.class);
         return classes;
     }
   
