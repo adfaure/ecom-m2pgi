@@ -1,13 +1,10 @@
 package fr.ujf.m2pgi.database.DAO;
 
-import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
-import fr.ujf.m2pgi.database.entities.Seller;
 
 /**
  * 

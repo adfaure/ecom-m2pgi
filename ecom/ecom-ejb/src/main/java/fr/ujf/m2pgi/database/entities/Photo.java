@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 /**
  * 
- * @author FAURE Adrien
+ * @author FAURE Adrien ()
  *
  */
 @Entity

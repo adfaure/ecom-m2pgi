@@ -22,7 +22,7 @@ import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.database.Service.PhotoService;
 
 /**
- * Created by AZOUZI Marwen 23/10/15
+ * Created by AZOUZI Marwen 23/10/15 ()
  */
 @Path("/photo")
 public class RESTPhotosServlet {

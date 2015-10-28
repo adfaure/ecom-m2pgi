@@ -7,7 +7,7 @@ import fr.ujf.m2pgi.database.entities.Photo;
 
 /**
  * 
- * @author AZOUZI Marwen
+ * @author AZOUZI Marwen ()
  *
  */
 @Local

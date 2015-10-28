@@ -11,7 +11,7 @@ import fr.ujf.m2pgi.database.entities.Seller;
 
 /**
  * 
- * @author AZOUZI Marwen
+ * @author AZOUZI Marwen ()
  *
  */
 @Stateless
