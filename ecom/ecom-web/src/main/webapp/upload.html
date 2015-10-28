@@ -6,9 +6,16 @@
 </head>
 <body>
 <h1>Upload a File</h1>
-	<form action="api/photo/upload/seller/0" method="post" enctype="multipart/form-data">
-	   <p>Select a photo : <input type="file" name="file" accept="image/*" size="50" /></p>
-	   <input type="submit" value="Upload It" />
+	<form action="api/photos/upload/seller/1" method="post" enctype="multipart/form-data">
+	<table>
+		<tr>
+		<td>Select a photo : </td><td><input type="file" name="file" accept="image/*" size="50" /></td>
+		</tr>
+	    <tr>
+	    <td>Add a description</td><td><input type="text" name="description" size="50" /></td>
+	    </tr>
+	</table>
+	<input type="submit" value="Upload It" />
 	</form>
 </body>
 </html>

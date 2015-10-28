@@ -2,7 +2,7 @@
 DROP TABLE "seller";
 DROP TABLE "member";
 
-CREATE TABLE IF NOT EXISTS "member" (
+CREATE TABLE "member" (
 	 memberID BIGSERIAL,
 	 login varchar(15) UNIQUE NOT NULL,
 	 password varchar(50) NOT NULL, 
@@ -10,16 +10,16 @@ CREATE TABLE IF NOT EXISTS "member" (
 	 lastName varchar(50),
 	 accountType char NOT NULL,
 	 email varchar(25),
-	 CONSTRAINT member_firstkey PRIMARY KEY(memberID)
+	 PRIMARY KEY(memberID)
 );
 
-CREATE TABLE IF NOT EXISTS "seller" (
+CREATE TABLE "seller" (
 	memberID bigint REFERENCES "member"(memberID),
 	RIB varchar(50) NOT NULL,
 	PRIMARY KEY(memberID)
 );
 
-CREATE TABLE IF NOT EXISTS "photo" (
+CREATE TABLE "photo" (
 	 photoID BIGSERIAL,
 	 seller_id bigint REFERENCES "seller" (memberID),
 	 description varchar(250),
@@ -28,47 +28,3 @@ CREATE TABLE IF NOT EXISTS "photo" (
 	 price NUMERIC(2) NOT NULL,
 	 PRIMARY KEY(photoID)
 );
-
-INSERT INTO "member" VALUES (
-	0,
-	'dadou',
-	'dadou',
-	'Adrien',
-	'Faure',
-	'M',	
-	null
-);
-
-INSERT INTO "member" VALUES (
-	3,
-	'bob',
-	'bob',
-	'Bobbine',
-	'rouleau',
-	's',	
-	null
-);
-
-INSERT INTO "seller" VALUES (
-	0,
-	'bobrib'
-);
-
-INSERT INTO "photo" VALUES (
-	0,
-	0,
-	'Ma première photo',
-	'marwen.gif',
-	'/tmp/photos/marwen.gif',
-	2.0
-);
-
-INSERT INTO "photo" VALUES (
-	1,
-	0,
-	'Ma deuxième photo',
-	'sword4.png',
-	'/tmp/photos/sword4.png',
-	2.0
-);
-

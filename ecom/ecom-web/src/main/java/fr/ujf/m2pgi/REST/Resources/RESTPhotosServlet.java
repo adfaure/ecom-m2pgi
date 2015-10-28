@@ -18,13 +18,14 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.Service.FileService;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.database.Service.PhotoService;
 
 /**
- * Created by AZOUZI Marwen 23/10/15 ()
+ * Created by AZOUZI Marwen 23/10/15
  */
-@Path("/photo")
+@Path("/photos")
 public class RESTPhotosServlet {
 
 	@EJB
@@ -32,38 +33,58 @@ public class RESTPhotosServlet {
 
 	@EJB
 	private MemberService memberService;
+	
+	@EJB
+	private FileService fileService;
 
 	@GET
-	@Path("/id/{id:([0-9]|[1-9][0-9]+)}")
+	@Path("/")
 	@Produces("application/json")
-	public Response getPhotoByID(@PathParam("id") long id) {
+	public Response getAllPhotos() {
+		List<PhotoDTO> photos = photoService.getAllPhotos();
+		return Response.ok(photos).build();
+	}
+	
+	@GET
+	@Path("/id/{id:[1-9][0-9]*}")
+	@Produces("application/json")
+	public Response getPhotoByID(@PathParam("id") Long id) {
 		PhotoDTO photo =  photoService.getPhotoById(id);
 		return Response.ok(photo).build();
 	}
 
-	/*@GET
-	@Path("/user/{login}")
+	@GET
+	@Path("/user/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
-	public Response getPhotoByID(@PathParam("login") String login) {
-		List<PhotoDTO> photos = photoService.find(id);
-		return Response.ok(photo).build();
-	}*/
+	public Response getUserPhotos(@PathParam("id") Long id) {
+		List<PhotoDTO> photos = photoService.getUserPhotos(id);
+		return Response.ok(photos).build();
+	}
+	
+	@GET
+	@Path("/user/login/{login}")
+	@Produces("application/json")
+	public Response getUserPhotos(@PathParam("login") String login) {
+		List<PhotoDTO> photos = photoService.getUserPhotos(login);
+		return Response.ok(photos).build();
+	}
 
-	/*@DELETE
-	@Path("/id/{id}")
+	@DELETE
+	@Path("/delete/{id:[1-9][0-9]*}")
 	@Produces("application/json")
-	public Response deletePhotoByID(@PathParam("id") String id) {
-		// ...
-		return Response.ok();
-	}*/
+	public Response deletePhotoByID(@PathParam("id") Long id) {
+		PhotoDTO photo =  photoService.deletePhoto(id);
+		return Response.ok(photo).build();
+	}
 
 	@POST
-	@Path("/upload/seller/{id:([0-9]|[1-9][0-9]+)}")
-	@Consumes("multipart/form-data")
+	@Path("/upload/seller/{id:[1-9][0-9]*}")
+	@Consumes("multipart/form-data")//@Consumes(MediaType.MULTIPART_FORM_DATA) 
 	@Produces("application/json")
 	public Response uploadFile(MultipartFormDataInput input, @PathParam("id") long id) {
 
 		String fileName = "";
+		//String newName = UUID.randomUUID().toString();
 
 		Map<String, List<InputPart>> formParts = input.getFormDataMap();
 
@@ -78,24 +99,21 @@ public class RESTPhotosServlet {
 				// Handle the body of that part with an InputStream
 				InputStream istream = inputPart.getBody(InputStream.class,null);
 
-				saveFile(istream,"/tmp/" + fileName);
+				fileService.saveFile(istream,"/tmp/" + fileName);
 
 			  } catch (IOException e) {
 				  e.printStackTrace();
 			  }
 		}
 
-		String output = "File saved to server location : /tmp/" + fileName;
-
 		PhotoDTO photo = new PhotoDTO();
 		photo.setLocation("/tmp/" + fileName);
 		photo.setName(fileName);
 		photo.setPrice(2.0f);
-		photo.setDescription("Une photo !");
+		photo.setDescription("Description!");
 		photo.setSellerID(id);
-
-		photoService.createPhoto(photo);
-		return Response.status(Status.CREATED).entity(output).build();
+		PhotoDTO created = photoService.createPhoto(photo);
+		return Response.status(Status.CREATED).entity(created).build();
 	}
 
 	// Parse Content-Disposition header to get the original file name.
@@ -115,25 +133,5 @@ public class RESTPhotosServlet {
 			}
 		}
 		return "randomName";
-	}
-
-	// Save uploaded file to a defined location on the server
-	private void saveFile(InputStream uploadedInputStream, String serverLocation) {
-
-		try {
-			OutputStream outpuStream = new FileOutputStream(new File(serverLocation));
-			int read = 0;
-			byte[] bytes = new byte[1024];
-
-			outpuStream = new FileOutputStream(new File(serverLocation));
-			while ((read = uploadedInputStream.read(bytes)) != -1) {
-				outpuStream.write(bytes, 0, read);
-			}
-			outpuStream.flush();
-			outpuStream.close();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
 	}
 }
