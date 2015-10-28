@@ -88,7 +88,6 @@ public class RESTPhotosServlet {
 		String output = "File saved to server location : /tmp/" + fileName;
 
 		PhotoDTO photo = new PhotoDTO();
-		photo.setPhotoId(23L);
 		photo.setLocation("/tmp/" + fileName);
 		photo.setName(fileName);
 		photo.setPrice(2.0f);
