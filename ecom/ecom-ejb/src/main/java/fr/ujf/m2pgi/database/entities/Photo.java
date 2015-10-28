@@ -9,8 +9,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="photo")
-@NamedQueries({@NamedQuery(name = "Photo.findById",
-query = "SELECT p FROM Photo p WHERE p.photoID = :id")})
 public class Photo {
 
 	@Id
@@ -18,8 +16,8 @@ public class Photo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long photoID;
 	
-	@ManyToOne
-	@JoinColumn(name = "seller_id")
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "seller_id", nullable = false)
 	private Seller author;
 
 	@Column(name="description")

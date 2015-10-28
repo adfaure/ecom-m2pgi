@@ -18,6 +18,7 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.database.Service.PhotoService;
 
 /**
@@ -25,18 +26,29 @@ import fr.ujf.m2pgi.database.Service.PhotoService;
  */
 @Path("/photo")
 public class RESTPhotosServlet {
-	
+
 	@EJB
 	private PhotoService photoService;
-	
+
+	@EJB
+	private MemberService memberService;
+
 	@GET
-	@Path("/id/{id}")
+	@Path("/id/{id:([0-9]|[1-9][0-9]+)}")
 	@Produces("application/json")
-	public Response getPhotoByID(@PathParam("id") String id) {
-		PhotoDTO photo =  photoService.getPhotoById(Long.parseLong(id, 10));
+	public Response getPhotoByID(@PathParam("id") long id) {
+		PhotoDTO photo =  photoService.getPhotoById(id);
 		return Response.ok(photo).build();
 	}
-	
+
+	/*@GET
+	@Path("/user/{login}")
+	@Produces("application/json")
+	public Response getPhotoByID(@PathParam("login") String login) {
+		List<PhotoDTO> photos = photoService.find(id);
+		return Response.ok(photo).build();
+	}*/
+
 	/*@DELETE
 	@Path("/id/{id}")
 	@Produces("application/json")
@@ -44,12 +56,12 @@ public class RESTPhotosServlet {
 		// ...
 		return Response.ok();
 	}*/
-		
+
 	@POST
-	@Path("/upload/seller/{id}")
+	@Path("/upload/seller/{id:([0-9]|[1-9][0-9]+)}")
 	@Consumes("multipart/form-data")
 	@Produces("application/json")
-	public Response uploadFile(MultipartFormDataInput input, @PathParam("id") String id) {
+	public Response uploadFile(MultipartFormDataInput input, @PathParam("id") long id) {
 
 		String fileName = "";
 
@@ -72,17 +84,17 @@ public class RESTPhotosServlet {
 				  e.printStackTrace();
 			  }
 		}
-		
+
 		String output = "File saved to server location : /tmp/" + fileName;
-		
+
 		PhotoDTO photo = new PhotoDTO();
-		photo.setPhotoId(0);
+		photo.setPhotoId(23L);
 		photo.setLocation("/tmp/" + fileName);
 		photo.setName(fileName);
 		photo.setPrice(2.0f);
 		photo.setDescription("Une photo !");
-		photo.setSellerID(Long.parseLong(id));
-		
+		photo.setSellerID(id);
+
 		photoService.createPhoto(photo);
 		return Response.status(Status.CREATED).entity(output).build();
 	}
@@ -105,7 +117,7 @@ public class RESTPhotosServlet {
 		}
 		return "randomName";
 	}
-	
+
 	// Save uploaded file to a defined location on the server
 	private void saveFile(InputStream uploadedInputStream, String serverLocation) {
 

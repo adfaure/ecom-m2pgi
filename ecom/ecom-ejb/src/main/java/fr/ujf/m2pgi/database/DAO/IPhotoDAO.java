@@ -12,13 +12,6 @@ import fr.ujf.m2pgi.database.entities.Photo;
  */
 @Local
 public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
-
-	/**
-	 * Allow to find a photo by its ID.
-	 * @param ID
-	 * @return
-	 */
-	Photo getPhotoById(long id);
 	
 	/**
 	 * 

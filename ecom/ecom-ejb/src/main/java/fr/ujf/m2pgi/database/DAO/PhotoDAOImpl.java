@@ -18,27 +18,6 @@ import fr.ujf.m2pgi.database.entities.Seller;
 public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 
 	@Override
-	public Photo getPhotoById(long id) {
-		Query query = entityManager.createQuery("select p FROM Photo p WHERE p.photoID=:id");
-		query.setParameter("id", id);
-		System.out.println(query.getResultList().size());
-		
-		@SuppressWarnings("unchecked")
-		List<Photo> photos = query.getResultList();
-		if (photos != null && photos.size() == 1) {
-			return photos.get(0);
-		}
-		return null;
-	}
-	
-	@Override
-	public
-	Photo find(Object id)
-	{
-		return entityManager.find(Photo.class, id);
-	}
-
-	@Override
 	public PhotoDTO getPhotoDTO(Photo photo) {
 		PhotoDTO dto = new PhotoDTO();
 		dto.setPhotoId(photo.getPhotoID());
@@ -46,7 +25,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		dto.setDescription(photo.getDescription());
 		dto.setLocation(photo.getLocation());
 		dto.setPrice(photo.getPrice());
-		dto.setSellerID(photo.getAuthor().getMemberID());
+		if (photo.getAuthor() != null) dto.setSellerID(photo.getAuthor().getMemberID());
 		return dto;
 	}
 
@@ -58,8 +37,6 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		photoEntity.setDescription(photo.getDescription());
 		photoEntity.setLocation(photo.getLocation());
 		photoEntity.setPrice(photo.getPrice());
-		Seller author = new Seller(); author.setMemberID(photo.getSellerID());
-		photoEntity.setAuthor(author);
 		return photoEntity;
 	}
 	
