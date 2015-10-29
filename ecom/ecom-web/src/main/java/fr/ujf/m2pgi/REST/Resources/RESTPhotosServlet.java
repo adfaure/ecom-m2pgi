@@ -33,7 +33,7 @@ public class RESTPhotosServlet {
 
 	@EJB
 	private MemberService memberService;
-	
+
 	@EJB
 	private FileService fileService;
 
@@ -44,7 +44,7 @@ public class RESTPhotosServlet {
 		List<PhotoDTO> photos = photoService.getAllPhotos();
 		return Response.ok(photos).build();
 	}
-	
+
 	@GET
 	@Path("/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -60,7 +60,7 @@ public class RESTPhotosServlet {
 		List<PhotoDTO> photos = photoService.getUserPhotos(id);
 		return Response.ok(photos).build();
 	}
-	
+
 	@GET
 	@Path("/user/login/{login}")
 	@Produces("application/json")
@@ -79,7 +79,7 @@ public class RESTPhotosServlet {
 
 	@POST
 	@Path("/upload/seller/{id:[1-9][0-9]*}")
-	@Consumes("multipart/form-data")//@Consumes(MediaType.MULTIPART_FORM_DATA) 
+	@Consumes("multipart/form-data")//@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces("application/json")
 	public Response uploadFile(MultipartFormDataInput input, @PathParam("id") long id) {
 
@@ -113,6 +113,7 @@ public class RESTPhotosServlet {
 		photo.setDescription("Description!");
 		photo.setSellerID(id);
 		PhotoDTO created = photoService.createPhoto(photo);
+		if (created == null) return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
 		return Response.status(Status.CREATED).entity(created).build();
 	}
 
