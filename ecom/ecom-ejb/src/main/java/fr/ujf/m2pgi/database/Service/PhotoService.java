@@ -11,7 +11,6 @@ import fr.ujf.m2pgi.database.DAO.ISellerDAO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Seller;
-import fr.ujf.m2pgi.util.FileTranferBean;
 
 /**
  * 
@@ -26,9 +25,6 @@ public class PhotoService {
 	
 	@EJB
 	ISellerDAO sellerDao;
-	
-	@EJB
-	FileTranferBean fileTranserBean;
 	
 	/**
 	 * 
