@@ -17,19 +17,5 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	 * @return
 	 */
 	Member findMemberByLogin(String login);
-	
-	/**
-	 * 
-	 * @param member
-	 * @return
-	 */
-	MemberDTO getMemberDTO(Member member);
-	
-	/**
-	 * 
-	 * @param member
-	 * @return
-	 */
-	Member getMember(MemberDTO member);
-	
+
 }

@@ -7,6 +7,8 @@ import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.ISellerDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.SellerDTO;
+import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
+import fr.ujf.m2pgi.database.Mappers.ISellerMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Seller;
 
@@ -15,6 +17,13 @@ import fr.ujf.m2pgi.database.entities.Seller;
  */
 @Stateless
 public class MemberService {
+
+
+	@EJB
+	private IMemberMapper memberMapper;
+
+	@EJB
+	private ISellerMapper sellerMapper;
 
 	/**
 	 *
@@ -33,7 +42,7 @@ public class MemberService {
 	 * @param member
 	 */
 	public MemberDTO createMember(MemberDTO member) {
-		MemberDTO res = memberDao.getMemberDTO(memberDao.create(memberDao.getMember(member)));
+		MemberDTO res = memberMapper.getDTO(memberDao.create(memberMapper.getentity(member)));
 		return res;
 	}
 	
@@ -45,7 +54,7 @@ public class MemberService {
 	public MemberDTO getMemberByLogin(String login) {
 		Member memberEntity = memberDao.findMemberByLogin(login);
 		if(memberEntity != null)
-			return memberDao.getMemberDTO(memberEntity);
+			return memberMapper.getDTO(memberEntity);
 		return null;
 	}
 
@@ -57,7 +66,7 @@ public class MemberService {
 	public MemberDTO getMemberbyId(long id) {
 		Member memberEntity = memberDao.find(id);
 		if(memberEntity != null)
-			return memberDao.getMemberDTO(memberEntity);
+			return memberMapper.getDTO(memberEntity);
 		return null;
 	}
 
@@ -68,7 +77,7 @@ public class MemberService {
 	public SellerDTO findSellerByLogin(String login) {
 		Seller sellerEntity = sellerDAO.findSellerByLogin(login);
 	    if(sellerEntity != null)
-            return sellerDAO.getSellerDTO(sellerEntity);
+            return sellerMapper.getDTO(sellerEntity);
         return null;
     }
 
@@ -78,7 +87,7 @@ public class MemberService {
 	 * @return
 	 */
 	public SellerDTO createSeller(SellerDTO seller) {
-		return sellerDAO.getSellerDTO(sellerDAO.create(sellerDAO.getSeller(seller)));
+		return sellerMapper.getDTO(sellerDAO.create(sellerMapper.getentity(seller)));
 	}
 
 }

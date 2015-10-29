@@ -106,7 +106,13 @@
 			<artifactId>resteasy-jaxrs</artifactId>
 			<version>3.0.13.Final</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>0.7.5</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

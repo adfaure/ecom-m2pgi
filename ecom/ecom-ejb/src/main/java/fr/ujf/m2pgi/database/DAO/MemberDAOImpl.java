@@ -25,30 +25,4 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		}
 		return null;
 	}
-
-	@Override
-	public MemberDTO getMemberDTO(Member member) {
-		MemberDTO mDTO = new MemberDTO();
-		mDTO.setEmail(member.getEmail());
-		mDTO.setFirstName(member.getFirstName());
-		mDTO.setLastName(member.getLastName());
-		mDTO.setAccountType(member.getAccountType());
-		mDTO.setLogin(member.getLogin());
-		mDTO.setPassword(member.getPassword());
-		mDTO.setMemberID(member.getMemberID());
-		return mDTO;
-	}
-
-	@Override
-	public Member getMember(MemberDTO member) {
-		Member memberEntity =  new Member();
-		memberEntity.setAccountType(member.getAccountType());
-		memberEntity.setEmail(member.getEmail());
-		memberEntity.setFirstName(member.getFirstName());
-		memberEntity.setLastName(member.getLastName());
-		memberEntity.setLogin(member.getLogin());
-		memberEntity.setPassword(member.getPassword());
-		return memberEntity;
-	}
-	
 }
