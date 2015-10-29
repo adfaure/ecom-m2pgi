@@ -11,6 +11,7 @@ import fr.ujf.m2pgi.database.DAO.ISellerDAO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Seller;
+import fr.ujf.m2pgi.util.FileTranferBean;
 
 /**
  * 
@@ -26,6 +27,8 @@ public class PhotoService {
 	@EJB
 	ISellerDAO sellerDao;
 	
+	@EJB
+	FileTranferBean fileTranserBean;
 	
 	/**
 	 * 
@@ -61,6 +64,7 @@ public class PhotoService {
 	 */
 	public PhotoDTO createPhoto(PhotoDTO photo) {
 		Seller seller = sellerDao.find(photo.getSellerID());
+		if (seller == null) return null;
 		Photo photoEntity = photoDao.getPhoto(photo);
 		photoEntity.setAuthor(seller);
 		return photoDao.getPhotoDTO(photoDao.create(photoEntity));
