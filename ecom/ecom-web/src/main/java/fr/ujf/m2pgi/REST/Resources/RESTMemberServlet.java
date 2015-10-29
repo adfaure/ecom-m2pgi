@@ -23,7 +23,6 @@ public class RESTMemberServlet {
 	@GET
 	@Path("/login/{login}")
 	@Produces("application/json")
-	@DenyAll
 	public Response getMemberByLogin(@PathParam("login") String login) {
 		MemberDTO member =  memberService.getMemberByLogin(login);
 		return Response.ok(member).build();
@@ -33,7 +32,6 @@ public class RESTMemberServlet {
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	@Deny(groups = "seller;member;admin") // You cannot create another user if you are already authenticated
 	public Response createUser(MemberDTO member) { //FIXME the true one shall return a Member DTO
 		MemberDTO createdMember = memberService.createMember(member);
 		return Response.status(Status.CREATED).entity(createdMember).build();

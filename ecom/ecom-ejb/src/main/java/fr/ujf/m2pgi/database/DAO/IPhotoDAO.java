@@ -35,18 +35,5 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @return
 	 */
 	public List<Photo> getUserPhotos(String login);
-	
-	/**
-	 * 
-	 * @param photo
-	 * @return
-	 */
-	PhotoDTO getPhotoDTO(Photo photo);
-	
-	/**
-	 * 
-	 * @param photo
-	 * @return
-	 */
-	Photo getPhoto(PhotoDTO photo);
+
 }

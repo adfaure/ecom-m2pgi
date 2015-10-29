@@ -27,42 +27,4 @@ public class SellerDAOImpl extends GeneriqueDAOImpl<Seller> implements ISellerDA
         }
         return null;
     }
-
-    /**
-     *
-     * @param sellerDTO
-     * @return
-     */
-    @Override
-    public Seller getSeller(SellerDTO sellerDTO) {
-        Seller newSeller = new Seller();
-        newSeller.setAccountType(sellerDTO.getAccountType());
-        newSeller.setEmail(sellerDTO.getEmail());
-        newSeller.setFirstName(sellerDTO.getFirstName());
-        newSeller.setLastName(sellerDTO.getLastName());
-        newSeller.setLogin(sellerDTO.getLogin());
-        newSeller.setPassword(sellerDTO.getPassword());
-        newSeller.setRIB(sellerDTO.getRIB());
-        return newSeller;
-    }
-
-    /**
-     *
-     * @param seller
-     * @return
-     */
-    @Override
-    public SellerDTO getSellerDTO(Seller seller) {
-        SellerDTO sDTO = new SellerDTO();
-        sDTO.setEmail(seller.getEmail());
-        sDTO.setFirstName(seller.getFirstName());
-        sDTO.setLastName(seller.getLastName());
-        sDTO.setAccountType(seller.getAccountType());
-        sDTO.setLogin(seller.getLogin());
-        sDTO.setPassword(seller.getPassword());
-        sDTO.setMemberID(seller.getMemberID());
-        sDTO.setPhotos(seller.getPhotos());
-        sDTO.setRIB(seller.getRIB());
-        return sDTO;
-    }
 }

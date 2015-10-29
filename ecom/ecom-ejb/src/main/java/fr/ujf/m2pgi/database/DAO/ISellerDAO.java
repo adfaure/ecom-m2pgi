@@ -17,19 +17,4 @@ public interface ISellerDAO extends IGeneriqueDAO<Seller> {
      * @return
      */
     Seller findSellerByLogin(String login);
-
-    /**
-     *
-     * @param sellerDTO
-     * @return
-     */
-    Seller getSeller(SellerDTO sellerDTO);
-
-    /**
-     *
-     * @param seller
-     * @return
-     */
-    SellerDTO getSellerDTO(Seller seller);
-
 }

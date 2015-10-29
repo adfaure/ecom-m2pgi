@@ -29,7 +29,6 @@ public class RESTSellerServlet {
     @GET
     @Path("/login/{login}")
     @Produces("application/json")
-    @DenyAll // FIXME find the proper right
     public SellerDTO findSellerByLogin(@PathParam("login") String login) {
         return  memberService.findSellerByLogin(login);
     }
@@ -38,7 +37,6 @@ public class RESTSellerServlet {
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-    @Deny(groups="seller;admin")
     public Response createUser(SellerDTO seller) { //FIXME the true one shall return a Member DTO
 		MemberDTO createdMember = memberService.createSeller(seller);
 		return Response.status(Status.CREATED).entity(createdMember).build();
