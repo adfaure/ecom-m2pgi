@@ -4,18 +4,23 @@ import javax.persistence.*;
 
 /**
  * 
- * @author FAURE Adrien
+ * @author FAURE Adrien ()
  *
  */
 @Entity
-@Table(name="Photo")
+@Table(name="photo")
 public class Photo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="photoID", columnDefinition = "serial")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long photoID;
 	
-	@Column(name="description", nullable=true)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "seller_id", nullable = false)
+	private Seller author;
+
+	@Column(name="description")
 	private String description;
 	
 	@Column(name="name", nullable=false)
@@ -27,18 +32,22 @@ public class Photo {
 	@Column(name="price")
 	private float price;
 
-	@ManyToOne
-	@JoinColumn(name = "seller_id")
-	private Seller author;
-
-	public long getPhotoId() {
+	public long getPhotoID() {
 		return photoID;
 	}
 
-	public void setPhotoId(long photoId) {
-		this.photoID = photoId;
+	public void setPhotoID(long photoID) {
+		this.photoID = photoID;
 	}
 
+	public Seller getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Seller author) {
+		this.author = author;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
