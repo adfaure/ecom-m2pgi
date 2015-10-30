@@ -33,7 +33,7 @@ public abstract class GeneriqueMapperImpl<DTOType, EntityType> implements IGener
         modelMapper = new ModelMapper();
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
-        entityClass = ((Class<EntityType>) pt.getActualTypeArguments()[0]);
+        entityClass = ((Class<EntityType>) pt.getActualTypeArguments()[1]);
         dtoClass = ((Class<DTOType>) pt.getActualTypeArguments()[0]);
     }
 
