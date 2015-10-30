@@ -11,7 +11,6 @@ import fr.ujf.m2pgi.REST.Resources.RESTAuthentification;
 import fr.ujf.m2pgi.REST.Resources.RESTMemberServlet;
 import fr.ujf.m2pgi.REST.Resources.RESTPhotosServlet;
 import fr.ujf.m2pgi.REST.Resources.RESTSellerServlet;
-//import fr.ujf.m2pgi.REST.Resources.RESTStatusServlet;
 
 /**
  *
