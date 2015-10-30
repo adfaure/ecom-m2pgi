@@ -1,6 +1,7 @@
 ﻿DROP TABLE "photo";
 DROP TABLE "seller";
 DROP TABLE "member";
+DROP TABLE "order";
 
 CREATE TABLE "member" (
 	 memberID BIGSERIAL,
@@ -27,4 +28,11 @@ CREATE TABLE "photo" (
 	 location varchar(50) NOT NULL,
 	 price NUMERIC(2) NOT NULL,
 	 PRIMARY KEY(photoID)
+);
+
+CREATE TABLE IF NOT EXISTS "order" (
+	 orderID BIGSERIAL,
+	 memberID bigint REFERENCES "member" (memberID),
+	 photoID bigint REFERENCES "photo" (photoID),
+	 PRIMARY KEY(orderID)
 );
