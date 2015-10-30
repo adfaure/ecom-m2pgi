@@ -22,7 +22,7 @@ public class RESTOrdersServlet {
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	public Response getAllPhotos() {
+	public Response getAllOrders() {
 		List<OrderDTO> photos = orderService.getAllOrders();
 		return Response.ok(photos).build();
 	}
@@ -30,7 +30,7 @@ public class RESTOrdersServlet {
 	@GET
 	@Path("/customer/login/{login}")
 	@Produces("application/json")
-	public Response getUserPhotos(@PathParam("login") String login) {
+	public Response getUserOrders(@PathParam("login") String login) {
 		List<OrderDTO> photos = orderService.getCustomerOrders(login);
 		return Response.ok(photos).build();
 	}
