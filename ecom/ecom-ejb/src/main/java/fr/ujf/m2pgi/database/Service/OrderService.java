@@ -12,6 +12,8 @@ import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.Mappers.IOrderMapper;
 import fr.ujf.m2pgi.database.entities.Order;
+import fr.ujf.m2pgi.database.entities.Photo;
+import fr.ujf.m2pgi.database.entities.Member;
 
 /**
  * 
@@ -47,5 +49,16 @@ public class OrderService {
 			result.add(orderMapper.getDTO(order));
 		}
 		return result;
+	}
+	
+	public OrderDTO createOrder(OrderDTO order) {
+		Member member = memberDao.find(order.getMemberID());
+		if (member == null) return null;// FixeME it would be better to throw custom exception such as CustomerNotFoundException
+		Photo photo = photoDao.find(order.getPhotoID());
+		if (photo == null) return null;
+		Order orderEntity = new Order();// FIXME I get java.lang.ClassCastException when I call orderMapper.getentity(dto)
+		orderEntity.setMember(member);
+		orderEntity.setPhoto(photo);
+		return orderMapper.getDTO(orderDao.create(orderEntity));
 	}
 }

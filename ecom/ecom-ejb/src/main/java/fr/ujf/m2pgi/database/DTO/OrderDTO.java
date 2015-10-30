@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.DTO;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -24,6 +25,9 @@ public class OrderDTO implements Serializable {
 	
 	@XmlElement
 	private Long photoID;
+	
+	@XmlElement
+	private Date dateCreated;
 
 	public Long getOrderID() {
 		return orderID;
@@ -47,5 +51,13 @@ public class OrderDTO implements Serializable {
 
 	public void setPhotoID(Long photoID) {
 		this.photoID = photoID;
+	}
+	
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 }

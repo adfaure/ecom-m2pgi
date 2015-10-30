@@ -1,5 +1,7 @@
 package fr.ujf.m2pgi.database.entities;
 
+import java.util.Collection;
+
 import javax.persistence.*;
 
 /**
@@ -14,7 +16,7 @@ import javax.persistence.*;
 public class Member {
 
 	@Id
-	@Column(name="memberID" ,columnDefinition = "serial")
+	@Column(name="memberID", columnDefinition = "serial")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected long memberID;
 
@@ -35,6 +37,9 @@ public class Member {
 	
 	@Column(name="accountType")
 	protected char accountType;
+	
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Collection<Order> orderedPhotos;
 
 	public long getMemberID() {
 		return memberID;

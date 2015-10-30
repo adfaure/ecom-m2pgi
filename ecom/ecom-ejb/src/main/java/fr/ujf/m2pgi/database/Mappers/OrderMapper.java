@@ -7,7 +7,7 @@ import org.modelmapper.PropertyMap;
 import javax.ejb.Stateless;
 
 /**
- * Created by FAURE Adrien on 29/10/15.
+ * Created by AZOUZI Marwen 30/10/15.
  */
 @Stateless
 public class OrderMapper extends GeneriqueMapperImpl<OrderDTO, Order> implements IOrderMapper {
