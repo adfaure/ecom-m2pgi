@@ -1,7 +1,7 @@
-﻿DROP TABLE "photo";
-DROP TABLE "seller";
-DROP TABLE "member";
-DROP TABLE "order";
+﻿--DROP TABLE "photo";
+--DROP TABLE "seller";
+--DROP TABLE "member";
+--DROP TABLE "order";
 
 CREATE TABLE "member" (
 	 memberID BIGSERIAL,
@@ -30,7 +30,7 @@ CREATE TABLE "photo" (
 	 PRIMARY KEY(photoID)
 );
 
-CREATE TABLE IF NOT EXISTS "order" (
+CREATE TABLE IF NOT EXISTS "orders" (
 	 orderID BIGSERIAL,
 	 memberID bigint REFERENCES "member" (memberID),
 	 photoID bigint REFERENCES "photo" (photoID),
