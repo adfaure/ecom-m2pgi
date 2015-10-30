@@ -23,8 +23,8 @@ public class RESTOrdersServlet {
 	@Path("/")
 	@Produces("application/json")
 	public Response getAllOrders() {
-		List<OrderDTO> photos = orderService.getAllOrders();
-		return Response.ok(photos).build();
+		List<OrderDTO> orders = orderService.getAllOrders();
+		return Response.ok(orders).build();
 	}
 	
 	@GET
