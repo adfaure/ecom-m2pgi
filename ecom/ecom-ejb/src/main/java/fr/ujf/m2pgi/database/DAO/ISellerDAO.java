@@ -1,6 +1,5 @@
 package fr.ujf.m2pgi.database.DAO;
 
-import fr.ujf.m2pgi.database.DTO.SellerDTO;
 import fr.ujf.m2pgi.database.entities.Seller;
 
 import javax.ejb.Local;
