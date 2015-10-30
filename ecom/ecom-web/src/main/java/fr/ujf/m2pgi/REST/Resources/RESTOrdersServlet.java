@@ -8,7 +8,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Service.OrderService;
 
 /**
@@ -39,11 +38,8 @@ public class RESTOrdersServlet {
 	@POST
 	@Path("/add")
 	@Produces("application/json")
-	public Response addOrder(@FormParam("customer") Long customer, @FormParam("product") Long product) {
-		OrderDTO inserted = new OrderDTO();
-		inserted.setMemberID(customer);
-		inserted.setPhotoID(product);
-		OrderDTO created = orderService.createOrder(inserted);
+	public Response addOrder(OrderDTO order) {
+		OrderDTO created = orderService.createOrder(order);
 		if (created == null) {
 			return Response.status(Status.BAD_REQUEST).entity("L'achat n'a pas été enregistré !").build();
 		}
