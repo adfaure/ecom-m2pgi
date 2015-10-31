@@ -42,7 +42,9 @@ public class MemberService {
 	 * @param member
 	 */
 	public MemberDTO createMember(MemberDTO member) {
-		MemberDTO res = memberMapper.getDTO(memberDao.create(memberMapper.getentity(member)));
+		Member toCreate = memberMapper.getentity(member);
+		Member memberEntity = memberDao.create(toCreate);
+		MemberDTO res = memberMapper.getDTO(memberEntity);
 		return res;
 	}
 	
@@ -88,6 +90,23 @@ public class MemberService {
 	 */
 	public SellerDTO createSeller(SellerDTO seller) {
 		return sellerMapper.getDTO(sellerDAO.create(sellerMapper.getentity(seller)));
+	}
+
+	/**
+	 *
+	 * @param seller
+	 * @return
+	 */
+	public SellerDTO createSellerFromMember(SellerDTO seller) {
+		Member member = memberDao.find(seller.getMemberID());
+		if(member != null) {
+			if(sellerDAO.createWithExistingMember(member, seller.getRIB())) {
+				member.setAccountType('S');
+				memberDao.update(member);
+				return  seller;
+			}
+		}
+		return null;
 	}
 
 }

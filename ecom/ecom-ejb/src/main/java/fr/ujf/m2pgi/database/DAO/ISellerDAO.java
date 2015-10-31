@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.DAO;
 
 import fr.ujf.m2pgi.database.DTO.SellerDTO;
+import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Seller;
 
 import javax.ejb.Local;
@@ -17,4 +18,6 @@ public interface ISellerDAO extends IGeneriqueDAO<Seller> {
      * @return
      */
     Seller findSellerByLogin(String login);
+
+    boolean createWithExistingMember(Member member, String RIB);
 }

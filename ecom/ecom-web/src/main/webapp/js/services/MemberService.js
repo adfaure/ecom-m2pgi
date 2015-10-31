@@ -57,7 +57,7 @@ function memberService($http) {
 	                     email: "",
 	                     firstName: "",
 	                     lastName: "",
-	                     accountType: 'N'
+	                     accountType: 'M'
 	                 };
     	
     	if(!user.login) return null;

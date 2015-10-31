@@ -43,9 +43,7 @@ public class RESTAuthentification {
         MemberDTO member    = memberService.getMemberByLogin(username);
         HttpSession session = httpServletRequest.getSession();
         PrincipalUser principal = null;
-        if(session.getAttribute("principal") != null) {
-            return new ServerResponse("ALREADY LOGGED", 500, new Headers<Object>());
-        } else if(member == null) {
+        if(member == null) {
             return new ServerResponse("Authentification failed", 500, new Headers<Object>());
         }
 
@@ -55,14 +53,15 @@ public class RESTAuthentification {
             principal.setToken(tokenGenerator.nextSessionId());
             principal.setUser(member);
             switch (member.getAccountType()) {
-                case 'S' :
+                case 'S':
                     principal.setGroup("seller");
                     break;
-                case 'M' :
+                case 'M':
                     principal.setGroup("members");
                     break;
             }
-            session.setAttribute("principal", principal);
+        } else {
+            return new ServerResponse("Authentification failed", 500, new Headers<Object>());
         }
         Map resJson = new HashMap<String, Object>();
         resJson.put("token", principal.getToken());

@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        {{ user.firstName }} {{ user.lastName }}
+                    </div>
+                    <div data-ng-if="user.accountType == 'M'">
+                        Compte classique
+                    </div>
+                    <div data-ng-if="user.accountType == 'S'">
+                        Compte Vendeur
+                    </div>
+                </div>
+                <div class="profile-userbuttons" data-ng-if="user.accountType == 'M'">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="setView('upgrade')" > Upgrade Account</button>
+                </div>
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="" ng-click="setView('details')" >
+                                <i class="glyphicon glyphicon-home"></i>
+                                Overview
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+                <div ng-switch="subview">
+                    <div ng-switch-when="details" >
+                        <div ng-include="templates.details" ></div>
+                    </div>
+                    <div ng-switch-when="upgrade">
+                        <div ng-include="templates.upgrade"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

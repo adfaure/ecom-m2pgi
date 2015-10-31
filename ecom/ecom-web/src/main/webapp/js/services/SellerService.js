@@ -8,6 +8,7 @@ function sellerService($http) {
     service.GetById = GetById;
     service.GetByUsername = GetByUsername;
     service.Create = Create;
+    service.CreateFromMember = CreateFromMember;
     service.Update = Update;
     service.Delete = Delete;
 
@@ -22,17 +23,24 @@ function sellerService($http) {
     }
 
     function Create(user) {
-    	var newUser = parseSeller(user);
-    	if(newUser != null)
-    		return $http.post('api/sellers', user).then(handleSuccess, handleError('Error creating user'));
-    	return { success : false, message : "not valid seller"};
+        var newUser = parseSeller(user);
+        if (newUser != null)
+            return $http.post('api/sellers', user).then(handleSuccess, handleError('Error creating user'));
+        return {success: false, message: "not valid seller"};
+    }
+
+    function CreateFromMember(user) {
+        var newUser = parseSeller(user);
+        if (newUser != null)
+            return $http.post('api/sellers/upgrade', user).then(handleSuccess, handleError('Error creating user'));
+        return { success: false, message: "not valid seller"};
     }
 
     function Update(user) {
-    	var newUser = parseSeller(user);
-    	if(newUser != null)
-    		return $http.put('api/sellers/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
-    	return { success : false, message : "not valid seller"};
+        var newUser = parseSeller(user);
+        if (newUser != null)
+            return $http.put('api/sellers/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+        return {success: false, message: "not valid seller"};
 
     }
 
@@ -48,30 +56,31 @@ function sellerService($http) {
 
     function handleError(error) {
         return function () {
-            return { success: false, message: error };
+            return {success: false, message: error};
         };
     }
-    
-	    function parseSeller(user) {
-		var validUser = {
-	                     email: "",
-	                     firstName: "",
-	                     lastName: "",
-	                     accountType: 'S',
-	                 };
-		if(!user.login) return null;
-		if(!user.password) return null;
-		if(!user.RIB) return null;
-		
-		validUser.RIB   = user.RIB;
-		validUser.login = user.login;
-		validUser.email = user.email;
-		validUser.firstNale = user.firstName;
-		validUser.lastName = user.lastName;
-		validUser.password = user.password;
-		
-		return validUser;
-	}
+
+    function parseSeller(user) {
+        var validUser = {
+            email: "",
+            firstName: "",
+            lastName: "",
+            accountType: 'S',
+        };
+
+        if (!user.login) return null;
+        if (!user.password && user.accountType != 'M') return null;
+        if (!user.RIB) return null;
+
+        validUser.RIB = user.RIB;
+        validUser.login = user.login;
+        validUser.email = user.email;
+        validUser.firstNale = user.firstName;
+        validUser.lastName = user.lastName;
+        validUser.password = user.password;
+
+        return validUser;
+    }
 };
 
 module.exports = sellerService;

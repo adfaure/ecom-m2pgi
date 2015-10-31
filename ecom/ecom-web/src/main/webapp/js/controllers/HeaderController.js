@@ -9,7 +9,7 @@ var headerController = function($scope, apiToken, authentificationService) {
                 $scope.user = apiToken.getUser();
             }
         }
-    )
+    );
 
     $scope.logout = authentificationService.logout;
 };
