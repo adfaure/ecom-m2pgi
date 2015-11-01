@@ -16,13 +16,23 @@
                 <div class="profile-userbuttons" data-ng-if="user.accountType == 'M'">
                     <button type="button" class="btn btn-success btn-sm" ng-click="setView('upgrade')" > Upgrade Account</button>
                 </div>
-                <div class="profile-usermenu">
+                <div class="profile-usermenu" data-ng-switch="user.accountType">
                     <ul class="nav">
-                        <li class="active">
+                        <li >
                             <a href="" ng-click="setView('details')" >
                                 <i class="glyphicon glyphicon-home"></i>
                                 Overview
                             </a>
+                        </li>
+                        <li>
+                            <div data-ng-switch-when="S">
+                                <div data-ng-include="templates.sellerNav"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div data-ng-switch-when="M">
+                                <div data-ng-include="templates.memberNav"></div>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -36,6 +46,9 @@
                     </div>
                     <div ng-switch-when="upgrade">
                         <div ng-include="templates.upgrade"></div>
+                    </div>
+                    <div ng-switch-when="addPhoto">
+                        <div ng-include="templates.addPhoto"></div>
                     </div>
                 </div>
             </div>

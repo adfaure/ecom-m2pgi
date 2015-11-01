@@ -60,6 +60,7 @@ public class RESTAuthentification {
                     principal.setGroup("members");
                     break;
             }
+            session.setAttribute("principal",principal);
         } else {
             return new ServerResponse("Authentification failed", 500, new Headers<Object>());
         }

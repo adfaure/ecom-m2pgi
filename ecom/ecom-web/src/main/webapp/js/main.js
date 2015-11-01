@@ -17,6 +17,7 @@ var loginController       = require('./controllers/LoginController');
 var headerController      = require('./controllers/HeaderController');
 var accountDetails        = require('./controllers/AccountDetailsController')
 var upgradeController     = require('./controllers/accountDetails/upgradeAccount')
+var uploadController      = require('./controllers/accountDetails/uploadPhoto')
 /**
  * Services
  */
@@ -25,7 +26,11 @@ var sellerService = require('./services/SellerService');
 var httpInterceptor = require('./services/HttpInterceptor');
 var apiToken = require('./services/ApiToken');
 var authentificationService = require('./services/AuthentificationService');
-
+var uploadPhoto = require('./services/uploadPhoto');
+/**
+ * Directives
+ */
+var inputFileDir = require('./directives/InputFile');
 
 /**
  *
@@ -56,13 +61,14 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
 
 });
 
+ecomApp.directive('ecomInputFile', inputFileDir);
+
 ecomApp.factory('memberService', memberService);
 ecomApp.factory('sellerService', sellerService);
 ecomApp.factory('authentificationService', authentificationService);
 ecomApp.factory('apiToken', apiToken);
 ecomApp.factory('httpInterceptor', httpInterceptor);
-
-
+ecomApp.factory('uploadPhoto', uploadPhoto);
 
 ecomApp.controller('inscriptionController', inscriptionController);
 ecomApp.controller('mainController', mainController);
@@ -70,6 +76,7 @@ ecomApp.controller('loginController', loginController);
 ecomApp.controller('headerController', headerController);
 ecomApp.controller('accountDetails', accountDetails);
 ecomApp.controller('upgradeController', upgradeController);
+ecomApp.controller('uploadPhoto', uploadController);
 
 
 module.exports = ecomApp;

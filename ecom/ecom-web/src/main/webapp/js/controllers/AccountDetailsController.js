@@ -1,8 +1,11 @@
 var angular = require('angular');
 
 var templates = {
-    'details' : './js/templates/accountDetails/details.html',
-    'upgrade' : './js/templates/accountDetails/upgrade.html'
+    'details'   : './js/templates/accountDetails/details.html',
+    'upgrade'   : './js/templates/accountDetails/upgrade.html',
+    'addPhoto'  : './js/templates/accountDetails/addPhoto.html',
+    'sellerNav' : './js/templates/accountDetails/SellerNavBar.html',
+    'memberNav' : './js/templates/accountDetails/MemberNavBar.html',
 };
 
 var accountDetails = function($scope, $location, apiToken) {
@@ -25,7 +28,7 @@ var accountDetails = function($scope, $location, apiToken) {
 
     function setView(view) {
         $scope.subview = view;
-    };
+    }
 };
 
 module.exports = accountDetails;

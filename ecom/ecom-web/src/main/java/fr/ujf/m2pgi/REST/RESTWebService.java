@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import fr.ujf.m2pgi.REST.Interceptors.MultiPartContentTypeFilter;
 import fr.ujf.m2pgi.REST.Interceptors.SecurityInterceptor;
 import fr.ujf.m2pgi.REST.Resources.RESTAuthentification;
 import fr.ujf.m2pgi.REST.Resources.RESTMemberServlet;
@@ -26,12 +27,13 @@ public class RESTWebService extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<Class<?>>();
-        classes.add(RESTAuthentification.class);
-        classes.add(RESTMemberServlet.class);
-        classes.add(RESTSellerServlet.class);
-        classes.add(SecurityInterceptor.class);
-        classes.add(RESTPhotosServlet.class);
-        classes.add(RESTOrdersServlet.class);
+        classes.add(SecurityInterceptor.class       );
+        classes.add(MultiPartContentTypeFilter.class);
+        classes.add(RESTAuthentification.class      );
+        classes.add(RESTMemberServlet.class         );
+        classes.add(RESTSellerServlet.class         );
+        classes.add(RESTPhotosServlet.class         );
+        classes.add(RESTOrdersServlet.class         );
         return classes;
     }
 
