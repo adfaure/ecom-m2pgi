@@ -1,7 +1,7 @@
+DROP TABLE "orders";
 DROP TABLE "photo";
 DROP TABLE "seller";
 DROP TABLE "member";
-DROP TABLE "orders";
 
 CREATE TABLE "member" (
 	 memberID BIGSERIAL,
@@ -26,7 +26,7 @@ CREATE TABLE "photo" (
 	 description varchar(250),
 	 name varchar(50),
 	 location varchar(50) NOT NULL,
-	 price NUMERIC(2) NOT NULL,
+	 price NUMERIC(5,2) NOT NULL,
 	 PRIMARY KEY(photoID)
 );
 

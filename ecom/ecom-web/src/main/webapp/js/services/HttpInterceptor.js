@@ -5,7 +5,6 @@ function headerTokenInterceptor($q, apiToken) {
         'request': function (config) {
             if(apiToken.isAuthentificated()) {
                 config.headers['sessionToken'] = apiToken.getToken();
-                console.log("interception !");
             }
             return config;
         }

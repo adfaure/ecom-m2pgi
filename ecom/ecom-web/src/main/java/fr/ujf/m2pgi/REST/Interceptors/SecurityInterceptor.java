@@ -56,13 +56,14 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 		if (method.getAnnotation(DenyAll.class) != null) {
 			requestContext.abortWith(ACCESS_FORBIDDEN);
 		} else if(method.getAnnotation(AllowAll.class) != null) {
-
+			return;
+		} else {
 			Deny denyAnnotation = method.getAnnotation(Deny.class);
 			if (denyAnnotation != null) {
 				String[] denyGroups = denyAnnotation.groups().split(";");
 				for (String s : denyGroups) {
 					if (principal.getGroup().equals(s)) {
-						requestContext.abortWith(ACCESS_FORBIDDEN);
+						requestContext.abortWith(ACCESS_DENIED);
 						return;
 					}
 				}
@@ -71,7 +72,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 			Allow allowAnnotation = method.getAnnotation(Allow.class);
 			if (allowAnnotation != null) {
 				if (principal == null || headerToken == null) {
-					requestContext.abortWith(ACCESS_FORBIDDEN);
+					requestContext.abortWith(ACCESS_DENIED);
 					return;
 				} else {
 					String[] allowedGroup = allowAnnotation.groups().split(";");
@@ -80,12 +81,12 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 							if (principal.getToken().equals(headerToken)) {
 								return;
 							} else {
-								requestContext.abortWith(ACCESS_FORBIDDEN);
+								requestContext.abortWith(ACCESS_DENIED);
 								return;
 							}
 						}
 					}
-					requestContext.abortWith(ACCESS_FORBIDDEN);
+					requestContext.abortWith(ACCESS_DENIED);
 					return;
 				}
 			}
