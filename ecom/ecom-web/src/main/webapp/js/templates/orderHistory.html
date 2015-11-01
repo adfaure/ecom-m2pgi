@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <h3>Order history</h3>
+  </div>
+  <div class="panel-body">
+    <p class="info">There are {{ orderCount }} orders!</p>
+  </div>
+<table class="table table-striped">
+  <thead>
+    <tr><th>Order</th><th>Customer</th><th>Photo</th><th>Date</th><th>Total</th></tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="order in orders">
+    <!--<td class="index">{{ $index + 1 }}</td>-->
+    <td class="id"><a href="#/orders">#{{ order.orderID }}</a></td>
+    <td class="member">{{ order.memberID }}</td>
+    <td class="photo">{{ order.photoID }}</td>
+    <td class="date"><a href="#/orders">{{ order.dateCreated | date:'yyyy-MM-dd' }}</a></td>
+    <td class="total">2.0</td>
+  </tr>
+</table>
+</div>

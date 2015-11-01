@@ -17,6 +17,7 @@ var loginController       = require('./controllers/LoginController');
 var headerController      = require('./controllers/HeaderController');
 var accountDetails        = require('./controllers/AccountDetailsController')
 var upgradeController     = require('./controllers/accountDetails/upgradeAccount')
+var orderHistoryController= require('./controllers/OrderHistoryController')
 /**
  * Services
  */
@@ -48,6 +49,10 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
             templateUrl: './js/templates/accountDetails.html',
             controller: 'accountDetails'
         })
+        .when('/orders', {
+            templateUrl: './js/templates/orderHistory.html',
+            controller: 'orderHistoryController'
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -70,6 +75,7 @@ ecomApp.controller('loginController', loginController);
 ecomApp.controller('headerController', headerController);
 ecomApp.controller('accountDetails', accountDetails);
 ecomApp.controller('upgradeController', upgradeController);
+ecomApp.controller('orderHistoryController', orderHistoryController);
 
 
 module.exports = ecomApp;
