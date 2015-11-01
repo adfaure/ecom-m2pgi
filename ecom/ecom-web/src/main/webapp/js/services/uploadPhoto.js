@@ -14,15 +14,21 @@ function photoService($http) {
                 fd.append(name, val);
             });
 
-            $http.post(uploadURL, fd, {
+            return $http.post(uploadURL, fd, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
-            })
-                .success(function () {
-                })
-                .error(function () {
-                });
+            }).then( handleSuccess, handleError );
         }
+    };
+
+    // private functions
+
+    function handleSuccess(res) {
+         return {success: true, data: res};
+    }
+
+    function handleError(error) {
+        return { success : false , data : res };
     }
 };
 
