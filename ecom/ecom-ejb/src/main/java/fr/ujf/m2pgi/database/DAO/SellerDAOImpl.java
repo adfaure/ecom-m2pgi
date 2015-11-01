@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.DAO;
 
 import fr.ujf.m2pgi.database.DTO.SellerDTO;
+import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Seller;
 
 import javax.ejb.Stateless;
@@ -26,5 +27,14 @@ public class SellerDAOImpl extends GeneriqueDAOImpl<Seller> implements ISellerDA
             return sellers.get(0);
         }
         return null;
+    }
+
+    @Override
+    public boolean createWithExistingMember(Member member, String RIB) {
+        Query query = this.entityManager.createNativeQuery("insert into Seller (memberid, rib) values (:id, :rib)");
+        query.setParameter("rib", RIB);
+        query.setParameter("id", member.getMemberID());
+        entityManager.flush();
+        return (query.executeUpdate() == 1);
     }
 }

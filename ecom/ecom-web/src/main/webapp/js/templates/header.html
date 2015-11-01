@@ -1,0 +1,23 @@
+<nav class="navbar navbar-default navbar-static-top" data-ng-controller="headerController">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"> ECOM </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav nav-tabs">
+                <li data-ng-if="!auth">
+                    <a href="#/inscription"> Sign up </a>
+                </li>
+                <li data-ng-if="!auth">
+                    <a href="#/login"> Sign in </a>
+                </li>
+                <li data-ng-if="auth">
+                    <a href="#/" ng-click="logout()"> Log out </a>
+                </li>
+                <li data-ng-if="auth">
+                    <a href="#/profil"> {{ user.lastName}} {{ user.firstName }} </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

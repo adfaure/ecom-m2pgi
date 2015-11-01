@@ -3,7 +3,7 @@ var angular = require('angular');
 var InscriptionController = function ($scope, memberService, sellerService) {
 
 	$scope.sellerTemplate = './js/templates/sellerInscription.html';
-	$scope.alertTemplate  = './js/templates/alertTemplate.html'
+	$scope.alertTemplate  = './js/templates/alertTemplate.html';
 	
     $scope.user = {
         email: "",
@@ -24,7 +24,7 @@ var InscriptionController = function ($scope, memberService, sellerService) {
     		$scope.user.accountType = 'S';
     	} else if(!$scope.sellerCheckBox) {
     		res = memberService.Create($scope.user);
-    		$scope.user.accountType = 'N';
+    		$scope.user.accountType = 'M';
     		delete $scope.user.RIB;
     	}
     	

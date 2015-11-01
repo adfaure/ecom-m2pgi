@@ -6,6 +6,7 @@ import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.DenyAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.SellerDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
+import fr.ujf.m2pgi.database.entities.Seller;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -16,6 +17,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by FAURE Adrien son 22/10/15.
@@ -41,5 +44,23 @@ public class RESTSellerServlet {
 		MemberDTO createdMember = memberService.createSeller(seller);
 		return Response.status(Status.CREATED).entity(createdMember).build();
 	}
+
+    @POST
+    @Path("/upgrade")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public Response upgradeMemberToSeller(SellerDTO seller) {
+        Map resJson = new HashMap<String, Object>();
+        SellerDTO newDTO = memberService.createSellerFromMember(seller);
+        if(newDTO != null) {
+            newDTO.setAccountType('S');
+            resJson.put("message", "success upgrade");
+            resJson.put("success", true);
+            resJson.put("user", newDTO);
+        } else {
+            resJson.put("success", false);
+        }
+        return  Response.ok().entity(resJson).build();
+    }
 
 }
