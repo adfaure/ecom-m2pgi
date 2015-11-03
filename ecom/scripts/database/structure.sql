@@ -25,7 +25,8 @@ CREATE TABLE "photo" (
 	 seller_id bigint REFERENCES "seller" (memberID),
 	 description varchar(250),
 	 name varchar(50),
-	 location varchar(50) NOT NULL,
+	 web_location varchar(250) NOT NULL,
+	 file_location varchar(250) NOT NULL,
 	 price NUMERIC(5,2) NOT NULL,
 	 PRIMARY KEY(photoID)
 );

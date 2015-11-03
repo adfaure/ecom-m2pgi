@@ -9,8 +9,8 @@ import java.io.OutputStream;
 import javax.ejb.Stateless;
 
 @Stateless
-public class FileService {
-	
+public class FileService implements IFileService {
+
 	// Save uploaded file to a defined location on the server
 	public void saveFile(InputStream uploadedInputStream, String serverLocation) {
 
@@ -19,7 +19,6 @@ public class FileService {
 			int read = 0;
 			byte[] bytes = new byte[1024];
 
-			outpuStream = new FileOutputStream(new File(serverLocation));
 			while ((read = uploadedInputStream.read(bytes)) != -1) {
 				outpuStream.write(bytes, 0, read);
 			}

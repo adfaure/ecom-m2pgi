@@ -18,6 +18,8 @@ var headerController      = require('./controllers/HeaderController');
 var accountDetails        = require('./controllers/AccountDetailsController')
 var upgradeController     = require('./controllers/accountDetails/upgradeAccount')
 var uploadController      = require('./controllers/accountDetails/uploadPhoto')
+var accueilController     = require('./controllers/AccueilController')
+
 /**
  * Services
  */
@@ -27,6 +29,8 @@ var httpInterceptor = require('./services/HttpInterceptor');
 var apiToken = require('./services/ApiToken');
 var authentificationService = require('./services/AuthentificationService');
 var uploadPhoto = require('./services/uploadPhoto');
+var publicPhoto = require('./services/PublicPhotoService');
+
 /**
  * Directives
  */
@@ -41,6 +45,10 @@ var ecomApp = angular.module('ecomApp', ['ngRoute']);
 ecomApp.config(function ($routeProvider, $httpProvider) {
 
     $routeProvider
+        .when('/accueil', {
+            templateUrl : './js/templates/accueil/accueil.html',
+            controller : 'accueilController'
+        })
         .when('/inscription', {
             templateUrl: './js/templates/inscription.html',
             controller: 'inscriptionController'
@@ -52,9 +60,11 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
         .when('/profil', {
             templateUrl: './js/templates/accountDetails.html',
             controller: 'accountDetails'
+        }).when('/', {
+            redirectTo: '/accueil',
         })
         .otherwise({
-            redirectTo: '/'
+            redirectTo: '/accueil'
         });
 
     $httpProvider.interceptors.push('httpInterceptor', httpInterceptor);
@@ -69,6 +79,7 @@ ecomApp.factory('authentificationService', authentificationService);
 ecomApp.factory('apiToken', apiToken);
 ecomApp.factory('httpInterceptor', httpInterceptor);
 ecomApp.factory('uploadPhoto', uploadPhoto);
+ecomApp.factory('publicPhoto', publicPhoto);
 
 ecomApp.controller('inscriptionController', inscriptionController);
 ecomApp.controller('mainController', mainController);
@@ -77,6 +88,7 @@ ecomApp.controller('headerController', headerController);
 ecomApp.controller('accountDetails', accountDetails);
 ecomApp.controller('upgradeController', upgradeController);
 ecomApp.controller('uploadPhoto', uploadController);
+ecomApp.controller('accueilController', accueilController);
 
 
 module.exports = ecomApp;
