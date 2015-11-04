@@ -11,14 +11,15 @@ var angularRoute = require('angular-route');
 /**
  * Controllers
  */
-var mainController        = require('./controllers/MainController');
-var inscriptionController = require('./controllers/InscriptionController');
-var loginController       = require('./controllers/LoginController');
-var headerController      = require('./controllers/HeaderController');
-var accountDetails        = require('./controllers/AccountDetailsController')
-var upgradeController     = require('./controllers/accountDetails/upgradeAccount')
-var uploadController      = require('./controllers/accountDetails/uploadPhoto')
-var accueilController     = require('./controllers/AccueilController')
+var mainController             = require('./controllers/MainController');
+var inscriptionController      = require('./controllers/InscriptionController');
+var loginController            = require('./controllers/LoginController');
+var headerController           = require('./controllers/HeaderController');
+var accountDetails             = require('./controllers/AccountDetailsController');
+var upgradeController          = require('./controllers/accountDetails/upgradeAccount');
+var uploadController           = require('./controllers/accountDetails/uploadPhoto');
+var accueilController          = require('./controllers/AccueilController');
+var detailsPhotoController     = require('./controllers/DetailsPhotoController');
 
 /**
  * Services
@@ -48,6 +49,10 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
         .when('/accueil', {
             templateUrl : './js/templates/accueil/accueil.html',
             controller : 'accueilController'
+        })
+        .when('/photos/details/:id', {
+            templateUrl : './js/templates/photoDetails.html',
+            controller : 'detailsPhotoController'
         })
         .when('/inscription', {
             templateUrl: './js/templates/inscription.html',
@@ -89,6 +94,7 @@ ecomApp.controller('accountDetails', accountDetails);
 ecomApp.controller('upgradeController', upgradeController);
 ecomApp.controller('uploadPhoto', uploadController);
 ecomApp.controller('accueilController', accueilController);
+ecomApp.controller('detailsPhotoController', detailsPhotoController);
 
 
 module.exports = ecomApp;

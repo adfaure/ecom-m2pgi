@@ -1,9 +1,9 @@
 <div data-ng-repeat="photo in photos">
-<div class="col-md-4">
-    <a href="{{photo.webLocation}}" class="thumbnail">
-        <p>{{photo.description}}</p>
-        <img src="{{photo.webLocation}}" alt="{{photo.name}}" style="width:150px;height:150px">
-    </a>
-</div>
+    <div class="col-md-12">
+        <a href="" data-ng-click="details(photo.photoID)" class="thumbnail">
+            <p>{{photo.description}}</p>
+            <img ng-src="{{photo.webLocation}}" alt="{{photo.name}}" >
+        </a>
+    </div>
 </div>
 
