@@ -2,6 +2,7 @@ package fr.ujf.m2pgi.database.Service;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.ISellerDAO;
@@ -18,23 +19,28 @@ import fr.ujf.m2pgi.database.entities.Seller;
 @Stateless
 public class MemberService {
 
-
-	@EJB
+	/**
+	 *
+	 */
+	@Inject
 	private IMemberMapper memberMapper;
 
-	@EJB
+	/**
+	 *
+	 */
+	@Inject
 	private ISellerMapper sellerMapper;
 
 	/**
 	 *
 	 */
-	@EJB
+	@Inject
 	private IMemberDAO memberDao;
 
 	/**
 	 *
 	 */
-	@EJB
+	@Inject
 	private ISellerDAO sellerDAO;
 
 	/**

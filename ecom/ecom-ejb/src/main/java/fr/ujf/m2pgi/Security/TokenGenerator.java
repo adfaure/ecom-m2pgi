@@ -1,10 +1,9 @@
 package fr.ujf.m2pgi.Security;
 
-import sun.security.provider.SecureRandom;
-
 import javax.ejb.Stateless;
 
 import java.util.UUID;
+
 /**
  * Created by FAURE Adrien on 25/10/15.
  */

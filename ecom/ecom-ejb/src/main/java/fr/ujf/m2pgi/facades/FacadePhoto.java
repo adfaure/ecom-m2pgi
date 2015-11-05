@@ -7,6 +7,7 @@ import fr.ujf.m2pgi.properties.IProperties;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
@@ -17,13 +18,13 @@ import java.util.Properties;
 @Stateless
 public class FacadePhoto {
 
-    @EJB // TODO for the moment its better than hardcode paths
+    @Inject // TODO for the moment its better than hardcode paths
     private IProperties applicationProperties;
 
-    @EJB
+    @Inject
     private IFileService fileService;
 
-    @EJB
+    @Inject
     private IPhotoService photoService;
 
     public PhotoDTO savePhoto(InputStream photo, PhotoDTO photoDTO) {

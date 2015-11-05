@@ -92,7 +92,7 @@ public class RESTPhotosServlet {
 	@Path("/upload/seller/{id:[1-9][0-9]*}")
 	@Consumes("multipart/form-data")//@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces("application/json")
-	@Allow(groups="seller")
+	@Allow(groups="sellers")
 	public Response uploadFile(MultipartFormDataInput input, @PathParam("id") long id) {
 		HttpSession session = httpServletRequest.getSession();
 		DecimalFormat df = new DecimalFormat("###.##"); //FIXME maybe generalise this
