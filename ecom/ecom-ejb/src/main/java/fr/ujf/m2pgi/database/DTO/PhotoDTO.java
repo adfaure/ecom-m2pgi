@@ -31,13 +31,32 @@ public class PhotoDTO implements Serializable {
 	private String name;
 	
 	@XmlElement
-	private String location;
-	
+	private String fileLocation;
+
+	@XmlElement
+	private String webLocation;
+
 	@XmlElement
 	private float price;
 	
 	@XmlElement
 	private long sellerID;
+
+	public String getWebLocation() {
+		return webLocation;
+	}
+
+	public void setWebLocation(String webLocation) {
+		this.webLocation = webLocation;
+	}
+
+	public String getFileLocation() {
+		return fileLocation;
+	}
+
+	public void setFileLocation(String fileLocation) {
+		this.fileLocation = fileLocation;
+	}
 
 	public long getPhotoId() {
 		return photoID;
@@ -61,14 +80,6 @@ public class PhotoDTO implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
 	}
 
 	public float getPrice() {

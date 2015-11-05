@@ -17,6 +17,8 @@ import javax.ws.rs.core.Response.Status;
 
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
+import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
+import fr.ujf.m2pgi.facades.FacadePhoto;
 import org.apache.james.mime4j.message.BodyPart;
 import org.apache.james.mime4j.message.SingleBody;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
@@ -34,13 +36,10 @@ import fr.ujf.m2pgi.database.Service.PhotoService;
 public class RESTPhotosServlet {
 
 	@EJB
-	private PhotoService photoService;
+	private FacadePhoto facadePhoto;
 
 	@EJB
 	private MemberService memberService;
-
-	@EJB
-	private FileService fileService;
 
 	@Context
 	private HttpServletRequest httpServletRequest;
@@ -48,8 +47,9 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/")
 	@Produces("application/json")
+	@AllowAll
 	public Response getAllPhotos() {
-		List<PhotoDTO> photos = photoService.getAllPhotos();
+		List<PhotoDTO> photos = facadePhoto.getAllPhotos();
 		return Response.ok(photos).build();
 	}
 
@@ -57,7 +57,7 @@ public class RESTPhotosServlet {
 	@Path("/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
 	public Response getPhotoByID(@PathParam("id") Long id) {
-		PhotoDTO photo =  photoService.getPhotoById(id);
+		PhotoDTO photo =  facadePhoto.getPhotoById(id);
 		return Response.ok(photo).build();
 	}
 
@@ -68,7 +68,7 @@ public class RESTPhotosServlet {
 
 
 	public Response getUserPhotos(@PathParam("id") Long id) {
-		List<PhotoDTO> photos = photoService.getUserPhotos(id);
+		List<PhotoDTO> photos = facadePhoto.getUserPhotos(id);
 		return Response.ok(photos).build();
 	}
 
@@ -76,7 +76,7 @@ public class RESTPhotosServlet {
 	@Path("/user/login/{login}")
 	@Produces("application/json")
 	public Response getUserPhotos(@PathParam("login") String login) {
-		List<PhotoDTO> photos = photoService.getUserPhotos(login);
+		List<PhotoDTO> photos = facadePhoto.getUserPhotos(login);
 		return Response.ok(photos).build();
 	}
 
@@ -84,7 +84,7 @@ public class RESTPhotosServlet {
 	@Path("/delete/{id:[1-9][0-9]*}")
 	@Produces("application/json")
 	public Response deletePhotoByID(@PathParam("id") Long id) {
-		PhotoDTO photo =  photoService.deletePhoto(id);
+		PhotoDTO photo =  facadePhoto.deletePhoto(id);
 		return Response.ok(photo).build();
 	}
 
@@ -113,6 +113,7 @@ public class RESTPhotosServlet {
 		}
 
 		try {
+			InputStream istream = null;
 			if(!formParts.containsKey("description")) {
 				return Response.status(Status.BAD_REQUEST).build();
 			} else {
@@ -126,27 +127,26 @@ public class RESTPhotosServlet {
 				MultivaluedMap<String, String> headers = inputPart.getHeaders();
 				fileName = parseFileName(headers);
 				// Handle the body of that part with an InputStream
-				InputStream istream = inputPart.getBody(InputStream.class,null);
-				fileService.saveFile(istream,"/tmp/" + fileName);
-
+				istream = inputPart.getBody(InputStream.class,null);
 			}
+
+
+			PhotoDTO photo = new PhotoDTO();
+			photo.setName(fileName);
+			photo.setPrice(price);
+			photo.setDescription(description);
+			photo.setSellerID(id);
+			PhotoDTO created = facadePhoto.savePhoto(istream, photo);
+			if (created == null) return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
+			return Response.status(Status.CREATED).entity(created).build();
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).build();
 		} catch (NumberFormatException nb) {
 			nb.printStackTrace();
 			return Response.status(Status.BAD_REQUEST).build();
 		}
-
-		PhotoDTO photo = new PhotoDTO();
-		photo.setLocation("/tmp/" + fileName);
-		photo.setName(fileName);
-		photo.setPrice(price);
-		photo.setDescription(description);
-		photo.setSellerID(id);
-		PhotoDTO created = photoService.createPhoto(photo);
-		if (created == null) return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
-		return Response.status(Status.CREATED).entity(created).build();
 	}
 
 	// Parse Content-Disposition header to get the original file name.

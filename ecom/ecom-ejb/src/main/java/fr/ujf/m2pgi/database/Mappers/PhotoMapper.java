@@ -19,6 +19,8 @@ public class PhotoMapper extends GeneriqueMapperImpl<PhotoDTO, Photo> implements
             @Override
             protected void configure() {
                 map().setSellerID(source.getAuthor().getMemberID());
+                /*FIXME care here we loose the information of where the file is (the original).
+                        We only want to give to the client the name of the public file (the watermarked one) */
             }
         };
 
