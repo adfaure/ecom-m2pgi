@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.ISellerDAO;
@@ -22,13 +23,22 @@ import fr.ujf.m2pgi.database.entities.Seller;
 @Stateless
 public class PhotoService implements IPhotoService{
 
-	@EJB
+	/**
+	 *
+	 */
+	@Inject
 	private IPhotoMapper photoMapper;
 
-	@EJB
+	/**
+	 *
+	 */
+	@Inject
 	private IPhotoDAO photoDao;
-	
-	@EJB
+
+	/**
+	 *
+	 */
+	@Inject
 	private ISellerDAO sellerDao;
 	
 	/**
@@ -72,6 +82,10 @@ public class PhotoService implements IPhotoService{
 		return photoMapper.getDTO(photoDao.create(photoEntity));
 	}
 
+	/**
+	 *
+	 * @return
+     */
 	public List<PhotoDTO> getAllPhotos() {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getAllPhotos()) {
@@ -79,7 +93,12 @@ public class PhotoService implements IPhotoService{
 		}
 		return result;
 	}
-	
+
+	/**
+	 *
+	 * @param id
+	 * @return
+     */
 	public List<PhotoDTO> getUserPhotos(Long id) {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getUserPhotos(id)) {
@@ -87,7 +106,12 @@ public class PhotoService implements IPhotoService{
 		}
 		return result;
 	}
-	
+
+	/**
+	 *
+	 * @param login
+	 * @return
+     */
 	public List<PhotoDTO> getUserPhotos(String login) {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getUserPhotos(login)) {
@@ -96,6 +120,11 @@ public class PhotoService implements IPhotoService{
 		return result;
 	}
 
+	/**
+	 *
+	 * @param uploadedInputStream
+	 * @param serverLocation
+     */
 	// Save uploaded file to a defined location on the server
 	public void saveFile(InputStream uploadedInputStream, String serverLocation) {
 

@@ -4,12 +4,12 @@ import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.entities.Order;
 import org.modelmapper.PropertyMap;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 /**
  * Created by AZOUZI Marwen 30/10/15.
  */
-@Stateless
 public class OrderMapper extends GeneriqueMapperImpl<OrderDTO, Order> implements IOrderMapper {
 
     public OrderMapper() {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IOrderDAO;
@@ -23,18 +24,34 @@ import fr.ujf.m2pgi.database.entities.Member;
 @Stateless
 public class OrderService {
 
-	@EJB
+	/**
+	 *
+	 */
+	@Inject
 	private IOrderMapper orderMapper;
 
-	@EJB
-	IOrderDAO orderDao;
-	
-	@EJB
-	IMemberDAO memberDao;
-	
-	@EJB
-	IPhotoDAO photoDao;
+	/**
+	 *
+	 */
+	@Inject
+	private IOrderDAO orderDao;
 
+	/**
+	 *
+	 */
+	@Inject
+	private IMemberDAO memberDao;
+
+	/**
+	 *
+	 */
+	@Inject
+	private IPhotoDAO photoDao;
+
+	/**
+	 *
+	 * @return
+     */
 	public List<OrderDTO> getAllOrders() {
 		List<OrderDTO> result = new ArrayList<OrderDTO>();
 		for(Order order: orderDao.getAllOrders()) {
@@ -42,7 +59,12 @@ public class OrderService {
 		}
 		return result;
 	}
-	
+
+	/**
+	 *
+	 * @param login
+	 * @return
+     */
 	public List<OrderDTO> getCustomerOrders(String login) {
 		List<OrderDTO> result = new ArrayList<OrderDTO>();
 		for(Order order: orderDao.getCustomerOrders(login)) {
@@ -50,7 +72,12 @@ public class OrderService {
 		}
 		return result;
 	}
-	
+
+	/**
+	 *
+	 * @param order
+	 * @return
+     */
 	public OrderDTO createOrder(OrderDTO order) {
 		Member member = memberDao.find(order.getMemberID());
 		if (member == null) return null;// FixeME it would be better to throw custom exception such as CustomerNotFoundException

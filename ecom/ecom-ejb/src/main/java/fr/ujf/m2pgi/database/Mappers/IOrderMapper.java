@@ -8,7 +8,6 @@ import javax.ejb.Local;
 /**
  * Created by FAURE Adrien on 29/10/15.
  */
-@Local
 public interface IOrderMapper extends IGeneriqueMapper<OrderDTO, Order> {
 
 }

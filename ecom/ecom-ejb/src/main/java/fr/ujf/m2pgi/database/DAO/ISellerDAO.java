@@ -9,7 +9,6 @@ import javax.ejb.Local;
 /**
  * Created by FAURE Adrien on 22/10/15.
  */
-@Local
 public interface ISellerDAO extends IGeneriqueDAO<Seller> {
 
     /**
