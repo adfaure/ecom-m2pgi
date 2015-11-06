@@ -94,4 +94,9 @@ public class PhotoService {
 		}
 		return result;
 	}
+	
+	public Long getPhotoCount() {
+		Long pCount = photoDao.getPhotoCount();
+		return pCount;
+	}
 }
