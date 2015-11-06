@@ -4,6 +4,7 @@ import fr.ujf.m2pgi.database.DTO.SellerDTO;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Seller;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.List;
 /**
  * Created by FAURE Adrien on 22/10/15.
  */
-@Stateless
 public class SellerDAOImpl extends GeneriqueDAOImpl<Seller> implements ISellerDAO {
 
     /**

@@ -1,10 +1,12 @@
 package fr.ujf.m2pgi.database.Service;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.ISellerDAO;
@@ -19,16 +21,25 @@ import fr.ujf.m2pgi.database.entities.Seller;
  *
  */
 @Stateless
-public class PhotoService {
+public class PhotoService implements IPhotoService{
 
-	@EJB
+	/**
+	 *
+	 */
+	@Inject
 	private IPhotoMapper photoMapper;
 
-	@EJB
-	IPhotoDAO photoDao;
-	
-	@EJB
-	ISellerDAO sellerDao;
+	/**
+	 *
+	 */
+	@Inject
+	private IPhotoDAO photoDao;
+
+	/**
+	 *
+	 */
+	@Inject
+	private ISellerDAO sellerDao;
 	
 	/**
 	 * 
@@ -71,6 +82,10 @@ public class PhotoService {
 		return photoMapper.getDTO(photoDao.create(photoEntity));
 	}
 
+	/**
+	 *
+	 * @return
+     */
 	public List<PhotoDTO> getAllPhotos() {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getAllPhotos()) {
@@ -78,7 +93,12 @@ public class PhotoService {
 		}
 		return result;
 	}
-	
+
+	/**
+	 *
+	 * @param id
+	 * @return
+     */
 	public List<PhotoDTO> getUserPhotos(Long id) {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getUserPhotos(id)) {
@@ -86,7 +106,12 @@ public class PhotoService {
 		}
 		return result;
 	}
-	
+
+	/**
+	 *
+	 * @param login
+	 * @return
+     */
 	public List<PhotoDTO> getUserPhotos(String login) {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getUserPhotos(login)) {
@@ -94,9 +119,35 @@ public class PhotoService {
 		}
 		return result;
 	}
+
 	
 	public Long getPhotoCount() {
 		Long pCount = photoDao.getPhotoCount();
 		return pCount;
+	}
+
+	/**
+	 *
+	 * @param uploadedInputStream
+	 * @param serverLocation
+     */
+	// Save uploaded file to a defined location on the server
+	public void saveFile(InputStream uploadedInputStream, String serverLocation) {
+
+		try {
+			OutputStream outpuStream = new FileOutputStream(new File(serverLocation));
+			int read = 0;
+			byte[] bytes = new byte[1024];
+
+			outpuStream = new FileOutputStream(new File(serverLocation));
+			while ((read = uploadedInputStream.read(bytes)) != -1) {
+				outpuStream.write(bytes, 0, read);
+			}
+			outpuStream.flush();
+			outpuStream.close();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 	}
 }

@@ -26,33 +26,3 @@ var upload = function($scope, uploadPhoto) {
 };
 
 module.exports = upload;
-
-
-        var response = {
-            success: true,
-            body: {
-                alert: {
-                    message: "c'est ok",
-                    alertType: "succes"
-                },
-                entity: {
-                    photos: [
-                        //  ...
-                    ]
-                }
-            }
-        }
-
-
-
-        var response = {
-            success: false,
-            error : "Error123",
-            body: {
-                alert: {
-                    message: "Impossible",
-                    alertType: "danger"
-                }
-            }
-        }
-

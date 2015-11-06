@@ -2,6 +2,7 @@ package fr.ujf.m2pgi.database.DAO;
 
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
@@ -11,7 +12,6 @@ import fr.ujf.m2pgi.database.entities.Member;
 /**
  *
  */
-@Stateless 
 @SuppressWarnings("unchecked")
 public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDAO {
 

@@ -3,6 +3,7 @@ package fr.ujf.m2pgi.database.DAO;
 
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
@@ -14,7 +15,7 @@ import fr.ujf.m2pgi.database.entities.Photo;
  * @author AZOUZI Marwen
  *
  */
-@Stateless
+
 public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 
 	@SuppressWarnings("unchecked")

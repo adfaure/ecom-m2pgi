@@ -9,3 +9,7 @@ app.js
 *.log
 *.iml
 .buildpath
+*.swp
+*.ipr
+*.iws
+

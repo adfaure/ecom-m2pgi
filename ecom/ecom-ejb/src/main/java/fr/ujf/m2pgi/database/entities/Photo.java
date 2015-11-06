@@ -26,11 +26,30 @@ public class Photo {
 	@Column(name="name", nullable=false)
 	private String name;
 	
-	@Column(name="location", nullable=false)
-	private String location;
+	@Column(name="web_location", nullable=false)
+	private String webLocation; //FIXME choose better name (maybe publicLocation, watermarkLocation ...)
+
+	@Column(name="file_location", nullable=false)
+	private String fileLocation; // FIXME same here : origirnalLocation
 	
 	@Column(name="price")
 	private float price;
+
+	public String getFileLocation() {
+		return fileLocation;
+	}
+
+	public void setFileLocation(String fileLocation) {
+		this.fileLocation = fileLocation;
+	}
+
+	public String getWebLocation() {
+		return webLocation;
+	}
+
+	public void setWebLocation(String webLocation) {
+		this.webLocation = webLocation;
+	}
 
 	public long getPhotoID() {
 		return photoID;
@@ -62,14 +81,6 @@ public class Photo {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
 	}
 
 	public float getPrice() {

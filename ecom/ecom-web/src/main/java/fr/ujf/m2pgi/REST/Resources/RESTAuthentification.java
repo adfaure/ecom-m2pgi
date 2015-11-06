@@ -37,7 +37,7 @@ public class RESTAuthentification {
     @Path("/login/{username}")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("application/json")
-    @Deny(groups="seller;members;admin")
+    @Deny(groups="sellers;members;admin")
     public Response login(@PathParam("username") String username)  {
 
         MemberDTO member    = memberService.getMemberByLogin(username);
@@ -54,7 +54,7 @@ public class RESTAuthentification {
             principal.setUser(member);
             switch (member.getAccountType()) {
                 case 'S':
-                    principal.setGroup("seller");
+                    principal.setGroup("sellers");
                     break;
                 case 'M':
                     principal.setGroup("members");
@@ -73,7 +73,7 @@ public class RESTAuthentification {
     @POST
     @Path("/logout")
     @Produces("application/json")
-    @Allow(groups="seller;members;admin")
+    @Allow(groups="sellers;members;admin")
     public Response logout() {
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute("principal", null);
