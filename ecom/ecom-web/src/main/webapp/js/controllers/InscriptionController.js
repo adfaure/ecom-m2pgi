@@ -1,19 +1,16 @@
 var angular = require('angular');
 
-var InscriptionController = function ($scope, memberService, sellerService) {
+var InscriptionController = function ($scope, memberService, sellerService, alertService) {
 
 	$scope.sellerTemplate = './js/templates/sellerInscription.html';
-	$scope.alertTemplate  = './js/templates/alertTemplate.html';
-	
+
     $scope.user = {
         email: "",
         firstName: "",
         lastName: "",
         accountType: 'N'
     };
-    
-    $scope.alert = false;
-    $scope.alertType = "";
+
     $scope.sellerCheckBox = false;
     
     $scope.submit = function () {
@@ -32,22 +29,14 @@ var InscriptionController = function ($scope, memberService, sellerService) {
 	    		res.then(function (res) {
 		            console.log(res);
 		            if (res.success == false) {
-		                $scope.alertClass = "alert-danger";
-		                $scope.message = " Erreur, lors de l'inscription ";
-		                $scope.alert = true;
+						alertService.add("alert-danger", " Erreur, lors de l'inscription ", 1000);
 		            } else {
-		            	$scope.alertClass = "alert-success";
-		                $scope.message = " Enregistré ! ";
-		                $scope.alert = true;
+
+						alertService.add("alert-success", "Enregistré ! ", 2000);
 		            }
 	        });
         }
     };
-    
-    $scope.toogleAlert = function() {
-    	$scope.alert = !$scope.alert;
-    }
-    
 };
 
 module.exports = InscriptionController;
