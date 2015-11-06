@@ -21,6 +21,22 @@ var accueilController = function($scope,$location ,publicPhoto) {
             });
     }
 
+    $scope.hitCount = 0;
+
+    $scope.search = {
+        term: '',
+    };
+
+    $scope.search = function (){
+      publicPhoto.Search($scope.search.term).then(function(res) {
+              $scope.hitCount = res.totalHits;
+              $scope.took = res.took;
+              $scope.photos = res.hits;
+              console.log(res);
+          }
+      );
+    }
+
 };
 
 module.exports = accueilController;
