@@ -7,6 +7,7 @@ var bootsrap = require('bootstrap');
 /** Angular deps */
 var angular = require('angular');
 var angularRoute = require('angular-route');
+var angularAnimate = require('angular-animate');
 
 /**
  * Controllers
@@ -29,8 +30,9 @@ var sellerService = require('./services/SellerService');
 var httpInterceptor = require('./services/HttpInterceptor');
 var apiToken = require('./services/ApiToken');
 var authentificationService = require('./services/AuthentificationService');
-var uploadPhoto = require('./services/uploadPhoto');
-var publicPhoto = require('./services/PublicPhotoService');
+var uploadPhoto  = require('./services/uploadPhoto');
+var publicPhoto  = require('./services/PublicPhotoService');
+var alertService = require('./services/AlertService');
 
 /**
  * Directives
@@ -41,7 +43,7 @@ var inputFileDir = require('./directives/InputFile');
  *
  * @type {module}
  */
-var ecomApp = angular.module('ecomApp', ['ngRoute']);
+var ecomApp = angular.module('ecomApp', ['ngRoute', 'ngAnimate']);
 
 ecomApp.config(function ($routeProvider, $httpProvider) {
 
@@ -85,6 +87,7 @@ ecomApp.factory('apiToken', apiToken);
 ecomApp.factory('httpInterceptor', httpInterceptor);
 ecomApp.factory('uploadPhoto', uploadPhoto);
 ecomApp.factory('publicPhoto', publicPhoto);
+ecomApp.factory('alertService', alertService);
 
 ecomApp.controller('inscriptionController', inscriptionController);
 ecomApp.controller('mainController', mainController);

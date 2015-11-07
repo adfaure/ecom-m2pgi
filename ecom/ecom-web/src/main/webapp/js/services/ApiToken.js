@@ -1,36 +1,34 @@
 var angular = require('angular');
 
-function apitoken() {
-    var apitoken = {};
-    apitoken.token = "";
-    apitoken.user  = null;
-    apitoken.isAuthentificated = isAuthentificated;
-    apitoken.setToken = setToken;
-    apitoken.getToken = getToken;
-    apitoken.getUser = getUser;
-    apitoken.setUser = setUser;
-    return apitoken;
+module.exports = function apitoken() {
+    var service = {};
+    service.token = "";
+    service.user  = null;
+    service.isAuthentificated = isAuthentificated;
+    service.setToken = setToken;
+    service.getToken = getToken;
+    service.getUser = getUser;
+    service.setUser = setUser;
+    return service;
 
     function isAuthentificated() {
-        return (apitoken.token !== "");
+        return (service.token !== "");
     }
 
     function setToken(token) {
-        apitoken.token = token;
+        service.token = token;
     }
 
     function getToken(token) {
-        return apitoken.token;
+        return service.token;
     }
 
     function getUser() {
-        return apitoken.user;
+        return service.user;
     }
 
     function setUser(user) {
-        apitoken.user = user;
+        service.user = user;
     }
-
 };
 
-module.exports = apitoken;
