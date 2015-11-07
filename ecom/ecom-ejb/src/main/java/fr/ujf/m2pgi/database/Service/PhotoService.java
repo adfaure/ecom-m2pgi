@@ -14,9 +14,11 @@ import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Seller;
+import fr.ujf.m2pgi.elasticsearch.ElasticsearchDao;
+import fr.ujf.m2pgi.elasticsearch.PhotoDocument;
 
 /**
- * 
+ *
  * @author AZOUZI Marwen
  *
  */
@@ -40,9 +42,15 @@ public class PhotoService implements IPhotoService{
 	 */
 	@Inject
 	private ISellerDAO sellerDao;
-	
+
 	/**
-	 * 
+	 *
+	 */
+	@Inject
+ 	private ElasticsearchDao photoDaoES;
+
+	/**
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -54,9 +62,9 @@ public class PhotoService implements IPhotoService{
 	    }
 	    return null;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -68,18 +76,30 @@ public class PhotoService implements IPhotoService{
 		}
 		return null;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param photo
 	 * @return
 	 */
 	public PhotoDTO createPhoto(PhotoDTO photo) {
-		Seller seller = sellerDao.find(photo.getSellerID());
-		if (seller == null) return null;
-		Photo photoEntity = photoMapper.getentity(photo);
-		photoEntity.setAuthor(seller);
-		return photoMapper.getDTO(photoDao.create(photoEntity));
+		  Seller seller = sellerDao.find(photo.getSellerID());
+		  if (seller == null) return null;
+		  Photo photoEntity = photoMapper.getentity(photo);
+		  photoEntity.setAuthor(seller);
+		  PhotoDTO created = photoMapper.getDTO(photoDao.create(photoEntity));
+		  PhotoDocument doc = new PhotoDocument();
+		  doc.setId(created.getPhotoId());
+		  doc.setName(created.getName());
+		  doc.setDescription(created.getDescription());
+		  doc.setLocation(created.getWebLocation());
+		  try {
+			    System.out.println(photoDaoES.index(doc));
+		  } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		  }
+	    return created;
 	}
 
 	/**
