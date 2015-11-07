@@ -28,6 +28,9 @@ import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Service.FileService;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.database.Service.PhotoService;
+import fr.ujf.m2pgi.elasticsearch.PhotoDocument;
+import fr.ujf.m2pgi.elasticsearch.PhotoServiceES;
+import fr.ujf.m2pgi.elasticsearch.SearchResult;
 
 /**
  * Created by AZOUZI Marwen 23/10/15
@@ -40,6 +43,9 @@ public class RESTPhotosServlet {
 
 	@EJB
 	private MemberService memberService;
+
+	@EJB
+	private PhotoServiceES photoServiceES;
 
 	@Context
 	private HttpServletRequest httpServletRequest;
@@ -54,6 +60,24 @@ public class RESTPhotosServlet {
 	}
 
 	@GET
+	@Path("/search")
+	@Produces("application/json")
+	@AllowAll
+	public Response getAllPhotosES() {
+		SearchResult photos = photoServiceES.getAllPhotos();
+		return Response.ok(photos).build();
+	}
+
+	@GET
+	@Path("/search/{text}")
+	@Produces("application/json")
+	@AllowAll
+	public Response searchPhotosES(@PathParam("text") String text) {
+		SearchResult photos = photoServiceES.searchPhotos(text);
+		return Response.ok(photos).build();
+	}
+
+	@GET
 	@Path("/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
 	public Response getPhotoByID(@PathParam("id") Long id) {
@@ -64,9 +88,6 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/user/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
-
-
-
 	public Response getUserPhotos(@PathParam("id") Long id) {
 		List<PhotoDTO> photos = facadePhoto.getUserPhotos(id);
 		return Response.ok(photos).build();
