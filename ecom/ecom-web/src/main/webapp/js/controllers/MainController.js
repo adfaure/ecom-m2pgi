@@ -1,7 +1,13 @@
 var angular = require('angular');
 
-var MainController = function($scope) {
-	$scope.headerTemplate = './js/templates/header.html';
+var templates = {
+	alertTemplate  : './js/templates/alertTemplate.html',
+	headerTemplate : './js/templates/header.html'
+};
+
+var MainController = function($scope, alertService) {
+	$scope.templates = templates;
+	$scope.alerts    = alertService.get();
 };
 
 module.exports = MainController;

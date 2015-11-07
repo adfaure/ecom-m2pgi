@@ -16,7 +16,8 @@
 
 <body ng-controller="mainController">
 
-    <div ng-include="headerTemplate"></div>
+    <div data-ng-include="templates.headerTemplate"></div>
+    <div data-ng-include="templates.alertTemplate"></div>
 
     <div class="container">
         <div data-ng-view></div>
