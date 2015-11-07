@@ -1,10 +1,11 @@
 var angular = require('angular');
 
-var accueilController = function($scope,$location ,publicPhoto) {
+var accueilController = function($scope, $location, publicPhoto) {
+    var cachedPhotos = [];
 
     publicPhoto.GetAll().then(function(res) {
             console.log(res);
-            $scope.photos = res;
+            $scope.photos = cachedPhotos = res;
         }
     );
 
@@ -21,20 +22,27 @@ var accueilController = function($scope,$location ,publicPhoto) {
             });
     }
 
-    $scope.hitCount = 0;
-
     $scope.search = {
-        term: '',
+        terms : '',
+        hitCount : 0,
+        took : 0,
     };
 
-    $scope.search = function (){
-      publicPhoto.Search($scope.search.term).then(function(res) {
-              $scope.hitCount = res.totalHits;
-              $scope.took = res.took;
-              $scope.photos = res.hits;
-              console.log(res);
-          }
-      );
+    $scope.elasticsearch = function (){
+      publicPhoto.Search($scope.terms).then(function(res) {
+        $scope.search.terms = $scope.terms;
+        $scope.search.hitCount = res.totalHits;
+        $scope.search.took = res.took;
+        $scope.photos = res.hits;
+        console.log(res);
+        console.log($scope.search);
+      });
+    }
+
+    $scope.photosFromCache = function (){
+      $scope.terms = '';
+      $scope.search.hitCount = null;
+      $scope.photos = cachedPhotos;
     }
 
 };
