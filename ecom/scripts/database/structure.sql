@@ -1,4 +1,5 @@
 DROP TABLE "orders";
+DROP TABLE "cart";
 DROP TABLE "photo";
 DROP TABLE "seller";
 DROP TABLE "member";
@@ -37,4 +38,10 @@ CREATE TABLE IF NOT EXISTS "orders" (
 	 photoID bigint REFERENCES "photo" (photoID),
 	 date_created timestamp default current_timestamp,
 	 PRIMARY KEY(orderID)
+);
+
+CREATE TABLE IF NOT EXISTS "cart" (
+	memberID bigint REFERENCES "member" (memberID),
+	photoID bigint REFERENCES "photo" (photoID),
+	PRIMARY KEY (memberID , photoID )
 );

@@ -17,4 +17,6 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	 */
 	Member findMemberByLogin(String login);
 
+	Member updateCart(Member member);
+
 }

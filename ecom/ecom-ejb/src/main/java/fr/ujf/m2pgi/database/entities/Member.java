@@ -1,5 +1,6 @@
 package fr.ujf.m2pgi.database.entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Table(name="member")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorValue(value = "M")
-public class Member {
+public class Member implements Serializable {
 
 	@Id
 	@Column(name="memberID", columnDefinition = "serial")
@@ -40,6 +41,20 @@ public class Member {
 	
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Collection<Order> orderedPhotos;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "cart",
+		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> cart;
+
+	public Collection<Photo> getCart() {
+		return cart;
+	}
+
+	public void setCart(Collection<Photo> cart) {
+		this.cart = cart;
+	}
 
 	public long getMemberID() {
 		return memberID;

@@ -1,5 +1,7 @@
 package fr.ujf.m2pgi.database.DAO;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -8,6 +10,7 @@ import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.entities.Member;
+import fr.ujf.m2pgi.database.entities.Photo;
 
 /**
  *
@@ -24,5 +27,18 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 			return members.get(0);
 		}
 		return null;
+	}
+
+
+
+	//https://forum.hibernate.org/viewtopic.php?p=2404391
+	public Member updateCart(Member member) {
+		Member attachedMember  = entityManager.getReference(Member.class, member.getMemberID());
+		Collection<Photo> attachedCart = new ArrayList<Photo>();
+		for(Photo photo : member.getCart()) {
+			attachedCart .add(this.entityManager.getReference(Photo.class, photo.getPhotoID()));
+		}
+		attachedMember.setCart(attachedCart );
+		return super.update(attachedMember);
 	}
 }
