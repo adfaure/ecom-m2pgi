@@ -1,0 +1,15 @@
+<div ng-if="!alreadyInCart">
+    <button type="button" class="btn btn-success btn-sm" ng-click="clickAdd(photo)" >
+        <i class="fa fa-cart-plus"></i>  ajouter au panier
+    </button>
+</div>
+
+<div ng-if="alreadyInCart">
+    <button type="button" class="btn btn-success btn-sm" ng-click="clickRemove(photo)" >
+        <span class="fa-stack">
+            <i class="fa fa-shopping-cart fa-stack-1x"></i>
+            <i class="fa fa-ban fa-stack-2x text-danger"></i>
+        </span>
+        supprimer du panier
+    </button>
+</div>

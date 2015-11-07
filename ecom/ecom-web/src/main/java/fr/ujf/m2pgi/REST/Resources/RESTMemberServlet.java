@@ -55,8 +55,8 @@ public class RESTMemberServlet {
 		p.setPhotoId(photoId);
 		MemberDTO m = new MemberDTO();
 		m.setMemberID(id);
-		memberService.addToCart(m, p);
-		return  Response.status(Status.ACCEPTED).build();
+		MemberDTO res = memberService.addToCart(m, p);
+		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
 
 	@DELETE
@@ -70,8 +70,8 @@ public class RESTMemberServlet {
 		p.setPhotoId(photoId);
 		MemberDTO m = new MemberDTO();
 		m.setMemberID(id);
-		memberService.removeToCart(m, p);
-		return  Response.status(Status.ACCEPTED).build();
+		MemberDTO res = memberService.removeToCart(m, p);
+		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
 
 	@DELETE
@@ -83,7 +83,7 @@ public class RESTMemberServlet {
 		if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
 		MemberDTO dto = new MemberDTO();
 		dto.setMemberID(id); //FIXME USe principal user
-		memberService.deleteCart(dto);
-		return  Response.status(Status.ACCEPTED).build();
+		MemberDTO res = memberService.deleteCart(dto);
+		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
 }

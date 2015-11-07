@@ -1,8 +1,4 @@
-DROP TABLE "orders";
-DROP TABLE "cart";
-DROP TABLE "photo";
-DROP TABLE "seller";
-DROP TABLE "member";
+DROP TABLE "orders", "cart", "photo", "seller" ,"member";
 
 CREATE TABLE "member" (
 	 memberID BIGSERIAL,
