@@ -1,7 +1,4 @@
-DROP TABLE "orders";
-DROP TABLE "photo";
-DROP TABLE "seller";
-DROP TABLE "member";
+DROP TABLE "orders", "cart", "photo", "seller" ,"member";
 
 CREATE TABLE "member" (
 	 memberID BIGSERIAL,
@@ -37,4 +34,10 @@ CREATE TABLE IF NOT EXISTS "orders" (
 	 photoID bigint REFERENCES "photo" (photoID),
 	 date_created timestamp default current_timestamp,
 	 PRIMARY KEY(orderID)
+);
+
+CREATE TABLE IF NOT EXISTS "cart" (
+	memberID bigint REFERENCES "member" (memberID),
+	photoID bigint REFERENCES "photo" (photoID),
+	PRIMARY KEY (memberID , photoID )
 );

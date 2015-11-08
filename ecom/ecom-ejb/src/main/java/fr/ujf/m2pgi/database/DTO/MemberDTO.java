@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.DTO;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -63,12 +64,27 @@ public class MemberDTO implements Serializable {
 	@XmlElement 
 	private char accountType;
 
+	/**
+	 *
+	 */
+	@XmlElement
+	private Collection<PhotoDTO> cart;
+
+	public Collection<PhotoDTO> getCart() {
+		return cart;
+	}
+
+	public void setCart(Collection<PhotoDTO> cart) {
+		this.cart = cart;
+	}
+
 	public long getMemberID() {
 		return memberID;
 	}
 
-	public void setMemberID(long memberID) {
+	public MemberDTO setMemberID(long memberID) {
 		this.memberID = memberID;
+		return null;
 	}
 
 	public String getFirstName() {

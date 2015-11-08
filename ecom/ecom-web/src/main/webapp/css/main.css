@@ -125,3 +125,7 @@ body {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.ecom-text-big   {
+    font-size: 100%;
+}

@@ -4,7 +4,6 @@ var accueilController = function($scope, $location, publicPhoto) {
     var cachedPhotos = [];
 
     publicPhoto.GetAll().then(function(res) {
-            console.log(res);
             $scope.photos = cachedPhotos = res;
         }
     );
@@ -20,12 +19,12 @@ var accueilController = function($scope, $location, publicPhoto) {
             $location.path('/photos/details/' + photoId).search( {
                 'photo' :JSON.stringify(photo)
             });
-    }
+    };
 
     $scope.search = {
         terms : '',
         hitCount : 0,
-        took : 0,
+        took : 0
     };
 
     $scope.elasticsearch = function (){
@@ -34,10 +33,8 @@ var accueilController = function($scope, $location, publicPhoto) {
         $scope.search.hitCount = res.totalHits;
         $scope.search.took = res.took;
         $scope.photos = res.hits;
-        console.log(res);
-        console.log($scope.search);
       });
-    }
+    };
 
     $scope.photosFromCache = function (){
       $scope.terms = '';

@@ -1,0 +1,46 @@
+<div data-ng-controller="detailsCartController">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Détails</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4 fa fa-2x">
+                    {{ totalPrice }} <i class="fa-euro"></i>
+                </div>
+                <div class="col-md-4">
+                    {{ cart.length }} articles au total
+                </div>
+                <div class="col-md-2">
+                    <button data-ng-click="clearCart()" type="button" class="btn btn-warning btn-circle btn-xl" >
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info btn-circle btn-xl">
+                        <i class="glyphicon glyphicon-ok"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-repeat="photo in cart">
+        <div class="col-md-4 col-md-offset-2">
+            <a href=""  class="thumbnail">
+                <img ng-src="{{photo.webLocation}}" alt="{{photo.name}}" >
+            </a>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <add-to-cart-component photo="photo"></add-to-cart-component>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ photo.price }} <i class="fa fa-euro"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,12 @@
-<div class="col-md-12">
-    <a href=""  class="thumbnail">
-        <p>{{photo.description}}</p>
-        <img ng-src="{{photo.webLocation}}" alt="{{photo.name}}" >
-    </a>
-</div>
+<div class="row">
+    <div class="col-lg-10">
+        <a href=""  class="thumbnail">
+            <p>{{photo.description}}</p>
+            <img ng-src="{{photo.webLocation}}" alt="{{photo.name}}" >
+        </a>
+    </div>
 
+    <div class="col-lg-2">
+        <add-to-cart-component photo="photo"></add-to-cart-component>
+    </div>
+</div>

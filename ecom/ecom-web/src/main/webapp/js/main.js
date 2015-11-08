@@ -5,8 +5,8 @@ var $ = jQuery = require('jquery');
 var bootsrap = require('bootstrap');
 
 /** Angular deps */
-var angular = require('angular');
-var angularRoute = require('angular-route');
+var angular        = require('angular');
+var angularRoute   = require('angular-route');
 var angularAnimate = require('angular-animate');
 
 /**
@@ -41,9 +41,15 @@ var inputFileDir = require('./directives/InputFile');
 
 /**
  *
+ */
+var cartModule = require('./Cart/Module');
+
+/**
+ *
  * @type {module}
  */
-var ecomApp = angular.module('ecomApp', ['ngRoute', 'ngAnimate']);
+
+var ecomApp = require("./app.js");
 
 ecomApp.config(function ($routeProvider, $httpProvider) {
 
@@ -92,12 +98,9 @@ ecomApp.factory('alertService', alertService);
 ecomApp.controller('inscriptionController', inscriptionController);
 ecomApp.controller('mainController', mainController);
 ecomApp.controller('loginController', loginController);
-ecomApp.controller('headerController', headerController);
 ecomApp.controller('accountDetails', accountDetails);
 ecomApp.controller('upgradeController', upgradeController);
 ecomApp.controller('uploadPhoto', uploadController);
 ecomApp.controller('accueilController', accueilController);
 ecomApp.controller('detailsPhotoController', detailsPhotoController);
 
-
-module.exports = ecomApp;
