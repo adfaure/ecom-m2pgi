@@ -24,7 +24,7 @@ public class Order {
 	private Long orderID;
 	
 	@ManyToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name = "memberID", nullable = false)
+	@JoinColumn(name = "login", nullable = false)
 	private Member member;
 	
 	@ManyToOne(cascade = {CascadeType.ALL})

@@ -14,7 +14,7 @@ var upload = function($scope, uploadPhoto) {
         uploadPhoto.uploadFileToUrl({
             file : $scope.uploadPhoto,
             data : $scope.photoData
-        }, $scope.user.memberID).then(
+        }, $scope.user.login).then(
             function(res) {
                 console.log(res);
                 if(res.success) {

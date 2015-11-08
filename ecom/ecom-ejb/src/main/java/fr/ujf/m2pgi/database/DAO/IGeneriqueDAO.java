@@ -39,4 +39,10 @@ public interface IGeneriqueDAO<entityType> {
 	 */
 	entityType update(entityType t);
 
+	/**
+	 *
+	 * @param t
+	 * @return
+     */
+	entityType getReference(Object t);
 }

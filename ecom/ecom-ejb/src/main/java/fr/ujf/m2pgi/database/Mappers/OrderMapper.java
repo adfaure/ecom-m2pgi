@@ -19,7 +19,7 @@ public class OrderMapper extends GeneriqueMapperImpl<OrderDTO, Order> implements
             @Override
             protected void configure() {
                 map().setPhotoID(source.getPhoto().getPhotoID());
-                map().setMemberID(source.getMember().getMemberID());
+                map().setLogin(source.getMember().getLogin());
             }
         };
 

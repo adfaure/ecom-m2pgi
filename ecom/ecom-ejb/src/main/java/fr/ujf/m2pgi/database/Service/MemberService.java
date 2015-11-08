@@ -11,6 +11,7 @@ import fr.ujf.m2pgi.database.DTO.SellerDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
 import fr.ujf.m2pgi.database.Mappers.ISellerMapper;
+import fr.ujf.m2pgi.database.Mappers.SellerMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Seller;
@@ -115,13 +116,18 @@ public class MemberService {
 	 * @return
 	 */
 	public SellerDTO createSellerFromMember(SellerDTO seller) {
-		Member member = memberDao.find(seller.getMemberID());
+		Member member = memberDao.find(seller.getLogin());
 		if(member != null) {
-			if(sellerDAO.createWithExistingMember(member, seller.getRIB())) {
-				member.setAccountType('S');
-				memberDao.update(member);
-				return  seller;
-			}
+			memberDao.delete(seller.getLogin());
+			Seller sellerE = new Seller();
+			sellerE.setLogin(member.getLogin());
+			sellerE.setAccountType('S');
+			sellerE.setCart(null);
+			sellerE.setRIB(seller.getRIB());
+			sellerE.setPassword(member.getPassword());
+			sellerE.setFirstName(seller.getFirstName());
+			sellerE.setLastName(seller.getLastName());
+			return sellerMapper.getDTO(sellerDAO.create(sellerE));
 		}
 		return null;
 	}
@@ -132,7 +138,7 @@ public class MemberService {
 	 * @param photoDTO
      */
 	public MemberDTO addToCart(MemberDTO member, PhotoDTO photoDTO) {
-		Member attachedEntity  = memberDao.find(member.getMemberID());
+		Member attachedEntity  = memberDao.find(member.getLogin());
 		Collection<Photo> cart = attachedEntity.getCart();
 
 		if(cart == null) {
@@ -160,7 +166,7 @@ public class MemberService {
 	 * @param photoDTO
 	 */
 	public MemberDTO removeToCart(MemberDTO member, PhotoDTO photoDTO) {
-		Member attachedEntity  = memberDao.find(member.getMemberID());
+		Member attachedEntity  = memberDao.find(member.getLogin());
 		Collection<Photo> cart = attachedEntity.getCart();
 
 		if(cart == null) {

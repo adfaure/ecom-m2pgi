@@ -40,7 +40,7 @@ public class PhotoDTO implements Serializable {
 	private float price;
 	
 	@XmlElement
-	private long sellerID;
+	private String sellerID;
 
 	public String getWebLocation() {
 		return webLocation;
@@ -90,11 +90,11 @@ public class PhotoDTO implements Serializable {
 		this.price = price;
 	}
 	
-	public long getSellerID() {
+	public String getSellerID() {
 		return sellerID;
 	}
 
-	public void setSellerID(long sellerID) {
+	public void setSellerID(String sellerID) {
 		this.sellerID = sellerID;
 	}
 	

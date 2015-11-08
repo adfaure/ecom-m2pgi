@@ -12,7 +12,7 @@ var cartService =  function($http, apiToken, alertService) {
             alertService.add("alert-danger", "You need to be logged ", 3000);
         } else {
             var usr = apiToken.getUser();
-            var route = 'api/members/id/' + usr.memberID + "/cart/photo/id/" + photo.photoID;
+            var route = 'api/members/id/' + usr.login + "/cart/photo/id/" + photo.photoID;
             return $http.post(route).then(
                 handleSuccess("Photo ajouté au panier avec success"),
                 handleError("Erreur l'ors de l'ajout au panier")
@@ -25,9 +25,9 @@ var cartService =  function($http, apiToken, alertService) {
             alertService.add("alert-danger", "You need to be logged ", 3000);
         } else {
             var usr = apiToken.getUser();
-            var route = 'api/members/id/' + usr.memberID + "/cart/photo/id/" + photo.photoID;
-            return $http.delete(route).then(handleSuccess("Photo supprimé au panier avec success"),
-                handleError("Erreur l'ors de la suppression de l'article au panier")
+            var route = 'api/members/id/' + usr.login + "/cart/photo/id/" + photo.photoID;
+            return $http.delete(route).then(handleSuccess("Photo supprimé du panier avec success"),
+                handleError("Erreur lors de la suppression de l'article au panier")
             );
         }
     }
@@ -37,9 +37,9 @@ var cartService =  function($http, apiToken, alertService) {
             alertService.add("alert-danger", "You need to be logged ", 3000);
         } else {
             var usr = apiToken.getUser();
-            var route = 'api/members/id/' + usr.memberID + "/cart";
+            var route = 'api/members/id/' + usr.login + "/cart";
             return $http.delete(route).then(handleSuccess("Panier vidé avec success"),
-                handleError("Erreur l'ors de la du panier")
+                handleError("Erreur lors de la suppréssion des éléments du panier")
             );
         }
     }

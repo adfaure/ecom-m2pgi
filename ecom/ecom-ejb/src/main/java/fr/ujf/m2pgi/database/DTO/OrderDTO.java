@@ -21,7 +21,7 @@ public class OrderDTO implements Serializable {
 	private Long orderID;
 	
 	@XmlElement
-	private Long memberID;
+	private String login;
 	
 	@XmlElement
 	private Long photoID;
@@ -35,14 +35,6 @@ public class OrderDTO implements Serializable {
 
 	public void setOrderID(Long orderID) {
 		this.orderID = orderID;
-	}
-
-	public Long getMemberID() {
-		return memberID;
-	}
-
-	public void setMemberID(Long memberID) {
-		this.memberID = memberID;
 	}
 
 	public Long getPhotoID() {
@@ -59,5 +51,13 @@ public class OrderDTO implements Serializable {
 
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getLogin() {
+		return login;
 	}
 }

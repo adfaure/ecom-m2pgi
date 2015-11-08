@@ -26,12 +26,6 @@ public class MemberDTO implements Serializable {
 	 * 
 	 */
 	@XmlElement
-	private long memberID;
-
-	/**
-	 * 
-	 */
-	@XmlElement
 	private String firstName;
 
 	/**
@@ -76,15 +70,6 @@ public class MemberDTO implements Serializable {
 
 	public void setCart(Collection<PhotoDTO> cart) {
 		this.cart = cart;
-	}
-
-	public long getMemberID() {
-		return memberID;
-	}
-
-	public MemberDTO setMemberID(long memberID) {
-		this.memberID = memberID;
-		return null;
 	}
 
 	public String getFirstName() {

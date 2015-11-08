@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Seller")
-@PrimaryKeyJoinColumn(name="memberID")
+@PrimaryKeyJoinColumn(name="login")
 @DiscriminatorValue(value="S")
 public class Seller extends Member {
 
