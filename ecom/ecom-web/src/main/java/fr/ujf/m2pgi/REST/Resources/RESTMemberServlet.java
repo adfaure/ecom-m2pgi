@@ -48,13 +48,13 @@ public class RESTMemberServlet {
 	@Path("id/{id}/cart/photo/id/{photoId}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response addToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId ) {
+	public Response addToCart(@PathParam("id") String id, @PathParam("photoId") Long photoId ) {
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
 		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
 		PhotoDTO p = new PhotoDTO();
 		p.setPhotoId(photoId);
 		MemberDTO m = new MemberDTO();
-		m.setMemberID(id);
+		m.setLogin(id);
 		MemberDTO res = memberService.addToCart(m, p);
 		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
@@ -63,13 +63,13 @@ public class RESTMemberServlet {
 	@Path("id/{id}/cart/photo/id/{photoId}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response deleteToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId) {
+	public Response deleteToCart(@PathParam("id") String id, @PathParam("photoId") Long photoId) {
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
 		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
 		PhotoDTO p = new PhotoDTO();
 		p.setPhotoId(photoId);
 		MemberDTO m = new MemberDTO();
-		m.setMemberID(id);
+		m.setLogin(id);
 		MemberDTO res = memberService.removeToCart(m, p);
 		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
@@ -78,11 +78,11 @@ public class RESTMemberServlet {
 	@Path("id/{id}/cart")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response deleteCart(@PathParam("id") Long id) {
+	public Response deleteCart(@PathParam("id") String id) {
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
-		if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
+		if(!principal.getUser().getLogin().equals(id)) return Response.status(Status.FORBIDDEN).build();
 		MemberDTO dto = new MemberDTO();
-		dto.setMemberID(id); //FIXME USe principal user
+		dto.setLogin(id); //FIXME USe principal user
 		MemberDTO res = memberService.deleteCart(dto);
 		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}

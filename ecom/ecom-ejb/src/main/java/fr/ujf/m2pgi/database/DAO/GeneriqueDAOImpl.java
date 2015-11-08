@@ -50,6 +50,7 @@ public abstract class GeneriqueDAOImpl<entityType> implements IGeneriqueDAO<enti
 	@Override
 	public void delete(Object id) {
 		entityManager.remove( entityManager.getReference(entityClass, id));
+		entityManager.flush();
 	}
 
 	/**
@@ -73,4 +74,13 @@ public abstract class GeneriqueDAOImpl<entityType> implements IGeneriqueDAO<enti
 		return entityManager.merge(entity);
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @return
+     */
+	@Override
+	public entityType getReference(Object id) {
+		return entityManager.getReference(entityClass, id);
+	}
 }

@@ -33,7 +33,7 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 
 	//https://forum.hibernate.org/viewtopic.php?p=2404391
 	public Member updateCart(Member member) {
-		Member attachedMember  = entityManager.getReference(Member.class, member.getMemberID());
+		Member attachedMember  = entityManager.getReference(Member.class, member.getLogin());
 		Collection<Photo> attachedCart = new ArrayList<Photo>();
 		for(Photo photo : member.getCart()) {
 			attachedCart .add(this.entityManager.getReference(Photo.class, photo.getPhotoID()));

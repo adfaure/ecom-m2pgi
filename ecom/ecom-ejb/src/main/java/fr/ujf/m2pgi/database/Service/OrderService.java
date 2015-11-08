@@ -79,7 +79,7 @@ public class OrderService {
 	 * @return
      */
 	public OrderDTO createOrder(OrderDTO order) {
-		Member member = memberDao.find(order.getMemberID());
+		Member member = memberDao.find(order.getLogin());
 		if (member == null) return null;// FixeME it would be better to throw custom exception such as CustomerNotFoundException
 		Photo photo = photoDao.find(order.getPhotoID());
 		if (photo == null) return null;

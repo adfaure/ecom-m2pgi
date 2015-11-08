@@ -31,9 +31,9 @@ public class SellerDAOImpl extends GeneriqueDAOImpl<Seller> implements ISellerDA
 
     @Override
     public boolean createWithExistingMember(Member member, String RIB) {
-        Query query = this.entityManager.createNativeQuery("insert into Seller (memberid, rib) values (:id, :rib)");
+        Query query = this.entityManager.createNativeQuery("insert into Seller (login, rib) values (:id, :rib)");
         query.setParameter("rib", RIB);
-        query.setParameter("id", member.getMemberID());
+        query.setParameter("id", member.getLogin());
         entityManager.flush();
         return (query.executeUpdate() == 1);
     }

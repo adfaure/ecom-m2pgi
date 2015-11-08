@@ -78,48 +78,48 @@ public class RESTPhotosServlet {
 	}
 
 	@GET
-	@Path("/id/{id:[1-9][0-9]*}")
+	@Path("/id/{login}")
 	@Produces("application/json")
-	public Response getPhotoByID(@PathParam("id") Long id) {
+	public Response getPhotoByID(@PathParam("login") Long id) {
 		PhotoDTO photo =  facadePhoto.getPhotoById(id);
 		return Response.ok(photo).build();
 	}
 
 	@GET
-	@Path("/user/id/{id:[1-9][0-9]*}")
-	@Produces("application/json")
-	public Response getUserPhotos(@PathParam("id") Long id) {
-		List<PhotoDTO> photos = facadePhoto.getUserPhotos(id);
-		return Response.ok(photos).build();
-	}
-
-	@GET
-	@Path("/user/login/{login}")
+	@Path("/user/id/{login}")
 	@Produces("application/json")
 	public Response getUserPhotos(@PathParam("login") String login) {
 		List<PhotoDTO> photos = facadePhoto.getUserPhotos(login);
 		return Response.ok(photos).build();
 	}
 
-	@DELETE
-	@Path("/delete/{id:[1-9][0-9]*}")
+	@GET
+	@Path("/user/login/{login}")
 	@Produces("application/json")
-	public Response deletePhotoByID(@PathParam("id") Long id) {
-		PhotoDTO photo =  facadePhoto.deletePhoto(id);
+	public Response getUserPhotosLoginroute(@PathParam("login") String login) {
+		List<PhotoDTO> photos = facadePhoto.getUserPhotos(login);
+		return Response.ok(photos).build();
+	}
+
+	@DELETE
+	@Path("/delete/{login}")
+	@Produces("application/json")
+	public Response deletePhotoByID(@PathParam("login") Long login) {
+		PhotoDTO photo =  facadePhoto.deletePhoto(login);
 		return Response.ok(photo).build();
 	}
 
 	@POST
-	@Path("/upload/seller/{id:[1-9][0-9]*}")
+	@Path("/upload/seller/{login}")
 	@Consumes("multipart/form-data")//@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces("application/json")
 	@Allow(groups="sellers")
-	public Response uploadFile(MultipartFormDataInput input, @PathParam("id") long id) {
+	public Response uploadFile(MultipartFormDataInput input, @PathParam("login") String login) {
 		HttpSession session = httpServletRequest.getSession();
 		DecimalFormat df = new DecimalFormat("###.##"); //FIXME maybe generalise this
 		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
 
-		if(user.getUser().getMemberID() != id) {
+		if(!user.getUser().getLogin().equals(login)) {
 			return Response.status(403).build();
 		}
 
@@ -156,7 +156,7 @@ public class RESTPhotosServlet {
 			photo.setName(fileName);
 			photo.setPrice(price);
 			photo.setDescription(description);
-			photo.setSellerID(id);
+			photo.setSellerID(login);
 			PhotoDTO created = facadePhoto.savePhoto(istream, photo);
 			if (created == null) return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
 			return Response.status(Status.CREATED).entity(created).build();

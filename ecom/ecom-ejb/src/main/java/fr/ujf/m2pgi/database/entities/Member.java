@@ -17,10 +17,6 @@ import javax.persistence.*;
 public class Member implements Serializable {
 
 	@Id
-	@Column(name="memberID", columnDefinition = "serial")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected long memberID;
-
 	@Column(name="login")
 	protected String login;
 
@@ -44,7 +40,7 @@ public class Member implements Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "cart",
-		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+		 joinColumns =  @JoinColumn(name = "login") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
 	private Collection<Photo> cart;
 
@@ -54,14 +50,6 @@ public class Member implements Serializable {
 
 	public void setCart(Collection<Photo> cart) {
 		this.cart = cart;
-	}
-
-	public long getMemberID() {
-		return memberID;
-	}
-
-	public void setMemberID(long memberID) {
-		this.memberID = memberID;
 	}
 
 	public String getFirstName() {
