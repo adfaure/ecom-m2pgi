@@ -19,6 +19,7 @@ var headerController           = require('./controllers/HeaderController');
 var accountDetails             = require('./controllers/AccountDetailsController');
 var upgradeController          = require('./controllers/accountDetails/upgradeAccount');
 var uploadController           = require('./controllers/accountDetails/uploadPhoto');
+var managePhotosController     = require('./controllers/accountDetails/managePhotos');
 var accueilController          = require('./controllers/AccueilController');
 var detailsPhotoController     = require('./controllers/DetailsPhotoController');
 
@@ -101,6 +102,6 @@ ecomApp.controller('loginController', loginController);
 ecomApp.controller('accountDetails', accountDetails);
 ecomApp.controller('upgradeController', upgradeController);
 ecomApp.controller('uploadPhoto', uploadController);
+ecomApp.controller('managePhotos', managePhotosController);
 ecomApp.controller('accueilController', accueilController);
 ecomApp.controller('detailsPhotoController', detailsPhotoController);
-

@@ -3,7 +3,7 @@ DROP TABLE "orders", "cart", "photo", "seller" ,"member";
 CREATE TABLE "member" (
 	 memberID BIGSERIAL,
 	 login varchar(15) UNIQUE NOT NULL,
-	 password varchar(50) NOT NULL, 
+	 password varchar(50) NOT NULL,
 	 firstName varchar(50),
 	 lastName varchar(50),
 	 accountType char NOT NULL,

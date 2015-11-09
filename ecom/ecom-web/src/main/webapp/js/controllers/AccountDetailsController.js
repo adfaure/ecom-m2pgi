@@ -4,6 +4,7 @@ var templates = {
     'details'   : './js/templates/accountDetails/details.html',
     'upgrade'   : './js/templates/accountDetails/upgrade.html',
     'addPhoto'  : './js/templates/accountDetails/addPhoto.html',
+    'managePhotos' : './js/templates/accountDetails/managePhotos.html',
     'myCart'    : './js/Cart/detailsCart/CartDetails.html',
     'sellerNav' : './js/templates/accountDetails/SellerNavBar.html',
     'memberNav' : './js/templates/accountDetails/MemberNavBar.html'

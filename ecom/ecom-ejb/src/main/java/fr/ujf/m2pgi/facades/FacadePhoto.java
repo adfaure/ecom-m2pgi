@@ -1,11 +1,11 @@
 package fr.ujf.m2pgi.facades;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Service.IFileService;
 import fr.ujf.m2pgi.database.Service.IPhotoService;
 import fr.ujf.m2pgi.properties.IProperties;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.InputStream;
@@ -56,5 +56,9 @@ public class FacadePhoto {
 
     public PhotoDTO deletePhoto(Long id) {
         return photoService.deletePhoto(id);
+    }
+
+    public PhotoDTO updatePhoto(UpdatePhotoDTO photo) {
+    	return photoService.updatePhoto(photo);
     }
 }
