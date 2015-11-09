@@ -44,6 +44,13 @@ public class RESTSellerServlet {
     public SellerDTO findSellerByLogin(@PathParam("login") String login) {
         return  memberService.findSellerByLogin(login);
     }
+    
+    @GET
+    @Path("/count")
+    @Produces("application/json")
+    public Long getSellerCount() {
+        return  memberService.getSellerCount();
+    }
 
     @POST
 	@Path("/")

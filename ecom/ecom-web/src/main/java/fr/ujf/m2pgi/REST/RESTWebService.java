@@ -8,7 +8,6 @@ import javax.ws.rs.core.Application;
 
 import fr.ujf.m2pgi.REST.Interceptors.MultiPartContentTypeFilter;
 import fr.ujf.m2pgi.REST.Interceptors.SecurityInterceptor;
-import fr.ujf.m2pgi.REST.Resources.RESTAdministratorServlet;
 import fr.ujf.m2pgi.REST.Resources.RESTAuthentification;
 import fr.ujf.m2pgi.REST.Resources.RESTMemberServlet;
 import fr.ujf.m2pgi.REST.Resources.RESTOrdersServlet;
@@ -35,7 +34,6 @@ public class RESTWebService extends Application {
         classes.add(RESTSellerServlet.class         );
         classes.add(RESTPhotosServlet.class         );
         classes.add(RESTOrdersServlet.class         );
-        classes.add(RESTAdministratorServlet.class         );
         return classes;
     }
 

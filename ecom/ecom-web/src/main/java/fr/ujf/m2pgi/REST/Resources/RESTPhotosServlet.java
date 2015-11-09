@@ -64,9 +64,6 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/user/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
-
-
-
 	public Response getUserPhotos(@PathParam("id") Long id) {
 		List<PhotoDTO> photos = facadePhoto.getUserPhotos(id);
 		return Response.ok(photos).build();
@@ -148,6 +145,15 @@ public class RESTPhotosServlet {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	
+	//NEW NG
+	@GET
+	@Path("/count")
+	@Produces("application/json")
+	public Response getPhotoCount() {
+		Long pCount = facadePhoto.getPhotoCount();
+		return Response.ok(pCount).build();
+	}
 
 	// Parse Content-Disposition header to get the original file name.
 	private String parseFileName(MultivaluedMap<String, String> headers) {
@@ -174,4 +180,6 @@ public class RESTPhotosServlet {
 		}
 		return res;
 	}
+	
+	
 }

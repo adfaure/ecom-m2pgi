@@ -16,5 +16,7 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	 * @return
 	 */
 	Member findMemberByLogin(String login);
+	
+	Long memberCount();
 
 }

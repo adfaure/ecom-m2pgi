@@ -24,4 +24,6 @@ public interface IPhotoService {
     List<PhotoDTO> getUserPhotos(String login);
 
     void saveFile(InputStream uploadedInputStream, String serverLocation);
+    
+    Long getPhotoCount();
 }

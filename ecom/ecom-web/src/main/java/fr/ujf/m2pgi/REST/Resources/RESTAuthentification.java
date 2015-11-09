@@ -59,6 +59,9 @@ public class RESTAuthentification {
                 case 'M':
                     principal.setGroup("members");
                     break;
+                case 'A':
+                	principal.setGroup("admin");
+                    break;
             }
             session.setAttribute("principal",principal);
         } else {

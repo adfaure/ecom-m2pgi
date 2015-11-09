@@ -4,13 +4,16 @@ var templates = {
     'details'   : './js/templates/accountDetails/details.html',
     'upgrade'   : './js/templates/accountDetails/upgrade.html',
     'addPhoto'  : './js/templates/accountDetails/addPhoto.html',
+    'stats'     : './js/templates/accountDetails/adminStats.html',
     'sellerNav' : './js/templates/accountDetails/SellerNavBar.html',
     'memberNav' : './js/templates/accountDetails/MemberNavBar.html',
+    'adminNav'  : './js/templates/accountDetails/AdminNavBar.html'
 };
 
 var accountDetails = function($scope, $location, apiToken) {
 
     $scope.templates = templates;
+    
     $scope.subview   = "details";
     $scope.setView   = setView;
 
@@ -20,12 +23,15 @@ var accountDetails = function($scope, $location, apiToken) {
         $scope.user  = apiToken.getUser();
     }
 
+    
     $scope.$watch(
         apiToken.getUser, function() {
             $scope.user = apiToken.getUser();
         }
     );
 
+    
+    
     function setView(view) {
         $scope.subview = view;
     }
