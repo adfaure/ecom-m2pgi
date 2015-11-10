@@ -60,7 +60,7 @@ var manage = function($scope, publicPhoto, apiToken) {
 
 	$scope.test = function() {
 	  $scope.valid = true;
-	  if (!$scope.form.name || !$scope.form.description) {
+	  if (!$scope.form.name || !$scope.form.description || $scope.form.price === undefined) {
 	     $scope.valid = false;
 	  }
 	};
