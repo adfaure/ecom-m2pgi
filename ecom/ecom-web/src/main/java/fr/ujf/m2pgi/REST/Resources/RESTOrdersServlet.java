@@ -45,4 +45,20 @@ public class RESTOrdersServlet {
 		}
 		return Response.status(Status.CREATED).entity(created).build();
 	}
+	
+	@GET
+	@Path("/count")
+	@Produces("application/json")
+	public Response getOrderCount() {
+		Long orderCount = orderService.getOrderCount();
+		return Response.ok(orderCount).build();
+	}
+	
+	@GET
+	@Path("/totalPurchaseCost")
+	@Produces("application/json")
+	public Response getOrderTotalPurchase() {
+		float orderTotalPurchase = orderService.getTotalPurchaseCost();
+		return Response.ok(orderTotalPurchase).build();
+	}
 }

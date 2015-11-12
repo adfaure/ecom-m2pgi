@@ -43,6 +43,14 @@ public class RESTMemberServlet {
 		MemberDTO createdMember = memberService.createMember(member);
 		return Response.status(Status.CREATED).entity(createdMember).build();
 	}
+	
+	@GET
+	@Path("/count")
+	@Produces("application/json")
+	public Response getMemberCount() {
+		Long pCount = memberService.getMemberCount();
+		return Response.ok(pCount).build();
+	}
 
 	@POST
 	@Path("id/{id}/cart/photo/id/{photoId}")

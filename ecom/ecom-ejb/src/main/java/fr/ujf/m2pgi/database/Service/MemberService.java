@@ -125,6 +125,16 @@ public class MemberService {
 		}
 		return null;
 	}
+	
+	public Long getMemberCount() {
+		Long count = memberDao.memberCount();
+		return count;
+	}
+	
+	public Long getSellerCount(){
+		Long count = sellerDAO.sellerCount();
+		return count;
+	}
 
 	/**
 	 *

@@ -72,6 +72,11 @@ public class OrderService {
 		}
 		return result;
 	}
+	
+	public Long getOrderCount() {
+		Long oCount = orderDao.getOrderCount();
+		return oCount;
+	}
 
 	/**
 	 *
@@ -88,4 +93,15 @@ public class OrderService {
 		orderEntity.setPhoto(photo);
 		return orderMapper.getDTO(orderDao.create(orderEntity));
 	}
+	
+	public float getTotalPurchaseCost() {
+		List<OrderDTO> result = new ArrayList<OrderDTO>();
+		float sum = 0;
+		for(Order order: orderDao.getAllOrders()) {
+			sum+= order.getPhoto().getPrice();
+		}
+		return sum;
+	}
+	
+	
 }

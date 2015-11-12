@@ -193,6 +193,15 @@ public class RESTPhotosServlet {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	
+	//NEW NG
+	@GET
+	@Path("/count")
+	@Produces("application/json")
+	public Response getPhotoCount() {
+		Long pCount = facadePhoto.getPhotoCount();
+		return Response.ok(pCount).build();
+	}
 
 	// Parse Content-Disposition header to get the original file name.
 	private String parseFileName(MultivaluedMap<String, String> headers) {
@@ -219,4 +228,6 @@ public class RESTPhotosServlet {
 		}
 		return res;
 	}
+	
+	
 }

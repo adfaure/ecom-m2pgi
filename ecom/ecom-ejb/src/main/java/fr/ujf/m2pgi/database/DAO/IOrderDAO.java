@@ -14,4 +14,6 @@ public interface IOrderDAO extends IGeneriqueDAO<Order> {
 	List<Order> getAllOrders();
 	
 	List<Order> getCustomerOrders(String login);
+	
+	public Long getOrderCount();
 }

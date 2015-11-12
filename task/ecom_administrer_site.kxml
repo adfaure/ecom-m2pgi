@@ -22,7 +22,7 @@
             <task-name> Consulter les statistiques du site</task-name>
             <task-numero>1</task-numero>
             <task-observation/>
-            <task-executant>ABS</task-executant>
+            <task-executant>INT</task-executant>
             <task-modality>COGN</task-modality>
             <task-optional>false</task-optional>
             <task-interruptible>false</task-interruptible>
@@ -55,7 +55,7 @@
                 <task-name>Supprimer une photo ou un album</task-name>
                 <task-numero>2.1</task-numero>
                 <task-observation/>
-                <task-executant>ABS</task-executant>
+                <task-executant>INT</task-executant>
                 <task-modality>COGN</task-modality>
                 <task-optional>false</task-optional>
                 <task-interruptible>false</task-interruptible>
@@ -72,7 +72,7 @@
                 <task-name>Marquer la photo comme vérifiée</task-name>
                 <task-numero>2.2</task-numero>
                 <task-observation/>
-                <task-executant>ABS</task-executant>
+                <task-executant>INT</task-executant>
                 <task-modality>COGN</task-modality>
                 <task-optional>false</task-optional>
                 <task-interruptible>false</task-interruptible>
@@ -90,7 +90,7 @@
             <task-name>Bannir un utilisateur</task-name>
             <task-numero>3</task-numero>
             <task-observation/>
-            <task-executant>ABS</task-executant>
+            <task-executant>INT</task-executant>
             <task-modality>COGN</task-modality>
             <task-optional>false</task-optional>
             <task-interruptible>false</task-interruptible>
@@ -107,7 +107,7 @@
             <task-name>Modifier les droits d'un utilisateur</task-name>
             <task-numero>4</task-numero>
             <task-observation/>
-            <task-executant>ABS</task-executant>
+            <task-executant>INT</task-executant>
             <task-modality>COGN</task-modality>
             <task-optional>false</task-optional>
             <task-interruptible>false</task-interruptible>
@@ -124,7 +124,7 @@
             <task-name>Répondre à un message d'un utilisateur</task-name>
             <task-numero>5</task-numero>
             <task-observation/>
-            <task-executant>ABS</task-executant>
+            <task-executant>INT</task-executant>
             <task-modality>COGN</task-modality>
             <task-optional>false</task-optional>
             <task-interruptible>false</task-interruptible>

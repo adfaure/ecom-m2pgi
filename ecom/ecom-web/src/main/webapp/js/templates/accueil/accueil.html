@@ -11,7 +11,7 @@
   </div>
 </div>
 <p ng-if="search.hitCount">Found {{ search.hitCount }} photo(s) with
-   <span id="fake-link" ng-click="photosFromCache()" class="glyphicon glyphicon-remove">{{ search.terms }}</span> in {{ search.took }} ms!</p>
+   <span id="fake-link1" ng-click="photosFromCache()" class="glyphicon glyphicon-remove">{{ search.terms }}</span> in {{ search.took }} ms!</p>
 <p ng-if="search.hitCount == 0 && search.terms">
   No photos found with <strong>{{ search.terms }}</strong>
   <span id="fake-link" ng-click="photosFromCache()">try other keywords</span></p>

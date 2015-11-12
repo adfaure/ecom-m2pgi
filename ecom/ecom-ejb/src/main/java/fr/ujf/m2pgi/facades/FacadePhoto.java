@@ -59,6 +59,10 @@ public class FacadePhoto {
     }
 
     public PhotoDTO updatePhoto(UpdatePhotoDTO photo) {
-    	return photoService.updatePhoto(photo);
+        return photoService.updatePhoto(photo);
+    }
+    
+    public Long getPhotoCount(){
+    	return photoService.getPhotoCount();
     }
 }

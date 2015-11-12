@@ -12,6 +12,9 @@
                     <div data-ng-if="user.accountType == 'S'">
                         Compte Vendeur
                     </div>
+                    <div data-ng-if="user.accountType == 'A'">
+                        Administrator
+                    </div>
                 </div>
                 <div class="profile-userbuttons" data-ng-if="user.accountType == 'M'">
                     <button type="button" class="btn btn-success btn-sm" ng-click="setView('upgrade')" > Upgrade Account</button>
@@ -38,6 +41,11 @@
                                 <div data-ng-include="templates.memberNav"></div>
                             </div>
                         </li>
+                        <li>
+                            <div data-ng-switch-when="A">
+                                <div data-ng-include="templates.adminNav"></div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -56,6 +64,9 @@
                     </div>
                     <div ng-switch-when="managePhotos">
                         <div ng-include="templates.managePhotos"></div>
+                    </div>
+                    <div ng-switch-when="stats">
+                        <div ng-include="templates.stats"></div>
                     </div>
                     <div ng-switch-when="myCart">
                         <div ng-include="templates.myCart"></div>
