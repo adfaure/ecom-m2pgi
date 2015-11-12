@@ -25,11 +25,4 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		}
 		return null;
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public Long memberCount() {
-		Query query = entityManager.createQuery("SELECT count(m) FROM Member m");
-	    return (Long) query.getResultList().get(0);
-	}
 }

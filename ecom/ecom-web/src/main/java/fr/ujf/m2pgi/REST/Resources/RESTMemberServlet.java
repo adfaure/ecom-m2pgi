@@ -40,6 +40,7 @@ public class RESTMemberServlet {
 	@GET
 	@Path("/count")
 	@Produces("application/json")
+	@Allow(groups = "admin")
 	public Response getMemberCount() {
 		Long pCount = memberService.getMemberCount();
 		return Response.ok(pCount).build();

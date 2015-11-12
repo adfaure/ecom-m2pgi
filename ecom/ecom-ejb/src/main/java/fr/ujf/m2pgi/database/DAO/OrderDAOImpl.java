@@ -32,13 +32,8 @@ public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
 	    return (List<Order>)query.getResultList();
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	public Long getOrderCount() {
-		Query query = entityManager.createQuery("SELECT count(o) FROM Order o");
-	    return (Long) query.getResultList().get(0);
+	public Double getTotalPurchaseCost(){
+		Query query = entityManager.createQuery("SELECT SUM(p.price) FROM Order o left join o.photo p");
+		return (Double) query.getSingleResult();
 	}
-	
-	
-	
 }
