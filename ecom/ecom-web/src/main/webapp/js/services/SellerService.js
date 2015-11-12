@@ -7,6 +7,7 @@ function sellerService($http) {
 
     service.GetById = GetById;
     service.GetByUsername = GetByUsername;
+    service.GetCount = GetCount;
     service.Create = Create;
     service.CreateFromMember = CreateFromMember;
     service.Update = Update;
@@ -22,6 +23,10 @@ function sellerService($http) {
         return $http.get('api/sellers/login/' + username).then(handleSuccess, handleError('Error getting user by username'));
     }
 
+    function GetCount(){
+    	return $http.get('api/sellers/count').then(handleSuccess, handleError('Error getting the total number of sellers'));
+    }
+    
     function Create(user) {
         var newUser = parseSeller(user);
         if (newUser != null)

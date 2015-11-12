@@ -140,6 +140,12 @@ public class PhotoService implements IPhotoService{
 		return result;
 	}
 
+	
+	public Long getPhotoCount() {
+		Long pCount = photoDao.getPhotoCount();
+		return pCount;
+	}
+
 	/**
 	 *
 	 * @param uploadedInputStream

@@ -21,6 +21,7 @@ var upgradeController          = require('./controllers/accountDetails/upgradeAc
 var uploadController           = require('./controllers/accountDetails/uploadPhoto');
 var accueilController          = require('./controllers/AccueilController');
 var detailsPhotoController     = require('./controllers/DetailsPhotoController');
+var administratorController    = require('./controllers/AdministratorController');
 
 /**
  * Services
@@ -30,6 +31,7 @@ var sellerService = require('./services/SellerService');
 var httpInterceptor = require('./services/HttpInterceptor');
 var apiToken = require('./services/ApiToken');
 var authentificationService = require('./services/AuthentificationService');
+var orderService = require('./services/OrderService');
 var uploadPhoto  = require('./services/uploadPhoto');
 var publicPhoto  = require('./services/PublicPhotoService');
 var alertService = require('./services/AlertService');
@@ -66,18 +68,23 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
             templateUrl: './js/templates/inscription.html',
             controller: 'inscriptionController'
         })
-        .when('/login', {
+        .when('/login',  {
             templateUrl: './js/templates/login.html',
             controller: 'loginController'
         })
         .when('/profil', {
             templateUrl: './js/templates/accountDetails.html',
             controller: 'accountDetails'
-        }).when('/', {
+        })
+        .when('/administrator', {
+        	templateUrl: './js/templates/administratorTemplate.html',
+        	controller: 'administratorController'
+        })
+        .when('/', {
             redirectTo: '/accueil',
         })
         .otherwise({
-            redirectTo: '/accueil'
+        	redirectTo: '/accueil',
         });
 
     $httpProvider.interceptors.push('httpInterceptor', httpInterceptor);
@@ -93,6 +100,7 @@ ecomApp.factory('apiToken', apiToken);
 ecomApp.factory('httpInterceptor', httpInterceptor);
 ecomApp.factory('uploadPhoto', uploadPhoto);
 ecomApp.factory('publicPhoto', publicPhoto);
+ecomApp.factory('orderService', orderService);
 ecomApp.factory('alertService', alertService);
 
 ecomApp.controller('inscriptionController', inscriptionController);
@@ -103,4 +111,5 @@ ecomApp.controller('upgradeController', upgradeController);
 ecomApp.controller('uploadPhoto', uploadController);
 ecomApp.controller('accueilController', accueilController);
 ecomApp.controller('detailsPhotoController', detailsPhotoController);
+ecomApp.controller('administratorController', administratorController);
 

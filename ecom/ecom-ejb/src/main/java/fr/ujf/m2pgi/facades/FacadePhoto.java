@@ -57,4 +57,8 @@ public class FacadePhoto {
     public PhotoDTO deletePhoto(Long id) {
         return photoService.deletePhoto(id);
     }
+    
+    public Long getPhotoCount(){
+    	return photoService.getPhotoCount();
+    }
 }

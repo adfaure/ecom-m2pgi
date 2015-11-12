@@ -7,6 +7,7 @@ function memberService($http) {
 
     service.GetById = GetById;
     service.GetByUsername = GetByUsername;
+    service.GetCount = GetCount;
     service.Create = Create;
     service.Update = Update;
     service.Delete = Delete;
@@ -22,6 +23,10 @@ function memberService($http) {
         return $http.get('api/members/login/' + username).then(handleSuccess, handleError('Error getting user by username'));
     }
 
+    function GetCount(){
+    	return $http.get('api/members/count').then(handleSuccess, handleError('Error getting the total number of members'));
+    }
+    
     function Create(user) {
     	var validUser = parseUser(user);
     	if(validUser != null)
