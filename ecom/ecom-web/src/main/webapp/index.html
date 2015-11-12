@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title> ECOMM </title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
 
     <meta name="description" content="ecomm">
@@ -16,13 +17,14 @@
 
 <body ng-controller="mainController">
 
-    <div ng-include="headerTemplate"></div>
+    <div data-ng-include="templates.headerTemplate"></div>
+    <div data-ng-include="templates.alertTemplate"></div>
 
     <div class="container">
         <div data-ng-view></div>
     </div>
 
-    <script src="js/app.js"></script>
+    <script src="js/dist.js"></script>
 
 </body>
 </html>

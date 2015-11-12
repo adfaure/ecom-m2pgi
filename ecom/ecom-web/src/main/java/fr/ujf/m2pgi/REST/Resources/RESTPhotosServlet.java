@@ -28,6 +28,9 @@ import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Service.FileService;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.database.Service.PhotoService;
+import fr.ujf.m2pgi.elasticsearch.PhotoDocument;
+import fr.ujf.m2pgi.elasticsearch.PhotoServiceES;
+import fr.ujf.m2pgi.elasticsearch.SearchResult;
 
 /**
  * Created by AZOUZI Marwen 23/10/15
@@ -41,6 +44,9 @@ public class RESTPhotosServlet {
 	@EJB
 	private MemberService memberService;
 
+	@EJB
+	private PhotoServiceES photoServiceES;
+
 	@Context
 	private HttpServletRequest httpServletRequest;
 
@@ -50,6 +56,24 @@ public class RESTPhotosServlet {
 	@AllowAll
 	public Response getAllPhotos() {
 		List<PhotoDTO> photos = facadePhoto.getAllPhotos();
+		return Response.ok(photos).build();
+	}
+
+	@GET
+	@Path("/search")
+	@Produces("application/json")
+	@AllowAll
+	public Response getAllPhotosES() {
+		SearchResult photos = photoServiceES.getAllPhotos();
+		return Response.ok(photos).build();
+	}
+
+	@GET
+	@Path("/search/{text}")
+	@Produces("application/json")
+	@AllowAll
+	public Response searchPhotosES(@PathParam("text") String text) {
+		SearchResult photos = photoServiceES.searchPhotos(text);
 		return Response.ok(photos).build();
 	}
 

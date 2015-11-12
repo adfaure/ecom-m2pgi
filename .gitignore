@@ -5,7 +5,7 @@
 .project
 .tern-project
 node_modules/
-app.js
+dist.js
 *.log
 *.iml
 .buildpath

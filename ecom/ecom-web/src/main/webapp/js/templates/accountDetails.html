@@ -26,6 +26,10 @@
                                 <i class="glyphicon glyphicon-home"></i>
                                 Overview
                             </a>
+                            <a href="" ng-click="setView('myCart')" >
+                                <i class="glyphicon glyphicon-shopping-cart"></i>
+                                Mon panier
+                            </a>
                         </li>
                         <li>
                             <div data-ng-switch-when="S">
@@ -60,6 +64,9 @@
                     </div>
                     <div ng-switch-when="stats">
                         <div ng-include="templates.stats"></div>
+                    </div>
+                    <div ng-switch-when="myCart">
+                        <div ng-include="templates.myCart"></div>
                     </div>
                 </div>
             </div>

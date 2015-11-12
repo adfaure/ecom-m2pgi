@@ -1,10 +1,10 @@
-<nav class="navbar navbar-default navbar-static-top" data-ng-controller="headerController">
+<nav class="navbar navbar-default navbar-static-top" data-ng-controller="headerController" >
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="#/accueil"> ECOM </a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav nav-tabs">
+            <ul class="nav navbar-nav">
                 <li data-ng-if="!auth">
                     <a href="#/inscription"> Sign up </a>
                 </li>
@@ -16,6 +16,13 @@
                 </li>
                 <li data-ng-if="auth">
                     <a href="#/profil"> {{ user.lastName}} {{ user.firstName }} </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li data-ng-if="auth">
+                    <a href="" class="fa-2x" data-ng-click="gotToProfil('myCart')" >
+                        ({{ user.cart.length }})<i class="fa fa-cart-arrow-down"></i>
+                    </a>
                 </li>
             </ul>
         </div>

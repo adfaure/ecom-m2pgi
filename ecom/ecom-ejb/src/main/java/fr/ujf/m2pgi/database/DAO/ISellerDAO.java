@@ -18,6 +18,12 @@ public interface ISellerDAO extends IGeneriqueDAO<Seller> {
      */
     Seller findSellerByLogin(String login);
 
+    /**
+     *
+     * @param member
+     * @param RIB
+     * @return
+     */
     boolean createWithExistingMember(Member member, String RIB);
     
     Long sellerCount();

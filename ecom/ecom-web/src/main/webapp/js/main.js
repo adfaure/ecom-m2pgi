@@ -5,8 +5,9 @@ var $ = jQuery = require('jquery');
 var bootsrap = require('bootstrap');
 
 /** Angular deps */
-var angular = require('angular');
-var angularRoute = require('angular-route');
+var angular        = require('angular');
+var angularRoute   = require('angular-route');
+var angularAnimate = require('angular-animate');
 
 /**
  * Controllers
@@ -30,9 +31,10 @@ var sellerService = require('./services/SellerService');
 var httpInterceptor = require('./services/HttpInterceptor');
 var apiToken = require('./services/ApiToken');
 var authentificationService = require('./services/AuthentificationService');
-var uploadPhoto = require('./services/uploadPhoto');
-var publicPhoto = require('./services/PublicPhotoService');
 var orderService = require('./services/OrderService');
+var uploadPhoto  = require('./services/uploadPhoto');
+var publicPhoto  = require('./services/PublicPhotoService');
+var alertService = require('./services/AlertService');
 
 /**
  * Directives
@@ -41,9 +43,15 @@ var inputFileDir = require('./directives/InputFile');
 
 /**
  *
+ */
+var cartModule = require('./Cart/Module');
+
+/**
+ *
  * @type {module}
  */
-var ecomApp = angular.module('ecomApp', ['ngRoute']);
+
+var ecomApp = require("./app.js");
 
 ecomApp.config(function ($routeProvider, $httpProvider) {
 
@@ -93,11 +101,11 @@ ecomApp.factory('httpInterceptor', httpInterceptor);
 ecomApp.factory('uploadPhoto', uploadPhoto);
 ecomApp.factory('publicPhoto', publicPhoto);
 ecomApp.factory('orderService', orderService);
+ecomApp.factory('alertService', alertService);
 
 ecomApp.controller('inscriptionController', inscriptionController);
 ecomApp.controller('mainController', mainController);
 ecomApp.controller('loginController', loginController);
-ecomApp.controller('headerController', headerController);
 ecomApp.controller('accountDetails', accountDetails);
 ecomApp.controller('upgradeController', upgradeController);
 ecomApp.controller('uploadPhoto', uploadController);
@@ -105,5 +113,3 @@ ecomApp.controller('accueilController', accueilController);
 ecomApp.controller('detailsPhotoController', detailsPhotoController);
 ecomApp.controller('administratorController', administratorController);
 
-
-module.exports = ecomApp;

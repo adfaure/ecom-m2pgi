@@ -5,7 +5,7 @@ module.exports = function(grunt) {
       files: ['Gruntfile.js', 'js/**/*.js', 'js/**/*.js'],
     },
     browserify: {
-          './js/app.js': ['./js/main.js']
+          './js/dist.js': ['./js/main.js']
     }
   });
 

@@ -19,4 +19,6 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	
 	Long memberCount();
 
+	Member updateCart(Member member);
+
 }
