@@ -60,8 +60,20 @@ public abstract class GeneriqueDAOImpl<entityType> implements IGeneriqueDAO<enti
 	@Override
 	public entityType find(Object id) {
 		return (entityType) entityManager.find(entityClass, id);
-		
 	}
+
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public entityType find(Object id, boolean flush) {
+		entityType entity = entityManager.find(entityClass, id);
+		if(flush) entityManager.flush();
+		return entity;
+	}
+
 
 	/**
 	 *
