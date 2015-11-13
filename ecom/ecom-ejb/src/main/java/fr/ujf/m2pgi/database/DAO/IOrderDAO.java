@@ -15,5 +15,5 @@ public interface IOrderDAO extends IGeneriqueDAO<Order> {
 	
 	List<Order> getCustomerOrders(String login);
 	
-	public Long getOrderCount();
+	Double getTotalPurchaseCost();
 }

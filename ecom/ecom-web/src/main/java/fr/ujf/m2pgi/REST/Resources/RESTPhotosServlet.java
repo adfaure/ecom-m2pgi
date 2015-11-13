@@ -194,10 +194,10 @@ public class RESTPhotosServlet {
 		}
 	}
 	
-	//NEW NG
 	@GET
 	@Path("/count")
 	@Produces("application/json")
+	@Allow(groups = "admin")
 	public Response getPhotoCount() {
 		Long pCount = facadePhoto.getPhotoCount();
 		return Response.ok(pCount).build();
@@ -228,6 +228,4 @@ public class RESTPhotosServlet {
 		}
 		return res;
 	}
-	
-	
 }
