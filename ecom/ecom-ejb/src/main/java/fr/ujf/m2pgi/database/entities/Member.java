@@ -17,8 +17,7 @@ import javax.persistence.*;
 public class Member implements Serializable {
 
 	@Id
-	@Column(name="memberID", columnDefinition = "serial")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="memberID")
 	protected long memberID;
 
 	@Column(name="login")

@@ -1,7 +1,6 @@
 package fr.ujf.m2pgi.REST.Resources;
 
 import java.io.*;
-import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -19,16 +18,12 @@ import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.facades.FacadePhoto;
-import org.apache.james.mime4j.message.BodyPart;
-import org.apache.james.mime4j.message.SingleBody;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.Service.FileService;
+import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
-import fr.ujf.m2pgi.database.Service.PhotoService;
-import fr.ujf.m2pgi.elasticsearch.PhotoDocument;
 import fr.ujf.m2pgi.elasticsearch.PhotoServiceES;
 import fr.ujf.m2pgi.elasticsearch.SearchResult;
 
@@ -104,9 +99,39 @@ public class RESTPhotosServlet {
 	@DELETE
 	@Path("/delete/{id:[1-9][0-9]*}")
 	@Produces("application/json")
+	@Allow(groups="sellers")
 	public Response deletePhotoByID(@PathParam("id") Long id) {
-		PhotoDTO photo =  facadePhoto.deletePhoto(id);
+		HttpSession session = httpServletRequest.getSession();
+		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+		PhotoDTO photo = facadePhoto.getPhotoById(id);
+
+		if(photo == null) return Response.status(Status.BAD_REQUEST).build();
+
+		if(user.getUser().getMemberID() != photo.getSellerID()) {
+			return Response.status(403).build();
+		}
+		facadePhoto.deletePhoto(id);
 		return Response.ok(photo).build();
+	}
+
+	@PUT
+	@Path("/update")
+	@Produces("application/json")
+	@Allow(groups="sellers")
+	public Response updatePhotoByID(UpdatePhotoDTO photo) {
+
+		HttpSession session = httpServletRequest.getSession();
+		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+		PhotoDTO photoDTO = facadePhoto.getPhotoById(photo.getPhotoId());
+
+		if(photoDTO == null) return Response.status(Status.BAD_REQUEST).build();
+
+		if(user.getUser().getMemberID() != photoDTO.getSellerID()) {
+			return Response.status(403).build();
+		}
+
+		PhotoDTO updated =  facadePhoto.updatePhoto(photo);
+		return Response.ok(updated).build();
 	}
 
 	@POST
@@ -116,7 +141,6 @@ public class RESTPhotosServlet {
 	@Allow(groups="sellers")
 	public Response uploadFile(MultipartFormDataInput input, @PathParam("id") long id) {
 		HttpSession session = httpServletRequest.getSession();
-		DecimalFormat df = new DecimalFormat("###.##"); //FIXME maybe generalise this
 		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
 
 		if(user.getUser().getMemberID() != id) {

@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.entities.Member;
+import fr.ujf.m2pgi.database.entities.MemberIdGenerator;
 import fr.ujf.m2pgi.database.entities.Photo;
 
 /**
@@ -18,7 +19,15 @@ import fr.ujf.m2pgi.database.entities.Photo;
 @SuppressWarnings("unchecked")
 public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDAO {
 
-	@Override 
+	@Override
+	public Member create(Member entity) {
+		MemberIdGenerator id = new MemberIdGenerator();
+		this.entityManager.persist(id);
+		entity.setMemberID(id.getSequence());
+		return super.create(entity);
+	}
+
+	@Override
 	public Member findMemberByLogin(String login) {
 		Query query = entityManager.createQuery("select m FROM Member m WHERE m.login=:login");
 		query.setParameter("login", login);

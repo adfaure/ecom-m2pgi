@@ -2,12 +2,10 @@ package fr.ujf.m2pgi.database.DAO;
 
 
 /**
- * 
- * @author FAURE Adrien
- *
- * Generique inteface for queriying enitites
- *
  * @param <entityType>
+ * @author FAURE Adrien
+ *         <p>
+ *         Generique inteface for queriying enitites
  */
 
 public interface IGeneriqueDAO<entityType> {
@@ -19,6 +17,7 @@ public interface IGeneriqueDAO<entityType> {
 	 */
 	entityType create(entityType t);
 
+
 	/**
 	 * 
 	 * @param id
@@ -26,11 +25,17 @@ public interface IGeneriqueDAO<entityType> {
 	void delete(Object id);
 
 	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	entityType find(Object id);
+     * @param id
+     * @return
+     */
+    entityType find(Object id);
+
+    /**
+     * @param id
+     * @param flush
+     * @return
+     */
+    public entityType find(Object id, boolean flush);
 
 	/**
 	 * 
@@ -38,6 +43,7 @@ public interface IGeneriqueDAO<entityType> {
 	 * @return
 	 */
 	entityType update(entityType t);
+	
 	
 	Long getEntityCount();
 

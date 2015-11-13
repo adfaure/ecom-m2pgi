@@ -3,6 +3,7 @@ package fr.ujf.m2pgi.database.Service;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -11,11 +12,13 @@ import javax.inject.Inject;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.ISellerDAO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Seller;
 import fr.ujf.m2pgi.elasticsearch.ElasticsearchDao;
 import fr.ujf.m2pgi.elasticsearch.PhotoDocument;
+import fr.ujf.m2pgi.elasticsearch.PhotoServiceES;
 
 /**
  *
@@ -58,9 +61,12 @@ public class PhotoService implements IPhotoService{
 		Photo photo = photoDao.find(id);
 	    if (photo != null) {
 	    	photoDao.delete(id);
+				if (!photoDaoES.delete(String.valueOf(id))) {
+					return null;// The photo couldn't be deleted from ES.
+				}
 	    	return photoMapper.getDTO(photo);
 	    }
-	    return null;
+	    return null;// The photo doesn't exist in our DB.
 	}
 
 	/**
@@ -102,6 +108,33 @@ public class PhotoService implements IPhotoService{
 	    return created;
 	}
 
+
+	public PhotoDTO updatePhoto(UpdatePhotoDTO photo) {
+
+    Photo photoEntity = photoDao.find(photo.getPhotoId());
+
+		if(photoEntity == null) return null;
+
+		photoEntity.setPrice(photo.getPrice());
+		photoEntity.setDescription(photo.getDescription());
+		photoEntity.setName(photo.getName());
+
+		PhotoDTO updated = photoMapper.getDTO(photoDao.update(photoEntity));
+
+		PhotoDocument doc = new PhotoDocument();
+		doc.setId(photo.getPhotoId());
+		doc.setName(photo.getName());
+		doc.setDescription(photo.getDescription());
+
+		try {// Needs better handling!
+			System.out.println("Updated in ES? "+photoDaoES.update(doc));
+		} catch (IOException | InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return updated;
+	}
 	/**
 	 *
 	 * @return
@@ -140,7 +173,10 @@ public class PhotoService implements IPhotoService{
 		return result;
 	}
 
-	
+	/**
+	 * 
+	 * @return
+     */
 	public Long getPhotoCount() {
 		Long pCount = photoDao.getEntityCount();
 		return pCount;

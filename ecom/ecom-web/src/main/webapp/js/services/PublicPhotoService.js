@@ -9,15 +9,18 @@ function publicPhoto($http) {
     service.GetAll = GetAll;
     service.GetPhotoCount = GetPhotoCount;
     service.Search = Search;
+    service.GetUserPhotos = GetUserPhotos;
+    service.DeletePhotoById = DeletePhotoById;
+    service.Update = Update;
 
     return service;
 
     function GetById(id) {
-        return $http.get('api/photos/id/' + id).then(handleSuccess, handleError('Error getting photo by id'));
+      return $http.get('api/photos/id/' + id).then(handleSuccess, handleError('Error getting photo by id'));
     }
 
     function GetAll() {
-        return $http.get('api/photos/').then(handleSuccess, handleError('Error getting all photos'));
+      return $http.get('api/photos/').then(handleSuccess, handleError('Error getting all photos'));
     }
     
     function GetPhotoCount() {
@@ -25,7 +28,19 @@ function publicPhoto($http) {
     }
 
     function Search(text) {
-        return $http.get('api/photos/search/' + text).then(handleSuccess, handleError('Error when searching photos'));
+      return $http.get('api/photos/search/' + text).then(handleSuccess, handleError('Error when searching photos'));
+    }
+
+    function GetUserPhotos(login) {
+      return $http.get('api/photos/user/login/' + login).then(handleSuccess, handleError('Error when get user photos'));
+    }
+
+    function DeletePhotoById(id) {
+      return $http.delete('api/photos/delete/' + id).then(handleSuccess, handleError('Error when deleting photo by id'));
+    }
+
+    function Update(photo) {
+    	return $http.put('api/photos/update', photo).then(handleSuccess, handleError('Error updating photo'));
     }
 
     // private functions

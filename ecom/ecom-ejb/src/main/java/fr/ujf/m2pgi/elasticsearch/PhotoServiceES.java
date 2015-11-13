@@ -21,4 +21,5 @@ public class PhotoServiceES {
 	public SearchResult searchPhotos(String text) {
 		return photoDao.search(text);
 	}
+	
 }

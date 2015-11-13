@@ -25,77 +25,73 @@ import java.util.Iterator;
 @Stateless
 public class MemberService {
 
-	/**
-	 *
-	 */
-	@Inject
-	private IMemberMapper memberMapper;
+    /**
+     *
+     */
+    @Inject
+    private IMemberMapper memberMapper;
 
-	/**
-	 *
-	 */
-	@Inject
-	private ISellerMapper sellerMapper;
+    /**
+     *
+     */
+    @Inject
+    private ISellerMapper sellerMapper;
 
-	/**
-	 *
-	 */
-	@Inject
-	private IPhotoMapper photoMapper;
-	/**
-	 *
-	 */
-	@Inject
-	private IMemberDAO memberDao;
+    /**
+     *
+     */
+    @Inject
+    private IPhotoMapper photoMapper;
+    /**
+     *
+     */
+    @Inject
+    private IMemberDAO memberDao;
 
-	/**
-	 *
-	 */
-	@Inject
-	private ISellerDAO sellerDAO;
+    /**
+     *
+     */
+    @Inject
+    private ISellerDAO sellerDAO;
 
-	/**
-	 * 
-	 * @param member
-	 */
-	public MemberDTO createMember(MemberDTO member) {
-		Member toCreate = memberMapper.getentity(member);
-		Member memberEntity = memberDao.create(toCreate);
-		MemberDTO res = memberMapper.getDTO(memberEntity);
-		return res;
-	}
-	
-	/**
-	 * 
-	 * @param login
-	 * @return
-	 */
-	public MemberDTO getMemberByLogin(String login) {
-		Member memberEntity = memberDao.findMemberByLogin(login);
-		if(memberEntity != null)
-			return memberMapper.getDTO(memberEntity);
-		return null;
-	}
+    /**
+     * @param member
+     */
+    public MemberDTO createMember(MemberDTO member) {
+        Member toCreate = memberMapper.getentity(member);
+        Member memberEntity = memberDao.create(toCreate);
+        MemberDTO res = memberMapper.getDTO(memberEntity);
+        return res;
+    }
 
-	/**
-	 *
-	 * @param id
-	 * @return
-	 */
-	public MemberDTO getMemberbyId(long id) {
-		Member memberEntity = memberDao.find(id);
-		if(memberEntity != null)
-			return memberMapper.getDTO(memberEntity);
-		return null;
-	}
+    /**
+     * @param login
+     * @return
+     */
+    public MemberDTO getMemberByLogin(String login) {
+        Member memberEntity = memberDao.findMemberByLogin(login);
+        if (memberEntity != null)
+            return memberMapper.getDTO(memberEntity);
+        return null;
+    }
 
-	/**
-	 *
-	 * @param login
-	 */
-	public SellerDTO findSellerByLogin(String login) {
-		Seller sellerEntity = sellerDAO.findSellerByLogin(login);
-	    if(sellerEntity != null)
+    /**
+     * @param id
+     * @return
+     */
+    public MemberDTO getMemberbyId(long id) {
+        Member memberEntity = memberDao.find(id);
+        if (memberEntity != null)
+            return memberMapper.getDTO(memberEntity);
+        return null;
+    }
+
+    /**
+     * @param login
+     */
+    public SellerDTO findSellerByLogin(String login) {
+        Seller sellerEntity = sellerDAO.findSellerByLogin(login);
+        if (sellerEntity != null)
             return sellerMapper.getDTO(sellerEntity);
         return null;
     }
@@ -110,20 +106,18 @@ public class MemberService {
 	}
 
 	/**
-	 *
 	 * @param seller
 	 * @return
 	 */
 	public SellerDTO createSellerFromMember(SellerDTO seller) {
-		Member member = memberDao.find(seller.getMemberID());
-		if(member != null) {
-			if(sellerDAO.createWithExistingMember(member, seller.getRIB())) {
-				member.setAccountType('S');
-				memberDao.update(member);
-				return  seller;
-			}
-		}
-		return null;
+	    Member member = memberDao.find(seller.getMemberID(), true);
+	    Seller sellerEntity = sellerMapper.getentity(seller);
+	    memberDao.delete(seller.getMemberID());
+	    sellerEntity.setAccountType('S');
+	    sellerEntity.setPassword(member.getPassword());
+	    sellerEntity = sellerDAO.create(sellerEntity);
+	    System.err.println("no member at this id, cannot upgrade"); //FIXME throw custom exeption ?
+	    return sellerMapper.getDTO(sellerEntity);
 	}
 	
 	public Long getMemberCount() {
@@ -135,6 +129,7 @@ public class MemberService {
 		Long count = sellerDAO.getEntityCount();
 		return count;
 	}
+	
 
 	/**
 	 *
@@ -198,4 +193,5 @@ public class MemberService {
 		entity.setCart(new ArrayList<Photo>());
 		return  memberMapper.getDTO(memberDao.updateCart(entity));
 	}
+	
 }

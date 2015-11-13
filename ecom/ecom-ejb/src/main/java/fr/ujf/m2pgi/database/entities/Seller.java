@@ -10,6 +10,11 @@ import javax.persistence.*;
 @DiscriminatorValue(value="S")
 public class Seller extends Member {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Column(name="RIB")
 	private String RIB;
 
