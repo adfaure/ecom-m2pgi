@@ -127,12 +127,12 @@ public class MemberService {
 	}
 	
 	public Long getMemberCount() {
-		Long count = memberDao.memberCount();
+		Long count = memberDao.getEntityCount();
 		return count;
 	}
 	
 	public Long getSellerCount(){
-		Long count = sellerDAO.sellerCount();
+		Long count = sellerDAO.getEntityCount();
 		return count;
 	}
 

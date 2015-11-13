@@ -38,10 +38,4 @@ public class SellerDAOImpl extends GeneriqueDAOImpl<Seller> implements ISellerDA
         return (query.executeUpdate() == 1);
     }
     
-    @SuppressWarnings("unchecked")
-	@Override
-	public Long sellerCount() {
-		Query query = entityManager.createQuery("SELECT count(s) FROM Seller s");
-	    return (Long) query.getResultList().get(0);
-	}
 }
