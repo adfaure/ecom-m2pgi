@@ -114,9 +114,9 @@ public class MemberService {
         memberDao.delete(seller.getMemberID());
         sellerEntity.setAccountType('S');
         sellerEntity.setPassword(member.getPassword());
-        sellerDAO.create(sellerEntity);
+        sellerEntity = sellerDAO.create(sellerEntity);
         System.err.println("no member at this id, cannot upgrade"); //FIXME throw custom exeption ?
-        return seller;
+        return sellerMapper.getDTO(sellerEntity);
     }
 
     /**
