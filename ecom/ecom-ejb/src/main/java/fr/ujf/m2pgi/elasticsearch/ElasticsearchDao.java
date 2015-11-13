@@ -44,7 +44,7 @@ public class ElasticsearchDao {
 	/**
 	 * Allows to delete document from a specific index based on its id.
 	 */
-	boolean delete(String id) {
+	public boolean delete(String id) {
 		DeleteResponse response = connection.getClient().prepareDelete("ecom", "photo", String.valueOf(id)).get();
 		return(response.isFound());
 	}
@@ -52,7 +52,7 @@ public class ElasticsearchDao {
 	/**
 	 * Allows to get a document from the index based on its id.
 	 */
-	PhotoDocument find(String id) {
+	public PhotoDocument find(String id) {
 		GetResponse response = connection.getClient().prepareGet("ecom", "photo", id).get();
 		if (!response.isExists()) return null;
 		PhotoDocument document = new PhotoDocument();
@@ -67,7 +67,7 @@ public class ElasticsearchDao {
 	 * @throws ExecutionException
 	 * @throws InterruptedException
 	 */
-	boolean update(PhotoDocument doc) throws IOException, InterruptedException, ExecutionException {
+	public boolean update(PhotoDocument doc) throws IOException, InterruptedException, ExecutionException {
 		UpdateRequest updateRequest = new UpdateRequest();
   	    updateRequest.index("ecom");
   	    updateRequest.type("photo");
@@ -79,11 +79,10 @@ public class ElasticsearchDao {
 			    .endObject());
 
 		UpdateResponse resp = connection.getClient().update(updateRequest).get();
-
 		return resp.isCreated();
 	}
 
-	SearchResult getAll() {
+	public SearchResult getAll() {
 		Client client = connection.getClient();
 		SearchResponse response = client.prepareSearch("ecom")
 				.setTypes("photo").setQuery(QueryBuilders.matchAllQuery()).execute().actionGet();
@@ -100,7 +99,7 @@ public class ElasticsearchDao {
         	document.setLocation((String)hit.getSource().get("location"));
         	hits.add(document);
         }
-        
+
         result.setHits(hits);
 
 		return result;
@@ -109,11 +108,11 @@ public class ElasticsearchDao {
 	/**
 	 * Allows to execute a search query and get back search hits that match the query.
 	 */
-	SearchResult search(String text, int first, int pageSize) {
+	public SearchResult search(String text, int first, int pageSize) {
 		Client client = connection.getClient();
 		SearchResponse response = client.prepareSearch("ecom")
 				.setTypes("photo").setQuery(QueryBuilders.matchQuery("description", text)).execute().actionGet();
-		
+
 		SearchResult result = new SearchResult();
 		result.setTotalHits(response.getHits().totalHits());
 		result.setTook(response.getTook().getMillis());
@@ -127,7 +126,7 @@ public class ElasticsearchDao {
         	document.setLocation((String)hit.getSource().get("location"));
         	hits.add(document);
         }
-        
+
         result.setHits(hits);
 
 		return result;
@@ -136,7 +135,7 @@ public class ElasticsearchDao {
 	/**
 	 * Allows to execute a search query and get back search hits that match the query.
 	 */
-	SearchResult search(String text) {
+	public SearchResult search(String text) {
 		return search(text, 0, Integer.MAX_VALUE);
 	}
 }

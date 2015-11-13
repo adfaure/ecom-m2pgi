@@ -3,7 +3,7 @@ package fr.ujf.m2pgi.database.entities;
 import javax.persistence.*;
 
 /**
- * 
+ *
  * @author FAURE Adrien ()
  *
  */
@@ -15,23 +15,23 @@ public class Photo {
 	@Column(name="photoID", columnDefinition = "serial")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long photoID;
-	
-	@ManyToOne(cascade = {CascadeType.ALL})
+
+	@ManyToOne
 	@JoinColumn(name = "seller_id", nullable = false)
 	private Seller author;
 
 	@Column(name="description")
 	private String description;
-	
+
 	@Column(name="name", nullable=false)
 	private String name;
-	
+
 	@Column(name="web_location", nullable=false)
 	private String webLocation; //FIXME choose better name (maybe publicLocation, watermarkLocation ...)
 
 	@Column(name="file_location", nullable=false)
 	private String fileLocation; // FIXME same here : origirnalLocation
-	
+
 	@Column(name="price")
 	private float price;
 
@@ -66,7 +66,7 @@ public class Photo {
 	public void setAuthor(Seller author) {
 		this.author = author;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}

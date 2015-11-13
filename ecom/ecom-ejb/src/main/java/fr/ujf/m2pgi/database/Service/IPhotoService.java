@@ -1,6 +1,8 @@
 package fr.ujf.m2pgi.database.Service;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
+
 import javax.ejb.Local;
 import java.io.*;
 import java.util.List;
@@ -16,6 +18,8 @@ public interface IPhotoService {
     PhotoDTO getPhotoById(Long id);
 
     PhotoDTO createPhoto(PhotoDTO photo);
+
+    PhotoDTO updatePhoto(UpdatePhotoDTO photo);
 
     List<PhotoDTO> getAllPhotos();
 
