@@ -37,5 +37,6 @@ public class SellerDAOImpl extends GeneriqueDAOImpl<Seller> implements ISellerDA
         entityManager.flush();
         return (query.executeUpdate() == 1);
     }
+
     
 }

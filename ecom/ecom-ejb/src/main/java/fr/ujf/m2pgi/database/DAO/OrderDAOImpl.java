@@ -41,7 +41,4 @@ public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
 		
 		return price;
 	}
-	
-	
-	
 }

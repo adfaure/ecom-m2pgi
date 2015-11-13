@@ -28,8 +28,6 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		}
 		return null;
 	}
-
-
 	//https://forum.hibernate.org/viewtopic.php?p=2404391
 	public Member updateCart(Member member) {
 		Member attachedMember  = entityManager.getReference(Member.class, member.getMemberID());
@@ -41,3 +39,4 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		return super.update(attachedMember);
 	}
 }
+

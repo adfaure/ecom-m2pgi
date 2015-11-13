@@ -85,6 +85,6 @@ public abstract class GeneriqueDAOImpl<entityType> implements IGeneriqueDAO<enti
 		
 		return (Long) query.getSingleResult();
 	}
-	
+
 
 }
