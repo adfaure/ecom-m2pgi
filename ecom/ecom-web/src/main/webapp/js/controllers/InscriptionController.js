@@ -8,7 +8,10 @@ var InscriptionController = function ($scope, memberService, sellerService, aler
         email: "",
         firstName: "",
         lastName: "",
-        accountType: 'N'
+        accountType: 'N',
+		sellerInfo : {
+			rib : ""
+		}
     };
 
     $scope.sellerCheckBox = false;
@@ -22,7 +25,7 @@ var InscriptionController = function ($scope, memberService, sellerService, aler
     	} else if(!$scope.sellerCheckBox) {
     		res = memberService.Create($scope.user);
     		$scope.user.accountType = 'M';
-    		delete $scope.user.RIB;
+    		delete $scope.user.sellerInfo;
     	}
     	
     	if(res != null) {

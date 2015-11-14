@@ -50,7 +50,7 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	@AllowAll
 	public Response getAllPhotos() {
-		List<PhotoDTO> photos = facadePhoto.getAllPhotos();
+		List<PhotoDTO> photos = facadePhoto.getAllAvailablePhotos();
 		return Response.ok(photos).build();
 	}
 

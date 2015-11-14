@@ -3,11 +3,9 @@ package fr.ujf.m2pgi.database.Mappers;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.SellerDTO;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Order;
 import fr.ujf.m2pgi.database.entities.Photo;
-import fr.ujf.m2pgi.database.entities.Seller;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
@@ -46,27 +44,6 @@ public class MapperWrapper {
             }
         });
 
-        this.modelMapper.addMappings(new PropertyMap<MemberDTO, Seller>() {
-            @Override
-            protected void configure() {
-                skip().setCart(null);
-                skip().setLogin(null);
-            }
-        });
-
-        this.modelMapper.addMappings(new PropertyMap<Seller, MemberDTO>() {
-            @Override
-            protected void configure() {
-                skip().setOrderedPhotos(null);
-            }
-        });
-
-        this.modelMapper.addMappings(new PropertyMap<Seller, SellerDTO >() {
-            @Override
-            protected void configure() {
-                skip().setOrderedPhotos(null);
-            }
-        });
 
         this.modelMapper.addMappings(new PropertyMap<Member, MemberDTO >() {
             @Override

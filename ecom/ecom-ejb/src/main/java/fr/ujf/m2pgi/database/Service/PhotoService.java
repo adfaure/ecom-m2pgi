@@ -5,20 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
-import fr.ujf.m2pgi.database.DAO.ISellerDAO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
+import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
+import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
-import fr.ujf.m2pgi.database.entities.Seller;
 import fr.ujf.m2pgi.elasticsearch.ElasticsearchDao;
 import fr.ujf.m2pgi.elasticsearch.PhotoDocument;
-import fr.ujf.m2pgi.elasticsearch.PhotoServiceES;
 
 /**
  *
@@ -44,7 +43,7 @@ public class PhotoService implements IPhotoService{
 	 *
 	 */
 	@Inject
-	private ISellerDAO sellerDao;
+	private IMemberDAO memberDAO;
 
 	/**
 	 *
@@ -60,7 +59,8 @@ public class PhotoService implements IPhotoService{
 	public PhotoDTO deletePhoto(Long id) {
 		Photo photo = photoDao.find(id);
 	    if (photo != null) {
-	    	photoDao.delete(id);
+			photo.setAvailable(false);
+	    	photoDao.update(photo);
 				if (!photoDaoES.delete(String.valueOf(id))) {
 					return null;// The photo couldn't be deleted from ES.
 				}
@@ -89,7 +89,7 @@ public class PhotoService implements IPhotoService{
 	 * @return
 	 */
 	public PhotoDTO createPhoto(PhotoDTO photo) {
-		  Seller seller = sellerDao.find(photo.getSellerID());
+		  Member seller = memberDAO.find(photo.getSellerID());
 		  if (seller == null) return null;
 		  Photo photoEntity = photoMapper.getentity(photo);
 		  photoEntity.setAuthor(seller);
@@ -135,6 +135,7 @@ public class PhotoService implements IPhotoService{
 
 		return updated;
 	}
+
 	/**
 	 *
 	 * @return
@@ -142,6 +143,18 @@ public class PhotoService implements IPhotoService{
 	public List<PhotoDTO> getAllPhotos() {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getAllPhotos()) {
+			result.add(photoMapper.getDTO(photo));
+		}
+		return result;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public List<PhotoDTO> getAllAvailablePhotos() {
+		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+		for(Photo photo : photoDao.getAllAvailablePhotos()) {
 			result.add(photoMapper.getDTO(photo));
 		}
 		return result;

@@ -30,4 +30,6 @@ public interface IPhotoService {
     void saveFile(InputStream uploadedInputStream, String serverLocation);
     
     Long getPhotoCount();
+
+    List<PhotoDTO> getAllAvailablePhotos();
 }

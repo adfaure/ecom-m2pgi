@@ -12,6 +12,7 @@ import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.MemberIdGenerator;
 import fr.ujf.m2pgi.database.entities.Photo;
+import fr.ujf.m2pgi.database.entities.SellerInfo;
 
 /**
  *
@@ -24,6 +25,7 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		MemberIdGenerator id = new MemberIdGenerator();
 		this.entityManager.persist(id);
 		entity.setMemberID(id.getSequence());
+
 		return super.create(entity);
 	}
 

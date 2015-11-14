@@ -47,4 +47,5 @@ public interface IGeneriqueDAO<entityType> {
      */
     entityType update(entityType t);
 
+
 }

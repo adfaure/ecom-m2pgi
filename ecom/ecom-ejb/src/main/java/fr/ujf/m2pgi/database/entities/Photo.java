@@ -18,7 +18,7 @@ public class Photo {
 
 	@ManyToOne
 	@JoinColumn(name = "seller_id", nullable = false)
-	private Seller author;
+	private Member author;
 
 	@Column(name="description")
 	private String description;
@@ -34,6 +34,17 @@ public class Photo {
 
 	@Column(name="price")
 	private float price;
+
+	@Column(name = "available")
+	private boolean available = true;
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
 
 	public String getFileLocation() {
 		return fileLocation;
@@ -59,11 +70,11 @@ public class Photo {
 		this.photoID = photoID;
 	}
 
-	public Seller getAuthor() {
+	public Member getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(Seller author) {
+	public void setAuthor(Member author) {
 		this.author = author;
 	}
 

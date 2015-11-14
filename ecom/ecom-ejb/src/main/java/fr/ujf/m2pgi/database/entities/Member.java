@@ -12,8 +12,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="member")
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorValue(value = "M")
 public class Member {
 
 	@Id
@@ -46,6 +44,21 @@ public class Member {
 		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
 	protected Collection<Photo> cart;
+
+	@OneToOne(cascade = {CascadeType.ALL})
+	protected SellerInfo sellerInfo;
+
+	public void setOrderedPhotos(Collection<Order> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
+	}
+
+	public SellerInfo getSellerInfo() {
+		return sellerInfo;
+	}
+
+	public void setSellerInfo(SellerInfo sellerInfo) {
+		this.sellerInfo = sellerInfo;
+	}
 
 	public Collection<Order> getOrderedPhotos() {
 		return orderedPhotos;
@@ -118,6 +131,5 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 }

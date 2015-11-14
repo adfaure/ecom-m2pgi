@@ -4,17 +4,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
-import fr.ujf.m2pgi.database.DAO.ISellerDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.SellerDTO;
+import fr.ujf.m2pgi.database.DTO.SellerInfoDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
-import fr.ujf.m2pgi.database.Mappers.ISellerMapper;
-import fr.ujf.m2pgi.database.Mappers.MapperWrapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
-import fr.ujf.m2pgi.database.entities.Seller;
+import fr.ujf.m2pgi.database.entities.SellerInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,24 +33,12 @@ public class MemberService {
      *
      */
     @Inject
-    private ISellerMapper sellerMapper;
-
-    /**
-     *
-     */
-    @Inject
     private IPhotoMapper photoMapper;
     /**
      *
      */
     @Inject
     private IMemberDAO memberDao;
-
-    /**
-     *
-     */
-    @Inject
-    private ISellerDAO sellerDAO;
 
     /**
      * @param member
@@ -90,36 +75,15 @@ public class MemberService {
     /**
      * @param login
      */
-    public SellerDTO findSellerByLogin(String login) {
-        Seller sellerEntity = sellerDAO.findSellerByLogin(login);
+   /* public SellerDTO findSellerByLogin(String login) {
+        Member sellerEntity = memberDao.findMemberByLogin(login);
         if (sellerEntity != null)
-            return sellerMapper.getDTO(sellerEntity);
+            return memberMapper.getDTO(sellerEntity);
         return null;
-    }
+    }*/
 
     /**
-     * @param seller
-     * @return
-     */
-    public SellerDTO createSeller(SellerDTO seller) {
-        return sellerMapper.getDTO(sellerDAO.create(sellerMapper.getentity(seller)));
-    }
-
-    /**
-     * @param seller
-     * @return
-     */
-    public SellerDTO createSellerFromMember(SellerDTO seller) {
-        Member member = memberDao.find(seller.getMemberID(), true);
-        Seller sellerEntity = sellerMapper.getentity(seller);
-        memberDao.delete(seller.getMemberID(), true);
-        sellerEntity.setAccountType('S');
-        sellerEntity.setPassword(member.getPassword());
-        sellerEntity = sellerDAO.create(sellerEntity);
-        return sellerMapper.getDTO(sellerEntity);
-    }
-
-    /**
+     *
      * @return
      */
     public Long getMemberCount() {
@@ -127,13 +91,6 @@ public class MemberService {
         return count;
     }
 
-    /**
-     * @return
-     */
-    public Long getSellerCount() {
-        Long count = sellerDAO.sellerCount();
-        return count;
-    }
 
     /**
      * @param member
@@ -194,4 +151,16 @@ public class MemberService {
         entity.setCart(new ArrayList<Photo>());
         return memberMapper.getDTO(memberDao.updateCart(entity));
     }
+
+    public MemberDTO createSellerFromMember(MemberDTO memberdto) {
+        Member member   = memberDao.find(memberdto.getMemberID());
+        SellerInfo info = new SellerInfo();
+        info.setId(memberdto.getMemberID());
+        info.setRIB(memberdto.getSellerInfo().getRIB());
+        member.setSellerInfo(info);
+        member.setAccountType('S');
+        memberDao.update(member);
+        return  memberMapper.getDTO(member);
+    }
+
 }

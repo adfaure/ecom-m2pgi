@@ -41,5 +41,5 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @return number of photos in the DB
 	 */
 	public Long getPhotoCount();
-
+	List<Photo> getAllAvailablePhotos();
 }
