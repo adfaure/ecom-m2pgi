@@ -193,7 +193,7 @@ public class RESTPhotosServlet {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
-	
+
 	@GET
 	@Path("/count")
 	@Produces("application/json")
@@ -201,6 +201,33 @@ public class RESTPhotosServlet {
 	public Response getPhotoCount() {
 		Long pCount = facadePhoto.getPhotoCount();
 		return Response.ok(pCount).build();
+	}
+
+	@POST
+	@Path("/view/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
+	@Produces("application/json")
+	public Response viewPhoto(@PathParam("photoID") Long photoID,
+	@PathParam("memberID") Long memberID) {
+		facadePhoto.viewPhoto(photoID, memberID);
+		return Response.ok("cool").build();
+	}
+
+	@POST
+	@Path("/like/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
+	@Produces("application/json")
+	public Response likePhoto(@PathParam("photoID") Long photoID,
+	@PathParam("memberID") Long memberID) {
+		facadePhoto.likePhoto(photoID, memberID);
+		return Response.ok("cool").build();
+	}
+
+	@POST
+	@Path("/unlike/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
+	@Produces("application/json")
+	public Response unlikePhoto(@PathParam("photoID") Long photoID,
+	@PathParam("memberID") Long memberID) {
+		facadePhoto.unlikePhoto(photoID, memberID);
+		return Response.ok("cool").build();
 	}
 
 	// Parse Content-Disposition header to get the original file name.
