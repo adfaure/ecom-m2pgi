@@ -23,10 +23,13 @@ public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
 	@Override
 	public Order create(Order entity) {
 		Collection<Photo> photos = new ArrayList<Photo>();
+		float price = 0;
 		for(Photo photo : entity.getOrderedPhotos()) {
 			Photo attached = entityManager.getReference(Photo.class, photo.getPhotoID());
 			photos.add(attached);
+			price += photo.getPrice();
 		}
+		entity.setPrice(price);
 		entity.setOrderedPhotos(photos);
 		return super.create(entity);
 	}
@@ -46,13 +49,13 @@ public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
 	    return (List<Order>)query.getResultList();
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	public Long getOrderCount() {
-		Query query = entityManager.createQuery("SELECT count(o) FROM Order o");
-	    return (Long) query.getResultList().get(0);
+	public Double getTotalPurchaseCost(){
+		Double price = 0.0;
+		Query query = entityManager.createQuery("SELECT SUM(o.price) FROM Order o ");
+		
+		if(query.getSingleResult() != null)
+			price = (Double) query.getSingleResult();
+		
+		return price;
 	}
-	
-	
-	
 }

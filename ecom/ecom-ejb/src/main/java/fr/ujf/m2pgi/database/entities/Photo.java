@@ -1,5 +1,7 @@
 package fr.ujf.m2pgi.database.entities;
 
+import java.util.Collection;
+
 import javax.persistence.*;
 
 /**
@@ -45,6 +47,18 @@ public class Photo {
 	public void setAvailable(boolean available) {
 		this.available = available;
 	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "cart")
+	private Collection<Member> buyers;
+
+	public Collection<Member> getBuyers() {
+		return buyers;
+	}
+
+	public void setBuyers(Collection<Member> buyers) {
+		this.buyers = buyers;
+	}
+
 
 	public String getFileLocation() {
 		return fileLocation;

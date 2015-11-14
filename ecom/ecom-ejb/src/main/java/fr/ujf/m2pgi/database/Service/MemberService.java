@@ -73,26 +73,6 @@ public class MemberService {
     }
 
     /**
-     * @param login
-     */
-   /* public SellerDTO findSellerByLogin(String login) {
-        Member sellerEntity = memberDao.findMemberByLogin(login);
-        if (sellerEntity != null)
-            return memberMapper.getDTO(sellerEntity);
-        return null;
-    }*/
-
-    /**
-     *
-     * @return
-     */
-    public Long getMemberCount() {
-        Long count = memberDao.memberCount();
-        return count;
-    }
-
-
-    /**
      * @param member
      * @param photoDTO
      */
@@ -142,16 +122,6 @@ public class MemberService {
         return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
     }
 
-    /**
-     * @param memberDTO
-     * @return
-     */
-    public MemberDTO deleteCart(MemberDTO memberDTO) {
-        Member entity = memberMapper.getentity(memberDTO);
-        entity.setCart(new ArrayList<Photo>());
-        return memberMapper.getDTO(memberDao.updateCart(entity));
-    }
-
     public MemberDTO createSellerFromMember(MemberDTO memberdto) {
         Member member   = memberDao.find(memberdto.getMemberID());
         SellerInfo info = new SellerInfo();
@@ -162,5 +132,23 @@ public class MemberService {
         memberDao.update(member);
         return  memberMapper.getDTO(member);
     }
+
+
+	public Long getMemberCount() {
+		Long count = memberDao.getEntityCount();
+		return count;
+	}
+
+
+	/**
+	 *
+	 * @param memberDTO
+	 * @return
+     */
+	public MemberDTO deleteCart(MemberDTO memberDTO) {
+		Member entity = memberMapper.getentity(memberDTO);
+		entity.setCart(new ArrayList<Photo>());
+		return  memberMapper.getDTO(memberDao.updateCart(entity));
+	}
 
 }

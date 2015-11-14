@@ -6,7 +6,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 /**
- * 
+ *
  * @author FAURE Adrien
  *
  */
@@ -29,17 +29,18 @@ public class Member {
 
 	@Column(name="lastName")
 	protected String lastName;
-	
+
 	@Column(name="email" , unique = true)
 	protected String email;
-	
+
 	@Column(name="accountType")
 	protected char accountType;
-	
+
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	protected Collection<Order> orderedPhotos;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "cart",
 		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)

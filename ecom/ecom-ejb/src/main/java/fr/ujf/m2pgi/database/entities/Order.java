@@ -28,6 +28,9 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
 
+	@Column(name="price")
+	private float price;
+
 	@PrePersist
 	protected void onCreate() {
 		dateCreated = new Date();
@@ -63,5 +66,13 @@ public class Order {
 
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public float getPrice() {
+		return price;
 	}
 }

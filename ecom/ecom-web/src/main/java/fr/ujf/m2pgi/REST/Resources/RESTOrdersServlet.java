@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import fr.ujf.m2pgi.EcomException;
+import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
@@ -72,6 +73,7 @@ public class RESTOrdersServlet {
 	@GET
 	@Path("/count")
 	@Produces("application/json")
+	@Allow(groups = "admin")
 	public Response getOrderCount() {
 		Long orderCount = orderService.getOrderCount();
 		return Response.ok(orderCount).build();
@@ -80,8 +82,9 @@ public class RESTOrdersServlet {
 	@GET
 	@Path("/totalPurchaseCost")
 	@Produces("application/json")
+	@Allow(groups = "admin")
 	public Response getOrderTotalPurchase() {
-		float orderTotalPurchase = orderService.getTotalPurchaseCost();
+		double orderTotalPurchase = orderService.getTotalPurchaseCost();
 		return Response.ok(orderTotalPurchase).build();
 	}
 }

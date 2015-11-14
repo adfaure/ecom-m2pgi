@@ -5,6 +5,11 @@ import java.lang.reflect.Type;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * 
+ */
 
 @SuppressWarnings("unchecked")
 /**
@@ -96,5 +101,14 @@ public abstract class GeneriqueDAOImpl<entityType> implements IGeneriqueDAO<enti
 	public entityType update(entityType entity) {
 		return entityManager.merge(entity);
 	}
+	
+	@Override
+	public Long getEntityCount() {
+		String q = "SELECT count(e) FROM " +entityClass.getName() + " e";
+		Query query = entityManager.createQuery(q);
+		
+		return (Long) query.getSingleResult();
+	}
+
 
 }

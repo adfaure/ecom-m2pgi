@@ -29,21 +29,7 @@ public class RESTSellerServlet {
 
     @EJB
     private MemberService memberService;
-
-    /*@GET
-    @Path("/login/{login}")
-    @Produces("application/json")
-    public SellerDTO findSellerByLogin(@PathParam("login") String login) {
-        return  memberService.getMemberByLogin(login);
-    } */
-
- /*   @GET
-    @Path("/count")
-    @Produces("application/json")
-    public Long getSellerCount() {
-        return  memberService.getSellerCount();
-    }
- */
+    
     @POST
 	@Path("/")
 	@Produces("application/json")
