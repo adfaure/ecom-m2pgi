@@ -69,13 +69,17 @@ public class Member {
 		this.orderedPhotos = orderedPhotos;
 	}
 
-	public Collection<Photo> getCart() {
-		return cart;
-	}
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "likes",
+		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> likedPhotos;
 
-	public void setCart(Collection<Photo> cart) {
-		this.cart = cart;
-	}
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "views",
+		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> viewedPhotos;
 
 	public long getMemberID() {
 		return memberID;
@@ -131,6 +135,30 @@ public class Member {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Collection<Photo> getCart() {
+		return cart;
+	}
+
+	public void setCart(Collection<Photo> cart) {
+		this.cart = cart;
+	}
+
+	public Collection<Photo> getLikedPhotos() {
+		return likedPhotos;
+	}
+
+	public void setLikedPhotos(Collection<Photo> likedPhotos) {
+		this.likedPhotos = likedPhotos;
+	}
+
+	public Collection<Photo> getViewedPhotos() {
+		return viewedPhotos;
+	}
+
+	public void setViewedPhotos(Collection<Photo> viewedPhotos) {
+		this.viewedPhotos = viewedPhotos;
 	}
 
 }

@@ -28,8 +28,14 @@ public interface IPhotoService {
     List<PhotoDTO> getUserPhotos(String login);
 
     void saveFile(InputStream uploadedInputStream, String serverLocation);
-    
+
     Long getPhotoCount();
 
     List<PhotoDTO> getAllAvailablePhotos();
+
+    void viewPhoto(Long photoID, Long memberID);
+
+    void likePhoto(Long photoID, Long memberID);
+
+    void unlikePhoto(Long photoID, Long memberID);
 }

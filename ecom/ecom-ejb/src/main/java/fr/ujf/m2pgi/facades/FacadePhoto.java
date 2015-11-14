@@ -61,12 +61,24 @@ public class FacadePhoto {
     public PhotoDTO updatePhoto(UpdatePhotoDTO photo) {
         return photoService.updatePhoto(photo);
     }
-    
+
     public Long getPhotoCount(){
     	return photoService.getPhotoCount();
     }
 
     public List<PhotoDTO> getAllAvailablePhotos() {
         return photoService.getAllAvailablePhotos();
+    }
+
+    public void viewPhoto(Long photoID, Long memberID) {
+      photoService.viewPhoto(photoID, memberID);
+    }
+
+    public void likePhoto(Long photoID, Long memberID) {
+      photoService.likePhoto(photoID, memberID);
+    }
+
+    public void unlikePhoto(Long photoID, Long memberID) {
+      photoService.likePhoto(photoID, memberID);
     }
 }

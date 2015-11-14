@@ -30,7 +30,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Photo> getUserPhotos(String login) {
-		Query query = entityManager.createQuery("SELECT p FROM Photo p left join p.author s WHERE s.login=:login");
+		Query query = entityManager.createQuery("SELECT p FROM Photo p left join p.author s WHERE s.login=:login and p.available = true");
 		query.setParameter("login", login);
 		return (List<Photo>)query.getResultList();
 	}
@@ -64,6 +64,35 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p where p.available = true");
 		return (List<Photo>)query.getResultList();
 
+	}
+
+	public void incrementViews(Long id) {
+		Query query = entityManager.createQuery("UPDATE Photo p SET p.views = p.views + 1 WHERE p.photoID = :id");
+		query.setParameter("id", id);
+		int updateCount = query.executeUpdate();
+		if (updateCount > 0) {
+			System.out.println("Done...");
+		}
+	}
+
+	@Override
+	public void incrementLikes(Long id) {
+		Query query = entityManager.createQuery("UPDATE Photo p SET p.likes = p.likes + 1 WHERE p.photoID = :id");
+		query.setParameter("id", id);
+		int updateCount = query.executeUpdate();
+		if (updateCount > 0) {
+			System.out.println("Done...");
+		}
+	}
+
+	@Override
+	public void decrementLikes(Long id) {
+		Query query = entityManager.createQuery("UPDATE Photo p SET p.likes = p.likes - 1 WHERE p.photoID = :id");
+		query.setParameter("id", id);
+		int updateCount = query.executeUpdate();
+		if (updateCount > 0) {
+			System.out.println("Done...");
+		}
 	}
 
 }
