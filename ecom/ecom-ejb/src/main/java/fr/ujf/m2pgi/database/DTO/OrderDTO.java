@@ -32,6 +32,17 @@ public class OrderDTO implements Serializable {
 	@XmlElement
 	private Date dateCreated;
 
+	@XmlElement
+	private float price;
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
 	public Collection<PhotoDTO> getPhotos() {
 		return photos;
 	}

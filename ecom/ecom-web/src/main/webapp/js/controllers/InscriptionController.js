@@ -30,7 +30,6 @@ var InscriptionController = function ($scope, memberService, sellerService, aler
     	
     	if(res != null) {
 	    		res.then(function (res) {
-		            console.log(res);
 		            if (res.success == false) {
 						alertService.add("alert-danger", " Erreur, lors de l'inscription ", 1000);
 		            } else {

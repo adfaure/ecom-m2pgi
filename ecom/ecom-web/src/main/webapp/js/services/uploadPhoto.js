@@ -7,7 +7,6 @@ function photoService($http) {
         uploadFileToUrl : function (file, sellerId) {
             var fd = new FormData();
             var uploadURL = url + sellerId;
-            console.log(file.data);
             fd.append('file', file.file);
 
             angular.forEach(file.data, function(val,name) {

@@ -1,3 +1,29 @@
 <div data-ng-controller="ordersController">
-    
+    <div data-ng-repeat="order in orders">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row ">
+                        <div class="col-md-4 fa-2x"> {{ order.price }} <i class="fa fa-euro"></i></div>
+                        <div class="col-md-4"> commandé le {{ order.dateCreated }} </div>
+                        <div class="col-md-8"> {{ order.photos.length }} photos dans la commande </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class=row ng-repeat="photo in order.photos track by $index" ng-if="$index % 4 == 0">
+                        <div class="col-xs-6 col-md-3"
+                             ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3]"
+                             ng-if="order.photos[i] != null">
+                            <a href="" data-ng-click="details(order.photos[i].photoID)" class="thumbnail">
+                                <img ng-src="{{order.photos[i].webLocation}}" alt="{{order.photos[i].name}}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
 </div>
+
+
+
