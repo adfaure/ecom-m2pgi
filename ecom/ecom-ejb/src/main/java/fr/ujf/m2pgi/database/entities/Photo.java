@@ -37,17 +37,20 @@ public class Photo {
 	@Column(name="price")
 	private float price;
 
+	@Column(name="views", insertable = false, updatable = true, columnDefinition = "int default 0")
+	private Integer views;
+
+	@Column(name="likes", insertable = false, updatable = true, columnDefinition = "int default 0")
+	private Integer likes;
+
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "cart")
 	private Collection<Member> buyers;
 
-	public Collection<Member> getBuyers() {
-		return buyers;
-	}
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "likedPhotos")
+	private Collection<Member> likers;
 
-	public void setBuyers(Collection<Member> buyers) {
-		this.buyers = buyers;
-	}
-
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "viewedPhotos")
+	private Collection<Member> viewers;
 
 	public String getFileLocation() {
 		return fileLocation;
@@ -105,4 +108,43 @@ public class Photo {
 		this.price = price;
 	}
 
+	public Integer getViews() {
+		return views;
+	}
+
+	public void setViews(Integer views) {
+		this.views = views;
+	}
+
+	public Integer getLikes() {
+		return likes;
+	}
+
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
+
+	public Collection<Member> getBuyers() {
+		return buyers;
+	}
+
+	public void setBuyers(Collection<Member> buyers) {
+		this.buyers = buyers;
+	}
+
+	public Collection<Member> getLikers() {
+		return likers;
+	}
+
+	public void setLikers(Collection<Member> likers) {
+		this.likers = likers;
+	}
+
+	public Collection<Member> getViewers() {
+		return viewers;
+	}
+
+	public void setViewers(Collection<Member> viewers) {
+		this.viewers = viewers;
+	}
 }

@@ -34,7 +34,10 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @return
 	 */
 	public List<Photo> getUserPhotos(String login);
-	
-	
 
+	public void incrementViews(Long id);
+
+	public void incrementLikes(Long id);
+
+	public void decrementLikes(Long id);
 }

@@ -11,10 +11,12 @@ import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.ISellerDAO;
+import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
 import fr.ujf.m2pgi.database.entities.Photo;
+import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Seller;
 import fr.ujf.m2pgi.elasticsearch.ElasticsearchDao;
 import fr.ujf.m2pgi.elasticsearch.PhotoDocument;
@@ -45,6 +47,9 @@ public class PhotoService implements IPhotoService{
 	 */
 	@Inject
 	private ISellerDAO sellerDao;
+
+	@Inject
+	private IMemberDAO memberDao;
 
 	/**
 	 *
@@ -77,7 +82,7 @@ public class PhotoService implements IPhotoService{
 	public PhotoDTO getPhotoById(Long id) {
 		Photo photoEntity = photoDao.find(id);
 		if(photoEntity != null) {
-            PhotoDTO dto = photoMapper.getDTO(photoEntity);
+			PhotoDTO dto = photoMapper.getDTO(photoEntity);
 			return dto;
 		}
 		return null;
@@ -174,12 +179,94 @@ public class PhotoService implements IPhotoService{
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
      */
 	public Long getPhotoCount() {
 		Long pCount = photoDao.getEntityCount();
 		return pCount;
+	}
+
+
+	public void viewPhoto(Long photoID, Long memberID)
+	{
+		Photo photo = photoDao.find(photoID);
+
+    boolean exists = false;
+		for(Member member: photo.getViewers())
+		{
+			if (member.getMemberID() == memberID)
+			{
+				exists = true;
+				break;
+			}
+		}
+
+		if (!exists)
+		{
+			Member member = memberDao.find(memberID);
+			if (member != null)
+			{
+				photo.getViewers().add(member);
+				member.getViewedPhotos().add(photo);
+				photoDao.update(photo);
+				photoDao.incrementViews(photoID);
+			}
+		}
+	}
+
+	public void likePhoto(Long photoID, Long memberID)
+	{
+		Photo photo = photoDao.find(photoID);
+
+		boolean exists = false;
+		for(Member member: photo.getLikers())
+		{
+			if (member.getMemberID() == memberID)
+			{
+				exists = true;
+				break;
+			}
+		}
+
+		if (!exists)
+		{
+			Member member = memberDao.find(memberID);
+			if (member != null)
+			{
+				photo.getLikers().add(member);
+				member.getLikedPhotos().add(photo);
+				photoDao.update(photo);
+				photoDao.incrementLikes(photoID);
+			}
+		}
+	}
+
+	public void unlikePhoto(Long photoID, Long memberID)
+	{
+		Photo photo = photoDao.find(photoID);
+
+		boolean exists = false;
+		for(Member member: photo.getLikers())
+		{
+			if (member.getMemberID() == memberID)
+			{
+				exists = true;
+				break;
+			}
+		}
+
+		if (exists)
+		{
+			Member member = memberDao.find(memberID);
+			if (member != null)
+			{
+				photo.getLikers().remove(member);
+				member.getLikedPhotos().remove(photo);
+				photoDao.update(photo);
+				photoDao.decrementLikes(photoID);
+			}
+		}
 	}
 
 	/**
