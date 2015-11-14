@@ -9,9 +9,10 @@ import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
+import fr.ujf.m2pgi.database.entities.Member;
 
 /**
- * 
+ *
  * @author AZOUZI Marwen
  *
  */
@@ -25,7 +26,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		query.setParameter("id", id);
 		return (List<Photo>)query.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Photo> getUserPhotos(String login) {
@@ -40,6 +41,16 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p");
 	    return (List<Photo>)query.getResultList();
 	}
-	
-	
+
+	@Override
+	public void delete(Object id) {
+		Photo photo = find(id);
+
+		for(Member member: photo.getBuyers())
+		{
+			member.getCart().remove(photo);
+		}
+
+		super.delete(id);
+	}
 }
