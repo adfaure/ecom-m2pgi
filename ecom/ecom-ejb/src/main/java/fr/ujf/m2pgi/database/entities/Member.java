@@ -14,13 +14,13 @@ import javax.persistence.*;
 @Table(name="member")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorValue(value = "M")
-public class Member implements Serializable {
+public class Member {
 
 	@Id
 	@Column(name="memberID")
 	protected long memberID;
 
-	@Column(name="login")
+	@Column(name="login", unique = true)
 	protected String login;
 
 	@Column(name="password")
@@ -32,20 +32,28 @@ public class Member implements Serializable {
 	@Column(name="lastName")
 	protected String lastName;
 	
-	@Column(name="email")
+	@Column(name="email" , unique = true)
 	protected String email;
 	
 	@Column(name="accountType")
 	protected char accountType;
 	
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Collection<Order> orderedPhotos;
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	protected Collection<Order> orderedPhotos;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "cart",
 		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
-	private Collection<Photo> cart;
+	protected Collection<Photo> cart;
+
+	public Collection<Order> getOrderedPhotos() {
+		return orderedPhotos;
+	}
+
+	public void getOrderedPhotos(Collection<Order> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
+	}
 
 	public Collection<Photo> getCart() {
 		return cart;

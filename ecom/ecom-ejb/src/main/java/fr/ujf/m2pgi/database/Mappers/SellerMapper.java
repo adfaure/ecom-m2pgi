@@ -10,4 +10,5 @@ import javax.ejb.Stateless;
  * Created by FAURE Adrien on 30/10/15.
  */
 public class SellerMapper extends GeneriqueMapperImpl<SellerDTO, Seller> implements ISellerMapper {
+
 }

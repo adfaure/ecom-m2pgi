@@ -1,6 +1,8 @@
 package fr.ujf.m2pgi.database.DAO;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -9,6 +11,7 @@ import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.entities.Order;
+import fr.ujf.m2pgi.database.entities.Photo;
 
 /**
  * 
@@ -16,7 +19,18 @@ import fr.ujf.m2pgi.database.entities.Order;
  *
  */
 public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
-	
+
+	@Override
+	public Order create(Order entity) {
+		Collection<Photo> photos = new ArrayList<Photo>();
+		for(Photo photo : entity.getOrderedPhotos()) {
+			Photo attached = entityManager.getReference(Photo.class, photo.getPhotoID());
+			photos.add(attached);
+		}
+		entity.setOrderedPhotos(photos);
+		return super.create(entity);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Order> getCustomerOrders(String login) {

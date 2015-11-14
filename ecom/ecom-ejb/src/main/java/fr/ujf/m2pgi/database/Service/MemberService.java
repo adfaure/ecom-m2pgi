@@ -11,6 +11,7 @@ import fr.ujf.m2pgi.database.DTO.SellerDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
 import fr.ujf.m2pgi.database.Mappers.ISellerMapper;
+import fr.ujf.m2pgi.database.Mappers.MapperWrapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Seller;
@@ -111,11 +112,10 @@ public class MemberService {
     public SellerDTO createSellerFromMember(SellerDTO seller) {
         Member member = memberDao.find(seller.getMemberID(), true);
         Seller sellerEntity = sellerMapper.getentity(seller);
-        memberDao.delete(seller.getMemberID());
+        memberDao.delete(seller.getMemberID(), true);
         sellerEntity.setAccountType('S');
         sellerEntity.setPassword(member.getPassword());
         sellerEntity = sellerDAO.create(sellerEntity);
-        System.err.println("no member at this id, cannot upgrade"); //FIXME throw custom exeption ?
         return sellerMapper.getDTO(sellerEntity);
     }
 

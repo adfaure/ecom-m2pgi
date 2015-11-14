@@ -70,6 +70,20 @@ public class MemberDTO implements Serializable {
 	@XmlElement
 	private Collection<PhotoDTO> cart;
 
+	/**
+	 *
+	 */
+	@XmlElement
+	private Collection<OrderDTO> orderedPhotos;
+
+	public Collection<OrderDTO> getOrderedPhotos() {
+		return orderedPhotos;
+	}
+
+	public void setOrderedPhotos(Collection<OrderDTO> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
+	}
+
 	public Collection<PhotoDTO> getCart() {
 		return cart;
 	}

@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,6 +12,7 @@ import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IOrderDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
+import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IOrderMapper;
 import fr.ujf.m2pgi.database.entities.Order;
 import fr.ujf.m2pgi.database.entities.Photo;
@@ -77,28 +79,12 @@ public class OrderService {
 		Long oCount = orderDao.getOrderCount();
 		return oCount;
 	}
-
-	/**
-	 *
-	 * @param order
-	 * @return
-     */
-	public OrderDTO createOrder(OrderDTO order) {
-		Member member = memberDao.find(order.getMemberID());
-		if (member == null) return null;// FixeME it would be better to throw custom exception such as CustomerNotFoundException
-		Photo photo = photoDao.find(order.getPhotoID());
-		if (photo == null) return null;
-		Order orderEntity = new Order();// FIXME I get java.lang.ClassCastException when I call orderMapper.getentity(dto)
-		orderEntity.setMember(member);
-		orderEntity.setPhoto(photo);
-		return orderMapper.getDTO(orderDao.create(orderEntity));
-	}
 	
 	public float getTotalPurchaseCost() {
 		List<OrderDTO> result = new ArrayList<OrderDTO>();
 		float sum = 0;
 		for(Order order: orderDao.getAllOrders()) {
-			sum+= order.getPhoto().getPrice();
+		//	sum+= order.getPhoto().getPrice();
 		}
 		return sum;
 	}

@@ -15,9 +15,15 @@ public class Seller extends Member {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 *
+	 */
 	@Column(name="RIB")
 	private String RIB;
 
+	/**
+	 *
+	 */
 	@OneToMany(mappedBy="author", fetch = FetchType.EAGER) // TODO maybe optimize this...
 	Collection<Photo> photos;
 	

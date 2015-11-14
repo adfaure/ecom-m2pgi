@@ -1,18 +1,9 @@
 package fr.ujf.m2pgi.database.entities;
 
+import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "orders")
@@ -26,14 +17,29 @@ public class Order {
 	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "memberID", nullable = false)
 	private Member member;
-	
-	@ManyToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name = "photoID", nullable = false)
-	private Photo photo;
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "OrderEntry",
+			joinColumns =  @JoinColumn(name = "orderID") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> orderedPhotos;
 	
     @Column(name = "date_created", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
+
+	@PrePersist
+	protected void onCreate() {
+		dateCreated = new Date();
+	}
+
+	public Collection<Photo> getOrderedPhotos() {
+		return orderedPhotos;
+	}
+
+	public void setOrderedPhotos(Collection<Photo> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
+	}
 
 	public Long getOrderID() {
 		return orderID;
@@ -51,14 +57,6 @@ public class Order {
 		this.member = member;
 	}
 
-	public Photo getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(Photo photo) {
-		this.photo = photo;
-	}
-	
 	public Date getDateCreated() {
 		return dateCreated;
 	}

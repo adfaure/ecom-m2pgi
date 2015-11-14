@@ -21,6 +21,12 @@ public interface IGeneriqueDAO<entityType> {
      */
     void delete(Object id);
 
+
+    /**
+     * @param id
+     */
+    void delete(Object id, boolean flush);
+
     /**
      * @param id
      * @return

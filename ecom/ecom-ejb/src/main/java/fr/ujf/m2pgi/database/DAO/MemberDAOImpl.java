@@ -33,7 +33,8 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		query.setParameter("login", login);
 		List<Member> members = query.getResultList();
 		if (members != null && members.size() == 1) {
-			return members.get(0);
+			Member member = members.get(0);
+			return member ;
 		}
 		return null;
 	}

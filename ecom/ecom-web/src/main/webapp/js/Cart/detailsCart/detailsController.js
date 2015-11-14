@@ -1,9 +1,11 @@
 var angular = require('angular');
 
 module.exports = function($scope, $location, apiToken, cartService) {
+
     if(!apiToken.isAuthentificated()) {
         $location.path("/");
     }
+
     $scope.totalPrice = 0;
     var user = apiToken.getUser();
 
@@ -29,6 +31,13 @@ module.exports = function($scope, $location, apiToken, cartService) {
             if(res.success)
                 apiToken.setUser(res.data);
 
+        });
+    };
+
+    $scope.validateCart = function() {
+        cartService.validateCart().then(function(res) {
+            if(res.success)
+                apiToken.setUser(res.data);
         });
     }
 
