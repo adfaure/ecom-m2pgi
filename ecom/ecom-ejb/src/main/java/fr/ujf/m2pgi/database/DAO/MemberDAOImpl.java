@@ -37,13 +37,6 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		}
 		return null;
 	}
-
-	@Override
-	public Long memberCount() {
-		Query query = entityManager.createQuery("SELECT count(m) FROM Member m");
-		return (Long) query.getResultList().get(0);
-	}
-
 	//https://forum.hibernate.org/viewtopic.php?p=2404391
 	public Member updateCart(Member member) {
 		Member attachedMember  = entityManager.getReference(Member.class, member.getMemberID());
@@ -55,3 +48,4 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		return super.update(attachedMember);
 	}
 }
+

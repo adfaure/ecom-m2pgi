@@ -25,6 +25,5 @@ public interface ISellerDAO extends IGeneriqueDAO<Seller> {
      * @return
      */
     boolean createWithExistingMember(Member member, String RIB);
-    
-    Long sellerCount();
+
 }

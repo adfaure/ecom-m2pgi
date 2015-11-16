@@ -76,6 +76,7 @@ public class RESTSellerServlet {
             resJson.put("user", newDTO);
             HttpSession session = httpServletRequest.getSession();
             PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+            user.setUser(newDTO);
             user.setGroup("sellers");
             session.setAttribute("principal", user);
         } else {

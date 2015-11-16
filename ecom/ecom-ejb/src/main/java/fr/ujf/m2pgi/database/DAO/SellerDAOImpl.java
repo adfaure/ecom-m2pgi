@@ -2,6 +2,7 @@ package fr.ujf.m2pgi.database.DAO;
 
 import fr.ujf.m2pgi.database.DTO.SellerDTO;
 import fr.ujf.m2pgi.database.entities.Member;
+import fr.ujf.m2pgi.database.entities.MemberIdGenerator;
 import fr.ujf.m2pgi.database.entities.Seller;
 
 import javax.ejb.Local;
@@ -13,6 +14,20 @@ import java.util.List;
  * Created by FAURE Adrien on 22/10/15.
  */
 public class SellerDAOImpl extends GeneriqueDAOImpl<Seller> implements ISellerDAO {
+
+
+    /**
+     *
+     * @param entity
+     * @return
+     */
+    @Override
+    public Seller  create(Seller entity) {
+        MemberIdGenerator id = new MemberIdGenerator();
+        this.entityManager.persist(id);
+        entity.setMemberID(id.getSequence());
+        return super.create(entity);
+    }
 
     /**
      *
@@ -37,11 +52,6 @@ public class SellerDAOImpl extends GeneriqueDAOImpl<Seller> implements ISellerDA
         entityManager.flush();
         return (query.executeUpdate() == 1);
     }
+
     
-    @SuppressWarnings("unchecked")
-	@Override
-	public Long sellerCount() {
-		Query query = entityManager.createQuery("SELECT count(s) FROM Seller s");
-	    return (Long) query.getResultList().get(0);
-	}
 }

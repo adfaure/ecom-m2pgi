@@ -9,9 +9,10 @@ import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
+import fr.ujf.m2pgi.database.entities.Member;
 
 /**
- * 
+ *
  * @author AZOUZI Marwen
  *
  */
@@ -25,7 +26,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		query.setParameter("id", id);
 		return (List<Photo>)query.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Photo> getUserPhotos(String login) {
@@ -40,12 +41,46 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p");
 	    return (List<Photo>)query.getResultList();
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
-	public Long getPhotoCount() {
-		Query query = entityManager.createQuery("SELECT count(p) FROM Photo p");
-	    return (Long) query.getResultList().get(0);
+	public void delete(Object id) {
+		Photo photo = find(id);
+
+		for(Member member: photo.getBuyers())
+		{
+			member.getCart().remove(photo);
+		}
+
+		super.delete(id);
 	}
-	
+
+	@Override
+	public void incrementViews(Long id) {
+		Query query = entityManager.createQuery("UPDATE Photo p SET p.views = p.views + 1 WHERE p.photoID = :id");
+		query.setParameter("id", id);
+		int updateCount = query.executeUpdate();
+		if (updateCount > 0) {
+			System.out.println("Done...");
+		}
+	}
+
+	@Override
+	public void incrementLikes(Long id) {
+		Query query = entityManager.createQuery("UPDATE Photo p SET p.likes = p.likes + 1 WHERE p.photoID = :id");
+		query.setParameter("id", id);
+		int updateCount = query.executeUpdate();
+		if (updateCount > 0) {
+			System.out.println("Done...");
+		}
+	}
+
+	@Override
+	public void decrementLikes(Long id) {
+		Query query = entityManager.createQuery("UPDATE Photo p SET p.likes = p.likes - 1 WHERE p.photoID = :id");
+		query.setParameter("id", id);
+		int updateCount = query.executeUpdate();
+		if (updateCount > 0) {
+			System.out.println("Done...");
+		}
+	}
 }

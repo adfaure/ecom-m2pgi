@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 
+ *
  * @author AZOUZI Marwen ()
  *
  */
@@ -17,19 +17,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class PhotoDTO implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@XmlElement
 	private long photoID;
-	
+
 	@XmlElement
 	private String description;
-	
+
 	@XmlElement
 	private String name;
-	
+
 	@XmlElement
 	private String fileLocation;
 
@@ -38,7 +38,14 @@ public class PhotoDTO implements Serializable {
 
 	@XmlElement
 	private float price;
-	
+
+	@XmlElement
+	private Integer views;
+
+	@XmlElement
+	private Integer likes;
+
+
 	@XmlElement
 	private long sellerID;
 
@@ -89,7 +96,23 @@ public class PhotoDTO implements Serializable {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	
+
+	public Integer getViews() {
+		return views;
+	}
+
+	public void setViews(Integer views) {
+		this.views = views;
+	}
+
+	public Integer getLikes() {
+		return likes;
+	}
+
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
+
 	public long getSellerID() {
 		return sellerID;
 	}
@@ -97,7 +120,7 @@ public class PhotoDTO implements Serializable {
 	public void setSellerID(long sellerID) {
 		this.sellerID = sellerID;
 	}
-	
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
