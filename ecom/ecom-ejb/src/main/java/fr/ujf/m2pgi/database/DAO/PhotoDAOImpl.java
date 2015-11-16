@@ -48,6 +48,42 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	}
 
 	@Override
+	public List<Photo> getPhotosSortByPrice(boolean ascending) {
+		String order = ascending == true ? "ASC" : "DESC";
+
+		Query query = entityManager.createQuery
+		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.price " + order);
+		return (List<Photo>)query.getResultList();
+	}
+
+	@Override
+	public List<Photo> getPhotosSortByViews(boolean ascending) {
+		String order = ascending == true ? "ASC" : "DESC";
+
+		Query query = entityManager.createQuery
+		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.views " + order);
+		return (List<Photo>)query.getResultList();
+	}
+
+	@Override
+	public List<Photo> getPhotosSortByLikes(boolean ascending) {
+		String order = ascending == true ? "ASC" : "DESC";
+
+		Query query = entityManager.createQuery
+		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.likes " + order);
+		return (List<Photo>)query.getResultList();
+	}
+
+	@Override
+	public List<Photo> getPhotosSortByDate(boolean ascending) {
+		String order = ascending == true ? "ASC" : "DESC";
+
+		Query query = entityManager.createQuery
+		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.dateCreated " + order);
+		return (List<Photo>)query.getResultList();
+	}
+
+	@Override
 	public void delete(Object id) {
 		Photo photo = find(id);
 
