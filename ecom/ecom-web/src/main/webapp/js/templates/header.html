@@ -1,30 +1,44 @@
-<nav class="navbar navbar-default navbar-static-top" data-ng-controller="headerController" >
-    <div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top" data-ng-controller="headerController" >
+    <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#/accueil"> ECOM </a>
+            <a class="navbar-brand" href="#/accueil"> Shopics </a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
                 <li data-ng-if="!auth">
                     <a href="#/inscription"> Sign up </a>
                 </li>
                 <li data-ng-if="!auth">
                     <a href="#/login"> Sign in </a>
                 </li>
-                <li data-ng-if="auth">
-                    <a href="#/" ng-click="logout()"> Log out </a>
-                </li>
-                <li data-ng-if="auth">
-                    <a href="#/profil"> {{ user.lastName}} {{ user.firstName }} </a>
-                </li>
+                <li class="dropdown" li data-ng-if="auth"> 
+                    <a href="#/profil" class="dropdown-toggle" data-toggle="dropdown"> {{ user.lastName}} {{ user.firstName }} </a>
+				    <!-- href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a--> 
+				    <ul class="dropdown-menu"> 
+				    	<li data-ng-if="auth">
+	                	    <a href="#/" ng-click="logout()"> Log out </a>
+	                	</li>
+				    </ul>     
+				</li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li data-ng-if="auth">
-                    <a href="" class="fa-2x" data-ng-click="gotToProfil('myCart')" >
-                        ({{ user.cart.length }})<i class="fa fa-cart-arrow-down"></i>
+                    <a href="" class="fa" data-ng-click="gotToProfil('myCart')" >
+                        <i class="fa fa-cart-arrow-down"></i>({{ user.cart.length }})
                     </a>
                 </li>
             </ul>
+            <ul class="nav">
+	            <form id="searchnavbar" class="navbar-form" name="searchForm" ng-submit="searchForm.$valid && goToSearch()">
+				    <div class="input-group">
+				        <span class="input-group-btn">
+				          	<button class="btn btn-default" type="submit">Search</button>
+				        </span>
+				        <input required type="text" id="searchInput" class="form-control" placeholder="Search for..." ng-model="terms">
+				    </div>
+			    </form>
+            </ul>
+            
         </div>
     </div>
 </nav>

@@ -24,6 +24,11 @@ var headerController = function($scope,$location, apiToken, authentificationServ
             'subview' : subview
         });
     };
+    $scope.goToSearch = function() {
+        $location.path('/search').search( {
+            'terms' : $scope.terms
+        });
+    };
 };
 
 

@@ -23,6 +23,8 @@ var managePhotosController     = require('./controllers/accountDetails/managePho
 var accueilController          = require('./controllers/AccueilController');
 var detailsPhotoController     = require('./controllers/DetailsPhotoController');
 var administratorController    = require('./controllers/AdministratorController');
+var searchController		   = require('./controllers/SearchController');
+var navsidebarController	   = require('./controllers/NavsidebarController');
 
 /**
  * Services
@@ -60,6 +62,10 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
         .when('/accueil', {
             templateUrl : './js/templates/accueil/accueil.html',
             controller : 'accueilController'
+        })
+        .when('/search', {
+            templateUrl : './js/templates/searchResult.html',
+            controller : 'searchController'
         })
         .when('/photos/details/:id', {
             templateUrl : './js/templates/photoDetails.html',
@@ -114,3 +120,6 @@ ecomApp.controller('managePhotos', managePhotosController);
 ecomApp.controller('accueilController', accueilController);
 ecomApp.controller('detailsPhotoController', detailsPhotoController);
 ecomApp.controller('administratorController', administratorController);
+ecomApp.controller('searchController', searchController);
+ecomApp.controller('navsidebarController', navsidebarController);
+

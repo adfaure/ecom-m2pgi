@@ -1,0 +1,27 @@
+<ul class="nav nav-sidebar">
+    <li ng-class="{'active':selected === 'accueil'}" ng-click="selected ='accueil'">
+        <a href="#/accueil">Accueil</a>
+    </li>
+</ul>
+<ul ng-show="seller" class="nav nav-sidebar">
+    <li ng-class="{'active':selected === 'profil'}" ng-click="selected ='profil'">
+        <a href="#/profil">Mon profil</a>
+    </li>
+    <li ng-class="{'active':selected === 'magasin'}" ng-click="selected ='magasin'">
+        <a href="">Mon magasin</a>
+    </li>
+    <li ng-class="{'active':selected === 'ventes'}" ng-click="selected ='ventes'">
+        <a href="">Mes ventes</a>
+    </li>
+</ul>
+<ul ng-show="auth" class="nav nav-sidebar">
+    <li ng-class="{'active':selected === 'achats'}" ng-click="selected ='achats'">
+        <a href="">Mes achats</a>
+    </li>
+    <li ng-class="{'active':selected === 'favoris'}" ng-click="selected ='favoris'">
+        <a href="">Mes favoris</a>
+    </li>
+    <li ng-class="{'active':selected === 'historiques'}" ng-click="selected ='historiques'">
+        <a href="">Mon historique</a>
+    </li>
+</ul>
