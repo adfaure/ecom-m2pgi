@@ -4,7 +4,6 @@ module.exports = function($parse) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
-            console.log("link");
             var model = $parse(attrs.ecomInputFile);
             var modelSetter = model.assign;
 

@@ -31,7 +31,11 @@ public interface IPhotoService {
 
     Long getPhotoCount();
 
+    List<PhotoDTO> getAllAvailablePhotos();
+
     void viewPhoto(Long photoID, Long memberID);
+
     void likePhoto(Long photoID, Long memberID);
+
     void unlikePhoto(Long photoID, Long memberID);
 }

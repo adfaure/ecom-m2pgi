@@ -1,6 +1,9 @@
 package fr.ujf.m2pgi.database.DTO;
 
+import fr.ujf.m2pgi.database.entities.Photo;
+
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,10 +27,29 @@ public class OrderDTO implements Serializable {
 	private Long memberID;
 	
 	@XmlElement
-	private Long photoID;
+	private Collection<PhotoDTO> photos;
 	
 	@XmlElement
 	private Date dateCreated;
+
+	@XmlElement
+	private float price;
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public Collection<PhotoDTO> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(Collection<PhotoDTO> photos) {
+		this.photos = photos;
+	}
 
 	public Long getOrderID() {
 		return orderID;
@@ -44,14 +66,6 @@ public class OrderDTO implements Serializable {
 	public void setMemberID(Long memberID) {
 		this.memberID = memberID;
 	}
-
-	public Long getPhotoID() {
-		return photoID;
-	}
-
-	public void setPhotoID(Long photoID) {
-		this.photoID = photoID;
-	}
 	
 	public Date getDateCreated() {
 		return dateCreated;
@@ -60,4 +74,5 @@ public class OrderDTO implements Serializable {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
+
 }

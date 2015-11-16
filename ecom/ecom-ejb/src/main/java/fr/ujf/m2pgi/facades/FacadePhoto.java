@@ -66,6 +66,10 @@ public class FacadePhoto {
     	return photoService.getPhotoCount();
     }
 
+    public List<PhotoDTO> getAllAvailablePhotos() {
+        return photoService.getAllAvailablePhotos();
+    }
+
     public void viewPhoto(Long photoID, Long memberID) {
       photoService.viewPhoto(photoID, memberID);
     }

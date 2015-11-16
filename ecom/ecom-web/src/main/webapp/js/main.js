@@ -32,7 +32,6 @@ var sellerService = require('./services/SellerService');
 var httpInterceptor = require('./services/HttpInterceptor');
 var apiToken = require('./services/ApiToken');
 var authentificationService = require('./services/AuthentificationService');
-var orderService = require('./services/OrderService');
 var uploadPhoto  = require('./services/uploadPhoto');
 var publicPhoto  = require('./services/PublicPhotoService');
 var alertService = require('./services/AlertService');
@@ -43,9 +42,10 @@ var alertService = require('./services/AlertService');
 var inputFileDir = require('./directives/InputFile');
 
 /**
- *
+ * Modules
  */
-var cartModule = require('./Cart/Module');
+var cartModule  = require('./Cart/Module');
+var orderModule = require('./Orders/Module');
 
 /**
  *
@@ -101,7 +101,6 @@ ecomApp.factory('apiToken', apiToken);
 ecomApp.factory('httpInterceptor', httpInterceptor);
 ecomApp.factory('uploadPhoto', uploadPhoto);
 ecomApp.factory('publicPhoto', publicPhoto);
-ecomApp.factory('orderService', orderService);
 ecomApp.factory('alertService', alertService);
 
 ecomApp.controller('inscriptionController', inscriptionController);

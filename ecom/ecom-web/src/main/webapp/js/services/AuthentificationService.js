@@ -31,7 +31,6 @@ function loginService($http, apiToken) {
     };
 
     function handleLogOutSuccess() {
-        console.log("loged out");
         apiToken.setToken("");
         apiToken.setUser({});
         return { success : true };

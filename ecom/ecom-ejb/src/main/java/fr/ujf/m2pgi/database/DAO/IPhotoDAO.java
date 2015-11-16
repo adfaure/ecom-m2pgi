@@ -16,9 +16,8 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 
 	/**
 	 *
-	 * @param login
 	 * @return
-	 */
+     */
 	List<Photo> getAllPhotos();
 
 	/**
@@ -34,6 +33,13 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @return
 	 */
 	public List<Photo> getUserPhotos(String login);
+
+	/**
+	 * 
+	 * @return number of photos in the DB
+	 */
+	public Long getPhotoCount();
+	List<Photo> getAllAvailablePhotos();
 
 	public void incrementViews(Long id);
 
