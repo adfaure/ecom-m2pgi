@@ -3,7 +3,7 @@ var angular = require('angular');
 var accueilController = function($scope, $location, publicPhoto) {
     var cachedPhotos = [];
 
-    publicPhoto.GetAll().then(function(res) {
+    publicPhoto.GetAllSortByDateDesc().then(function(res) {
             $scope.photos = cachedPhotos = res;
         }
     );
@@ -33,6 +33,30 @@ var accueilController = function($scope, $location, publicPhoto) {
         $scope.search.hitCount = res.totalHits;
         $scope.search.took = res.took;
         $scope.photos = res.hits;
+      });
+    };
+
+    $scope.sortByDate = function (){
+      publicPhoto.GetAllSortByDate().then(function(res) {
+        $scope.photos = res;
+      });
+    };
+
+    $scope.sortByPrice = function (){
+      publicPhoto.GetAllSortByPrice().then(function(res) {
+        $scope.photos = res;
+      });
+    };
+
+    $scope.sortByViews = function (){
+      publicPhoto.GetAllSortByViews().then(function(res) {
+        $scope.photos = res;
+      });
+    };
+
+    $scope.sortByLikes = function (){
+      publicPhoto.GetAllSortByLikes().then(function(res) {
+        $scope.photos = res;
       });
     };
 

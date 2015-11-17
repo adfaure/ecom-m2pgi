@@ -20,6 +20,14 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
      */
 	List<Photo> getAllPhotos();
 
+	List<Photo> getPhotosSortByPrice(boolean ascending);
+
+	List<Photo> getPhotosSortByViews(boolean ascending);
+
+	List<Photo> getPhotosSortByLikes(boolean ascending);
+
+	List<Photo> getPhotosSortByDate(boolean ascending);
+
 	/**
 	 *
 	 * @param id
@@ -32,18 +40,19 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @param login
 	 * @return
 	 */
-	public List<Photo> getUserPhotos(String login);
+	List<Photo> getUserPhotos(String login);
 
 	/**
-	 * 
+	 *
 	 * @return number of photos in the DB
 	 */
-	public Long getPhotoCount();
+	Long getPhotoCount();
+
 	List<Photo> getAllAvailablePhotos();
 
-	public void incrementViews(Long id);
+	void incrementViews(Long id);
 
-	public void incrementLikes(Long id);
+	void incrementLikes(Long id);
 
-	public void decrementLikes(Long id);
+	void decrementLikes(Long id);
 }

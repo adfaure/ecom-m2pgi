@@ -1,5 +1,7 @@
 package fr.ujf.m2pgi.database.DTO;
 
+import java.util.Date;
+
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -38,6 +40,9 @@ public class PhotoDTO implements Serializable {
 
 	@XmlElement
 	private float price;
+
+	@XmlElement
+	private Date dateCreated;
 
 	@XmlElement
 	private Integer views;
@@ -95,6 +100,14 @@ public class PhotoDTO implements Serializable {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	public Integer getViews() {

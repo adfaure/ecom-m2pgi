@@ -27,7 +27,7 @@ import fr.ujf.m2pgi.elasticsearch.PhotoDocument;
  *
  */
 @Stateless
-public class PhotoService implements IPhotoService{
+public class PhotoService implements IPhotoService {
 
 	/**
 	 *
@@ -151,6 +151,38 @@ public class PhotoService implements IPhotoService{
 	public List<PhotoDTO> getAllPhotos() {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getAllPhotos()) {
+			result.add(photoMapper.getDTO(photo));
+		}
+		return result;
+	}
+
+	public List<PhotoDTO> getPhotosSortByPrice(boolean ascending) {
+		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+		for(Photo photo: photoDao.getPhotosSortByPrice(ascending)) {
+			result.add(photoMapper.getDTO(photo));
+		}
+		return result;
+	}
+
+	public List<PhotoDTO> getPhotosSortByViews(boolean ascending) {
+		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+		for(Photo photo: photoDao.getPhotosSortByViews(ascending)) {
+			result.add(photoMapper.getDTO(photo));
+		}
+		return result;
+	}
+
+	public List<PhotoDTO> getPhotosSortByLikes(boolean ascending) {
+		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+		for(Photo photo: photoDao.getPhotosSortByLikes(ascending)) {
+			result.add(photoMapper.getDTO(photo));
+		}
+		return result;
+	}
+
+	public List<PhotoDTO> getPhotosSortByDate(boolean ascending) {
+		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+		for(Photo photo: photoDao.getPhotosSortByDate(ascending)) {
 			result.add(photoMapper.getDTO(photo));
 		}
 		return result;
