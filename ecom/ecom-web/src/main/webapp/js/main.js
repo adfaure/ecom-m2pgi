@@ -83,6 +83,10 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
             templateUrl: './js/templates/accountDetails.html',
             controller: 'accountDetails'
         })
+        .when('/profil/:section', {
+            templateUrl: './js/templates/accountDetails.html',
+            controller: 'accountDetails'
+        })
         .when('/administrator', {
         	templateUrl: './js/templates/administratorTemplate.html',
         	controller: 'administratorController'

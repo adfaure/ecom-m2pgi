@@ -21,9 +21,10 @@ var headerController = function($scope,$location, apiToken, authentificationServ
 
     $scope.gotToProfil = function(subview) {
         $location.path('/profil').search( {
-            'subview' : subview
+            'section' : subview
         });
     };
+
     $scope.goToSearch = function() {
         $location.path('/search').search( {
             'terms' : $scope.terms

@@ -8,20 +8,29 @@
         <a href="#/profil">Mon profil</a>
     </li>
     <li ng-class="{'active':selected === 'magasin'}" ng-click="selected ='magasin'">
-        <a href="">Mon magasin</a>
+        <a href="#/profil/managePhotos"> Mes photos </a>
     </li>
-    <li ng-class="{'active':selected === 'ventes'}" ng-click="selected ='ventes'">
-        <a href="">Mes ventes</a>
+    <li>
+        <a href="#/profil/addPhoto">
+            <i class="glyphicon glyphicon-plus"> </i>
+            Ajouter une photo
+        </a>
     </li>
 </ul>
 <ul ng-show="auth" class="nav nav-sidebar">
-    <li ng-class="{'active':selected === 'achats'}" ng-click="selected ='achats'">
-        <a href="">Mes achats</a>
+    <li >
+        <a href="#/profil/details">
+            <i class="glyphicon glyphicon-home"></i>
+            Overview
+        </a>
     </li>
-    <li ng-class="{'active':selected === 'favoris'}" ng-click="selected ='favoris'">
-        <a href="">Mes favoris</a>
+    <li>
+        <a href="#/profil/myCart" >
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+            Mon panier
+        </a>
     </li>
-    <li ng-class="{'active':selected === 'historiques'}" ng-click="selected ='historiques'">
-        <a href="">Mon historique</a>
+    <li data-ng-if="!seller">
+        <a href="#/profil/upgrade">Devenir vendeur</a>
     </li>
 </ul>
