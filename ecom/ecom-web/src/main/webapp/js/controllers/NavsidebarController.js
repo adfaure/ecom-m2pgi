@@ -13,6 +13,7 @@ var navsidebarController = function($scope, $location, $routeParams, apiToken) {
                 var userWatch = $scope.$watch(apiToken.getUser, function(user) {
                     $scope.user = user;
                     $scope.seller = (user.accountType == "S");
+                    $scope.admin  = (user.accountType == "A");
                 });
             } else {
                 if(userWatch) userWatch();

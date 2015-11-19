@@ -7,6 +7,12 @@ function publicPhoto($http) {
 
     service.GetById = GetById;
     service.GetAll = GetAll;
+    service.GetAllSortByDate = GetAllSortByDate;
+    service.GetAllSortByDateDesc = GetAllSortByDateDesc;
+    service.GetAllSortByPrice = GetAllSortByPrice;
+    service.GetAllSortByPriceDesc = GetAllSortByPriceDesc;
+    service.GetAllSortByViews = GetAllSortByViews;
+    service.GetAllSortByLikes = GetAllSortByLikes;
     service.GetPhotoCount = GetPhotoCount;
     service.Search = Search;
     service.GetUserPhotos = GetUserPhotos;
@@ -22,7 +28,37 @@ function publicPhoto($http) {
     function GetAll() {
       return $http.get('api/photos/').then(handleSuccess, handleError('Error getting all photos'));
     }
-    
+
+    function GetAllSortByDate() {
+      return $http.get('api/photos/orderby?criteria=date')
+        .then(handleSuccess, handleError('Error getting photos ordered by date'));
+    }
+
+    function GetAllSortByDateDesc() {
+      return $http.get('api/photos/orderby?criteria=date&order=DESC')
+        .then(handleSuccess, handleError('Error getting photos ordered by date'));
+    }
+
+    function GetAllSortByPrice() {
+      return $http.get('api/photos/orderby?criteria=price')
+        .then(handleSuccess, handleError('Error getting photos ordered by price'));
+    }
+
+    function GetAllSortByPriceDesc() {
+      return $http.get('api/photos/orderby?criteria=price&order=DESC')
+        .then(handleSuccess, handleError('Error getting photos ordered by price'));
+    }
+
+    function GetAllSortByViews() {
+      return $http.get('api/photos/orderby?criteria=views')
+        .then(handleSuccess, handleError('Error getting photos ordered by view'));
+    }
+
+    function GetAllSortByLikes() {
+      return $http.get('api/photos/orderby?criteria=likes')
+        .then(handleSuccess, handleError('Error getting photos ordered by likes'));
+    }
+
     function GetPhotoCount() {
         return $http.get('api/photos/count/').then(handleSuccess, handleError('The photo count couldnt be accomplished'));
     }

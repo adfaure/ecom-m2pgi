@@ -12,15 +12,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="member")
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorValue(value = "M")
-public class Member implements Serializable {
+public class Member {
 
 	@Id
 	@Column(name="memberID")
 	protected long memberID;
 
-	@Column(name="login")
+	@Column(name="login", unique = true)
 	protected String login;
 
 	@Column(name="password")
@@ -32,20 +30,44 @@ public class Member implements Serializable {
 	@Column(name="lastName")
 	protected String lastName;
 
-	@Column(name="email")
+	@Column(name="email" , unique = true)
 	protected String email;
 
 	@Column(name="accountType")
 	protected char accountType;
 
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Collection<Order> orderedPhotos;
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	protected Collection<Order> orderedPhotos;
+
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "cart",
 		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
-	private Collection<Photo> cart;
+	protected Collection<Photo> cart;
+
+	@OneToOne(cascade = {CascadeType.ALL})
+	protected SellerInfo sellerInfo;
+
+	public void setOrderedPhotos(Collection<Order> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
+	}
+
+	public SellerInfo getSellerInfo() {
+		return sellerInfo;
+	}
+
+	public void setSellerInfo(SellerInfo sellerInfo) {
+		this.sellerInfo = sellerInfo;
+	}
+
+	public Collection<Order> getOrderedPhotos() {
+		return orderedPhotos;
+	}
+
+	public void getOrderedPhotos(Collection<Order> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
+	}
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "likes",
@@ -138,4 +160,5 @@ public class Member implements Serializable {
 	public void setViewedPhotos(Collection<Photo> viewedPhotos) {
 		this.viewedPhotos = viewedPhotos;
 	}
+
 }

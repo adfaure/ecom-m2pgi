@@ -30,9 +30,14 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Photo> getUserPhotos(String login) {
-		Query query = entityManager.createQuery("SELECT p FROM Photo p left join p.author s WHERE s.login=:login");
+		Query query = entityManager.createQuery("SELECT p FROM Photo p left join p.author s WHERE s.login=:login and p.available = true");
 		query.setParameter("login", login);
 		return (List<Photo>)query.getResultList();
+	}
+
+	@Override
+	public Long getPhotoCount() {
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -40,6 +45,42 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	public List<Photo> getAllPhotos() {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p");
 	    return (List<Photo>)query.getResultList();
+	}
+
+	@Override
+	public List<Photo> getPhotosSortByPrice(boolean ascending) {
+		String order = ascending == true ? "ASC" : "DESC";
+
+		Query query = entityManager.createQuery
+		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.price " + order);
+		return (List<Photo>)query.getResultList();
+	}
+
+	@Override
+	public List<Photo> getPhotosSortByViews(boolean ascending) {
+		String order = ascending == true ? "ASC" : "DESC";
+
+		Query query = entityManager.createQuery
+		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.views " + order);
+		return (List<Photo>)query.getResultList();
+	}
+
+	@Override
+	public List<Photo> getPhotosSortByLikes(boolean ascending) {
+		String order = ascending == true ? "ASC" : "DESC";
+
+		Query query = entityManager.createQuery
+		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.likes " + order);
+		return (List<Photo>)query.getResultList();
+	}
+
+	@Override
+	public List<Photo> getPhotosSortByDate(boolean ascending) {
+		String order = ascending == true ? "ASC" : "DESC";
+
+		Query query = entityManager.createQuery
+		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.dateCreated " + order);
+		return (List<Photo>)query.getResultList();
 	}
 
 	@Override
@@ -55,6 +96,12 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	}
 
 	@Override
+	public List<Photo> getAllAvailablePhotos() {
+		Query query = entityManager.createQuery("SELECT p FROM Photo p where p.available = true");
+		return (List<Photo>)query.getResultList();
+
+	}
+
 	public void incrementViews(Long id) {
 		Query query = entityManager.createQuery("UPDATE Photo p SET p.views = p.views + 1 WHERE p.photoID = :id");
 		query.setParameter("id", id);
@@ -83,4 +130,5 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 			System.out.println("Done...");
 		}
 	}
+
 }

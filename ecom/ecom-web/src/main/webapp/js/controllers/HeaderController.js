@@ -5,7 +5,6 @@ var headerController = function($scope,$location, apiToken, authentificationServ
     $scope.auth = false;
     $scope.$watch( apiToken.isAuthentificated, function(isAuth) {
             $scope.auth = isAuth;
-            console.log("uayaya")
             if($scope.auth) {
                 $scope.user = apiToken.getUser();
                 var userWatch = $scope.$watch(apiToken.getUser, function(user) {

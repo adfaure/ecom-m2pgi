@@ -75,9 +75,9 @@ function sellerService($http) {
 
         if (!user.login) return null;
         if (!user.password && user.accountType != 'M') return null;
-        if (!user.RIB) return null;
+        if (!user.sellerInfo &&  !user.sellerInfo.rib) return null;
 
-        validUser.RIB = user.RIB;
+        validUser.RIB = user.rib;
         validUser.login = user.login;
         validUser.email = user.email;
         validUser.firstNale = user.firstName;

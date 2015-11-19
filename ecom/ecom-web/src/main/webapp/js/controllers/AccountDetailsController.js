@@ -8,6 +8,7 @@ var templates = {
     'stats'     : './js/templates/accountDetails/adminStats.html',
     'adminNav'  : './js/templates/accountDetails/AdminNavBar.html',
     'myCart'    : './js/Cart/detailsCart/CartDetails.html',
+    'history'    : './js/Orders/OrdersHistory/ordersHistory.html',
     'sellerNav' : './js/templates/accountDetails/SellerNavBar.html',
     'memberNav' : './js/templates/accountDetails/MemberNavBar.html'
 };

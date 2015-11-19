@@ -17,6 +17,10 @@ public interface IGeneriqueDAO<entityType> {
 	 */
 	entityType create(entityType t);
 
+    /**
+     * @param id
+     */
+    void delete(Object id, boolean flush);
 
 	/**
 	 * 
@@ -46,5 +50,6 @@ public interface IGeneriqueDAO<entityType> {
 	
 	
 	Long getEntityCount();
+
 
 }

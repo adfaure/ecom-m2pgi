@@ -23,6 +23,14 @@ public interface IPhotoService {
 
     List<PhotoDTO> getAllPhotos();
 
+    List<PhotoDTO> getPhotosSortByPrice(boolean ascending);
+
+    List<PhotoDTO> getPhotosSortByViews(boolean ascending);
+
+    List<PhotoDTO> getPhotosSortByLikes(boolean ascending);
+
+    List<PhotoDTO> getPhotosSortByDate(boolean ascending);
+
     List<PhotoDTO> getUserPhotos(Long id);
 
     List<PhotoDTO> getUserPhotos(String login);
@@ -31,7 +39,11 @@ public interface IPhotoService {
 
     Long getPhotoCount();
 
+    List<PhotoDTO> getAllAvailablePhotos();
+
     void viewPhoto(Long photoID, Long memberID);
+
     void likePhoto(Long photoID, Long memberID);
+
     void unlikePhoto(Long photoID, Long memberID);
 }
