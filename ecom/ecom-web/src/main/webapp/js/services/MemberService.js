@@ -15,7 +15,7 @@ function memberService($http) {
     return service;
 
     function GetById(id) {
-        return $http.get('api/members/' + id).then(handleSuccess, handleError('Error getting user by id'));
+        return $http.get('api/members/id/' + id).then(handleSuccess, handleError('Error getting user by id'));
     }
 
     function GetByUsername(username) {
