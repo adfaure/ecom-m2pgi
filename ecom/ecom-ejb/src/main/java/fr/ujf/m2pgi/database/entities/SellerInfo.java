@@ -1,9 +1,6 @@
 package fr.ujf.m2pgi.database.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by FAURE Adrien on 14/11/15.
@@ -17,6 +14,27 @@ public class SellerInfo {
 
     @Column(name = "RIB", nullable = false)
     private String RIB;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    protected SellerPage page;
+
+    @PrePersist
+    public void setDefaultSellerPage() {
+        if(this.page == null) {
+            page = new SellerPage();
+            page.setId(getId());
+            page.setContent("autogenrated default page");
+            page.setTitle("seller's page");
+        }
+    }
+
+    public SellerPage getPage() {
+        return page;
+    }
+
+    public void setPage(SellerPage page) {
+        this.page = page;
+    }
 
     public String getRIB() {
         return RIB;
@@ -33,4 +51,5 @@ public class SellerInfo {
     public void setId(long id) {
         this.id = id;
     }
+
 }

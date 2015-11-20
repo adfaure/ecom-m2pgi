@@ -18,6 +18,7 @@ function publicPhoto($http) {
     service.GetUserPhotos = GetUserPhotos;
     service.DeletePhotoById = DeletePhotoById;
     service.Update = Update;
+    service.GetUserPhotosWithId = GetUserPhotosWithId;
 
     return service;
 
@@ -70,6 +71,11 @@ function publicPhoto($http) {
     function GetUserPhotos(login) {
       return $http.get('api/photos/user/login/' + login).then(handleSuccess, handleError('Error when get user photos'));
     }
+
+    function GetUserPhotosWithId(id) {
+        return $http.get('api/photos/user/id/' + id).then(handleSuccess, handleError('Error when get user photos'));
+    }
+
 
     function DeletePhotoById(id) {
       return $http.delete('api/photos/delete/' + id).then(handleSuccess, handleError('Error when deleting photo by id'));

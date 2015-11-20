@@ -48,6 +48,7 @@ var inputFileDir = require('./directives/InputFile');
  */
 var cartModule  = require('./Cart/Module');
 var orderModule = require('./Orders/Module');
+var pageModule  = require('./SellerPage/Module');
 
 /**
  *
@@ -93,6 +94,10 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
         })
         .when('/', {
             redirectTo: '/accueil',
+        })
+        .when('/seller/page/:id', {
+            templateUrl : './js/SellerPage/Page/PageTemplate.html',
+            controller : 'pageController'
         })
         .otherwise({
         	redirectTo: '/accueil',
