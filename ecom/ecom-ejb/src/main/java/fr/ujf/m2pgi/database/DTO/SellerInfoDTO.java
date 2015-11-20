@@ -15,6 +15,17 @@ public class SellerInfoDTO {
     @XmlElement
     private String RIB;
 
+    @XmlElement
+    private SellerPageDTO page;
+
+    public SellerPageDTO getPage() {
+        return page;
+    }
+
+    public void setPage(SellerPageDTO page) {
+        this.page = page;
+    }
+
     public String getRIB() {
         return RIB;
     }

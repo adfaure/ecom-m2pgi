@@ -75,5 +75,4 @@ var memMgmtController = function($scope,  publicPhoto, orderService, memberServi
 
 };
 
-
 module.exports = memMgmtController;

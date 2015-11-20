@@ -1,30 +1,40 @@
-<nav class="navbar navbar-default navbar-static-top" data-ng-controller="headerController" >
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#/accueil"> ECOM </a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li data-ng-if="!auth">
-                    <a href="#/inscription"> Sign up </a>
-                </li>
-                <li data-ng-if="!auth">
-                    <a href="#/login"> Sign in </a>
-                </li>
-                <li data-ng-if="auth">
-                    <a href="#/" ng-click="logout()"> Log out </a>
-                </li>
-                <li data-ng-if="auth">
-                    <a href="#/profil"> {{ user.lastName}} {{ user.firstName }} </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li data-ng-if="auth">
-                    <a href="" class="fa-2x" data-ng-click="gotToProfil('myCart')" >
-                        ({{ user.cart.length }})<i class="fa fa-cart-arrow-down"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
+<nav class="navbar navbar-default" data-ng-controller="headerController">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/accueil"">Shopics</a>
     </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form id="searchnavbar"  class="navbar-form navbar-left" role="search" name="searchForm" ng-submit="searchForm.$valid && goToSearch()">
+        <div class="form-group">
+          <input id="searchInput" type="text" class="form-control" placeholder="Entrer recherche...">
+        </div>
+        <button type="submit" class="btn btn-default">Chercher</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li data-ng-if="auth">
+          <a class="fa" data-ng-click="gotToProfil('myCart')" >
+              <i class="fa fa-cart-arrow-down"></i>({{ user.cart.length }})<span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li data-ng-if="!auth"><a href="#/inscription"> Inscription </a></li>
+        <li data-ng-if="!auth"><a href="#/login"> Connexion </a></li>
+        <li class="dropdown" data-ng-if="auth">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li role="separator" class="divider"></li>
+		    <li data-ng-if="auth"><a href="#/" ng-click="logout()"> Déconnexion </a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>

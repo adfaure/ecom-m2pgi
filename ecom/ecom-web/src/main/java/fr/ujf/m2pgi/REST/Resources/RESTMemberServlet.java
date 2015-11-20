@@ -46,6 +46,14 @@ public class RESTMemberServlet {
 		return Response.ok(member).build();
 	}
 
+	@GET
+	@Path("/id/{id}")
+	@Produces("application/json")
+	public Response getMemberById(@PathParam("id") long id) {
+		MemberDTO member =  memberService.getMemberbyId(id);
+		return Response.ok(member).build();
+	}
+
 	@POST
 	@Path("/")
 	@Produces("application/json")

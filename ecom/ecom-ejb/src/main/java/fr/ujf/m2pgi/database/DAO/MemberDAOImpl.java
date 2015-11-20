@@ -9,10 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
-import fr.ujf.m2pgi.database.entities.Member;
-import fr.ujf.m2pgi.database.entities.MemberIdGenerator;
-import fr.ujf.m2pgi.database.entities.Photo;
-import fr.ujf.m2pgi.database.entities.SellerInfo;
+import fr.ujf.m2pgi.database.entities.*;
 
 /**
  *
@@ -25,7 +22,10 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		MemberIdGenerator id = new MemberIdGenerator();
 		this.entityManager.persist(id);
 		entity.setMemberID(id.getSequence());
-
+		SellerInfo sellerInfo = entity.getSellerInfo();
+		if(sellerInfo != null) {
+			sellerInfo.setId(id.getSequence());
+		}
 		return super.create(entity);
 	}
 
@@ -40,6 +40,7 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		}
 		return null;
 	}
+
 	//https://forum.hibernate.org/viewtopic.php?p=2404391
 	public Member updateCart(Member member) {
 		Member attachedMember  = entityManager.getReference(Member.class, member.getMemberID());
@@ -55,6 +56,13 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		Query query = entityManager.createQuery("Select m From Member m");
 		List<Member> members = query.getResultList();
 		return members;
+	}
+
+	@Override
+	public Member getSellerById(long id) {
+		Member member = super.find(id);
+		if(member == null) return null;
+		return member;
 	}
 }
 

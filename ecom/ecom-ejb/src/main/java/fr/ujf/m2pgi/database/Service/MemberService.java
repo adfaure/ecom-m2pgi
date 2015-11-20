@@ -63,6 +63,13 @@ public class MemberService {
         return null;
     }
 
+    public MemberDTO getSellerById(long id) {
+        Member member = memberDao.getSellerById(id);
+        if(member != null)
+            return  memberMapper.getDTO(member);
+        return  null;
+    }
+
     /**
      * @param id
      * @return
@@ -165,5 +172,12 @@ public class MemberService {
 		entity.setCart(new ArrayList<Photo>());
 		return  memberMapper.getDTO(memberDao.updateCart(entity));
 	}
+
+    public MemberDTO updateSeller(MemberDTO memberdto) {
+        Member entity = memberMapper.getentity(memberdto);
+        memberDao.update(entity);
+        return memberdto;
+    }
+
 
 }

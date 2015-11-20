@@ -24,6 +24,8 @@ var accueilController          = require('./controllers/AccueilController');
 var detailsPhotoController     = require('./controllers/DetailsPhotoController');
 var administratorController    = require('./controllers/adminDetails/AdministratorController');
 var memMgmtController          = require('./controllers/adminDetails/memMgmt');
+var searchController		   = require('./controllers/SearchController');
+var navsidebarController	   = require('./controllers/NavsidebarController');
 
 /**
  * Services
@@ -47,6 +49,7 @@ var inputFileDir = require('./directives/InputFile');
  */
 var cartModule  = require('./Cart/Module');
 var orderModule = require('./Orders/Module');
+var pageModule  = require('./SellerPage/Module');
 
 /**
  *
@@ -61,6 +64,10 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
         .when('/accueil', {
             templateUrl : './js/templates/accueil/accueil.html',
             controller : 'accueilController'
+        })
+        .when('/search', {
+            templateUrl : './js/templates/searchResult.html',
+            controller : 'searchController'
         })
         .when('/photos/details/:id', {
             templateUrl : './js/templates/photoDetails.html',
@@ -78,8 +85,16 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
             templateUrl: './js/templates/accountDetails.html',
             controller: 'accountDetails'
         })
+        .when('/profil/:section', {
+            templateUrl: './js/templates/accountDetails.html',
+            controller: 'accountDetails'
+        })
         .when('/', {
             redirectTo: '/accueil',
+        })
+        .when('/seller/page/:id', {
+            templateUrl : './js/SellerPage/Page/PageTemplate.html',
+            controller : 'pageController'
         })
         .otherwise({
         	redirectTo: '/accueil',
@@ -111,3 +126,5 @@ ecomApp.controller('accueilController', accueilController);
 ecomApp.controller('detailsPhotoController', detailsPhotoController);
 ecomApp.controller('administratorController', administratorController);
 ecomApp.controller('memMgmtController', memMgmtController);
+ecomApp.controller('searchController', searchController);
+ecomApp.controller('navsidebarController', navsidebarController);
