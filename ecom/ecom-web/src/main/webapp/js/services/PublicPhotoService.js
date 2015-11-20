@@ -16,6 +16,9 @@ function publicPhoto($http) {
     service.GetPhotoCount = GetPhotoCount;
     service.Search = Search;
     service.GetUserPhotos = GetUserPhotos;
+    service.GetUserWishedPhotos = GetUserWishedPhotos;
+    service.GetUserWishedPhotosById = GetUserWishedPhotosById;
+    service.RemovePhotoFromWishList = RemovePhotoFromWishList;
     service.DeletePhotoById = DeletePhotoById;
     service.Update = Update;
 
@@ -69,6 +72,18 @@ function publicPhoto($http) {
 
     function GetUserPhotos(login) {
       return $http.get('api/photos/user/login/' + login).then(handleSuccess, handleError('Error when get user photos'));
+    }
+
+    function GetUserWishedPhotos(login) {
+      return $http.get('api/photos/user/login/' + login + '/wishes').then(handleSuccess, handleError('Error when getting user wishlist'));
+    }
+
+    function GetUserWishedPhotosById(id) {
+      return $http.get('api/photos/user/id/' + id + '/wishes').then(handleSuccess, handleError('Error when getting user wishlist'));
+    }
+
+    function RemovePhotoFromWishList(photoID, memberID) {
+      return $http.post('api/photos/unwish/' + photoID + '/' + memberID).then(handleSuccess, handleError('Error when unwishing photo'));
     }
 
     function DeletePhotoById(id) {

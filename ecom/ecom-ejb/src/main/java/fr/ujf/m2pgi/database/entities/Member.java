@@ -16,58 +16,37 @@ public class Member {
 
 	@Id
 	@Column(name="memberID")
-	protected long memberID;
+	private long memberID;
 
 	@Column(name="login", unique = true)
-	protected String login;
+	private String login;
 
 	@Column(name="password")
-	protected String password; //FIXME find a way to encrypte this
+	private String password; //FIXME find a way to encrypte this
 
 	@Column(name="firstName")
-	protected String firstName;
+	private String firstName;
 
 	@Column(name="lastName")
-	protected String lastName;
+	private String lastName;
 
 	@Column(name="email" , unique = true)
-	protected String email;
+	private String email;
 
 	@Column(name="accountType")
-	protected char accountType;
+	private char accountType;
 
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	protected Collection<Order> orderedPhotos;
-
+	private Collection<Order> orderedPhotos;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "cart",
 		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
-	protected Collection<Photo> cart;
+	private Collection<Photo> cart;
 
 	@OneToOne(cascade = {CascadeType.ALL})
-	protected SellerInfo sellerInfo;
-
-	public void setOrderedPhotos(Collection<Order> orderedPhotos) {
-		this.orderedPhotos = orderedPhotos;
-	}
-
-	public SellerInfo getSellerInfo() {
-		return sellerInfo;
-	}
-
-	public void setSellerInfo(SellerInfo sellerInfo) {
-		this.sellerInfo = sellerInfo;
-	}
-
-	public Collection<Order> getOrderedPhotos() {
-		return orderedPhotos;
-	}
-
-	public void getOrderedPhotos(Collection<Order> orderedPhotos) {
-		this.orderedPhotos = orderedPhotos;
-	}
+	private SellerInfo sellerInfo;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "likes",
@@ -80,6 +59,12 @@ public class Member {
 		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
 	private Collection<Photo> viewedPhotos;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "wishes",
+		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> wishedPhotos;
 
 	public long getMemberID() {
 		return memberID;
@@ -145,6 +130,26 @@ public class Member {
 		this.cart = cart;
 	}
 
+	public void setOrderedPhotos(Collection<Order> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
+	}
+
+	public SellerInfo getSellerInfo() {
+		return sellerInfo;
+	}
+
+	public void setSellerInfo(SellerInfo sellerInfo) {
+		this.sellerInfo = sellerInfo;
+	}
+
+	public Collection<Order> getOrderedPhotos() {
+		return orderedPhotos;
+	}
+
+	public void getOrderedPhotos(Collection<Order> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
+	}
+
 	public Collection<Photo> getLikedPhotos() {
 		return likedPhotos;
 	}
@@ -159,6 +164,14 @@ public class Member {
 
 	public void setViewedPhotos(Collection<Photo> viewedPhotos) {
 		this.viewedPhotos = viewedPhotos;
+	}
+
+	public Collection<Photo> getWishedPhotos() {
+		return wishedPhotos;
+	}
+
+	public void setWishedPhotos(Collection<Photo> wishedPhotos) {
+		this.wishedPhotos = wishedPhotos;
 	}
 
 }

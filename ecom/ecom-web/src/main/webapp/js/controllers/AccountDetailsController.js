@@ -9,6 +9,7 @@ var templates = {
     'adminNav'  : './js/templates/accountDetails/AdminNavBar.html',
     'myCart'    : './js/Cart/detailsCart/CartDetails.html',
     'history'    : './js/Orders/OrdersHistory/ordersHistory.html',
+    'wishList'    : './js/Photos/WishList/wishlist.html',
     'sellerNav' : './js/templates/accountDetails/SellerNavBar.html',
     'memberNav' : './js/templates/accountDetails/MemberNavBar.html'
 };
@@ -16,7 +17,7 @@ var templates = {
 var accountDetails = function($scope,$routeParams, $location, apiToken) {
 
     $scope.templates = templates;
-    
+
     $scope.subview   = "details";
     $scope.setView   = setView;
 
@@ -30,7 +31,7 @@ var accountDetails = function($scope,$routeParams, $location, apiToken) {
         $scope.user  = apiToken.getUser();
     }
 
-    
+
     $scope.$watch(
         apiToken.getUser, function() {
             $scope.user = apiToken.getUser();

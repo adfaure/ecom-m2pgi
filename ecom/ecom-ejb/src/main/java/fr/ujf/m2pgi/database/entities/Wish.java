@@ -5,8 +5,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "cart")
-public class Cart implements Serializable {
+@Table(name = "wishes")
+public class Wish implements Serializable {
 
   @Id @ManyToOne @JoinColumn(name = "memberID")
   private Member member;

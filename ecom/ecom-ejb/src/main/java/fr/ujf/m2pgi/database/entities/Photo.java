@@ -61,6 +61,9 @@ public class Photo {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "viewedPhotos")
 	private Collection<Member> viewers;
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "viewedPhotos")
+	private Collection<Member> wishers;
+
 	public String getFileLocation() {
 		return fileLocation;
 	}
@@ -171,5 +174,13 @@ public class Photo {
 
 	public void setViewers(Collection<Member> viewers) {
 		this.viewers = viewers;
+	}
+
+	public Collection<Member> getWishers() {
+		return wishers;
+	}
+
+	public void setWishers(Collection<Member> wishers) {
+		this.wishers = wishers;
 	}
 }

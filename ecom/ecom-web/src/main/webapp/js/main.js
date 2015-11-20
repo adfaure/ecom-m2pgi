@@ -46,6 +46,7 @@ var inputFileDir = require('./directives/InputFile');
  */
 var cartModule  = require('./Cart/Module');
 var orderModule = require('./Orders/Module');
+var photoModule = require('./Photos/Module');
 
 /**
  *
