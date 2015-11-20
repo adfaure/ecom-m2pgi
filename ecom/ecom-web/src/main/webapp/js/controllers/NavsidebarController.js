@@ -1,36 +1,27 @@
 var angular = require('angular');
 var ecomApp = require('./../app');
 
-var headerController = function($scope,$location, apiToken, authentificationService) {
+var navsidebarController = function($scope, $location, $routeParams, apiToken) {
     $scope.auth = false;
+    $scope.seller = false;
+    $scope.selected = "accueil";
+
     $scope.$watch( apiToken.isAuthentificated, function(isAuth) {
             $scope.auth = isAuth;
             if($scope.auth) {
                 $scope.user = apiToken.getUser();
                 var userWatch = $scope.$watch(apiToken.getUser, function(user) {
                     $scope.user = user;
+                    $scope.seller = (user.accountType == "S");
+                    $scope.admin  = (user.accountType == "A");
                 });
             } else {
                 if(userWatch) userWatch();
             }
         }
     );
-
-    $scope.logout = authentificationService.logout;
-
-    $scope.gotToProfil = function(subview) {
-        $location.path('/profil').search( {
-            'section' : subview
-        });
-    };
-
-    $scope.goToSearch = function() {
-        $location.path('/search').search( {
-            'terms' : $scope.terms
-        });
-    };
 };
 
 
-ecomApp.controller('headerController', headerController);
-module.exports = headerController;
+ecomApp.controller('navsidebarController', navsidebarController);
+module.exports = navsidebarController;

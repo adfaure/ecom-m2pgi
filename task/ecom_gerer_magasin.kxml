@@ -2,7 +2,7 @@
 <!DOCTYPE kmad-model SYSTEM "file:KMADModelJT.dtd">
 <kmad-model version="1.3">
     <project classkmad="project.Project" idkmad="K1"/>
-    <task classkmad="tache.Task" id-task-point="K3" id-task-subtasks-list="K38 K28 K13 K16 K31 " idkmad="K4">
+    <task classkmad="tache.Task" id-task-point="K3" id-task-subtasks-list="K38 K46 " idkmad="K4">
         <task-name>Gérer le magasin</task-name>
         <task-numero>Racine   </task-numero>
         <task-observation/>
@@ -14,7 +14,7 @@
         <task-precondition>true</task-precondition>
         <task-descriptionprecondition>Own a seller account</task-descriptionprecondition>
         <task-effetsdebord>void</task-effetsdebord>
-        <task-iteration>true</task-iteration>
+        <task-iteration>[1]</task-iteration>
         <point classkmad="tache.Point" idkmad="K3">
             <point-x>467</point-x>
             <point-y>69</point-y>
@@ -37,73 +37,91 @@
                 <point-y>258</point-y>
             </point>
         </task>
-        <task classkmad="tache.Task" id-task-point="K27" idkmad="K28">
-            <task-name>Modifier les informations du magasin</task-name>
+        <task classkmad="tache.Task" id-task-point="K45" id-task-subtasks-list="K28 K13 K16 K31 " idkmad="K46">
+            <task-name>Agir</task-name>
             <task-numero>2</task-numero>
             <task-observation/>
-            <task-executant>INT</task-executant>
+            <task-executant>ABS</task-executant>
             <task-modality>COGN</task-modality>
-            <task-optional>true</task-optional>
+            <task-optional>false</task-optional>
             <task-interruptible>false</task-interruptible>
-            <task-decomposition>LEAF</task-decomposition>
+            <task-decomposition>ENT</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
             <task-iteration>[1]</task-iteration>
-            <point classkmad="tache.Point" idkmad="K27">
-                <point-x>249</point-x>
-                <point-y>259</point-y>
-            </point>
-        </task>
-        <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
-            <task-name>Gérer les albums</task-name>
-            <task-numero>3</task-numero>
-            <task-observation/>
-            <task-executant>INT</task-executant>
-            <task-modality>COGN</task-modality>
-            <task-optional>true</task-optional>
-            <task-interruptible>false</task-interruptible>
-            <task-decomposition>LEAF</task-decomposition>
-            <task-precondition>true</task-precondition>
-            <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
-            <point classkmad="tache.Point" idkmad="K12">
-                <point-x>615</point-x>
-                <point-y>259</point-y>
-            </point>
-        </task>
-        <task classkmad="tache.Task" id-task-point="K15" idkmad="K16">
-            <task-name>Gérer les photos</task-name>
-            <task-numero>4</task-numero>
-            <task-observation/>
-            <task-executant>INT</task-executant>
-            <task-modality>COGN</task-modality>
-            <task-optional>true</task-optional>
-            <task-interruptible>false</task-interruptible>
-            <task-decomposition>LEAF</task-decomposition>
-            <task-precondition>true</task-precondition>
-            <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
-            <point classkmad="tache.Point" idkmad="K15">
-                <point-x>799</point-x>
-                <point-y>259</point-y>
-            </point>
-        </task>
-        <task classkmad="tache.Task" id-task-point="K30" idkmad="K31">
-            <task-name>Consulter les ventes</task-name>
-            <task-numero>5</task-numero>
-            <task-observation/>
-            <task-executant>INT</task-executant>
-            <task-modality>COGN</task-modality>
-            <task-optional>true</task-optional>
-            <task-interruptible>false</task-interruptible>
-            <task-decomposition>LEAF</task-decomposition>
-            <task-precondition>true</task-precondition>
-            <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
-            <point classkmad="tache.Point" idkmad="K30">
-                <point-x>975</point-x>
+            <task-descriptioniteration>tant que U veut</task-descriptioniteration>
+            <point classkmad="tache.Point" idkmad="K45">
+                <point-x>627</point-x>
                 <point-y>258</point-y>
             </point>
+            <task classkmad="tache.Task" id-task-point="K27" idkmad="K28">
+                <task-name>Modifier les informations du magasin</task-name>
+                <task-numero>2.1</task-numero>
+                <task-observation/>
+                <task-executant>INT</task-executant>
+                <task-modality>COGN</task-modality>
+                <task-optional>true</task-optional>
+                <task-interruptible>false</task-interruptible>
+                <task-decomposition>LEAF</task-decomposition>
+                <task-precondition>true</task-precondition>
+                <task-effetsdebord>void</task-effetsdebord>
+                <task-iteration>[1]</task-iteration>
+                <point classkmad="tache.Point" idkmad="K27">
+                    <point-x>65</point-x>
+                    <point-y>455</point-y>
+                </point>
+            </task>
+            <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
+                <task-name>Gérer les albums</task-name>
+                <task-numero>2.2</task-numero>
+                <task-observation/>
+                <task-executant>INT</task-executant>
+                <task-modality>COGN</task-modality>
+                <task-optional>true</task-optional>
+                <task-interruptible>false</task-interruptible>
+                <task-decomposition>LEAF</task-decomposition>
+                <task-precondition>true</task-precondition>
+                <task-effetsdebord>void</task-effetsdebord>
+                <task-iteration>[1]</task-iteration>
+                <point classkmad="tache.Point" idkmad="K12">
+                    <point-x>431</point-x>
+                    <point-y>455</point-y>
+                </point>
+            </task>
+            <task classkmad="tache.Task" id-task-point="K15" idkmad="K16">
+                <task-name>Gérer les photos</task-name>
+                <task-numero>2.3</task-numero>
+                <task-observation/>
+                <task-executant>INT</task-executant>
+                <task-modality>COGN</task-modality>
+                <task-optional>true</task-optional>
+                <task-interruptible>false</task-interruptible>
+                <task-decomposition>LEAF</task-decomposition>
+                <task-precondition>true</task-precondition>
+                <task-effetsdebord>void</task-effetsdebord>
+                <task-iteration>[1]</task-iteration>
+                <point classkmad="tache.Point" idkmad="K15">
+                    <point-x>615</point-x>
+                    <point-y>455</point-y>
+                </point>
+            </task>
+            <task classkmad="tache.Task" id-task-point="K30" idkmad="K31">
+                <task-name>Consulter les ventes</task-name>
+                <task-numero>2.4</task-numero>
+                <task-observation/>
+                <task-executant>INT</task-executant>
+                <task-modality>COGN</task-modality>
+                <task-optional>true</task-optional>
+                <task-interruptible>false</task-interruptible>
+                <task-decomposition>LEAF</task-decomposition>
+                <task-precondition>true</task-precondition>
+                <task-effetsdebord>void</task-effetsdebord>
+                <task-iteration>[1]</task-iteration>
+                <point classkmad="tache.Point" idkmad="K30">
+                    <point-x>791</point-x>
+                    <point-y>454</point-y>
+                </point>
+            </task>
         </task>
     </task>
 </kmad-model>

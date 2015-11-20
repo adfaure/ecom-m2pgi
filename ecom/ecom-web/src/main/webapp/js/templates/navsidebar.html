@@ -1,0 +1,46 @@
+<ul class="nav nav-sidebar">
+    <li ng-class="{'active':selected === 'accueil'}" ng-click="selected ='accueil'">
+        <a href="#/accueil">Accueil</a>
+    </li>
+</ul>
+<ul ng-show="auth" class="nav nav-sidebar">
+    <li >
+        <a href="#/profil/details">
+            <i class="glyphicon glyphicon-home"></i>
+            Overview
+        </a>
+    </li>
+    <li >
+        <a href="#/profil/history">
+            Mes commandes
+        </a>
+    </li>
+    <li>
+        <a href="#/profil/myCart" >
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+            Mon panier
+        </a>
+    </li>
+    <li data-ng-if="!seller">
+        <a href="#/profil/upgrade">Devenir vendeur</a>
+    </li>
+</ul>
+<ul ng-show="seller" class="nav nav-sidebar">
+    <li ng-class="{'active':selected === 'magasin'}" ng-click="selected ='magasin'">
+        <a href="#/profil/managePhotos"> Mes photos </a>
+    </li>
+    <li>
+        <a href="#/profil/addPhoto">
+            <i class="glyphicon glyphicon-plus"> </i>
+            Ajouter une photo
+        </a>
+    </li>
+</ul>
+<ul class="nav nav-sidebar" data-ng-if="admin">
+    <li>
+        <a href="#/profil/stats">
+            <i class="glyphicon glyphicon-plus"> </i>
+            Statistiques
+        </a>
+    </li>
+</ul>

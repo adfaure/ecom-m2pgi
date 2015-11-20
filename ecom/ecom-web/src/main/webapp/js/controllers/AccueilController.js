@@ -20,7 +20,7 @@ var accueilController = function($scope, $location, publicPhoto) {
                 'photo' :JSON.stringify(photo)
             });
     };
-
+/*
     $scope.search = {
         terms : '',
         hitCount : 0,
@@ -65,7 +65,7 @@ var accueilController = function($scope, $location, publicPhoto) {
       $scope.search.hitCount = null;
       $scope.photos = cachedPhotos;
     }
-
+*/
 };
 
 module.exports = accueilController;
