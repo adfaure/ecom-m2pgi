@@ -1,13 +1,43 @@
 <ul class="nav nav-sidebar">
-    <li ng-class="{'active':selected === 'accueil'}" ng-click="selected ='accueil'">
+    <li>
         <a href="#/accueil">Accueil</a>
     </li>
 </ul>
+
+
+<!-- Admin section -->
+<ul class="nav nav-sidebar" ng-show="admin">
+    <li>
+        <a href="#/profil/stats">
+            <i class="glyphicon glyphicon-plus"> </i>
+            Statistiques
+        </a>
+    </li>
+	<li role="separator" class="divider"></li>
+</ul>
+
+
+<!-- Seller section -->
+<ul ng-show="seller" class="nav nav-sidebar">
+    <li>
+        <a href="#/profil/managePhotos"> Mes photos </a>
+    </li>
+    <li>
+        <a href="#/profil/addPhoto">
+            <i class="glyphicon glyphicon-plus"> </i>
+            Ajouter une photo
+        </a>
+    </li>
+	<li role="separator" class="divider"></li>
+</ul>
+
+
+<!-- Simple member section -->
 <ul ng-show="auth" class="nav nav-sidebar">
     <li >
         <a href="#/profil/details">
             <i class="glyphicon glyphicon-home"></i>
-            Overview
+            Mon compte
         </a>
     </li>
     <li >
@@ -21,26 +51,32 @@
             Mon panier
         </a>
     </li>
-    <li data-ng-if="!seller">
+    <li ng-show="!seller">
         <a href="#/profil/upgrade">Devenir vendeur</a>
     </li>
+	<li role="separator" class="divider"></li>
 </ul>
-<ul ng-show="seller" class="nav nav-sidebar">
-    <li ng-class="{'active':selected === 'magasin'}" ng-click="selected ='magasin'">
-        <a href="#/profil/managePhotos"> Mes photos </a>
-    </li>
+
+
+<!-- Visitor section -->
+<ul ng-show="auth" class="nav nav-sidebar">
+    <!-- li>
+        <a href="#/profil/myCart" >
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+            Mon panier
+        </a>
+    </li-->
+	<li role="separator" class="divider"></li>
+</ul>
+
+
+<!-- Visitor section -->
+<ul class="nav nav-sidebar">
     <li>
-        <a href="#/profil/addPhoto">
-            <i class="glyphicon glyphicon-plus"> </i>
-            Ajouter une photo
+        <a href="#/contactUs" >
+            <i class="glyphicon glyphicon-envelope"></i>
+            Nous contacter
         </a>
     </li>
-</ul>
-<ul class="nav nav-sidebar" data-ng-if="admin">
-    <li>
-        <a href="#/profil/stats">
-            <i class="glyphicon glyphicon-plus"> </i>
-            Statistiques
-        </a>
-    </li>
+	<li role="separator" class="divider"></li>
 </ul>
