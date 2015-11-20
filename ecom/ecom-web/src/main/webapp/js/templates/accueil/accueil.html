@@ -1,32 +1,4 @@
 
-<div class="row">
-  <div class="col-lg-9">
-    <form name="searchForm" ng-submit="searchForm.$valid && elasticsearch()">
-      <div class="input-group">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="submit">Search</button>
-        </span>
-        <input required type="text" id="searchInput" class="form-control" placeholder="Search for..." ng-model="terms">
-      </div>
-    </form>
-  </div>
-  <div class="col-lg-3">
-    <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Sort By
-      <span class="caret"></span>
-    </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <li><a href="" ng-click="photosFromCache()">Newest</a></li>
-        <li><a href="" ng-click="sortByDate()">Oldest</a></li>
-        <li><a href="" ng-click="sortByPrice()">Cheapest</a></li>
-        <li><a href="" ng-click="sortByPriceDesc()">Most Expensive</a></li>
-        <li><a href="" ng-click="sortByViews()">Total Views</a></li>
-        <li><a href="" ng-click="sortByLikes()">Total Likes</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
 <p ng-if="search.hitCount">Found {{ search.hitCount }} photo(s) with
    <span id="fake-link1" ng-click="photosFromCache()" class="glyphicon glyphicon-remove">{{ search.terms }}</span> in {{ search.took }} ms!</p>
 <p ng-if="search.hitCount == 0 && search.terms">
