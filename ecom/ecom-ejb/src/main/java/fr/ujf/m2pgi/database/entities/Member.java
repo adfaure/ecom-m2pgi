@@ -49,6 +49,19 @@ public class Member {
 	@OneToOne(cascade = {CascadeType.ALL})
 	protected SellerInfo sellerInfo;
 
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "likes",
+			joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> likedPhotos;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "views",
+			joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> viewedPhotos;
+
 	public void setOrderedPhotos(Collection<Order> orderedPhotos) {
 		this.orderedPhotos = orderedPhotos;
 	}
@@ -69,17 +82,6 @@ public class Member {
 		this.orderedPhotos = orderedPhotos;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "likes",
-		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
-	)
-	private Collection<Photo> likedPhotos;
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "views",
-		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
-	)
-	private Collection<Photo> viewedPhotos;
 
 	public long getMemberID() {
 		return memberID;
