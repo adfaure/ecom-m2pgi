@@ -46,6 +46,22 @@ public class FacadePhoto {
         return photoService.getAllPhotos();
     }
 
+    public List<PhotoDTO> getPhotosSortByPrice(boolean ascending) {
+      return photoService.getPhotosSortByPrice(ascending);
+    }
+
+    public List<PhotoDTO> getPhotosSortByViews(boolean ascending) {
+      return photoService.getPhotosSortByViews(ascending);
+    }
+
+    public List<PhotoDTO> getPhotosSortByLikes(boolean ascending) {
+      return photoService.getPhotosSortByLikes(ascending);
+    }
+
+    public List<PhotoDTO> getPhotosSortByDate(boolean ascending) {
+      return photoService.getPhotosSortByDate(ascending);
+    }
+
     public List<PhotoDTO> getUserPhotos(Long id) {
         return photoService.getUserPhotos(id);
     }
@@ -61,8 +77,24 @@ public class FacadePhoto {
     public PhotoDTO updatePhoto(UpdatePhotoDTO photo) {
         return photoService.updatePhoto(photo);
     }
-    
+
     public Long getPhotoCount(){
     	return photoService.getPhotoCount();
+    }
+
+    public List<PhotoDTO> getAllAvailablePhotos() {
+        return photoService.getAllAvailablePhotos();
+    }
+
+    public void viewPhoto(Long photoID, Long memberID) {
+      photoService.viewPhoto(photoID, memberID);
+    }
+
+    public void likePhoto(Long photoID, Long memberID) {
+      photoService.likePhoto(photoID, memberID);
+    }
+
+    public void unlikePhoto(Long photoID, Long memberID) {
+      photoService.likePhoto(photoID, memberID);
     }
 }

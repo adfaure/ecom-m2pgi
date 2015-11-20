@@ -20,7 +20,6 @@ function memberService($http) {
     }
 
     function GetByUsername(username) {
-        console.log($http.get('api/members/login/' + username).then(handleSuccess, handleError('Error getting user by id')));
         return $http.get('api/members/login/' + username).then(handleSuccess, handleError('Error getting user by username'));
     }
     

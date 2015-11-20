@@ -16,7 +16,6 @@ var upload = function($scope, uploadPhoto) {
             data : $scope.photoData
         }, $scope.user.memberID).then(
             function(res) {
-                console.log(res);
                 if(res.success) {
                     $scope.setView('details');
                 }

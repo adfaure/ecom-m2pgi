@@ -4,16 +4,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
-import fr.ujf.m2pgi.database.DAO.ISellerDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.SellerDTO;
+import fr.ujf.m2pgi.database.DTO.SellerInfoDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
-import fr.ujf.m2pgi.database.Mappers.ISellerMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
-import fr.ujf.m2pgi.database.entities.Seller;
+import fr.ujf.m2pgi.database.entities.SellerInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,24 +35,12 @@ public class MemberService {
      *
      */
     @Inject
-    private ISellerMapper sellerMapper;
-
-    /**
-     *
-     */
-    @Inject
     private IPhotoMapper photoMapper;
     /**
      *
      */
     @Inject
     private IMemberDAO memberDao;
-
-    /**
-     *
-     */
-    @Inject
-    private ISellerDAO sellerDAO;
 
     /**
      * @param member
@@ -89,13 +75,64 @@ public class MemberService {
     }
 
     /**
-     * @param login
+     * @param member
+     * @param photoDTO
      */
-    public SellerDTO findSellerByLogin(String login) {
-        Seller sellerEntity = sellerDAO.findSellerByLogin(login);
-        if (sellerEntity != null)
-            return sellerMapper.getDTO(sellerEntity);
-        return null;
+    public MemberDTO addToCart(MemberDTO member, PhotoDTO photoDTO) {
+        Member attachedEntity = memberDao.find(member.getMemberID());
+        Collection<Photo> cart = attachedEntity.getCart();
+
+        if (cart == null) {
+            System.err.println("no cart --- creating");
+            cart = new ArrayList<Photo>();
+        }
+        boolean exist = false;
+        for (Photo photo : cart) {
+            if (photo.getPhotoID() == photoDTO.getPhotoId()) {
+                exist = true;
+                break;
+            }
+        }
+        if (!exist) {
+            cart.add(photoMapper.getentity(photoDTO));
+            attachedEntity.setCart(cart);
+            return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
+        }
+        return member;
+    }
+
+    /**
+     * @param member
+     * @param photoDTO
+     */
+    public MemberDTO removeToCart(MemberDTO member, PhotoDTO photoDTO) {
+        Member attachedEntity = memberDao.find(member.getMemberID());
+        Collection<Photo> cart = attachedEntity.getCart();
+
+        if (cart == null) {
+            return member;
+        }
+
+        for (Iterator<Photo> iterator = cart.iterator(); iterator.hasNext(); ) {
+            Photo currentPhoto = iterator.next();
+            if (currentPhoto.getPhotoID() == photoDTO.getPhotoId()) {
+                iterator.remove();
+                break;
+            }
+        }
+
+        return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
+    }
+
+    public MemberDTO createSellerFromMember(MemberDTO memberdto) {
+        Member member   = memberDao.find(memberdto.getMemberID());
+        SellerInfo info = new SellerInfo();
+        info.setId(memberdto.getMemberID());
+        info.setRIB(memberdto.getSellerInfo().getRIB());
+        member.setSellerInfo(info);
+        member.setAccountType('S');
+        memberDao.update(member);
+        return  memberMapper.getDTO(member);
     }
     
     
@@ -111,92 +148,12 @@ public class MemberService {
     }
 
 
-	/**
-	 *
-	 * @param seller
-	 * @return
-	 */
-	public SellerDTO createSeller(SellerDTO seller) {
-		return sellerMapper.getDTO(sellerDAO.create(sellerMapper.getentity(seller)));
-	}
 
-	/**
-	 * @param seller
-	 * @return
-	 */
-	public SellerDTO createSellerFromMember(SellerDTO seller) {
-	    Member member = memberDao.find(seller.getMemberID(), true);
-	    Seller sellerEntity = sellerMapper.getentity(seller);
-	    memberDao.delete(seller.getMemberID());
-	    sellerEntity.setAccountType('S');
-	    sellerEntity.setPassword(member.getPassword());
-	    sellerEntity = sellerDAO.create(sellerEntity);
-	    System.err.println("no member at this id, cannot upgrade"); //FIXME throw custom exeption ?
-	    return sellerMapper.getDTO(sellerEntity);
-	}
-	
 	public Long getMemberCount() {
 		Long count = memberDao.getEntityCount();
 		return count;
 	}
-	
-	public Long getSellerCount(){
-		Long count = sellerDAO.getEntityCount();
-		return count;
-	}
-	
 
-	/**
-	 *
-	 * @param member
-	 * @param photoDTO
-     */
-	public MemberDTO addToCart(MemberDTO member, PhotoDTO photoDTO) {
-		Member attachedEntity  = memberDao.find(member.getMemberID());
-		Collection<Photo> cart = attachedEntity.getCart();
-
-		if(cart == null) {
-			System.err.println("no cart --- creating");
-			cart = new ArrayList<Photo>();
-		}
-		boolean exist = false;
-		for(Photo photo : cart) {
-			if(photo.getPhotoID() == photoDTO.getPhotoId()) {
-				exist = true;
-				break;
-			}
-		}
-		if(!exist) {
-			cart.add(photoMapper.getentity(photoDTO));
-			attachedEntity.setCart(cart);
-			return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
-		}
-		return member;
-	}
-
-	/**
-	 *
-	 * @param member
-	 * @param photoDTO
-	 */
-	public MemberDTO removeToCart(MemberDTO member, PhotoDTO photoDTO) {
-		Member attachedEntity  = memberDao.find(member.getMemberID());
-		Collection<Photo> cart = attachedEntity.getCart();
-
-		if(cart == null) {
-			return member;
-		}
-
-		for (Iterator<Photo> iterator = cart.iterator(); iterator.hasNext();) {
-			Photo currentPhoto = iterator.next();
-			if (currentPhoto.getPhotoID() == photoDTO.getPhotoId()) {
-				iterator.remove();
-				break;
-			}
-		}
-
-		return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
-	}
 
 	/**
 	 *
@@ -208,5 +165,5 @@ public class MemberService {
 		entity.setCart(new ArrayList<Photo>());
 		return  memberMapper.getDTO(memberDao.updateCart(entity));
 	}
-	
+
 }

@@ -12,15 +12,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="member")
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorValue(value = "M")
-public class Member implements Serializable {
+public class Member {
 
 	@Id
 	@Column(name="memberID")
 	protected long memberID;
 
-	@Column(name="login")
+	@Column(name="login", unique = true)
 	protected String login;
 
 	@Column(name="password")
@@ -32,28 +30,56 @@ public class Member implements Serializable {
 	@Column(name="lastName")
 	protected String lastName;
 
-	@Column(name="email")
+	@Column(name="email" , unique = true)
 	protected String email;
 
 	@Column(name="accountType")
 	protected char accountType;
 
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Collection<Order> orderedPhotos;
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	protected Collection<Order> orderedPhotos;
+
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "cart",
 		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
-	private Collection<Photo> cart;
+	protected Collection<Photo> cart;
 
-	public Collection<Photo> getCart() {
-		return cart;
+	@OneToOne(cascade = {CascadeType.ALL})
+	protected SellerInfo sellerInfo;
+
+	public void setOrderedPhotos(Collection<Order> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
 	}
 
-	public void setCart(Collection<Photo> cart) {
-		this.cart = cart;
+	public SellerInfo getSellerInfo() {
+		return sellerInfo;
 	}
+
+	public void setSellerInfo(SellerInfo sellerInfo) {
+		this.sellerInfo = sellerInfo;
+	}
+
+	public Collection<Order> getOrderedPhotos() {
+		return orderedPhotos;
+	}
+
+	public void getOrderedPhotos(Collection<Order> orderedPhotos) {
+		this.orderedPhotos = orderedPhotos;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "likes",
+		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> likedPhotos;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "views",
+		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> viewedPhotos;
 
 	public long getMemberID() {
 		return memberID;
@@ -111,5 +137,28 @@ public class Member implements Serializable {
 		this.email = email;
 	}
 
+	public Collection<Photo> getCart() {
+		return cart;
+	}
+
+	public void setCart(Collection<Photo> cart) {
+		this.cart = cart;
+	}
+
+	public Collection<Photo> getLikedPhotos() {
+		return likedPhotos;
+	}
+
+	public void setLikedPhotos(Collection<Photo> likedPhotos) {
+		this.likedPhotos = likedPhotos;
+	}
+
+	public Collection<Photo> getViewedPhotos() {
+		return viewedPhotos;
+	}
+
+	public void setViewedPhotos(Collection<Photo> viewedPhotos) {
+		this.viewedPhotos = viewedPhotos;
+	}
 
 }

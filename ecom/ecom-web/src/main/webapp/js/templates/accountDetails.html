@@ -30,6 +30,10 @@
                                 <i class="glyphicon glyphicon-shopping-cart"></i>
                                 Mon panier
                             </a>
+                            <a href="" ng-click="setView('history')" >
+                                <i class="fa fa-history"></i>
+                                Historique de mes achats
+                            </a>
                         </li>
                         <li>
                             <div data-ng-switch-when="S">
@@ -73,6 +77,9 @@
                     </div>
                     <div ng-switch-when="myCart">
                         <div ng-include="templates.myCart"></div>
+                    </div>
+                    <div ng-switch-when="history">
+                        <div ng-include="templates.history"></div>
                     </div>
                 </div>
             </div>

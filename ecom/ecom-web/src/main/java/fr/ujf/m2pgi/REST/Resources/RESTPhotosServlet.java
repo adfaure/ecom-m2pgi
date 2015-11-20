@@ -3,6 +3,7 @@ package fr.ujf.m2pgi.REST.Resources;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.ejb.EJB;
@@ -50,7 +51,29 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	@AllowAll
 	public Response getAllPhotos() {
-		List<PhotoDTO> photos = facadePhoto.getAllPhotos();
+		List<PhotoDTO> photos = facadePhoto.getAllAvailablePhotos();
+		return Response.ok(photos).build();
+	}
+
+	@GET
+	@Path("/orderby")
+	@Produces("application/json")
+	@AllowAll
+	public Response getAllPhotosSortBy(@DefaultValue("date") @QueryParam("criteria") String criteria,
+		@DefaultValue("ASC") @QueryParam("order") String order) {
+
+		boolean ascending = order.equals("DESC") ? false : true;
+		List<PhotoDTO> photos = new ArrayList<PhotoDTO>();
+		if (criteria.equals("date")) {
+			photos = facadePhoto.getPhotosSortByDate(ascending);
+		} else if(criteria.equals("price")) {
+			photos = facadePhoto.getPhotosSortByPrice(ascending);
+		} else if(criteria.equals("likes")) {
+			photos = facadePhoto.getPhotosSortByLikes(ascending);
+		} else if(criteria.equals("views")) {
+			photos = facadePhoto.getPhotosSortByViews(ascending);
+		}
+
 		return Response.ok(photos).build();
 	}
 
@@ -193,7 +216,7 @@ public class RESTPhotosServlet {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
-	
+
 	@GET
 	@Path("/count")
 	@Produces("application/json")
@@ -201,6 +224,33 @@ public class RESTPhotosServlet {
 	public Response getPhotoCount() {
 		Long pCount = facadePhoto.getPhotoCount();
 		return Response.ok(pCount).build();
+	}
+
+	@POST
+	@Path("/view/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
+	@Produces("application/json")
+	public Response viewPhoto(@PathParam("photoID") Long photoID,
+	@PathParam("memberID") Long memberID) {
+		facadePhoto.viewPhoto(photoID, memberID);
+		return Response.ok("cool").build();
+	}
+
+	@POST
+	@Path("/like/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
+	@Produces("application/json")
+	public Response likePhoto(@PathParam("photoID") Long photoID,
+	@PathParam("memberID") Long memberID) {
+		facadePhoto.likePhoto(photoID, memberID);
+		return Response.ok("cool").build();
+	}
+
+	@POST
+	@Path("/unlike/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
+	@Produces("application/json")
+	public Response unlikePhoto(@PathParam("photoID") Long photoID,
+	@PathParam("memberID") Long memberID) {
+		facadePhoto.unlikePhoto(photoID, memberID);
+		return Response.ok("cool").build();
 	}
 
 	// Parse Content-Disposition header to get the original file name.

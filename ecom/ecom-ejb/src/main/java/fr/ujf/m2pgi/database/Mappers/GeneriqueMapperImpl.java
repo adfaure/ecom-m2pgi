@@ -2,6 +2,8 @@ package fr.ujf.m2pgi.database.Mappers;
 
 import org.modelmapper.ModelMapper;
 
+import javax.ejb.Singleton;
+import javax.inject.Inject;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -23,14 +25,13 @@ public abstract class GeneriqueMapperImpl<DTOType, EntityType> implements IGener
     /**
      *
      */
-    protected ModelMapper modelMapper;
-
+    @Inject
+    protected MapperWrapper mapperWrapper;
 
     /**
      *
      */
     public GeneriqueMapperImpl() {
-        modelMapper = new ModelMapper();
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         entityClass = ((Class<EntityType>) pt.getActualTypeArguments()[1]);
@@ -39,12 +40,12 @@ public abstract class GeneriqueMapperImpl<DTOType, EntityType> implements IGener
 
     @Override
     public DTOType getDTO(EntityType entity) {
-        return modelMapper.map(entity, dtoClass);
+        return mapperWrapper.getMapper().map((EntityType) entity, dtoClass);
     }
 
     @Override
     public EntityType getentity(DTOType dto) {
-        return modelMapper.map(dto, entityClass);
+        return mapperWrapper.getMapper().map((DTOType) dto, entityClass);
     }
 
 }

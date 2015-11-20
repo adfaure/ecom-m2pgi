@@ -60,6 +60,18 @@ public abstract class GeneriqueDAOImpl<entityType> implements IGeneriqueDAO<enti
 	/**
 	 *
 	 * @param id
+	 * @param flush
+     */
+	@Override
+	public void delete(Object id, boolean flush) {
+		entityManager.remove( entityManager.getReference(entityClass, id));
+		if(flush) entityManager.flush();
+	}
+
+
+	/**
+	 *
+	 * @param id
 	 * @return
 	 */
 	@Override

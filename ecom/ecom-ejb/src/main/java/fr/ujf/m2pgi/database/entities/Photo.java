@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.entities;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -20,7 +21,7 @@ public class Photo {
 
 	@ManyToOne
 	@JoinColumn(name = "seller_id", nullable = false)
-	private Seller author;
+	private Member author;
 
 	@Column(name="description")
 	private String description;
@@ -37,17 +38,28 @@ public class Photo {
 	@Column(name="price")
 	private float price;
 
+	@Column(name = "date_created", insertable = false, updatable = false,
+	columnDefinition="timestamp default current_timestamp")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateCreated;
+
+	@Column(name = "available")
+	private boolean available = true;
+
+	@Column(name="views", insertable = false, updatable = true, columnDefinition = "int default 0")
+	private Integer views;
+
+	@Column(name="likes", insertable = false, updatable = true, columnDefinition = "int default 0")
+	private Integer likes;
+
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "cart")
 	private Collection<Member> buyers;
 
-	public Collection<Member> getBuyers() {
-		return buyers;
-	}
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "likedPhotos")
+	private Collection<Member> likers;
 
-	public void setBuyers(Collection<Member> buyers) {
-		this.buyers = buyers;
-	}
-
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "viewedPhotos")
+	private Collection<Member> viewers;
 
 	public String getFileLocation() {
 		return fileLocation;
@@ -73,11 +85,11 @@ public class Photo {
 		this.photoID = photoID;
 	}
 
-	public Seller getAuthor() {
+	public Member getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(Seller author) {
+	public void setAuthor(Member author) {
 		this.author = author;
 	}
 
@@ -105,4 +117,59 @@ public class Photo {
 		this.price = price;
 	}
 
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public Integer getViews() {
+		return views;
+	}
+
+	public void setViews(Integer views) {
+		this.views = views;
+	}
+
+	public Integer getLikes() {
+		return likes;
+	}
+
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
+
+	public Collection<Member> getBuyers() {
+		return buyers;
+	}
+
+	public void setBuyers(Collection<Member> buyers) {
+		this.buyers = buyers;
+	}
+
+	public Collection<Member> getLikers() {
+		return likers;
+	}
+
+	public void setLikers(Collection<Member> likers) {
+		this.likers = likers;
+	}
+
+	public Collection<Member> getViewers() {
+		return viewers;
+	}
+
+	public void setViewers(Collection<Member> viewers) {
+		this.viewers = viewers;
+	}
 }

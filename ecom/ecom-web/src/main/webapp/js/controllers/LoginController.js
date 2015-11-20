@@ -7,11 +7,9 @@ var loginController = function($scope, $location, authentificationService, apiTo
     $scope.logInto = function() {
         authentificationService.login($scope.login, $scope.password).then(
             function(res) {
-                console.log(res);
                 if(res.success) {
                     $location.path("/");
                 } else {
-                    console.log("retry");
                 }
             }
         );
