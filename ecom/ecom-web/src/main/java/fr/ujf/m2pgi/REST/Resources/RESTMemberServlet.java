@@ -4,6 +4,7 @@ import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.DenyAll;
+import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
@@ -14,6 +15,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import java.util.List;
 
 /**
  * Created by FAURE Adrien 22/10/15
@@ -26,6 +28,15 @@ public class RESTMemberServlet {
 
 	@Context
 	private HttpServletRequest httpServletRequest;
+	
+	@GET
+	@Path("/")
+	@Produces("application/json")
+	//@Allow(groups = "admin")
+	public Response getAllMembers() {
+		List<MemberDTO> members = memberService.getAllMembers();
+		return Response.ok(members).build();
+	}
 
 	@GET
 	@Path("/login/{login}")

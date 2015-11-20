@@ -22,7 +22,7 @@ var administratorController = function($scope,  publicPhoto, orderService, membe
 	memberService.GetCount().then(function(res) {
         console.log(res);
         $scope.memberCount = res;
-	});	
+	});
 	
 	sellerService.GetCount().then(function(res) {
         console.log(res);

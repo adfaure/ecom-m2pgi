@@ -18,6 +18,8 @@ import fr.ujf.m2pgi.database.entities.Seller;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -95,6 +97,19 @@ public class MemberService {
             return sellerMapper.getDTO(sellerEntity);
         return null;
     }
+    
+    
+    public List<MemberDTO> getAllMembers(){
+    	List<MemberDTO> result = new ArrayList<MemberDTO>();
+
+    	for(Member mem: memberDao.getAllMembers()) {
+    		result.add(memberMapper.getDTO(mem));
+    	}
+
+    	return result;
+
+    }
+
 
 	/**
 	 *

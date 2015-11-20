@@ -4,6 +4,7 @@ import javax.ejb.Local;
 
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.entities.Member;
+import java.util.List;
 
 /**
  *
@@ -19,5 +20,6 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	
 	Member updateCart(Member member);
 
+	List<Member> getAllMembers();
 
 }

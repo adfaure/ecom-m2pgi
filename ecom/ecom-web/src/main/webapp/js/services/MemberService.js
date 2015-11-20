@@ -8,12 +8,13 @@ function memberService($http) {
     service.GetById = GetById;
     service.GetByUsername = GetByUsername;
     service.GetCount = GetCount;
+    service.GetAll = GetAll;
     service.Create = Create;
     service.Update = Update;
     service.Delete = Delete;
 
     return service;
-
+    
     function GetById(id) {
         return $http.get('api/members/' + id).then(handleSuccess, handleError('Error getting user by id'));
     }
@@ -21,6 +22,10 @@ function memberService($http) {
     function GetByUsername(username) {
         console.log($http.get('api/members/login/' + username).then(handleSuccess, handleError('Error getting user by id')));
         return $http.get('api/members/login/' + username).then(handleSuccess, handleError('Error getting user by username'));
+    }
+    
+    function GetAll() {
+        return $http.get('api/members/').then(handleSuccess, handleError('Error getting all users'));
     }
 
     function GetCount(){
