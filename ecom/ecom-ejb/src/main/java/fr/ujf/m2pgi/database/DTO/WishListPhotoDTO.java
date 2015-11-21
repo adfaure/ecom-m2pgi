@@ -12,15 +12,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-public class UserPhotoDTO {
+public class WishListPhotoDTO {
 
-	public UserPhotoDTO(long photoID, String description, String name, String webLocation
-		, boolean inWishList, boolean inCart) {
+	public WishListPhotoDTO(long photoID, String description, String name, String webLocation
+		, boolean inCart) {
 		this.photoID = photoID;
 		this.description = description;
 		this.name = name;
 		this.webLocation = webLocation;
-		this.inWishList = inWishList;
 		this.inCart = inCart;
 	}
 
@@ -31,8 +30,6 @@ public class UserPhotoDTO {
 	private String name;
 
 	private String webLocation;
-
-	private boolean inWishList;
 
 	private boolean inCart;
 
@@ -66,14 +63,6 @@ public class UserPhotoDTO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-  public boolean isInWishList() {
-		return inWishList;
-	}
-
-	public void setInWishList(boolean inWishList) {
-		this.inWishList = inWishList;
 	}
 
 	public boolean isInCart() {

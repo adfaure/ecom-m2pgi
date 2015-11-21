@@ -6,7 +6,7 @@ import javax.ejb.Local;
 
 import fr.ujf.m2pgi.database.entities.Photo;
 
-import fr.ujf.m2pgi.database.DTO.UserPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 
 /**
  *
@@ -37,7 +37,7 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 */
 	List<Photo> getUserPhotos(Long id);
 
-	List<UserPhotoDTO> getUserWishedPhotos(Long id);
+	List<WishListPhotoDTO> getUserWishedPhotos(Long id);
 
 	/**
 	 *

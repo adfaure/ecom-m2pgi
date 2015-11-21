@@ -15,7 +15,8 @@ var wishes = function($scope, $location, alertService, apiToken, publicPhoto) {
     });
 
     $scope.unwish = function(index) {
-      publicPhoto.RemovePhotoFromWishList($scope.photos[index].photoID, user.memberID).then(function(res) {
+      console.log("unwishing");
+      publicPhoto.RemovePhotoFromWishList($scope.photos[index].photoId, user.memberID).then(function(res) {
         console.log($scope.photos);
         $scope.photos.splice(index, 1);
         console.log($scope.photos);

@@ -12,7 +12,7 @@ import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.UserPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
@@ -214,14 +214,7 @@ public class PhotoService implements IPhotoService {
 		return result;
 	}
 
-	public List<UserPhotoDTO> getUserWishedPhotos(Long id) {
-		/*Member member = memberDAO.find(id);
-		if (member == null) return null;
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
-		for(Photo photo: member.getWishedPhotos()) {
-			result.add(photoMapper.getDTO(photo));
-		}
-		return result;*/
+	public List<WishListPhotoDTO> getUserWishedPhotos(Long id) {
 		return photoDao.getUserWishedPhotos(id);
 	}
 

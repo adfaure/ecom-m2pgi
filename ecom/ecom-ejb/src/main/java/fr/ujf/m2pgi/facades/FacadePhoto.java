@@ -1,7 +1,7 @@
 package fr.ujf.m2pgi.facades;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.UserPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Service.IFileService;
 import fr.ujf.m2pgi.database.Service.IPhotoService;
@@ -71,7 +71,7 @@ public class FacadePhoto {
         return photoService.getUserPhotos(login);
     }
 
-    public List<UserPhotoDTO> getUserWishedPhotos(Long id) {
+    public List<WishListPhotoDTO> getUserWishedPhotos(Long id) {
         return photoService.getUserWishedPhotos(id);
     }
 

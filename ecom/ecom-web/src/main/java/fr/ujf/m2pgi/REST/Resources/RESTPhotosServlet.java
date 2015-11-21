@@ -23,7 +23,7 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.UserPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.elasticsearch.PhotoServiceES;
@@ -124,7 +124,7 @@ public class RESTPhotosServlet {
 	@Path("/user/id/{id:[1-9][0-9]*}/wishes")
 	@Produces("application/json")
 	public Response getUserWishedPhotos(@PathParam("id") Long id) {
-		List<UserPhotoDTO> photos = facadePhoto.getUserWishedPhotos(id);
+		List<WishListPhotoDTO> photos = facadePhoto.getUserWishedPhotos(id);
 		return Response.ok(photos).build();
 	}
 
