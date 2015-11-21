@@ -249,7 +249,7 @@ public class RESTPhotosServlet {
 	public Response viewPhoto(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 		facadePhoto.viewPhoto(photoID, memberID);
-		return Response.ok("cool").build();
+		return Response.status(200).build();
 	}
 
 	@POST
@@ -267,7 +267,7 @@ public class RESTPhotosServlet {
 	public Response unlikePhoto(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 		facadePhoto.unlikePhoto(photoID, memberID);
-		return Response.ok("cool").build();
+		return Response.status(200).build();
 	}
 
 	@POST
@@ -285,7 +285,7 @@ public class RESTPhotosServlet {
 		}
 
 		facadePhoto.addPhotoToWishList(photoID, memberID);
-		return Response.ok("cool").build();
+		return Response.status(200).build();
 	}
 
 	@POST
@@ -303,7 +303,7 @@ public class RESTPhotosServlet {
 		}
 
 		facadePhoto.removePhotoFromWishList(photoID, memberID);
-		return Response.ok("cool").build();
+		return Response.status(200).build();
 	}
 
 	// Parse Content-Disposition header to get the original file name.

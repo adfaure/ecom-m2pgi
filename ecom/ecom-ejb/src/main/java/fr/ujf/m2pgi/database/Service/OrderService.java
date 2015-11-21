@@ -79,10 +79,10 @@ public class OrderService {
 		Long oCount = orderDao.getEntityCount();
 		return oCount;
 	}
-	
 
 	public Double getTotalPurchaseCost() {
 		Double sum = orderDao.getTotalPurchaseCost();
 		return sum;
 	}
+
 }

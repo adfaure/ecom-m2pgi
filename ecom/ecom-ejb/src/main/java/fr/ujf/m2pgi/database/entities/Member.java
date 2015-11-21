@@ -40,31 +40,31 @@ public class Member {
 	private Collection<Order> orderedPhotos;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "cart",
-		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
-	)
-	private Collection<Photo> cart;
-
-	@OneToOne(cascade = {CascadeType.ALL})
-	private SellerInfo sellerInfo;
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "likes",
-		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+			joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
 	private Collection<Photo> likedPhotos;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "views",
-		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+			joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
 	private Collection<Photo> viewedPhotos;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "cart",
+		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
+	)
+	private Collection<Photo> cart;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "wishes",
 		 joinColumns =  @JoinColumn(name = "memberid") , inverseJoinColumns = @JoinColumn(name = "photoid")
 	)
 	private Collection<Photo> wishedPhotos;
+
+	@OneToOne(cascade = {CascadeType.ALL})
+	private SellerInfo sellerInfo;
 
 	public long getMemberID() {
 		return memberID;
@@ -134,20 +134,8 @@ public class Member {
 		this.orderedPhotos = orderedPhotos;
 	}
 
-	public SellerInfo getSellerInfo() {
-		return sellerInfo;
-	}
-
-	public void setSellerInfo(SellerInfo sellerInfo) {
-		this.sellerInfo = sellerInfo;
-	}
-
 	public Collection<Order> getOrderedPhotos() {
 		return orderedPhotos;
-	}
-
-	public void getOrderedPhotos(Collection<Order> orderedPhotos) {
-		this.orderedPhotos = orderedPhotos;
 	}
 
 	public Collection<Photo> getLikedPhotos() {
@@ -172,6 +160,14 @@ public class Member {
 
 	public void setWishedPhotos(Collection<Photo> wishedPhotos) {
 		this.wishedPhotos = wishedPhotos;
+	}
+
+	public SellerInfo getSellerInfo() {
+		return sellerInfo;
+	}
+
+	public void setSellerInfo(SellerInfo sellerInfo) {
+		this.sellerInfo = sellerInfo;
 	}
 
 }

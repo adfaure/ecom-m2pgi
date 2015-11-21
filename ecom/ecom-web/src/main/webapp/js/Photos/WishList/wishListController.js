@@ -9,17 +9,15 @@ var wishes = function($scope, $location, alertService, apiToken, publicPhoto) {
 
     var user = apiToken.getUser();
 
+    $scope.photos = {};
+
     publicPhoto.GetUserWishedPhotosById(user.memberID).then(function(res) {
         $scope.photos = res;
-        console.log(res);
     });
 
     $scope.unwish = function(index) {
-      console.log("unwishing");
       publicPhoto.RemovePhotoFromWishList($scope.photos[index].photoId, user.memberID).then(function(res) {
-        console.log($scope.photos);
         $scope.photos.splice(index, 1);
-        console.log($scope.photos);
       });
     };
 };

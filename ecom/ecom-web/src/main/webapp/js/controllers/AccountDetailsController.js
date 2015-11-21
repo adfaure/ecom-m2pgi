@@ -8,21 +8,22 @@ var templates = {
     'stats'     : './js/templates/accountDetails/adminStats.html',
     'adminNav'  : './js/templates/accountDetails/AdminNavBar.html',
     'myCart'    : './js/Cart/detailsCart/CartDetails.html',
-    'history'    : './js/Orders/OrdersHistory/ordersHistory.html',
-    'wishList'    : './js/Photos/WishList/wishlist.html',
+    'history'   : './js/Orders/OrdersHistory/ordersHistory.html',
+    'wishList'  : './js/Photos/WishList/wishlist.html',
     'sellerNav' : './js/templates/accountDetails/SellerNavBar.html',
-    'memberNav' : './js/templates/accountDetails/MemberNavBar.html'
+    'memberNav' : './js/templates/accountDetails/MemberNavBar.html',
+    'myPage'    : './js/SellerPage/ManagePage/managePageTemplate.html'
+
 };
 
-var accountDetails = function($scope,$routeParams, $location, apiToken) {
+var accountDetails = function($scope, $routeParams, $location, apiToken) {
 
     $scope.templates = templates;
-
     $scope.subview   = "details";
     $scope.setView   = setView;
 
-    if($routeParams.subview) {
-        $scope.subview = $routeParams.subview;
+    if($routeParams.section) {
+        $scope.subview = $routeParams.section;
     }
 
     if(!apiToken.isAuthentificated()) {
@@ -31,7 +32,6 @@ var accountDetails = function($scope,$routeParams, $location, apiToken) {
         $scope.user  = apiToken.getUser();
     }
 
-
     $scope.$watch(
         apiToken.getUser, function() {
             $scope.user = apiToken.getUser();
@@ -39,7 +39,7 @@ var accountDetails = function($scope,$routeParams, $location, apiToken) {
     );
 
     function setView(view) {
-        $scope.subview = view;
+        $location.path("/profil/" + view);
     }
 };
 

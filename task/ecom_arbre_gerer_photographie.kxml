@@ -2,24 +2,24 @@
 <!DOCTYPE kmad-model SYSTEM "file:KMADModelJT.dtd">
 <kmad-model version="1.3">
     <project classkmad="project.Project" idkmad="K1"/>
-    <task classkmad="tache.Task" id-task-point="K3" id-task-subtasks-list="K60 K47 K7 K22 K13 " idkmad="K4">
-        <task-name>Gérer une photographie</task-name>
+    <task classkmad="tache.Task" id-task-point="K70" id-task-subtasks-list="K7 K4 " idkmad="K71">
+        <task-name>Gerer une photographie</task-name>
         <task-numero>Racine   </task-numero>
         <task-observation/>
         <task-executant>ABS</task-executant>
         <task-modality>COGN</task-modality>
         <task-optional>false</task-optional>
         <task-interruptible>false</task-interruptible>
-        <task-decomposition>SEQ</task-decomposition>
+        <task-decomposition>ALT</task-decomposition>
         <task-precondition>true</task-precondition>
         <task-effetsdebord>void</task-effetsdebord>
         <task-iteration>true</task-iteration>
-        <point classkmad="tache.Point" idkmad="K3">
-            <point-x>788</point-x>
-            <point-y>153</point-y>
+        <point classkmad="tache.Point" idkmad="K70">
+            <point-x>583</point-x>
+            <point-y>0</point-y>
         </point>
-        <task classkmad="tache.Task" id-task-point="K59" idkmad="K60">
-            <task-name>Sélectionner une photo</task-name>
+        <task classkmad="tache.Task" id-task-point="K6" idkmad="K7">
+            <task-name>Téléverser une(des) photographie(s)</task-name>
             <task-numero>1</task-numero>
             <task-observation/>
             <task-executant>INT</task-executant>
@@ -29,30 +29,31 @@
             <task-decomposition>LEAF</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>true</task-iteration>
-            <point classkmad="tache.Point" idkmad="K59">
-                <point-x>398</point-x>
-                <point-y>343</point-y>
+            <task-iteration>true
+</task-iteration>
+            <point classkmad="tache.Point" idkmad="K6">
+                <point-x>221</point-x>
+                <point-y>145</point-y>
             </point>
         </task>
-        <task classkmad="tache.Task" id-task-point="K46" id-task-subtasks-list="K19 K31 K16 " idkmad="K47">
-            <task-name>Modifier une photographie</task-name>
+        <task classkmad="tache.Task" id-task-point="K3" id-task-subtasks-list="K60 K47 " idkmad="K4">
+            <task-name>Gérer une photographie presente</task-name>
             <task-numero>2</task-numero>
             <task-observation/>
             <task-executant>ABS</task-executant>
             <task-modality>COGN</task-modality>
-            <task-optional>true</task-optional>
+            <task-optional>false</task-optional>
             <task-interruptible>false</task-interruptible>
-            <task-decomposition>ALT</task-decomposition>
+            <task-decomposition>SEQ</task-decomposition>
             <task-precondition>true</task-precondition>
             <task-effetsdebord>void</task-effetsdebord>
             <task-iteration>true</task-iteration>
-            <point classkmad="tache.Point" idkmad="K46">
-                <point-x>775</point-x>
-                <point-y>343</point-y>
+            <point classkmad="tache.Point" idkmad="K3">
+                <point-x>789</point-x>
+                <point-y>145</point-y>
             </point>
-            <task classkmad="tache.Task" id-task-point="K18" idkmad="K19">
-                <task-name>Modifier la description de la photographie</task-name>
+            <task classkmad="tache.Task" id-task-point="K59" idkmad="K60">
+                <task-name>Sélectionner une photo</task-name>
                 <task-numero>2.1</task-numero>
                 <task-observation/>
                 <task-executant>INT</task-executant>
@@ -62,99 +63,132 @@
                 <task-decomposition>LEAF</task-decomposition>
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
-                <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K18">
-                    <point-x>401</point-x>
-                    <point-y>567</point-y>
+                <task-iteration>true</task-iteration>
+                <point classkmad="tache.Point" idkmad="K59">
+                    <point-x>91</point-x>
+                    <point-y>290</point-y>
                 </point>
             </task>
-            <task classkmad="tache.Task" id-task-point="K30" idkmad="K31">
-                <task-name>Modifier prix</task-name>
+            <task classkmad="tache.Task" id-task-point="K46" id-task-subtasks-list="K19 K31 K16 K74 " idkmad="K47">
+                <task-name>Modifier une photographie</task-name>
                 <task-numero>2.2</task-numero>
                 <task-observation/>
-                <task-executant>INT</task-executant>
+                <task-executant>ABS</task-executant>
                 <task-modality>COGN</task-modality>
-                <task-optional>false</task-optional>
+                <task-optional>true</task-optional>
                 <task-interruptible>false</task-interruptible>
-                <task-decomposition>LEAF</task-decomposition>
-                <task-precondition>true</task-precondition>
-                <task-effetsdebord>void</task-effetsdebord>
-                <task-descriptioneffetsdebord>Définir le prix de la photographie</task-descriptioneffetsdebord>
-                <task-iteration>[1]</task-iteration>
-                <point classkmad="tache.Point" idkmad="K30">
-                    <point-x>837</point-x>
-                    <point-y>565</point-y>
-                </point>
-            </task>
-            <task classkmad="tache.Task" id-task-point="K15" idkmad="K16">
-                <task-name>Modifier les tags de la photographie</task-name>
-                <task-numero>2.3</task-numero>
-                <task-observation/>
-                <task-executant>INT</task-executant>
-                <task-modality>COGN</task-modality>
-                <task-optional>false</task-optional>
-                <task-interruptible>false</task-interruptible>
-                <task-decomposition>LEAF</task-decomposition>
+                <task-decomposition>ALT</task-decomposition>
                 <task-precondition>true</task-precondition>
                 <task-effetsdebord>void</task-effetsdebord>
                 <task-iteration>true</task-iteration>
-                <point classkmad="tache.Point" idkmad="K15">
-                    <point-x>1007</point-x>
-                    <point-y>565</point-y>
+                <point classkmad="tache.Point" idkmad="K46">
+                    <point-x>393</point-x>
+                    <point-y>290</point-y>
                 </point>
+                <task classkmad="tache.Task" id-task-point="K18" idkmad="K19">
+                    <task-name>Modifier la description de la photographie</task-name>
+                    <task-numero>2.2.1</task-numero>
+                    <task-observation/>
+                    <task-executant>INT</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>false</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>LEAF</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-iteration>[1]</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K18">
+                        <point-x>0</point-x>
+                        <point-y>443</point-y>
+                    </point>
+                </task>
+                <task classkmad="tache.Task" id-task-point="K30" idkmad="K31">
+                    <task-name>Modifier prix</task-name>
+                    <task-numero>2.2.2</task-numero>
+                    <task-observation/>
+                    <task-executant>INT</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>false</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>LEAF</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-descriptioneffetsdebord>Définir le prix de la photographie</task-descriptioneffetsdebord>
+                    <task-iteration>[1]</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K30">
+                        <point-x>390</point-x>
+                        <point-y>443</point-y>
+                    </point>
+                </task>
+                <task classkmad="tache.Task" id-task-point="K15" idkmad="K16">
+                    <task-name>Modifier les tags de la photographie</task-name>
+                    <task-numero>2.2.3</task-numero>
+                    <task-observation/>
+                    <task-executant>INT</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>false</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>LEAF</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-iteration>true</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K15">
+                        <point-x>558</point-x>
+                        <point-y>443</point-y>
+                    </point>
+                </task>
+                <task classkmad="tache.Task" id-task-point="K73" id-task-subtasks-list="K22 K13 " idkmad="K74">
+                    <task-name>Gérer arborescence</task-name>
+                    <task-numero>2.2.4</task-numero>
+                    <task-observation/>
+                    <task-executant>ABS</task-executant>
+                    <task-modality>COGN</task-modality>
+                    <task-optional>true</task-optional>
+                    <task-interruptible>false</task-interruptible>
+                    <task-decomposition>ALT</task-decomposition>
+                    <task-precondition>true</task-precondition>
+                    <task-effetsdebord>void</task-effetsdebord>
+                    <task-iteration>[1]</task-iteration>
+                    <point classkmad="tache.Point" idkmad="K73">
+                        <point-x>916</point-x>
+                        <point-y>443</point-y>
+                    </point>
+                    <task classkmad="tache.Task" id-task-point="K21" idkmad="K22">
+                        <task-name>Déplacer la photographie</task-name>
+                        <task-numero>2.2.4.1</task-numero>
+                        <task-observation/>
+                        <task-executant>INT</task-executant>
+                        <task-modality>COGN</task-modality>
+                        <task-optional>false</task-optional>
+                        <task-interruptible>false</task-interruptible>
+                        <task-decomposition>LEAF</task-decomposition>
+                        <task-precondition>true</task-precondition>
+                        <task-effetsdebord>void</task-effetsdebord>
+                        <task-iteration>true</task-iteration>
+                        <point classkmad="tache.Point" idkmad="K21">
+                            <point-x>739</point-x>
+                            <point-y>591</point-y>
+                        </point>
+                    </task>
+                    <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
+                        <task-name>Supprimer la photographie</task-name>
+                        <task-numero>2.2.4.2</task-numero>
+                        <task-observation/>
+                        <task-executant>INT</task-executant>
+                        <task-modality>COGN</task-modality>
+                        <task-optional>false</task-optional>
+                        <task-interruptible>false</task-interruptible>
+                        <task-decomposition>LEAF</task-decomposition>
+                        <task-precondition>true</task-precondition>
+                        <task-effetsdebord>void</task-effetsdebord>
+                        <task-iteration>[1]</task-iteration>
+                        <point classkmad="tache.Point" idkmad="K12">
+                            <point-x>1047</point-x>
+                            <point-y>591</point-y>
+                        </point>
+                    </task>
+                </task>
             </task>
-        </task>
-        <task classkmad="tache.Task" id-task-point="K6" idkmad="K7">
-            <task-name>Téléverser une(des) photographie(s)</task-name>
-            <task-numero>3</task-numero>
-            <task-observation/>
-            <task-executant>INT</task-executant>
-            <task-modality>COGN</task-modality>
-            <task-optional>true</task-optional>
-            <task-interruptible>false</task-interruptible>
-            <task-decomposition>LEAF</task-decomposition>
-            <task-precondition>true</task-precondition>
-            <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>true
-</task-iteration>
-            <point classkmad="tache.Point" idkmad="K6">
-                <point-x>859</point-x>
-                <point-y>653</point-y>
-            </point>
-        </task>
-        <task classkmad="tache.Task" id-task-point="K21" idkmad="K22">
-            <task-name>Déplacer la photographie</task-name>
-            <task-numero>4</task-numero>
-            <task-observation/>
-            <task-executant>INT</task-executant>
-            <task-modality>COGN</task-modality>
-            <task-optional>true</task-optional>
-            <task-interruptible>false</task-interruptible>
-            <task-decomposition>LEAF</task-decomposition>
-            <task-precondition>true</task-precondition>
-            <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>true</task-iteration>
-            <point classkmad="tache.Point" idkmad="K21">
-                <point-x>1172</point-x>
-                <point-y>343</point-y>
-            </point>
-        </task>
-        <task classkmad="tache.Task" id-task-point="K12" idkmad="K13">
-            <task-name>Supprimer la photographie</task-name>
-            <task-numero>5</task-numero>
-            <task-observation/>
-            <task-executant>INT</task-executant>
-            <task-modality>COGN</task-modality>
-            <task-optional>true</task-optional>
-            <task-interruptible>false</task-interruptible>
-            <task-decomposition>LEAF</task-decomposition>
-            <task-precondition>true</task-precondition>
-            <task-effetsdebord>void</task-effetsdebord>
-            <task-iteration>[1]</task-iteration>
-            <point classkmad="tache.Point" idkmad="K12">
-                <point-x>1469</point-x>
-                <point-y>343</point-y>
-            </point>
         </task>
     </task>
 </kmad-model>

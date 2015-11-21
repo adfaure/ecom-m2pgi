@@ -73,21 +73,18 @@ public class MemberDTO implements Serializable {
 	private Collection<PhotoDTO> cart;
 
 	@XmlElement
-	private SellerInfo sellerInfo;
+	private SellerInfoDTO sellerInfo;
 
-	public SellerInfo getSellerInfo() {
+	@XmlElement
+	private Collection<OrderDTO> orderedPhotos;
+
+	public SellerInfoDTO getSellerInfo() {
 		return sellerInfo;
 	}
 
-	public void setSellerInfo(SellerInfo sellerInfo) {
+	public void setSellerInfo(SellerInfoDTO sellerInfo) {
 		this.sellerInfo = sellerInfo;
 	}
-
-	/**
-	 *
-	 */
-	@XmlElement
-	private Collection<OrderDTO> orderedPhotos;
 
 	public Collection<OrderDTO> getOrderedPhotos() {
 		return orderedPhotos;
