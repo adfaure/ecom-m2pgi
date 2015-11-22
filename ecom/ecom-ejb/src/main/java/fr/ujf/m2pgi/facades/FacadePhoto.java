@@ -29,9 +29,9 @@ public class FacadePhoto {
 
     public PhotoDTO savePhoto(InputStream photo, PhotoDTO photoDTO) {
         Properties prop    = applicationProperties.getApplicationProperties();
-        String storageDir  = prop.getProperty("jboss.server.data.dir");
+        String storageDir  = prop.getProperty("data_dir");
         String location    = storageDir + prop.getProperty("file.separator") + photoDTO.getName();
-        String weblocation = applicationProperties.STATIC_URL + prop.getProperty("file.separator") + photoDTO.getName();
+        String weblocation = prop.getProperty("static_hostname") + prop.getProperty("file.separator") + photoDTO.getName();
         fileService.saveFile(photo, location );
         photoDTO.setFileLocation(storageDir);
         photoDTO.setWebLocation(weblocation);
