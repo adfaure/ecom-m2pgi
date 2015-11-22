@@ -9,7 +9,5 @@ import java.util.Properties;
 @Local
 public interface IProperties {
 
-    String STATIC_URL = "http://localhost:8080/ecom-web/static";
-
     Properties getApplicationProperties();
 }
