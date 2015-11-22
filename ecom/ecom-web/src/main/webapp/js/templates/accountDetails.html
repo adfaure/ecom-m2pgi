@@ -1,60 +1,4 @@
-<div class="container">
-    <div class="row profile">
-        <div class="col-md-3">
-            <div class="profile-sidebar">
-                <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        {{ user.firstName }} {{ user.lastName }}
-                    </div>
-                    <div data-ng-if="user.accountType == 'M'">
-                        Compte classique
-                    </div>
-                    <div data-ng-if="user.accountType == 'S'">
-                        Compte Vendeur
-                    </div>
-                    <div data-ng-if="user.accountType == 'A'">
-                        Administrator
-                    </div>
-                </div>
-                <div class="profile-userbuttons" data-ng-if="user.accountType == 'M'">
-                    <button type="button" class="btn btn-success btn-sm" ng-click="setView('upgrade')" > Upgrade Account</button>
-                </div>
-                <div class="profile-usermenu" data-ng-switch="user.accountType">
-                    <ul class="nav">
-                        <li >
-                            <a href="" ng-click="setView('details')" >
-                                <i class="glyphicon glyphicon-home"></i>
-                                Overview
-                            </a>
-                            <a href="" ng-click="setView('myCart')" >
-                                <i class="glyphicon glyphicon-shopping-cart"></i>
-                                Mon panier
-                            </a>
-                            <a href="" ng-click="setView('history')" >
-                                <i class="fa fa-history"></i>
-                                Historique de mes achats
-                            </a>
-                        </li>
-                        <li>
-                            <div data-ng-switch-when="S">
-                                <div data-ng-include="templates.sellerNav"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div data-ng-switch-when="M">
-                                <div data-ng-include="templates.memberNav"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div data-ng-switch-when="A">
-                                <div data-ng-include="templates.adminNav"></div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="profile-content">
                 <div ng-switch="subview">
                     <div ng-switch-when="details" >
@@ -90,4 +34,3 @@
                 </div>
             </div>
         </div>
-</div>
