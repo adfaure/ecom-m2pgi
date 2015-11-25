@@ -12,7 +12,7 @@ var angularAnimate = require('angular-animate');
 /**
  * Controllers
  */
- 
+
 var mainController             = require('./controllers/MainController');
 var inscriptionController      = require('./controllers/InscriptionController');
 var loginController            = require('./controllers/LoginController');
@@ -33,7 +33,6 @@ var navsidebarController	   = require('./controllers/NavsidebarController');
 var memberService = require('./services/MemberService');
 var sellerService = require('./services/SellerService');
 var localService = require('./services/LocalService');
-var currentUserService = require('./services/CurrentUserService');
 var httpInterceptor = require('./services/HttpInterceptor');
 var apiToken = require('./services/ApiToken');
 var authentificationService = require('./services/AuthentificationService');
@@ -115,7 +114,6 @@ ecomApp.directive('ecomInputFile', inputFileDir);
 ecomApp.factory('memberService', memberService);
 ecomApp.factory('sellerService', sellerService);
 ecomApp.factory('localService', localService);
-ecomApp.factory('currentUserService', currentUserService);
 ecomApp.factory('authentificationService', authentificationService);
 ecomApp.factory('apiToken', apiToken);
 ecomApp.factory('httpInterceptor', httpInterceptor);
