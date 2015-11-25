@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-function loginService($http, apiToken) {
+function loginService($http, apiToken, localService) {
     service = {};
     service.login  = login;
     service.logout = logout;
@@ -20,20 +20,21 @@ function loginService($http, apiToken) {
     };
 
     function logout()  {
-        return $http.post('api/auth/logout').then(handleLogOutSuccess, handleError('cannot logout'));
+      return $http.post('api/auth/logout').then(handleLogOutSuccess, handleError('cannot logout'));
     };
 
     function handleLoginSuccess(res) {
-
-        apiToken.setToken(res.data.token);
-        apiToken.setUser(res.data.user);
-        return {success : true }; // FIXME shall we return something here ?
+      localService.set('auth_token', JSON.stringify(res.data));
+      apiToken.setToken(res.data.token);apiToken.setUser(res.data.user);
+      return {success : true }; // FIXME shall we return something here ?
     };
 
     function handleLogOutSuccess() {
-        apiToken.setToken("");
-        apiToken.setUser({});
-        return { success : true };
+      apiToken.setToken(null);
+      apiToken.setUser(null);
+      // The backend doesn't care about logouts, delete the token and you're good to go.
+      localService.unset('auth_token');
+      return { success : true };
     };
 
     function handleError(error) {

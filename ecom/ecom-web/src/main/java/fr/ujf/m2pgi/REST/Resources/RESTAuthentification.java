@@ -40,43 +40,49 @@ public class RESTAuthentification {
     @Deny(groups="sellers;members;admin")
     public Response login(@PathParam("username") String username)  {
 
-        MemberDTO member    = memberService.getMemberByLogin(username);
-        HttpSession session = httpServletRequest.getSession();
-        PrincipalUser principal = null;
-        if(member == null) {
-            return new ServerResponse("Authentification failed", 500, new Headers<Object>());
-        }
+      if (username == null && username.equals("")) {
+        return new ServerResponse("Authentification failed: username and password required!", 401, new Headers<Object>());
+      }
 
-        String password = httpServletRequest.getParameter("password");
-        if(member.getPassword().equals(password)) {
-            principal = new PrincipalUser();
-            principal.setToken(tokenGenerator.nextSessionId());
-            principal.setUser(member);
-            switch (member.getAccountType()) {
-                case 'S':
-                    principal.setGroup("sellers");
-                    break;
-                case 'M':
-                    principal.setGroup("members");
-                    break;
-                case 'A':
-                	principal.setGroup("admin");
-                    break;
-            }
-            session.setAttribute("principal",principal);
-        } else {
-            return new ServerResponse("Authentification failed", 500, new Headers<Object>());
+      MemberDTO member = memberService.getMemberByLogin(username);
+
+      if(member == null) {
+        return new ServerResponse("Authentification failed: invalid username or password!", 401, new Headers<Object>());
+      }
+
+      HttpSession session = httpServletRequest.getSession();
+      PrincipalUser principal = null;
+
+      String password = httpServletRequest.getParameter("password");
+      if(member.getPassword().equals(password)) {
+        principal = new PrincipalUser();
+        principal.setToken(tokenGenerator.nextSessionId());
+        principal.setUser(member);
+        switch (member.getAccountType()) {
+          case 'S':
+            principal.setGroup("sellers");
+            break;
+          case 'M':
+            principal.setGroup("members");
+            break;
+          case 'A':
+          	principal.setGroup("admin");
+            break;
         }
-        Map resJson = new HashMap<String, Object>();
-        resJson.put("token", principal.getToken());
-        resJson.put("user" , principal.getUser());
-        return Response.ok().entity(resJson).build();
+        session.setAttribute("principal",principal);
+      } else {
+        return new ServerResponse("Authentification failed: invalid username or password!", 401, new Headers<Object>());
+      }
+      Map resJson = new HashMap<String, Object>();
+      resJson.put("token", principal.getToken());
+      resJson.put("user" , principal.getUser());
+      return Response.ok().entity(resJson).build();
     }
 
     @POST
     @Path("/logout")
     @Produces("application/json")
-    @Allow(groups="sellers;members;admin")
+    //@Allow(groups="sellers;members;admin")
     public Response logout() {
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute("principal", null);
@@ -84,5 +90,4 @@ public class RESTAuthentification {
         resJson.put("message", "success");
         return Response.ok().entity(resJson).build();
     }
-
 }

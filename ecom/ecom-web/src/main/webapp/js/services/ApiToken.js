@@ -1,9 +1,10 @@
 var angular = require('angular');
 
-module.exports = function apitoken() {
+module.exports = function apitoken(localService) {
     var service = {};
-    service.token = "";
-    service.user  = null;
+    service.token = localService.get('auth_token') !== null ? angular.fromJson(localService.get('auth_token')).token : null;
+    service.user  = localService.get('auth_token') !== null ? angular.fromJson(localService.get('auth_token')).user : null;
+
     service.isAuthentificated = isAuthentificated;
     service.setToken = setToken;
     service.getToken = getToken;
@@ -12,7 +13,7 @@ module.exports = function apitoken() {
     return service;
 
     function isAuthentificated() {
-        return (service.token !== "");
+        return service.token !== null;
     }
 
     function setToken(token) {
@@ -31,4 +32,3 @@ module.exports = function apitoken() {
         service.user = user;
     }
 };
-
