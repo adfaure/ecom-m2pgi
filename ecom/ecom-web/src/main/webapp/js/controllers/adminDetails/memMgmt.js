@@ -25,13 +25,13 @@ var memMgmtController = function($scope, memberService, sellerService) {
 			}
 	};
 
-	$scope.updateListUsers = function () {
+	$scope.showUsers = function () {
 		memberService.GetAll().then(function(res){
 			$scope.users = res;
 		});
 	};
 
-	$scope.updateListUsers();
+	$scope.showUsers();
 
 	$scope.reset = function(){
 		console.log("It came after clicking in the combobox");
@@ -66,30 +66,41 @@ var memMgmtController = function($scope, memberService, sellerService) {
 
 		if(!$scope.edit){
 			console.log("The user: "+
-					$scope.user.firstName + " " +
-					$scope.user.lastName + " " +
-					$scope.user.email + " " +
-					$scope.user.login + " " +
-					$scope.user.password + " " +
-					$scope.user.accountType + " ");
+					user.firstName + " " +
+					user.lastName + " " +
+					user.email + " " +
+					user.login + " " +
+					user.password + " " +
+					user.accountType + " ");
 
 			var res;
 
 			if($scope.data.singleSelect == 'M'){
-				res = memberService.Create(user);
+				
+				memberService.Create(user).then(function(res) {
+					user.memberID = res.memberID;
+					console.log("The member id is: "+res.memberID);
+				});
+				
+				
 			}else{
 
-				res = sellerService.Create(user);
+				sellerService.Create(user).then(function(res) {
+					user.memberID = res.memberID;
+				});
 			}
+			
 
 			$scope.users.push(user);		
 		}
 		else{
 
-			var res = memberService.Update(user);
+			memberService.Update(user).then(function(res) {
+				console.log("El res es: "+res+" El memberID supuestamente es: "+res.memberID);
+			});
 
 			$scope.users[$scope.indexMemberList] = user;
-
+			$scope.edit = false;
 		}
 
 		emptyFields();
