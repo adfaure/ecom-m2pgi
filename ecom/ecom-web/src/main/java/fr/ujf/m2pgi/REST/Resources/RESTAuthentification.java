@@ -4,6 +4,7 @@ import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
 import fr.ujf.m2pgi.Security.ITokenGenerator;
+import fr.ujf.m2pgi.Security.IStringDigest;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import org.jboss.resteasy.core.Headers;
@@ -30,6 +31,9 @@ public class RESTAuthentification {
     @EJB
     private ITokenGenerator tokenGenerator;
 
+    @EJB
+    private IStringDigest stringDigest;
+
     @Context
     private HttpServletRequest httpServletRequest;
 
@@ -54,7 +58,7 @@ public class RESTAuthentification {
       PrincipalUser principal = null;
 
       String password = httpServletRequest.getParameter("password");
-      if(member.getPassword().equals(password)) {
+      if(member.getPassword().equals(stringDigest.digest(password))) {
         principal = new PrincipalUser();
         principal.setToken(tokenGenerator.nextSessionId());
         principal.setUser(member);

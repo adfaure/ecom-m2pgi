@@ -4,6 +4,7 @@ import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.DenyAll;
+import fr.ujf.m2pgi.Security.IStringDigest;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
@@ -23,6 +24,9 @@ public class RESTMemberServlet {
 
 	@EJB
 	private MemberService memberService;
+
+	@EJB
+	private IStringDigest stringDigest;
 
 	@Context
 	private HttpServletRequest httpServletRequest;
@@ -48,10 +52,11 @@ public class RESTMemberServlet {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public Response createUser(MemberDTO member) { //FIXME the true one shall return a Member DTO
+		member.setPassword(stringDigest.digest(member.getPassword()));
 		MemberDTO createdMember = memberService.createMember(member);
 		return Response.status(Status.CREATED).entity(createdMember).build();
 	}
-	
+
 	@GET
 	@Path("/count")
 	@Produces("application/json")
