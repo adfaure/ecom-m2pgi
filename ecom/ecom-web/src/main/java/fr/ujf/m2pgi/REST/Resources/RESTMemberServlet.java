@@ -8,7 +8,6 @@ import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
-
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -61,6 +60,26 @@ public class RESTMemberServlet {
 	public Response createUser(MemberDTO member) { //FIXME the true one shall return a Member DTO
 		MemberDTO createdMember = memberService.createMember(member);
 		return Response.status(Status.CREATED).entity(createdMember).build();
+	}
+	
+	@DELETE
+	@Path("id/{id}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response deleteUser(@PathParam("id") Long id) {
+		memberService.deleteMember(id);
+		return  Response.status(Status.ACCEPTED).build();
+	}
+	
+	@PUT
+	@Path("id/{id}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response updateUser(@PathParam("id") Long id) {
+		MemberDTO memberDTO =  memberService.getMemberbyId(id);
+		if(memberDTO == null) return Response.status(Status.BAD_REQUEST).build();
+		MemberDTO updatedMember =  memberService.updateSeller(memberDTO);
+		return Response.ok(updatedMember).build();
 	}
 	
 	@GET

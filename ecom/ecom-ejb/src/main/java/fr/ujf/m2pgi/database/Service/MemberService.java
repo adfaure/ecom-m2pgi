@@ -51,6 +51,12 @@ public class MemberService {
         MemberDTO res = memberMapper.getDTO(memberEntity);
         return res;
     }
+    
+    public void deleteMember(Long id) {
+        memberDao.delete(id);
+        System.out.println("Deleted user: "+id);
+        //return res;
+    }
 
     /**
      * @param login

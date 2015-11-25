@@ -41,12 +41,12 @@ function memberService($http) {
     function Update(user) {
     	var validUser = parseUser(user);
     	if(validUser != null)
-    		return $http.put('api/members/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+    		return $http.put('api/members/id/' + user.memberID, user).then(handleSuccess, handleError('Error updating user'));
     	return {success : false, message : "not valid user"};
     }
 
     function Delete(id) {
-        return $http.delete('api/members/' + id).then(handleSuccess, handleError('Error deleting user'));
+        return $http.delete('api/members/id/' + id).then(handleSuccess, handleError('Error deleting user'));
     }
 
     // private functions

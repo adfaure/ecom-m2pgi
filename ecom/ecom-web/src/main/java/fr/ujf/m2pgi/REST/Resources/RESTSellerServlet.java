@@ -51,6 +51,15 @@ public class RESTSellerServlet {
         }
         return  Response.status(Response.Status.FOUND).entity(memberdto).build();
     }
+    
+    @DELETE
+	@Path("id/{id}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response deleteUser(@PathParam("id") Long id) {
+		memberService.deleteMember(id);
+		return  Response.ok().build();
+	}
 
     @POST
     @Path("/upgrade")

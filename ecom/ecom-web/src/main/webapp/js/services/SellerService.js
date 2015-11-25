@@ -50,7 +50,7 @@ function sellerService($http) {
     }
 
     function Delete(id) {
-        return $http.delete('api/sellers/' + id).then(handleSuccess, handleError('Error deleting user'));
+        return $http.delete('api/sellers/id/' + id).then(handleSuccess, handleError('Error deleting user'));
     }
 
     // private functions
