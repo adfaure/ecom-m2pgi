@@ -1,0 +1,23 @@
+<div data-ng-controller="sellerAnalyticsController">
+
+    <div class="row">
+        <h1 class="text-center">Vos photos</h1>
+
+        <div class="col-md-2 col-sm-0 col-lg-2" >
+            <h2>selection</h2>
+            <div data-ng-repeat="photo in photos">
+                <input type="checkbox" data-ng-model="photo.selected" data-ng-click="updateChart()" />
+                <span> {{ photo.name }} </span>
+            </div>
+
+        </div>
+
+        <div class="col-md-10 col-sm-12 col-lg-10" data-ng-show="showChart">
+            <canvas id="bar" class="chart chart-bar"
+                    chart-data="chart.data" chart-labels="chart.labels" chart-series="chart.series">
+            </canvas>
+        </div>
+
+    </div>
+    
+</div>
