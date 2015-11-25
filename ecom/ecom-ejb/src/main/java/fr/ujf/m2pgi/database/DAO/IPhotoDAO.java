@@ -6,6 +6,8 @@ import javax.ejb.Local;
 
 import fr.ujf.m2pgi.database.entities.Photo;
 
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
+
 /**
  *
  * @author AZOUZI Marwen ()
@@ -34,6 +36,8 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @return
 	 */
 	List<Photo> getUserPhotos(Long id);
+
+	List<WishListPhotoDTO> getUserWishedPhotos(Long id);
 
 	/**
 	 *

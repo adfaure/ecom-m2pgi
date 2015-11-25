@@ -1,4 +1,3 @@
-
 <div ng-switch="subview">
     <div ng-switch-when="details" >
         <div ng-include="templates.details" ></div>
@@ -20,6 +19,9 @@
     </div>
     <div ng-switch-when="history">
         <div ng-include="templates.history"></div>
+    </div>
+    <div ng-switch-when="wishList">
+        <div ng-include="templates.wishList"></div>
     </div>
     <div ng-switch-when="myPage">
         <div ng-include="templates.myPage"></div>

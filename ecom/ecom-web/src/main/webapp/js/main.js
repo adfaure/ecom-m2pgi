@@ -48,6 +48,7 @@ var inputFileDir = require('./directives/InputFile');
  */
 var cartModule  = require('./Cart/Module');
 var orderModule = require('./Orders/Module');
+var photoModule = require('./Photos/Module');
 var pageModule  = require('./SellerPage/Module');
 
 /**
@@ -130,4 +131,3 @@ ecomApp.controller('detailsPhotoController', detailsPhotoController);
 ecomApp.controller('administratorController', administratorController);
 ecomApp.controller('searchController', searchController);
 ecomApp.controller('navsidebarController', navsidebarController);
-

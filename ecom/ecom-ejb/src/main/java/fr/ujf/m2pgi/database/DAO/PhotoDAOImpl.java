@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Member;
 
@@ -16,7 +17,6 @@ import fr.ujf.m2pgi.database.entities.Member;
  * @author AZOUZI Marwen
  *
  */
-
 public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 
 	@SuppressWarnings("unchecked")
@@ -25,6 +25,21 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p left join p.author s WHERE s.memberID=:id");
 		query.setParameter("id", id);
 		return (List<Photo>)query.getResultList();
+	}
+
+	@Override
+	public List<WishListPhotoDTO> getUserWishedPhotos(Long id) {
+		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.WishListPhotoDTO" +
+		"(p.photoID, p.description, p.name, p.webLocation," +
+		//"CASE WHEN EXISTS (SELECT w FROM Wish w WHERE p.photoID = w.photo.photoID AND w.member.memberID = :id)" +
+		//"THEN true ELSE false END AS inWishList," +
+		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
+		"THEN true ELSE false END AS inCart) " +
+		"FROM Photo p LEFT JOIN p.wishers m " +
+		"WHERE p.available = true AND m.memberID = :id";
+		Query query = entityManager.createQuery(str, WishListPhotoDTO.class);
+		query.setParameter("id", id);
+		return query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")

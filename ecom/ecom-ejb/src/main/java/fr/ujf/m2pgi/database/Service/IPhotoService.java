@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.Service;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 
 import javax.ejb.Local;
@@ -35,6 +36,10 @@ public interface IPhotoService {
 
     List<PhotoDTO> getUserPhotos(String login);
 
+    List<PhotoDTO> getUserWishedPhotos(String login);
+
+    List<WishListPhotoDTO> getUserWishedPhotos(Long id);
+
     void saveFile(InputStream uploadedInputStream, String serverLocation);
 
     Long getPhotoCount();
@@ -46,4 +51,8 @@ public interface IPhotoService {
     void likePhoto(Long photoID, Long memberID);
 
     void unlikePhoto(Long photoID, Long memberID);
+
+    void addPhotoToWishList(Long photoID, Long memberID);
+
+    void removePhotoFromWishList(Long photoID, Long memberID);
 }
