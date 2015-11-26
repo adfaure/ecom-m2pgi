@@ -41,7 +41,7 @@ function memberService($http) {
     function Update(user) {
     	var validUser = parseUser(user);
     	if(validUser != null)
-    		return $http.put('api/members/id/' + user.memberID, user).then(handleSuccess, handleError('Error updating user'));
+    		return $http.put('api/members/update/id/'+user.memberID, user).then(handleSuccess, handleError('Error updating user'));
     	return {success : false, message : "not valid user"};
     }
 

@@ -12,6 +12,7 @@ import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.SellerInfo;
+import fr.ujf.m2pgi.database.entities.SellerPage;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -179,10 +180,30 @@ public class MemberService {
 		return  memberMapper.getDTO(memberDao.updateCart(entity));
 	}
 
-    public MemberDTO updateSeller(MemberDTO memberdto) {
+    public MemberDTO updateMember(MemberDTO memberdto) {
         Member entity = memberMapper.getentity(memberdto);
+        if(memberdto.getSellerInfo() != null){
+        	memberdto.setSellerInfo(null);
+        }
         memberDao.update(entity);
         return memberdto;
+    }
+    
+    public MemberDTO updateSeller(MemberDTO memberdto) {
+       
+        Member member = memberMapper.getentity(memberdto);
+        
+        SellerPage page = new SellerPage();
+        page.setId(memberdto.getMemberID());
+        
+        SellerInfo info = new SellerInfo();
+        info.setId(memberdto.getMemberID());
+        info.setRIB(memberdto.getSellerInfo().getRIB());
+        info.setPage(page);
+        
+        member.setSellerInfo(info);
+        memberDao.update(member);
+        return  memberMapper.getDTO(member);
     }
 
 

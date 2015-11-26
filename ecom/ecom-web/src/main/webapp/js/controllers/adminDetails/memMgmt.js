@@ -34,8 +34,6 @@ var memMgmtController = function($scope, memberService, sellerService) {
 	$scope.showUsers();
 
 	$scope.reset = function(){
-		console.log("It came after clicking in the combobox");
-		console.log($scope.data.singleSelect);
 		if($scope.data.singleSelect == 'S'){
 			$scope.sellerSelected = true;
 			$scope.inEditMember.accountType = 'S';
@@ -48,9 +46,6 @@ var memMgmtController = function($scope, memberService, sellerService) {
 	};
 
 	$scope.save = function(){
-		console.log("Edit..");
-		console.log("The edit is: "+$scope.edit);
-
 		var user = {
 				memberID : $scope.inEditMember.memberID,
 				email: $scope.inEditMember.email,
@@ -60,44 +55,53 @@ var memMgmtController = function($scope, memberService, sellerService) {
 				password : $scope.inEditMember.password,
 				accountType: $scope.inEditMember.accountType,
 				sellerInfo : {
+
 					rib : $scope.inEditMember.sellerInfo.rib
 				}
 		};
 
 		if(!$scope.edit){
-			console.log("The user: "+
-					user.firstName + " " +
-					user.lastName + " " +
-					user.email + " " +
-					user.login + " " +
-					user.password + " " +
-					user.accountType + " ");
-
 			var res;
 
 			if($scope.data.singleSelect == 'M'){
-				
+
+				delete user.sellerInfo;
+
 				memberService.Create(user).then(function(res) {
 					user.memberID = res.memberID;
-					console.log("The member id is: "+res.memberID);
-				});
-				
-				
+				});	
+
+
 			}else{
 
 				sellerService.Create(user).then(function(res) {
 					user.memberID = res.memberID;
 				});
 			}
-			
+
 
 			$scope.users.push(user);		
 		}
 		else{
 
-			memberService.Update(user).then(function(res) {
-				console.log("El res es: "+res+" El memberID supuestamente es: "+res.memberID);
-			});
+			delete password;
+
+			if($scope.data.singleSelect == 'M'){
+				delete user.sellerInfo;
+				memberService.Update(user).then(function(res) {
+
+					user = res;
+
+				});
+			}else{
+				sellerService.Update(user).then(function(res) {
+
+					user = res;
+
+				});
+			}
+
+
 
 			$scope.users[$scope.indexMemberList] = user;
 			$scope.edit = false;
@@ -142,7 +146,7 @@ var memMgmtController = function($scope, memberService, sellerService) {
 
 	function emptyFields(){
 		$scope.inEditMember.memberID = "";
-		$scope.inEditMember.accountType = "M";
+		//$scope.inEditMember.accountType = "M";
 		$scope.inEditMember.firstName = "";
 		$scope.inEditMember.lastName = "";
 		$scope.inEditMember.email = "";

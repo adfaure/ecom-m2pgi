@@ -44,7 +44,7 @@ function sellerService($http) {
     function Update(user) {
         var newUser = parseSeller(user);
         if (newUser != null)
-            return $http.put('api/sellers/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return $http.put('api/sellers/update/id/' + user.memberID, user).then(handleSuccess, handleError('Error updating user'));
         return {success: false, message: "not valid seller"};
 
     }

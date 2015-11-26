@@ -72,13 +72,14 @@ public class RESTMemberServlet {
 	}
 	
 	@PUT
-	@Path("id/{id}")
+	@Path("/update/id/{id}")
 	@Produces("application/json")
-	@Consumes("application/json")
-	public Response updateUser(@PathParam("id") Long id) {
-		MemberDTO memberDTO =  memberService.getMemberbyId(id);
-		if(memberDTO == null) return Response.status(Status.BAD_REQUEST).build();
-		MemberDTO updatedMember =  memberService.updateSeller(memberDTO);
+	public Response updateUser(@PathParam("id") Long id, MemberDTO memberDTO) {
+		MemberDTO m = memberService.getMemberbyId(id);
+		if(m == null) return Response.status(Status.BAD_REQUEST).build();
+		
+		MemberDTO updatedMember = null;
+		updatedMember =  memberService.updateMember(memberDTO);
 		return Response.ok(updatedMember).build();
 	}
 	

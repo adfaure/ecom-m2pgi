@@ -27,12 +27,12 @@
       <td>{{ user.email }}</td>
       <td>{{ user.login }}</td>
       <td>
-        <button class="btn" ng-click="editUser($index)">
+        <button class="btn btn-default" ng-click="editUser($index)">
           <span class="glyphicon glyphicon-pencil"></span> Edit
         </button>
       </td>
       <td>
-        <button class="btn btn-danger" ng-click="deleteUser($index)">
+        <button class="btn btn-danger btn-default" ng-click="deleteUser($index)">
           <span class="glyphicon glyphicon-remove"></span>Delete
         </button>
       </td>
@@ -41,7 +41,7 @@
 </table>
 
 <hr>
-<button class="btn btn-success" ng-click="editUser('new')">
+<button class="btn btn-success btn-default" ng-click="editUser('new')">
 <span class="glyphicon glyphicon-user"></span> Create New User
 </button>
 <hr>
@@ -105,7 +105,7 @@
 
 <hr>
 
-<button class="btn" ng-click="save()">
+<button class="btn btn-default" ng-click="save()">
           <span class="glyphicon glyphicon-pencil"></span>Save
 </button>
 

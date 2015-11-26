@@ -53,7 +53,7 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 	}
 	
 	public List<Member> getAllMembers(){
-		Query query = entityManager.createQuery("Select m From Member m");
+		Query query = entityManager.createQuery("SELECT m FROM Member m ORDER BY m.memberID");
 		List<Member> members = query.getResultList();
 		return members;
 	}
