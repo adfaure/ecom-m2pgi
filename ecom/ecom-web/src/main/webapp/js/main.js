@@ -12,6 +12,7 @@ var angularAnimate = require('angular-animate');
 /**
  * Controllers
  */
+
 var mainController             = require('./controllers/MainController');
 var inscriptionController      = require('./controllers/InscriptionController');
 var loginController            = require('./controllers/LoginController');
