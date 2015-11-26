@@ -45,6 +45,24 @@ var memMgmtController = function($scope, memberService, sellerService) {
 		}
 	};
 
+	$scope.$watch('inEditMember.email',function() {$scope.test();});
+	$scope.$watch('inEditMember.login',function() {$scope.test();});
+	$scope.$watch('inEditMember.password', function() {$scope.test();});
+
+	$scope.test = function() {
+
+		$scope.incomplete = false;
+		if ((!$scope.edit && (!$scope.inEditMember.email.length ||
+				!$scope.inEditMember.login.length ||
+				!$scope.inEditMember.password.length)) ||
+				
+				($scope.edit && (!$scope.inEditMember.email.length ||
+				!$scope.inEditMember.login.length))) {
+			$scope.incomplete = true;
+		}
+	};
+
+
 	$scope.save = function(){
 		var user = {
 				memberID : $scope.inEditMember.memberID,
