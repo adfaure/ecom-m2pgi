@@ -51,7 +51,7 @@ public class RESTMemberServlet {
 		MemberDTO createdMember = memberService.createMember(member);
 		return Response.status(Status.CREATED).entity(createdMember).build();
 	}
-	
+
 	@GET
 	@Path("/count")
 	@Produces("application/json")

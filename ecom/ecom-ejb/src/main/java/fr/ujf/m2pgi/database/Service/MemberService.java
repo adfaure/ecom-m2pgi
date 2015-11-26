@@ -12,6 +12,7 @@ import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.SellerInfo;
+import fr.ujf.m2pgi.Security.IStringDigest;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,6 +35,7 @@ public class MemberService {
      */
     @Inject
     private IPhotoMapper photoMapper;
+
     /**
      *
      */
@@ -41,9 +43,16 @@ public class MemberService {
     private IMemberDAO memberDao;
 
     /**
+     *
+     */
+    @Inject
+    private IStringDigest stringDigest;
+
+    /**
      * @param member
      */
     public MemberDTO createMember(MemberDTO member) {
+        member.setPassword(stringDigest.digest(member.getPassword()));
         Member toCreate = memberMapper.getentity(member);
         Member memberEntity = memberDao.create(toCreate);
         MemberDTO res = memberMapper.getDTO(memberEntity);
