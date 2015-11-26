@@ -23,7 +23,8 @@ var uploadController           = require('./controllers/accountDetails/uploadPho
 var managePhotosController     = require('./controllers/accountDetails/managePhotos');
 var accueilController          = require('./controllers/AccueilController');
 var detailsPhotoController     = require('./controllers/DetailsPhotoController');
-var administratorController    = require('./controllers/AdministratorController');
+var administratorController    = require('./controllers/adminDetails/AdministratorController');
+var memMgmtController          = require('./controllers/adminDetails/memMgmt');
 var searchController		   = require('./controllers/SearchController');
 var navsidebarController	   = require('./controllers/NavsidebarController');
 
@@ -92,10 +93,6 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
             templateUrl: './js/templates/accountDetails.html',
             controller: 'accountDetails'
         })
-        .when('/administrator', {
-        	templateUrl: './js/templates/administratorTemplate.html',
-        	controller: 'administratorController'
-        })
         .when('/', {
             redirectTo: '/accueil'
         })
@@ -133,5 +130,6 @@ ecomApp.controller('managePhotos', managePhotosController);
 ecomApp.controller('accueilController', accueilController);
 ecomApp.controller('detailsPhotoController', detailsPhotoController);
 ecomApp.controller('administratorController', administratorController);
+ecomApp.controller('memMgmtController', memMgmtController);
 ecomApp.controller('searchController', searchController);
 ecomApp.controller('navsidebarController', navsidebarController);

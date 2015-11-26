@@ -18,7 +18,7 @@ var administratorController = function($scope,  publicPhoto, orderService, membe
 	
 	memberService.GetCount().then(function(res) {
         $scope.memberCount = res;
-	});	
+	});
 	
 	sellerService.GetCount().then(function(res) {
         $scope.sellerCount = res;

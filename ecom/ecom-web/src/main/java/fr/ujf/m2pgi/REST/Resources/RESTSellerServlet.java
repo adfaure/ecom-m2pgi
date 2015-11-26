@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +60,30 @@ public class RESTSellerServlet {
         }
         return  Response.status(Response.Status.FOUND).entity(memberdto).build();
     }
+    
+    @DELETE
+	@Path("id/{id}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response deleteUser(@PathParam("id") Long id) {
+		memberService.deleteMember(id);
+		return  Response.ok().build();
+	}
+    
+    @PUT
+	@Path("/update/id/{id}")
+	@Produces("application/json")
+	public Response updateUser(@PathParam("id") Long id, MemberDTO memberDTO) {
+		System.out.println("lastName seller"+memberDTO.getLastName());
+		
+		MemberDTO m = memberService.getMemberbyId(id);
+		if(m == null) return Response.status(Status.BAD_REQUEST).build();
+		
+		MemberDTO updatedMember = null;
+		updatedMember =  memberService.updateSeller(memberDTO);
+		return Response.ok(updatedMember).build();
+	}
+    
 
     @POST
     @Path("/upgrade")
@@ -125,7 +151,7 @@ public class RESTSellerServlet {
         MemberDTO memberdto = memberService.getSellerById(sellerId);
         if(memberdto != null && memberdto.getSellerInfo() != null) {
             memberdto.getSellerInfo().setPage(pageDTO);
-            memberService.updateSeller(memberdto);
+            memberService.updateMember(memberdto);
             return  Response.status(Response.Status.OK).entity(pageDTO).build();
         }
 
