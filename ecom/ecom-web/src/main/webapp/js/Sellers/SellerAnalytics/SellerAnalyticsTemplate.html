@@ -1,23 +1,57 @@
 <div data-ng-controller="sellerAnalyticsController">
 
     <div class="row">
-        <h1 class="text-center">Vos photos</h1>
-
-        <div class="col-md-2 col-sm-0 col-lg-2" >
-            <h2>selection</h2>
-            <div data-ng-repeat="photo in photos">
-                <input type="checkbox" data-ng-model="photo.selected" data-ng-click="updateChart()" />
-                <span> {{ photo.name }} </span>
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="text-center">Vos photos</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-0 col-lg-4">
+                            <h2>selection</h2>
+                            <ul data-ng-repeat="photo in photos">
+                                <li>
+                                    <input data-ng-click="updateChart()" type="checkbox"
+                                           data-ng-model="photo.selected"/>
+                                    <span> {{ photo.name }} </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-lg-8 " data-ng-show="showChart">
+                            <canvas id="bar" class="chart chart-bar"
+                                    chart-data="photoChart.data" chart-labels="photoChart.labels"
+                                    chart-series="photoChart.series" chart-legend="true">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Vos ventes</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-0 col-lg-4">
+                            <p> total des photos vendue : {{ totalNbSales }} </p>
+                            <p> total de vos  gains : {{ totalPrice }} </p>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-lg-8 ">
+                            <canvas id="line" class="chart chart-line" chart-data="salesChart.data"
+                                    chart-labels="salesChart.labels" chart-legend="true"
+                                    chart-series="salesChart.series">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-10 col-sm-12 col-lg-10" data-ng-show="showChart">
-            <canvas id="bar" class="chart chart-bar"
-                    chart-data="chart.data" chart-labels="chart.labels" chart-series="chart.series">
-            </canvas>
-        </div>
 
     </div>
-    
-</div>

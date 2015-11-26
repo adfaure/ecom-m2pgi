@@ -1,6 +1,20 @@
 
+var intToMonth = [
+    'janvier',
+    'fevrier',
+    'mars',
+    'avril',
+    'mai',
+    'juin',
+    'juillet',
+    'aout',
+    'septembre',
+    'octobre',
+    'novembre',
+    'decembre'
+];
 
-var controller = function($scope,$location ,alertService, publicPhoto, apiToken) {
+var controller = function($scope,$location ,alertService, publicPhoto, apiToken, sellerService) {
 
     if(!apiToken.isAuthentificated()) {
         alertService.add("alert-danger", " Vous devez vous connecter ou posseder un compte vendeur pour acceder à cette page");
@@ -10,14 +24,23 @@ var controller = function($scope,$location ,alertService, publicPhoto, apiToken)
     var photos = [];
     var user   = apiToken.getUser();
 
-    $scope.loading   = true;
     $scope.showChart = false;
 
-    var chart = $scope.chart = {
+    var photoChart = $scope.photoChart = {
         labels : [],
         series : ['sales', 'likes', 'views'],
         data : []
     };
+
+    var salesChart = $scope.salesChart = {
+        labels : [],
+        series : ["ventes", "somme total(€)"],
+        data : [
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0]
+        ]
+    };
+
 
     publicPhoto.GetUserPhotos(user.login).then(function(res) {
         photos = $scope.photos = res;
@@ -26,29 +49,50 @@ var controller = function($scope,$location ,alertService, publicPhoto, apiToken)
         });
         $scope.updateChart();
         $scope.showChart  = true;
-        $scope.loading = false;
     });
 
+    sellerService.getOrderBySellerId(user.memberID).then(function(res) {
+        $scope.totalNbSales = 0;
+        $scope.totalPrice   = 0;
+        $scope.orders       = res;
+
+        $scope.orders.forEach(function(elem) {
+            elem.dateCreatedAsDate = new Date(elem.dateCreated);
+        });
+
+        $scope.salesChart.series = ["ventes", "somme total(€)"];
+        $scope.salesChart.labels = intToMonth;
+
+        $scope.orders.forEach(function(elem) {
+            elem.photos.forEach(function(photo) {
+                $scope.salesChart.data[0][elem.dateCreatedAsDate.getMonth()] += 1;
+                $scope.salesChart.data[1][elem.dateCreatedAsDate.getMonth()] += photo.price;
+                $scope.totalPrice   += photo.price;
+                $scope.totalNbSales += 1;
+            });
+        });
+
+    });
 
     $scope.updateChart  = function() {
 
         var selectedPhotos = photos.filter(function(elem) { return elem.selected });
 
-        chart.labels = selectedPhotos.map(function(elem) {
+        photoChart.labels = selectedPhotos.map(function(elem) {
             return elem.name;
         });
 
-        chart.data[0] = selectedPhotos.map(function(elem) {
+        photoChart.data[0] = selectedPhotos.map(function(elem) {
             return elem.sales;
         });
-        chart.data[1] = selectedPhotos.map(function(elem) {
+        photoChart.data[1] = selectedPhotos.map(function(elem) {
             return elem.likes;
         });
-        chart.data[2] = selectedPhotos.map(function(elem) {
+        photoChart.data[2] = selectedPhotos.map(function(elem) {
             return elem.views;
         });
 
-        $scope.showChart = (chart.labels.length > 0);
+        $scope.showChart = (photoChart.labels.length > 0);
         if(!$scope.showChart) alertService.add("alert-info", " Vous n'avez aucune photo de selectionné ");
 
     }

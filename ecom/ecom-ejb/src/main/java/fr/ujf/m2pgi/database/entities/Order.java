@@ -24,17 +24,18 @@ public class Order {
 	)
 	private Collection<Photo> orderedPhotos;
 	
-    @Column(name = "date_created", insertable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_created", insertable = false, updatable = false, columnDefinition="timestamp default current_timestamp")
+	@Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
 
 	@Column(name="price")
 	private float price;
 
 	@PrePersist
-	protected void onCreate() {
-		dateCreated = new Date();
+	public void onCreate() {
+		this.dateCreated = new Date();
 	}
+
 
 	public Collection<Photo> getOrderedPhotos() {
 		return orderedPhotos;
