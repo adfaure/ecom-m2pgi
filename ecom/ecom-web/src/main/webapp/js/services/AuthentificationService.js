@@ -20,6 +20,10 @@ function loginService($http, apiToken, localService) {
     };
 
     function logout()  {
+      apiToken.setToken(null);
+      apiToken.setUser(null);
+      // The backend doesn't care about logouts, delete the token and you're good to go.
+      localService.unset('auth_token');
       return $http.post('api/auth/logout').then(handleLogOutSuccess, handleError('cannot logout'));
     };
 
@@ -31,10 +35,6 @@ function loginService($http, apiToken, localService) {
     };
 
     function handleLogOutSuccess() {
-      apiToken.setToken(null);
-      apiToken.setUser(null);
-      // The backend doesn't care about logouts, delete the token and you're good to go.
-      localService.unset('auth_token');
       return { success : true };
     };
 
