@@ -3,12 +3,11 @@ package fr.ujf.m2pgi.REST.Resources;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
+import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.Security.ITokenGenerator;
 import fr.ujf.m2pgi.Security.IStringDigest;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
-import org.jboss.resteasy.core.Headers;
-import org.jboss.resteasy.core.ServerResponse;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -44,20 +43,27 @@ public class RESTAuthentification {
     @Deny(groups="sellers;members;admin")
     public Response login(@PathParam("username") String username)  {
 
-      if (username == null && username.equals("")) {
-        return new ServerResponse("Authentification failed: username and password required!", 401, new Headers<Object>());
+      if (username == null || username.equals("")) {
+    	 return Response.status(401).entity(
+    			 new CustomServerResponse(false, "Authentification failed: username and password required!")).build(); 
+      }
+      
+      String password = httpServletRequest.getParameter("password");
+      if (password == null || password.equals("")) {
+    	 return Response.status(401).entity(
+    			 new CustomServerResponse(false, "Authentification failed: username and password required!")).build(); 
       }
 
       MemberDTO member = memberService.getMemberByLogin(username);
 
       if(member == null) {
-        return new ServerResponse("Authentification failed: invalid username or password!", 401, new Headers<Object>());
+        return Response.status(401).entity(
+   			 new CustomServerResponse(false, "Authentification failed: invalid username or password!")).build();
       }
 
       HttpSession session = httpServletRequest.getSession();
       PrincipalUser principal = null;
 
-      String password = httpServletRequest.getParameter("password");
       if(member.getPassword().equals(stringDigest.digest(password))) {
         principal = new PrincipalUser();
         principal.setToken(tokenGenerator.nextSessionId());
@@ -75,23 +81,22 @@ public class RESTAuthentification {
         }
         session.setAttribute("principal",principal);
       } else {
-        return new ServerResponse("Authentification failed: invalid username or password!", 401, new Headers<Object>());
+          return Response.status(401).entity(
+        		  new CustomServerResponse(false, "Authentification failed: invalid username or password!")).build();
       }
-      Map resJson = new HashMap<String, Object>();
+      Map<String, Object> resJson = new HashMap<String, Object>();
       resJson.put("token", principal.getToken());
-      resJson.put("user" , principal.getUser());
-      return Response.ok().entity(resJson).build();
+      resJson.put("user", principal.getUser());
+      return Response.ok().entity(new CustomServerResponse(true, "Authentification successed!", resJson)).build();
     }
 
     @POST
     @Path("/logout")
     @Produces("application/json")
-    //@Allow(groups="sellers;members;admin")
+    @Allow(groups="sellers;members;admin")
     public Response logout() {
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute("principal", null);
-        Map resJson = new HashMap<String, Object>();
-        resJson.put("message", "success");
-        return Response.ok().entity(resJson).build();
+        return Response.ok().entity(new CustomServerResponse(true, "Logout successed!")).build();
     }
 }

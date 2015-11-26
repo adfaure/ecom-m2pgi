@@ -24,8 +24,9 @@ function loginService($http, apiToken, localService) {
     };
 
     function handleLoginSuccess(res) {
-      localService.set('auth_token', JSON.stringify(res.data));
-      apiToken.setToken(res.data.token);apiToken.setUser(res.data.user);
+      var data = res.data.data;
+      localService.set('auth_token', JSON.stringify(data));
+      apiToken.setToken(data.token);apiToken.setUser(data.user);
       return {success : true }; // FIXME shall we return something here ?
     };
 
