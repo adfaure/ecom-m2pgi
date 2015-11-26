@@ -61,6 +61,7 @@ public class RESTMemberServlet {
 		MemberDTO createdMember = memberService.createMember(member);
 		return Response.status(Status.CREATED).entity(createdMember).build();
 	}
+
 	
 	@DELETE
 	@Path("id/{id}")

@@ -87,4 +87,5 @@ public class RESTOrdersServlet {
 		double orderTotalPurchase = orderService.getTotalPurchaseCost();
 		return Response.ok(orderTotalPurchase).build();
 	}
+
 }

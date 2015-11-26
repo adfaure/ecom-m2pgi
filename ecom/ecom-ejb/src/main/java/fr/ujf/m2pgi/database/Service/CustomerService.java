@@ -4,8 +4,10 @@ import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IOrderDAO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
+import fr.ujf.m2pgi.database.DTO.OrderSellerDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IOrderMapper;
+import fr.ujf.m2pgi.database.Mappers.IOrderSellerMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Order;
@@ -15,9 +17,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
- * Created by FARUE Adrien on 13/11/15.
+ * Created by FAURE Adrien on 13/11/15.
  */
 @Stateless
 public class CustomerService implements ICustomerService {
@@ -48,6 +51,12 @@ public class CustomerService implements ICustomerService {
 
     /**
      *
+     */
+    @Inject
+    private IOrderSellerMapper orderSellerMapper;
+
+    /**
+     *
      * @param login
      * @param photos
      * @return
@@ -68,5 +77,22 @@ public class CustomerService implements ICustomerService {
         memberDAO.updateCart(member);
         return orderMapper.getDTO(orderDAO.create(order));
     }
+
+    @Override
+    public List<OrderSellerDTO> getOrdersBySeller(long id) {
+        List<Order> orders = orderDAO.getSellersOrders(id);
+        List<OrderSellerDTO> ordersDTO = new ArrayList<>();
+        for(Order o : orders) {
+            List<Photo> photos = new ArrayList<Photo>();
+            for(Photo photo : o.getOrderedPhotos()) { //filter of photos, the ordersSellerDTO will contains only the data connected with the seller with the id "id"
+                if(photo.getAuthor().getMemberID() == id)
+                    photos.add(photo);
+            }
+            o.setOrderedPhotos(photos);
+            ordersDTO.add(orderSellerMapper.getDTO(o));
+        }
+        return ordersDTO;
+    }
+
 
 }

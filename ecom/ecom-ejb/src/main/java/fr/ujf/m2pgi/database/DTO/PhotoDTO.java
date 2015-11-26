@@ -50,9 +50,19 @@ public class PhotoDTO implements Serializable {
 	@XmlElement
 	private Integer likes;
 
-
 	@XmlElement
 	private long sellerID;
+
+	@XmlElement
+	private int sales;
+
+	public int getSales() {
+		return sales;
+	}
+
+	public void setSales(int sales) {
+		this.sales = sales;
+	}
 
 	public String getWebLocation() {
 		return webLocation;

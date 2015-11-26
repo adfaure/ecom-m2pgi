@@ -4,8 +4,11 @@ import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
+import fr.ujf.m2pgi.database.DTO.OrderSellerDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.DTO.SellerPageDTO;
+import fr.ujf.m2pgi.database.Service.CustomerService;
+import fr.ujf.m2pgi.database.Service.ICustomerService;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.database.entities.Member;
 
@@ -18,6 +21,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +36,10 @@ public class RESTSellerServlet {
 
     @EJB
     private MemberService memberService;
-    
+
+    @EJB
+    private ICustomerService customerService;
+
     @POST
 	@Path("/")
 	@Produces("application/json")
@@ -149,5 +156,13 @@ public class RESTSellerServlet {
         }
 
         return Response.status(Response.Status.NO_CONTENT).build();
+    }
+
+    @GET
+    @Path("id/{id}/orders")
+    @Produces("application/json")
+    public Response getOrderTotalPurchase(@PathParam("id") long id) {
+        List<OrderSellerDTO> list = customerService.getOrdersBySeller(id);
+        return Response.ok().entity(list).build();
     }
 }

@@ -38,8 +38,10 @@ public class Photo {
 	@Column(name="price")
 	private float price;
 
-	@Column(name = "date_created", insertable = false, updatable = false,
-	columnDefinition="timestamp default current_timestamp")
+	@Column(name="sales")
+	private int sales;
+
+	@Column(name = "date_created", insertable = false, updatable = false,  columnDefinition="timestamp default current_timestamp")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
 
@@ -60,6 +62,22 @@ public class Photo {
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "viewedPhotos")
 	private Collection<Member> viewers;
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "wishedPhotos")
+	private Collection<Member> wishers;
+
+	@PrePersist
+	public void initInDataBase() {
+		sales = 0;
+	}
+
+	public int getSales() {
+		return sales;
+	}
+
+	public void setSales(int sales) {
+		this.sales = sales;
+	}
 
 	public String getFileLocation() {
 		return fileLocation;
@@ -171,5 +189,13 @@ public class Photo {
 
 	public void setViewers(Collection<Member> viewers) {
 		this.viewers = viewers;
+	}
+
+	public Collection<Member> getWishers() {
+		return wishers;
+	}
+
+	public void setWishers(Collection<Member> wishers) {
+		this.wishers = wishers;
 	}
 }

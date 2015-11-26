@@ -1,7 +1,7 @@
 
 <div data-ng-controller="memMgmtController">
  
- <h3>Manage members ({{ users.length  }})</h3>
+ <h3>Manage members ({{ filtered.length  }})</h3>
 
 <table class="table table-striped">
   <thead>
@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody> 
-    <tr ng-repeat="user in users track by $index" ng-if="user.accountType!='A'">
+    <tr ng-repeat="user in filtered = (users | filter : {accountType:'!A'}) track by $index">
       <td>{{ user.memberID }}</td>
       <td>{{ user.accountType }}</td>
       <td>{{ user.sellerInfo.rib }}</td>

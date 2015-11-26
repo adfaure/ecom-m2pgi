@@ -1,36 +1,36 @@
-        <div class="col-md-12">
-            <div class="profile-content">
-                <div ng-switch="subview">
-                    <div ng-switch-when="details" >
-                        <div ng-include="templates.details" ></div>
-                    </div>
-                    <div ng-switch-when="upgrade">
-                        <div ng-include="templates.upgrade"></div>
-                    </div>
-                    <div ng-switch-when="addPhoto">
-                        <div ng-include="templates.addPhoto"></div>
-                    </div>
-                    <div ng-switch-when="managePhotos">
-                        <div ng-include="templates.managePhotos"></div>
-                    </div>
-                    <div ng-switch-when="stats">
-                        <div ng-include="templates.stats"></div>
-                    </div>
-				    <div ng-switch-when="myCart">
-				        <div ng-include="templates.myCart"></div>
-				    </div>
-                    <div ng-switch-when="members">
-                        <div ng-include="templates.members"></div>
-                    </div>
-                    <div ng-switch-when="myCart">
-                        <div ng-include="templates.myCart"></div>
-                    </div>
-                    <div ng-switch-when="history">
-                        <div ng-include="templates.history"></div>
-                    </div>
-                    <div ng-switch-when="myPage">
-        				<div ng-include="templates.myPage">
-    				</div>
-                </div>
-            </div>
-        </div>
+<div ng-switch="subview">
+    <div ng-switch-when="details" >
+        <div ng-include="templates.details" ></div>
+    </div>
+    <div ng-switch-when="upgrade">
+        <div ng-include="templates.upgrade"></div>
+    </div>
+    <div ng-switch-when="addPhoto">
+        <div ng-include="templates.addPhoto"></div>
+    </div>
+    <div ng-switch-when="managePhotos">
+        <div ng-include="templates.managePhotos"></div>
+    </div>
+    <div ng-switch-when="stats">
+        <div ng-include="templates.stats"></div>
+    </div>
+    <div ng-switch-when="members">
+        <div ng-include="templates.members"></div>
+    </div>
+    <div ng-switch-when="myCart">
+        <div ng-include="templates.myCart"></div>
+    </div>
+    <div ng-switch-when="history">
+        <div ng-include="templates.history"></div>
+    </div>
+    <div ng-switch-when="wishList">
+        <div ng-include="templates.wishList"></div>
+    </div>
+    <div ng-switch-when="myPage">
+        <div ng-include="templates.myPage"></div>
+    </div>
+    <div ng-switch-when="sellerAnalytics">
+        <div ng-include="templates.sellerAnalytics"></div>
+    </div>
+</div>
+

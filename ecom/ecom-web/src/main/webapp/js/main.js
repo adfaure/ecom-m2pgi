@@ -12,6 +12,7 @@ var angularAnimate = require('angular-animate');
 /**
  * Controllers
  */
+
 var mainController             = require('./controllers/MainController');
 var inscriptionController      = require('./controllers/InscriptionController');
 var loginController            = require('./controllers/LoginController');
@@ -32,6 +33,7 @@ var navsidebarController	   = require('./controllers/NavsidebarController');
  */
 var memberService = require('./services/MemberService');
 var sellerService = require('./services/SellerService');
+var localService = require('./services/LocalService');
 var httpInterceptor = require('./services/HttpInterceptor');
 var apiToken = require('./services/ApiToken');
 var authentificationService = require('./services/AuthentificationService');
@@ -47,9 +49,11 @@ var inputFileDir = require('./directives/InputFile');
 /**
  * Modules
  */
-var cartModule  = require('./Cart/Module');
-var orderModule = require('./Orders/Module');
-var pageModule  = require('./SellerPage/Module');
+var photoModule      = require('./Photos/Module');
+var pageModule       = require('./SellerPage/Module');
+var cartModule       = require('./Cart/Module');
+var orderModule      = require('./Orders/Module');
+var sellerAnalytics  = require('./Sellers/Module');
 
 /**
  *
@@ -90,14 +94,14 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
             controller: 'accountDetails'
         })
         .when('/', {
-            redirectTo: '/accueil',
+            redirectTo: '/accueil'
         })
         .when('/seller/page/:id', {
             templateUrl : './js/SellerPage/Page/PageTemplate.html',
             controller : 'pageController'
         })
         .otherwise({
-        	redirectTo: '/accueil',
+        	redirectTo: '/accueil'
         });
 
     $httpProvider.interceptors.push('httpInterceptor', httpInterceptor);
@@ -108,6 +112,7 @@ ecomApp.directive('ecomInputFile', inputFileDir);
 
 ecomApp.factory('memberService', memberService);
 ecomApp.factory('sellerService', sellerService);
+ecomApp.factory('localService', localService);
 ecomApp.factory('authentificationService', authentificationService);
 ecomApp.factory('apiToken', apiToken);
 ecomApp.factory('httpInterceptor', httpInterceptor);

@@ -12,7 +12,7 @@ function sellerService($http) {
     service.CreateFromMember = CreateFromMember;
     service.Update = Update;
     service.Delete = Delete;
-
+    service.getOrderBySellerId = getOrderBySellerId;
     return service;
 
     function GetById(id) {
@@ -47,6 +47,10 @@ function sellerService($http) {
             return $http.put('api/sellers/update/id/' + user.memberID, user).then(handleSuccess, handleError('Error updating user'));
         return {success: false, message: "not valid seller"};
 
+    }
+
+    function getOrderBySellerId(userID) {
+        return $http.get('api/sellers/id/' + userID + '/orders').then(handleSuccess, handleError('Error getting orders'));
     }
 
     function Delete(id) {
