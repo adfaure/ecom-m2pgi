@@ -25,9 +25,11 @@ public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
 		Collection<Photo> photos = new ArrayList<Photo>();
 		float price = 0;
 		for(Photo photo : entity.getOrderedPhotos()) {
-			Photo attached = entityManager.getReference(Photo.class, photo.getPhotoID());
+			Photo attached = entityManager.find(Photo.class, photo.getPhotoID());
+			attached.setSales(attached.getSales() + 1);
 			photos.add(attached);
 			price += photo.getPrice();
+			entityManager.merge(attached);
 		}
 		entity.setPrice(price);
 		entity.setOrderedPhotos(photos);
@@ -57,5 +59,11 @@ public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
 			price = (Double) query.getSingleResult();
 		
 		return price;
+	}
+
+	public List<Order> getSellersOrders(long id) {
+		Query query = entityManager.createQuery("SELECT DISTINCT o FROM Order o left join o.orderedPhotos p WHERE p.author.memberID=:id");
+		query.setParameter("id", id);
+		return (List<Order>)query.getResultList();
 	}
 }

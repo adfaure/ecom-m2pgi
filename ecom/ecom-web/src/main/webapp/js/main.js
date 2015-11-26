@@ -48,10 +48,11 @@ var inputFileDir = require('./directives/InputFile');
 /**
  * Modules
  */
-var cartModule  = require('./Cart/Module');
-var orderModule = require('./Orders/Module');
-var photoModule = require('./Photos/Module');
-var pageModule  = require('./SellerPage/Module');
+var photoModule      = require('./Photos/Module');
+var pageModule       = require('./SellerPage/Module');
+var cartModule       = require('./Cart/Module');
+var orderModule      = require('./Orders/Module');
+var sellerAnalytics  = require('./Sellers/Module');
 
 /**
  *
@@ -96,14 +97,14 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
         	controller: 'administratorController'
         })
         .when('/', {
-            redirectTo: '/accueil',
+            redirectTo: '/accueil'
         })
         .when('/seller/page/:id', {
             templateUrl : './js/SellerPage/Page/PageTemplate.html',
             controller : 'pageController'
         })
         .otherwise({
-        	redirectTo: '/accueil',
+        	redirectTo: '/accueil'
         });
 
     $httpProvider.interceptors.push('httpInterceptor', httpInterceptor);
