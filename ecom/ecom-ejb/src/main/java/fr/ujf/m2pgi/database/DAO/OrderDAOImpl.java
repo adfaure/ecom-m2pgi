@@ -62,7 +62,7 @@ public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
 	}
 
 	public List<Order> getSellersOrders(long id) {
-		Query query = entityManager.createQuery("SELECT o FROM Order o left join o.orderedPhotos p WHERE p.author.memberID=:id");
+		Query query = entityManager.createQuery("SELECT DISTINCT o FROM Order o left join o.orderedPhotos p WHERE p.author.memberID=:id");
 		query.setParameter("id", id);
 		return (List<Order>)query.getResultList();
 	}
