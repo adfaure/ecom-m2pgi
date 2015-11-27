@@ -21,17 +21,5 @@
     xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
    <!-- The datasource is bound into JNDI at this location. We reference 
       this in META-INF/persistence.xml -->
-    <datasource jndi-name="java:jboss/datasources/postgresDS" pool-name="ecom"
-        enabled="true" use-java-context="true">
-      <connection-url>jdbc:postgresql://localhost:5432/ecom</connection-url>
-
-		<driver>postgresql</driver>
-		
-		<security>
-            <user-name>postgres</user-name>
-            <password>postgres</password>
-        </security>
-		
-	  </datasource>
 </datasources>
  
