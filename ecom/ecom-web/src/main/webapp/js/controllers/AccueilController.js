@@ -2,6 +2,7 @@ var angular = require('angular');
 
 var accueilController = function($scope, $location, publicPhoto) {
     var cachedPhotos = [];
+    $scope.hovering = false;
 
     publicPhoto.GetAllSortByDateDesc().then(function(res) {
             $scope.photos = cachedPhotos = res;
@@ -20,6 +21,19 @@ var accueilController = function($scope, $location, publicPhoto) {
                 'photo' :JSON.stringify(photo)
             });
     };
+
+    $scope.showIt = function () {
+      $scope.hovering = true;
+      console.log("hell yeaaa");
+    };
+
+    // mouseleave event
+    $scope.hideIt = function () {
+        $scope.hovering = false;
+      console.log("hell yeaaa");
+    };
+
+
 /*
     $scope.search = {
         terms : '',

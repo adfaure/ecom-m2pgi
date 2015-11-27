@@ -1,14 +1,18 @@
 
 
-<div class=row"> 
-  <div class="col-lg-3 col-md-4 col-xs-6" ng-repeat="photo in photos track by $index">
-  	<div class="thumbnail">
-       <img data-ng-click="details(photos[$index].photoID)" class="image" data-ng-src="{{photos[$index].webLocation}}" alt="{{photos[$index].name}}">
-       <!-- div class="caption">
-         <h3>Thumbnail label</h3>
-         <p>...</p>
-         <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-       </div-->
+<div class="row"> 
+<button ng-mouseenter="count = count + 1" ng-init="count=0">
+  Increment (when mouse enters)
+</button>
+count: {{count}}
+  <div class="col-lg-3 col-md-4 col-xs-6" ng-repeat="photo in photos track by $index" ng-mouseenter="count = count + 10">
+  	<div class="thumbnail" ng-mouseenter="count = count + 100">
+      <div class="caption posAbs" ng-mouseenter="count = count + 1000">
+        <h3>Thumbnail label</h3>
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="btton">Button</a></p>
+      </div>
+      <img data-ng-click="details(photos[$index].photoID)" class="image" data-ng-src="{{photos[$index].webLocation}}" alt="{{photos[$index].name}}" ng-mouseenter="count = count + 10000">
   	</div>
   </div>
 </div>
