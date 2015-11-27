@@ -72,7 +72,7 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 	}
 	
 	public Long getMemberCount(){
-		String q = "SELECT count(e) FROM Member e where e.accountType = 'M'";
+		String q = "SELECT count(e) FROM Member e where e.accountType <> 'A'";
 		Query query = entityManager.createQuery(q);
 		return (Long) query.getSingleResult();
 	}
