@@ -10,7 +10,11 @@ var orders = function($scope,$location,alertService ,apiToken, orderService) {
     var user = apiToken.getUser();
 
     orderService.GetOrdersWithSellerLogin(user.login).then(function(res) {
-        $scope.orders = res;
+        if(res.success)
+            $scope.orders = res;
+        else {
+            $scope.orders = [];
+        }
     });
 
 };

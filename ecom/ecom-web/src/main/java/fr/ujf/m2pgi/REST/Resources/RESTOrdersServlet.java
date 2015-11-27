@@ -58,7 +58,7 @@ public class RESTOrdersServlet {
     public Response createOrders(@PathParam("login") String login, Collection<PhotoDTO> order) {
         MemberDTO member = memberService.getMemberByLogin(login);
         if(member == null) {
-            return Response.status(Status.NOT_FOUND).build();
+            return Response.status(Status.NO_CONTENT).build();
         }
 		try {
 			customerService.createOrder(login, order);
