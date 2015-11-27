@@ -93,6 +93,11 @@ public class CustomerService implements ICustomerService {
         }
         return ordersDTO;
     }
+    
+    public Long getSellerCount(){
+    	Long sellerCount = memberDAO.getSellerCount();
+    	return sellerCount;
+    }
 
 
 }

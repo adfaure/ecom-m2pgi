@@ -165,4 +165,12 @@ public class RESTSellerServlet {
         List<OrderSellerDTO> list = customerService.getOrdersBySeller(id);
         return Response.ok().entity(list).build();
     }
+    
+    @GET
+    @Path("/count")
+    @Produces("application/json")
+    public Response getCount() {
+    	Long sellerCount = customerService.getSellerCount();
+    	return Response.ok(sellerCount).build();
+    }
 }
