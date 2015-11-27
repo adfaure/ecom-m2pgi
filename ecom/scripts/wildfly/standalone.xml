@@ -142,7 +142,7 @@
         <subsystem xmlns="urn:jboss:domain:bean-validation:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:3.0">
             <datasources>
-                <datasource jndi-name="java:jboss/datasources/PgDsAui" pool-name="PgDsAui" enabled="true" use-java-context="true">
+                <datasource jndi-name="java:jboss/datasources/postgresDS" pool-name="PgDsAui" enabled="true" use-java-context="true">
                     <connection-url>jdbc:postgresql://localhost:5432/ecom</connection-url>
                     <driver>postgresql</driver>
                     <pool>
