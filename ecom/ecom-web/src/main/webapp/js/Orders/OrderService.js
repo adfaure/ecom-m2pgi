@@ -27,7 +27,7 @@ function orderService($http) {
     // private functions
 
     function handleSuccess(res) {
-        return res.data;
+        return { success: true, data: res.data };
     }
 
     function handleError(error) {

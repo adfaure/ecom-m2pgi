@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody> 
-    <tr ng-repeat="user in filtered = (users | filter : {accountType:'!A'}) track by $index">
+    <tr ng-repeat="user in users track by $index">
       <td>{{ user.memberID }}</td>
       <td>{{ user.accountType }}</td>
       <td>{{ user.sellerInfo.rib }}</td>

@@ -9,11 +9,11 @@ var administratorController = function($scope,  publicPhoto, orderService, membe
 	
 	
 	orderService.GetOrderCount().then(function(res) {
-        $scope.purchaseCount = res;
+        $scope.purchaseCount = res.data;
 	});
 	
 	orderService.GetTotalPurchaseCost().then(function(res) {
-        $scope.totalPurchaseCost = res;
+        $scope.totalPurchaseCost = res.data;
 	});
 	
 	memberService.GetCount().then(function(res) {

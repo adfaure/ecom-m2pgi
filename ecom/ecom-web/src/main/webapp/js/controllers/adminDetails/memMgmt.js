@@ -27,7 +27,9 @@ var memMgmtController = function($scope, memberService, sellerService) {
 
 	$scope.showUsers = function () {
 		memberService.GetAll().then(function(res){
-			$scope.users = res;
+			$scope.users = res.filter( function(member) {
+				return member.accountType != 'A';
+			})
 		});
 	};
 
