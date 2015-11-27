@@ -12,6 +12,7 @@ import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
@@ -204,10 +205,24 @@ public class PhotoService implements IPhotoService {
 	 *
 	 * @param id
 	 * @return
-     */
+   */
 	public List<PhotoDTO> getUserPhotos(Long id) {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getUserPhotos(id)) {
+			result.add(photoMapper.getDTO(photo));
+		}
+		return result;
+	}
+
+	public List<WishListPhotoDTO> getUserWishedPhotos(Long id) {
+		return photoDao.getUserWishedPhotos(id);
+	}
+
+	public List<PhotoDTO> getUserWishedPhotos(String login) {
+		Member member = memberDAO.findMemberByLogin(login);
+		if (member == null) return null;
+		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+		for(Photo photo: member.getWishedPhotos()) {
 			result.add(photoMapper.getDTO(photo));
 		}
 		return result;
@@ -313,6 +328,60 @@ public class PhotoService implements IPhotoService {
 				member.getLikedPhotos().remove(photo);
 				photoDao.update(photo);
 				photoDao.decrementLikes(photoID);
+			}
+		}
+	}
+
+	public void addPhotoToWishList(Long photoID, Long memberID)
+	{
+		Photo photo = photoDao.find(photoID);
+
+		boolean exists = false;
+		for(Member member: photo.getWishers())
+		{
+			if (member.getMemberID() == memberID)
+			{
+				exists = true;
+				break;
+			}
+		}
+
+		if (!exists)
+		{
+			Member member = memberDao.find(memberID);
+			if (member != null)
+			{
+				photo.getWishers().add(member);
+				member.getWishedPhotos().add(photo);
+				photoDao.update(photo);
+			}
+		}
+	}
+
+	public void removePhotoFromWishList(Long photoID, Long memberID)
+	{
+		Member member = memberDao.find(memberID);
+		if (member != null) {// If member exists in our DB
+
+			Photo photo = photoDao.find(photoID);
+
+			if (photo != null) {// If photo exists in our DB
+
+				boolean exists = false;
+				for(Photo p: member.getWishedPhotos())
+				{
+					if (p.getPhotoID() == photoID)
+					{
+						exists = true;
+						break;
+					}
+				}
+
+				if(exists) {
+					photo.getWishers().remove(member);
+					member.getWishedPhotos().remove(photo);
+					photoDao.update(photo);
+				}
 			}
 		}
 	}

@@ -8,18 +8,23 @@ function memberService($http) {
     service.GetById = GetById;
     service.GetByUsername = GetByUsername;
     service.GetCount = GetCount;
+    service.GetAll = GetAll;
     service.Create = Create;
     service.Update = Update;
     service.Delete = Delete;
 
     return service;
-
+    
     function GetById(id) {
         return $http.get('api/members/id/' + id).then(handleSuccess, handleError('Error getting user by id'));
     }
 
     function GetByUsername(username) {
         return $http.get('api/members/login/' + username).then(handleSuccess, handleError('Error getting user by username'));
+    }
+    
+    function GetAll() {
+        return $http.get('api/members/').then(handleSuccess, handleError('Error getting all users'));
     }
 
     function GetCount(){
@@ -36,12 +41,12 @@ function memberService($http) {
     function Update(user) {
     	var validUser = parseUser(user);
     	if(validUser != null)
-    		return $http.put('api/members/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+    		return $http.put('api/members/update/id/'+user.memberID, user).then(handleSuccess, handleError('Error updating user'));
     	return {success : false, message : "not valid user"};
     }
 
     function Delete(id) {
-        return $http.delete('api/members/' + id).then(handleSuccess, handleError('Error deleting user'));
+        return $http.delete('api/members/id/' + id).then(handleSuccess, handleError('Error deleting user'));
     }
 
     // private functions

@@ -23,6 +23,7 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.elasticsearch.PhotoServiceES;
@@ -116,6 +117,22 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	public Response getUserPhotos(@PathParam("login") String login) {
 		List<PhotoDTO> photos = facadePhoto.getUserPhotos(login);
+		return Response.ok(photos).build();
+	}
+
+	@GET
+	@Path("/user/id/{id:[1-9][0-9]*}/wishes")
+	@Produces("application/json")
+	public Response getUserWishedPhotos(@PathParam("id") Long id) {
+		List<WishListPhotoDTO> photos = facadePhoto.getUserWishedPhotos(id);
+		return Response.ok(photos).build();
+	}
+
+	@GET
+	@Path("/user/login/{login}/wishes")
+	@Produces("application/json")
+	public Response getUserWishedPhotos(@PathParam("login") String login) {
+		List<PhotoDTO> photos = facadePhoto.getUserWishedPhotos(login);
 		return Response.ok(photos).build();
 	}
 
@@ -232,7 +249,7 @@ public class RESTPhotosServlet {
 	public Response viewPhoto(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 		facadePhoto.viewPhoto(photoID, memberID);
-		return Response.ok("cool").build();
+		return Response.status(200).build();
 	}
 
 	@POST
@@ -250,7 +267,43 @@ public class RESTPhotosServlet {
 	public Response unlikePhoto(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 		facadePhoto.unlikePhoto(photoID, memberID);
-		return Response.ok("cool").build();
+		return Response.status(200).build();
+	}
+
+	@POST
+	@Path("/wish/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
+	@Produces("application/json")
+	@AllowAll
+	public Response addPhotoToWishList(@PathParam("photoID") Long photoID,
+	@PathParam("memberID") Long memberID) {
+
+		HttpSession session = httpServletRequest.getSession();
+		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+
+		if(user.getUser().getMemberID() != memberID) {
+			return Response.status(403).build();
+		}
+
+		facadePhoto.addPhotoToWishList(photoID, memberID);
+		return Response.status(200).build();
+	}
+
+	@POST
+	@Path("/unwish/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
+	@Produces("application/json")
+	@AllowAll
+	public Response removePhotoFromWishList(@PathParam("photoID") Long photoID,
+	@PathParam("memberID") Long memberID) {
+
+		HttpSession session = httpServletRequest.getSession();
+		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+
+		if(user.getUser().getMemberID() != memberID) {
+			return Response.status(403).build();
+		}
+
+		facadePhoto.removePhotoFromWishList(photoID, memberID);
+		return Response.status(200).build();
 	}
 
 	// Parse Content-Disposition header to get the original file name.

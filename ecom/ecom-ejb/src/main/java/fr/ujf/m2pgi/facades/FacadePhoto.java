@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.facades;
 
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Service.IFileService;
 import fr.ujf.m2pgi.database.Service.IPhotoService;
@@ -70,6 +71,14 @@ public class FacadePhoto {
         return photoService.getUserPhotos(login);
     }
 
+    public List<WishListPhotoDTO> getUserWishedPhotos(Long id) {
+        return photoService.getUserWishedPhotos(id);
+    }
+
+    public List<PhotoDTO> getUserWishedPhotos(String login) {
+        return photoService.getUserWishedPhotos(login);
+    }
+
     public PhotoDTO deletePhoto(Long id) {
         return photoService.deletePhoto(id);
     }
@@ -96,5 +105,13 @@ public class FacadePhoto {
 
     public void unlikePhoto(Long photoID, Long memberID) {
       photoService.likePhoto(photoID, memberID);
+    }
+
+    public void addPhotoToWishList(Long photoID, Long memberID) {
+      photoService.addPhotoToWishList(photoID, memberID);
+    }
+
+    public void removePhotoFromWishList(Long photoID, Long memberID) {
+      photoService.removePhotoFromWishList(photoID, memberID);
     }
 }

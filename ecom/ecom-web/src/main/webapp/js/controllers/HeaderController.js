@@ -1,9 +1,10 @@
 var angular = require('angular');
 var ecomApp = require('./../app');
 
-var headerController = function($scope,$location, apiToken, authentificationService) {
-    $scope.auth = false;
-    $scope.$watch( apiToken.isAuthentificated, function(isAuth) {
+var headerController = function($scope, $location, apiToken, authentificationService) {
+    $scope.auth = apiToken.isAuthentificated();
+
+    $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
             $scope.auth = isAuth;
             if($scope.auth) {
                 $scope.user = apiToken.getUser();

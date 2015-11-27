@@ -5,14 +5,16 @@ var templates = {
     'upgrade'   : './js/templates/accountDetails/upgrade.html',
     'addPhoto'  : './js/templates/accountDetails/addPhoto.html',
     'managePhotos' : './js/templates/accountDetails/managePhotos.html',
-    'stats'     : './js/templates/accountDetails/adminStats.html',
-    'adminNav'  : './js/templates/accountDetails/AdminNavBar.html',
+    'stats'     : './js/templates/administrationDetails/adminStats.html',
+    'members'   : './js/templates/administrationDetails/adminMemMgmt.html',
+    'adminNav'  : './js/templates/administrationDetails/AdminNavBar.html',
     'myCart'    : './js/Cart/detailsCart/CartDetails.html',
     'history'   : './js/Orders/OrdersHistory/ordersHistory.html',
+    'wishList'  : './js/Photos/WishList/wishlist.html',
     'sellerNav' : './js/templates/accountDetails/SellerNavBar.html',
     'memberNav' : './js/templates/accountDetails/MemberNavBar.html',
-    'myPage'    : './js/SellerPage/ManagePage/managePageTemplate.html'
-
+    'myPage'    : './js/SellerPage/ManagePage/managePageTemplate.html',
+    'sellerAnalytics' : 'js/Sellers/SellerAnalytics/SellerAnalyticsTemplate.html'
 };
 
 var accountDetails = function($scope, $routeParams, $location, apiToken) {

@@ -12,7 +12,7 @@ function sellerService($http) {
     service.CreateFromMember = CreateFromMember;
     service.Update = Update;
     service.Delete = Delete;
-
+    service.getOrderBySellerId = getOrderBySellerId;
     return service;
 
     function GetById(id) {
@@ -44,13 +44,17 @@ function sellerService($http) {
     function Update(user) {
         var newUser = parseSeller(user);
         if (newUser != null)
-            return $http.put('api/sellers/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return $http.put('api/sellers/update/id/' + user.memberID, user).then(handleSuccess, handleError('Error updating user'));
         return {success: false, message: "not valid seller"};
 
     }
 
+    function getOrderBySellerId(userID) {
+        return $http.get('api/sellers/id/' + userID + '/orders').then(handleSuccess, handleError('Error getting orders'));
+    }
+
     function Delete(id) {
-        return $http.delete('api/sellers/' + id).then(handleSuccess, handleError('Error deleting user'));
+        return $http.delete('api/sellers/id/' + id).then(handleSuccess, handleError('Error deleting user'));
     }
 
     // private functions

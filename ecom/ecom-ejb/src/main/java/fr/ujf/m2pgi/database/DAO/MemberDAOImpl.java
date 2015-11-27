@@ -51,6 +51,12 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		attachedMember.setCart(attachedCart );
 		return super.update(attachedMember);
 	}
+	
+	public List<Member> getAllMembers(){
+		Query query = entityManager.createQuery("SELECT m FROM Member m ORDER BY m.memberID");
+		List<Member> members = query.getResultList();
+		return members;
+	}
 
 	@Override
 	public Member getSellerById(long id) {
