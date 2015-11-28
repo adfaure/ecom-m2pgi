@@ -1,13 +1,11 @@
 package fr.ujf.m2pgi.database.DAO;
 
-
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.persistence.Query;
 
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
+import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Member;
@@ -22,7 +20,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Photo> getUserPhotos(Long id) {
-		Query query = entityManager.createQuery("SELECT p FROM Photo p left join p.author s WHERE s.memberID=:id");
+		Query query = entityManager.createQuery("SELECT p FROM Photo p left join p.author s WHERE s.memberID=:id AND p.available = true");
 		query.setParameter("id", id);
 		return (List<Photo>)query.getResultList();
 	}
@@ -31,8 +29,6 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	public List<WishListPhotoDTO> getUserWishedPhotos(Long id) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.WishListPhotoDTO" +
 		"(p.photoID, p.description, p.name, p.webLocation," +
-		//"CASE WHEN EXISTS (SELECT w FROM Wish w WHERE p.photoID = w.photo.photoID AND w.member.memberID = :id)" +
-		//"THEN true ELSE false END AS inWishList," +
 		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
 		"THEN true ELSE false END AS inCart) " +
 		"FROM Photo p LEFT JOIN p.wishers m " +
@@ -60,6 +56,44 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	public List<Photo> getAllPhotos() {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p");
 	    return (List<Photo>)query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
+		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO" +
+		"(p.photoID, p.name, p.webLocation, p.price, p.views, p.likes, " +
+		"CASE WHEN EXISTS (SELECT w FROM Wish w WHERE p.photoID = w.photo.photoID AND w.member.memberID = :id)" +
+		"THEN true ELSE false END AS wishlisted," +
+		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
+		"THEN true ELSE false END AS inCart, " +
+		"CASE WHEN EXISTS (SELECT l FROM Like l WHERE p.photoID = l.photo.photoID AND l.member.memberID = :id)" +
+		"THEN true ELSE false END AS liked, " +
+		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
+		"THEN true ELSE false END AS flagged) " +
+		"FROM Photo p WHERE p.available = true";
+		Query query = entityManager.createQuery(str, PhotoContextSmallDTO.class);
+		query.setParameter("id", memberID);
+		return query.getResultList();
+	}
+	
+	@Override
+	public PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID) {
+		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO" +
+		"(p.photoID, p.name, p.description, p.webLocation, p.price, p.author.memberID, p.sales, p.dateCreated, p.views, p.likes, " +
+		"CASE WHEN EXISTS (SELECT w FROM Wish w WHERE p.photoID = w.photo.photoID AND w.member.memberID = :id)" +
+		"THEN true ELSE false END AS wishlisted," +
+		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
+		"THEN true ELSE false END AS inCart, " +
+		"CASE WHEN EXISTS (SELECT l FROM Like l WHERE p.photoID = l.photo.photoID AND l.member.memberID = :id)" +
+		"THEN true ELSE false END AS liked, " +
+		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
+		"THEN true ELSE false END AS flagged) " +
+		"FROM Photo p WHERE p.available = true AND p.photoID = :photoid";
+		Query query = entityManager.createQuery(str, PhotoContextBigDTO.class);
+		query.setParameter("id", memberID);
+		query.setParameter("photoid", photoID);
+		return (PhotoContextBigDTO) query.getSingleResult();
 	}
 
 	@Override
