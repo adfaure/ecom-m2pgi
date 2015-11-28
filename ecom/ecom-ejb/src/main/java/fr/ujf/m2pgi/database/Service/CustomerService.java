@@ -85,7 +85,7 @@ public class CustomerService implements ICustomerService {
         for(Order o : orders) {
             List<PhotoDTO> photos = new ArrayList<>();
             OrderSellerDTO orderDTO = orderSellerMapper.getDTO(o);
-            for(PhotoDTO photo : orderDTO.getPhotos()) { //filter of photos, the ordersSellerDTO will contains only the data connected with the seller with the id "id"
+            for(PhotoDTO photo : orderDTO.getPhotos()) { //filter of photos, the ordersSellerDTO will contain only the data connected with the seller with the id "id"
                 if(photo.getSellerID() == id)
                     photos.add(photo);
             }
