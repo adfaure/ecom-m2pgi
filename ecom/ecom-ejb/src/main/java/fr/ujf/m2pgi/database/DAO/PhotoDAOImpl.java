@@ -52,7 +52,9 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 
 	@Override
 	public Long getPhotoCount() {
-		return null;
+		String q = "SELECT count(p) FROM Photo p where p.available = 'TRUE'";
+		Query query = entityManager.createQuery(q);
+		return (Long) query.getSingleResult();
 	}
 
 	@SuppressWarnings("unchecked")

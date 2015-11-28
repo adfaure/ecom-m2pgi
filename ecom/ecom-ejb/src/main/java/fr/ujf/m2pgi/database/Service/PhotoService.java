@@ -246,7 +246,7 @@ public class PhotoService implements IPhotoService {
 	 * @return
      */
 	public Long getPhotoCount() {
-		Long pCount = photoDao.getEntityCount();
+		Long pCount = photoDao.getPhotoCount();
 		return pCount;
 	}
 
