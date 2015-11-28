@@ -83,13 +83,14 @@ public class CustomerService implements ICustomerService {
         List<Order> orders = orderDAO.getSellersOrders(id);
         List<OrderSellerDTO> ordersDTO = new ArrayList<>();
         for(Order o : orders) {
-            List<Photo> photos = new ArrayList<Photo>();
-            for(Photo photo : o.getOrderedPhotos()) { //filter of photos, the ordersSellerDTO will contains only the data connected with the seller with the id "id"
-                if(photo.getAuthor().getMemberID() == id)
+            List<PhotoDTO> photos = new ArrayList<>();
+            OrderSellerDTO orderDTO = orderSellerMapper.getDTO(o);
+            for(PhotoDTO photo : orderDTO.getPhotos()) { //filter of photos, the ordersSellerDTO will contain only the data connected with the seller with the id "id"
+                if(photo.getSellerID() == id)
                     photos.add(photo);
             }
-            o.setOrderedPhotos(photos);
-            ordersDTO.add(orderSellerMapper.getDTO(o));
+            orderDTO.setPhotos(photos);
+            ordersDTO.add(orderDTO);
         }
         return ordersDTO;
     }
