@@ -27,9 +27,8 @@ public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
 		for(Photo photo : entity.getOrderedPhotos()) {
 			Photo attached = entityManager.find(Photo.class, photo.getPhotoID());
 			attached.setSales(attached.getSales() + 1);
-			photos.add(attached);
 			price += photo.getPrice();
-			entityManager.merge(attached);
+			photos.add(attached);
 		}
 		entity.setPrice(price);
 		entity.setOrderedPhotos(photos);
