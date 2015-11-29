@@ -29,20 +29,38 @@
 </div>
 
 <br/>
-<button ng-mouseenter="count = count + 1" ng-init="count=0">
-  Increment (when mouse enters)
-</button>
-count: {{count}}
+
+
 
 <div class="row"> 
-  <div class="col-lg-3 col-md-4 col-xs-6" ng-repeat="photo in photos track by $index" ng-mouseenter="count = count + 10">
-  	<div class="thumbnail">
-      <div class="caption posAbs" ng-animate="{enter: 'animateEnterPhoto', leave: 'animateLeavePhoto'}">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a ng-mouseenter="count = count + 1"  href="#" class="btn btn-default" role="btton">Button</a></p>
+  <div class="col-lg-3 col-md-4 col-xs-6" ng-repeat="photo in photos track by $index">
+    <div class="thumbnail">
+
+      <div class="caption">
+
+        <p class="glyphicon glyphicon-ban-circle redSignalIcon" data-ng-click="" alt="Signaler"></p>
+        <p class="glyphicon glyphicon-thumbs-up" data-ng-click="" alt="Likes">{{photos[$index].likes}} likes</p>
+        <p class="glyphicon glyphicon-eye-open" data-ng-click="" alt="Views">{{photos[$index].views}} views</p>
+
+
+        <span class="glyphicon glyphicon-euro" data-ng-click="" alt="Prix">{{photos[$index].price}}</span>
+
+
+        <add-to-cart-component photo="photo"></add-to-cart-component>
+        <button class="btn  btn-default">
+          <span class="glyphicon glyphicon-star" data-ng-click="wish(photo.photoID)" alt="Favoris"></span>
+        </button>
+        <button class="btn  btn-default">
+          <span class="glyphicon glyphicon-thumbs-up" data-ng-click="like(photos[$index].photoID)" alt="Like"></span>
+        </button>
+        <button class="btn  btn-default">
+          <span class="glyphicon glyphicon-zoom-in" data-ng-click="details(photos[$index].photoID)" alt="Agrandir"></span>
+        </button>
+
       </div>
-      <img data-ng-click="details(photos[$index].photoID)" class="image" ng-src="{{photos[$index].webLocation}}" alt="{{photos[$index].name}}" ng-mouseenter="count = count + 10000">
+
+      <img class="image" data-ng-src="{{photos[$index].webLocation}}" alt="{{photos[$index].name}}">
+
     </div>
   </div>
 </div>

@@ -5,16 +5,28 @@ var detailsPhotoController = function($scope, $routeParams, apiToken, publicPhot
         $scope.photo = JSON.parse($routeParams.photo);
     }
 
-    if(!apiToken.isAuthentificated()) {
+    var user;
 
+    if(apiToken.isAuthentificated()) {
+        user = apiToken.getUser();
     }
 
-    var user = apiToken.getUser();
 
     $scope.wish = function (photoID){
-      publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function(res) {
+        if(apiToken.isAuthentificated()) 
+            publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function(res) {
+            });
+        else
+            console.log("TODO : redirect to authentification");
+    }
 
-      });
+
+    $scope.like = function (photoID){
+        if(apiToken.isAuthentificated()) 
+            publicPhoto.AddPhotoToLikeList(photoID, user.memberID).then(function(res) {
+            });
+        else
+            console.log("TODO : redirect to authentification");
     }
 };
 

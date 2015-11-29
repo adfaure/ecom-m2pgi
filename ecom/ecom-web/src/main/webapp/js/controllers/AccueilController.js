@@ -1,8 +1,16 @@
 var angular = require('angular');
 
-var accueilController = function($scope, $location, publicPhoto) {
+var accueilController = function($scope, $location, apiToken, publicPhoto) {
     var cachedPhotos = [];
     $scope.hovering = false;
+
+
+    var user;
+
+    if(apiToken.isAuthentificated()) {
+        user = apiToken.getUser();
+    }
+
 
     publicPhoto.GetAllSortByDateDesc().then(function(res) {
             $scope.photos = cachedPhotos = res;
@@ -10,28 +18,36 @@ var accueilController = function($scope, $location, publicPhoto) {
     );
 
     $scope.details = function(photoId) {
-        if(isNaN(photoId)) return;
-        if($scope.photos) {
-            var photo = $scope.photos.find(function(photo) {
-                return (photo.photoID == photoId);
-            });
-        }
-        if(photo)
-            $location.path('/photos/details/' + photoId).search( {
-                'photo' :JSON.stringify(photo)
-            });
+      if(isNaN(photoId)) return;
+      if($scope.photos) {
+          var photo = $scope.photos.find(function(photo) {
+              return (photo.photoID == photoId);
+          });
+      }
+      if(photo)
+          $location.path('/photos/details/' + photoId).search( {
+              'photo' :JSON.stringify(photo)
+          });
     };
 
-    $scope.showIt = function () {
-      $scope.hovering = true;
-      console.log("hell yeaaa");
-    };
 
-    // mouseleave event
-    $scope.hideIt = function () {
-        $scope.hovering = false;
-      console.log("hell yeaaa");
-    };
+    $scope.wish = function (photoID){
+        if(apiToken.isAuthentificated()) 
+            publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function(res) {
+            });
+        else
+            console.log("TODO : redirect to authentification");
+    }
+
+
+    $scope.like = function (photoID){
+        console.log("liking");
+        if(apiToken.isAuthentificated()) 
+            publicPhoto.AddPhotoToLikeList(photoID, user.memberID).then(function(res) {
+            });
+        else
+            console.log("TODO : redirect to authentification");
+    }
 
 
 /*

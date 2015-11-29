@@ -19,6 +19,7 @@ function publicPhoto($http) {
     service.GetUserWishedPhotos = GetUserWishedPhotos;
     service.GetUserWishedPhotosById = GetUserWishedPhotosById;
     service.AddPhotoToWishList = AddPhotoToWishList;
+    service.AddPhotoToLikeList = AddPhotoToLikeList;
     service.RemovePhotoFromWishList = RemovePhotoFromWishList;
     service.DeletePhotoById = DeletePhotoById;
     service.Update = Update;
@@ -90,6 +91,10 @@ function publicPhoto($http) {
 
     function AddPhotoToWishList(photoID, memberID) {
       return $http.post('api/photos/wish/' + photoID + '/' + memberID).then(handleSuccess, handleError('Error when wishing photo'));
+    }
+
+    function AddPhotoToLikeList(photoID, memberID) {
+      return $http.post('api/photos/like/' + photoID + '/' + memberID).then(handleSuccess, handleError('Error when liking photo'));
     }
 
     function RemovePhotoFromWishList(photoID, memberID) {

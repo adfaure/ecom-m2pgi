@@ -258,7 +258,7 @@ public class RESTPhotosServlet {
 	public Response likePhoto(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 		facadePhoto.likePhoto(photoID, memberID);
-		return Response.ok("cool").build();
+		return Response.ok(200).build();
 	}
 
 	@POST

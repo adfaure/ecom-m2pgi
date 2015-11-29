@@ -1,10 +1,19 @@
 var angular = require('angular');
 
-var searchController = function($scope, $routeParams, $location, publicPhoto) {
+var searchController = function($scope, $routeParams, apiToken, $location, publicPhoto) {
     var cachedPhotos = [];
     var searchTerms = "";
 
+
+    var user;
+
+    if(apiToken.isAuthentificated()) {
+        user = apiToken.getUser();
+    }
+
+
     console.log($routeParams);
+
 
     publicPhoto.GetAll().then(function(res) {
             $scope.photos = cachedPhotos = res;
@@ -49,6 +58,26 @@ var searchController = function($scope, $routeParams, $location, publicPhoto) {
       $scope.search.took = res.took;
       $scope.photos = res.hits;
     });
+
+
+
+
+    $scope.wish = function (photoID){
+        if(apiToken.isAuthentificated()) 
+            publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function(res) {
+            });
+        else
+            console.log("TODO : redirect to authentification");
+    }
+
+
+    $scope.like = function (photoID){
+        if(apiToken.isAuthentificated()) 
+            publicPhoto.AddPhotoToLikeList(photoID, user.memberID).then(function(res) {
+            });
+        else
+            console.log("TODO : redirect to authentification");
+    }
 
 };
 
