@@ -12,13 +12,13 @@
       <th>First Name</th>
       <th>Last Name</th>
       <th>Email address</th>
-       <th>Login</th>
+      <th>Login</th>
       <th>Edit</th>
       <th>Delete</th>
     </tr>
   </thead>
   <tbody> 
-    <tr ng-repeat="user in filtered = (users | filter : {accountType:'!A'}) track by $index">
+    <tr ng-repeat="user in users track by $index">
       <td>{{ user.memberID }}</td>
       <td>{{ user.accountType }}</td>
       <td>{{ user.sellerInfo.rib }}</td>

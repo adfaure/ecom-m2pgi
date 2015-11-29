@@ -64,5 +64,17 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		if(member == null) return null;
 		return member;
 	}
+	
+	public Long getSellerCount(){
+		String q = "SELECT count(e) FROM Member e where e.accountType = 'S'";
+		Query query = entityManager.createQuery(q);
+		return (Long) query.getSingleResult();
+	}
+	
+	public Long getMemberCount(){
+		String q = "SELECT count(e) FROM Member e where e.accountType <> 'A'";
+		Query query = entityManager.createQuery(q);
+		return (Long) query.getSingleResult();
+	}
 }
 

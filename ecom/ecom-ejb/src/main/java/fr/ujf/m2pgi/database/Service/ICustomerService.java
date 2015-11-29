@@ -19,4 +19,5 @@ public interface ICustomerService {
 
     List<OrderSellerDTO> getOrdersBySeller(long id);
 
+    Long getSellerCount();
 }

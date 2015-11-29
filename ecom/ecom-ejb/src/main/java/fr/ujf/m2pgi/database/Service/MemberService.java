@@ -171,9 +171,8 @@ public class MemberService {
     }
 
 
-
 	public Long getMemberCount() {
-		Long count = memberDao.getEntityCount();
+		Long count = memberDao.getMemberCount();
 		return count;
 	}
 
