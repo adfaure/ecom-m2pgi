@@ -1,7 +1,7 @@
 var angular = require('angular');
 
 
-var upload = function($scope, uploadPhoto) {
+var upload = function($scope, uploadPhoto, alertService) {
     $scope.submit = submit;
     $scope.photoData = {
 
@@ -10,14 +10,17 @@ var upload = function($scope, uploadPhoto) {
         $scope.subview = 'details';
     }
 
-    function submit() {
+    function submit(redirect) {
         uploadPhoto.uploadFileToUrl({
             file : $scope.uploadPhoto,
             data : $scope.photoData
         }, $scope.user.memberID).then(
             function(res) {
                 if(res.success) {
-                    $scope.setView('details');
+                    $scope.setView(redirect);
+                    alertService.add("alert-success", "Photo chargée avec succès ! ", 2000);
+                }else{
+                    alertService.add("alert-danger", " Erreur Zlors du chargement de la photo ", 1000);
                 }
             }
         );

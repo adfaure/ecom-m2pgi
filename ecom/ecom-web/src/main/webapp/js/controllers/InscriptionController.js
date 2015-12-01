@@ -35,16 +35,15 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 		            } else {
 
 						alertService.add("alert-success", "Enregistré ! ", 2000);
-                        authentificationService.login($scope.user.login, $scope.user.password).then(
-                            function(res) {
-                                if(res.success) {
-                                    $location.path("#/accueil");
-                                } else {
-                                }
-                            }
-                        );
 		            }
-	        });
+                    return authentificationService.login($scope.user.login, $scope.user.password);
+	        }).then(function(res) {
+                    if(res.success) {
+                        $location.path("#/accueil");
+                    } else {
+                    }
+                }
+            );;
         }
     };
 };

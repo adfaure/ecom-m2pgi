@@ -1,11 +1,11 @@
 <div ng-if="!alreadyInCart">
-    <button type="button" class="btn btn-success btn-sm" ng-click="clickAdd(photo)" alt="Ajouter au panier">
+    <button type="button" class="btn btn-success btn-sm" ng-click="clickAdd(photo)" data-toggle="tooltip" data-placement="left" alt="Ajouter au panier" title="Ajouter au panier">
         <i class="fa fa-cart-plus"></i>
     </button>
 </div>
 
 <div ng-if="alreadyInCart">
-    <button type="button" class="btn btn-success btn-sm" ng-click="clickRemove(photo)"  alt="Enlever du panier">
+    <button type="button" class="btn btn-success btn-sm" ng-click="clickRemove(photo)"  data-toggle="tooltip" data-placement="left" alt="Enlever du panier" title="Enlever du panier">
         <span class="fa-stack">
             <i class="fa fa-shopping-cart fa-stack-1x"></i>
             <i class="fa fa-ban fa-stack-2x text-danger"></i>

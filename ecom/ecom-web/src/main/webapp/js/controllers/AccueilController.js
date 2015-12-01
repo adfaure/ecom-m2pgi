@@ -32,6 +32,7 @@ var accueilController = function($scope, $location, apiToken, publicPhoto) {
 
 
     $scope.wish = function (photoID){
+        console.log("wishing");
         if(apiToken.isAuthentificated()) 
             publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function(res) {
             });
@@ -39,6 +40,16 @@ var accueilController = function($scope, $location, apiToken, publicPhoto) {
             console.log("TODO : redirect to authentification");
     }
 
+    /* En attente du commit sur les photos
+    $scope.unwish = function (photoID){
+        console.log("unwishing");
+        if(apiToken.isAuthentificated()) 
+            publicPhoto.removePhotoFromWishList(photoID, user.memberID).then(function(res) {
+            });
+        else
+            console.log("TODO : redirect to authentification");
+    }
+    */
 
     $scope.like = function (photoID){
         console.log("liking");
@@ -49,6 +60,16 @@ var accueilController = function($scope, $location, apiToken, publicPhoto) {
             console.log("TODO : redirect to authentification");
     }
 
+    /* En attente du commit sur les photos
+    $scope.unlike = function (photoID){
+        console.log("unliking");
+        if(apiToken.isAuthentificated()) 
+            publicPhoto.unlikePhoto(photoID, user.memberID).then(function(res) {
+            });
+        else
+            console.log("???TODO : redirect to authentification");
+    }
+    */
 
 /*
     $scope.search = {

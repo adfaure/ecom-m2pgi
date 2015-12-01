@@ -49,5 +49,33 @@
     zoom: 1;
     filter: alpha(opacity=50);
     opacity: 1;
+}
 
+.headerCaption {
+  width: 100%;
+  top: 0;
+}
+
+.footerCaption {
+  position: absolute;
+  width: 100%;
+  padding: inherit;
+  margin: -9px;
+  bottom: 0;
+}
+
+.centerCaption {
+  position: absolute;
+  width: 100%;
+  padding: inherit;
+  margin: -9px;
+  top: 50%;
+}
+
+.textAlignRight {
+    text-align:right;
+}
+
+.textAlignCenter {
+    text-align:center;
 }
