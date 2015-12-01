@@ -1,6 +1,9 @@
 package fr.ujf.m2pgi.database.Service;
 
+import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
+import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.SignalDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 
@@ -17,12 +20,16 @@ public interface IPhotoService {
     PhotoDTO deletePhoto(Long id);
 
     PhotoDTO getPhotoById(Long id);
+    
+    PhotoContextBigDTO getPhotoById(Long photoID, Long memberID);
 
     PhotoDTO createPhoto(PhotoDTO photo);
 
     PhotoDTO updatePhoto(UpdatePhotoDTO photo);
 
     List<PhotoDTO> getAllPhotos();
+    
+    List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
 
     List<PhotoDTO> getPhotosSortByPrice(boolean ascending);
 
@@ -55,4 +62,6 @@ public interface IPhotoService {
     void addPhotoToWishList(Long photoID, Long memberID);
 
     void removePhotoFromWishList(Long photoID, Long memberID);
+    
+    SignalDTO signalPhoto(SignalDTO signalDTO);
 }

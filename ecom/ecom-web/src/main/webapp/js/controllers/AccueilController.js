@@ -12,22 +12,23 @@ var accueilController = function($scope, $location, apiToken, publicPhoto) {
     }
 
 
-    publicPhoto.GetAllSortByDateDesc().then(function(res) {
+    publicPhoto.GetAll().then(function(res) {
             $scope.photos = cachedPhotos = res;
+            console.log(res);
         }
     );
 
     $scope.details = function(photoId) {
-      if(isNaN(photoId)) return;
-      if($scope.photos) {
-          var photo = $scope.photos.find(function(photo) {
-              return (photo.photoID == photoId);
-          });
-      }
-      if(photo)
-          $location.path('/photos/details/' + photoId).search( {
-              'photo' :JSON.stringify(photo)
-          });
+
+        if(isNaN(photoId)) return;
+        if($scope.photos) {
+            var photo = $scope.photos.find(function(photo) {
+                return (photo.photoID == photoId);
+            });
+        }
+        if(photo)
+            $location.path('/photos/details/' + photoId);
+        
     };
 
 
@@ -35,26 +36,47 @@ var accueilController = function($scope, $location, apiToken, publicPhoto) {
         console.log("wishing");
         if(apiToken.isAuthentificated()) 
             publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function(res) {
+                if($scope.photos) {
+                    var photo = $scope.photos.find(function(photo) {
+                        return (photo.photoID == photoID);
+                    });
+                }
+                if(photo)
+                    photo.wishlisted=true;
             });
         else
             console.log("TODO : redirect to authentification");
     }
 
-    /* En attente du commit sur les photos
+    /* En attente du commit sur les photos*/
     $scope.unwish = function (photoID){
         console.log("unwishing");
         if(apiToken.isAuthentificated()) 
-            publicPhoto.removePhotoFromWishList(photoID, user.memberID).then(function(res) {
+            publicPhoto.RemovePhotoFromWishList(photoID, user.memberID).then(function(res) {
+                if($scope.photos) {
+                    var photo = $scope.photos.find(function(photo) {
+                        return (photo.photoID == photoID);
+                    });
+                }
+                if(photo)
+                    photo.wishlisted=false;
             });
         else
             console.log("TODO : redirect to authentification");
     }
-    */
+    
 
     $scope.like = function (photoID){
         console.log("liking");
         if(apiToken.isAuthentificated()) 
             publicPhoto.AddPhotoToLikeList(photoID, user.memberID).then(function(res) {
+                if($scope.photos) {
+                    var photo = $scope.photos.find(function(photo) {
+                        return (photo.photoID == photoID);
+                    });
+                }
+                if(photo)
+                    photo.liked=false;
             });
         else
             console.log("TODO : redirect to authentification");
