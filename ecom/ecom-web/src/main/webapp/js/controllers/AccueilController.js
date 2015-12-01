@@ -3,8 +3,9 @@ var angular = require('angular');
 var accueilController = function($scope, $location, publicPhoto) {
     var cachedPhotos = [];
 
-    publicPhoto.GetAllSortByDateDesc().then(function(res) {
+    publicPhoto.GetAll().then(function(res) {
             $scope.photos = cachedPhotos = res;
+            console.log(res);
         }
     );
 
@@ -16,9 +17,7 @@ var accueilController = function($scope, $location, publicPhoto) {
             });
         }
         if(photo)
-            $location.path('/photos/details/' + photoId).search( {
-                'photo' :JSON.stringify(photo)
-            });
+            $location.path('/photos/details/' + photoId);
     };
 /*
     $scope.search = {
