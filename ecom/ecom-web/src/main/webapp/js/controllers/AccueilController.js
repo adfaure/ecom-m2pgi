@@ -10,7 +10,6 @@ var accueilController = function($scope, $location, publicPhoto) {
     );
 
     $scope.details = function(photoId) {
-      console.log(photoId);
         if(isNaN(photoId)) return;
         if($scope.photos) {
             var photo = $scope.photos.find(function(photo) {
@@ -18,9 +17,7 @@ var accueilController = function($scope, $location, publicPhoto) {
             });
         }
         if(photo)
-            $location.path('/photos/details/' + photoId);//.search( {
-            //    'photo' :JSON.stringify(photo)
-            //});
+            $location.path('/photos/details/' + photoId);
     };
 /*
     $scope.search = {

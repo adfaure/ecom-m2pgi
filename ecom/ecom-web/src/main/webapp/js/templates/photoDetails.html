@@ -8,8 +8,14 @@
 
     <div class="col-lg-2">
         <add-to-cart-component photo="photo"></add-to-cart-component>
-        <button class="btn  btn-default" ng-click="wish(photo.photoId)">
-          <span class="glyphicon glyphicon-pencil"></span>Rajouter au favories
+        <button class="btn btn-default" ng-show="!photo.wishlisted" ng-click="wish(photo.photoID)">
+          <span class="glyphicon glyphicon-star"></span>Rajouter aux favories
+        </button>
+        <button class="btn btn-danger" ng-show="photo.wishlisted" ng-click="unwish(photo.photoID)">
+          <span class="glyphicon glyphicon-star"></span>Enlever des favories
+        </button>
+        <button class="btn btn-default" ng-show="!photo.flagged" ng-click="flag(photo.photoID)">
+          <span class="glyphicon glyphicon-flag"></span>Signaler
         </button>
     </div>
 </div>

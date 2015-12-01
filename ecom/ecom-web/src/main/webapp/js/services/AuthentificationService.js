@@ -30,7 +30,8 @@ function loginService($http, apiToken, localService) {
     function handleLoginSuccess(res) {
       var data = res.data.data;
       localService.set('auth_token', JSON.stringify(data));
-      apiToken.setToken(data.token);apiToken.setUser(data.user);
+      apiToken.setToken(data.token);
+      apiToken.setUser(data.user);
       return {success : true }; // FIXME shall we return something here ?
     };
 

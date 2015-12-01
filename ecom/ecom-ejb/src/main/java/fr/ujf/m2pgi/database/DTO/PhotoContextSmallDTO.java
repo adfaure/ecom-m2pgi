@@ -1,6 +1,8 @@
 package fr.ujf.m2pgi.database.DTO;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 
 /**
  *
@@ -8,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PhotoContextSmallDTO {
 
 	private long photoID;
@@ -15,21 +18,21 @@ public class PhotoContextSmallDTO {
 	private String name;
 
 	private String webLocation;
-	
+
 	private float price;
 
 	private Integer views;
 
 	private Integer likes;
-	
+
 	private boolean wishlisted;
 
 	private boolean inCart;
-	
+
 	private boolean liked;
-	
+
 	private boolean flagged;
-	
+
 	public PhotoContextSmallDTO(long photoID, String name, String webLocation, float price, Integer views, Integer likes,
 			boolean wishlisted, boolean inCart, boolean liked, boolean flagged) {
 		super();
@@ -44,7 +47,7 @@ public class PhotoContextSmallDTO {
 		this.liked = liked;
 		this.flagged = flagged;
 	}
-	
+
 	public long getPhotoId() {
 		return photoID;
 	}
@@ -92,7 +95,7 @@ public class PhotoContextSmallDTO {
 	public void setLikes(Integer likes) {
 		this.likes = likes;
 	}
-	
+
 	public boolean isWishlisted() {
 		return wishlisted;
 	}
@@ -100,7 +103,7 @@ public class PhotoContextSmallDTO {
 	public void setWishlisted(boolean wishlisted) {
 		this.wishlisted = wishlisted;
 	}
-	
+
 	public boolean isInCart() {
 		return inCart;
 	}
@@ -108,7 +111,7 @@ public class PhotoContextSmallDTO {
 	public void setInCart(boolean inCart) {
 		this.inCart = inCart;
 	}
-	
+
 	public boolean isLiked() {
 		return liked;
 	}
@@ -116,7 +119,7 @@ public class PhotoContextSmallDTO {
 	public void setLiked(boolean liked) {
 		this.liked = liked;
 	}
-	
+
 	public boolean isFlagged() {
 		return flagged;
 	}

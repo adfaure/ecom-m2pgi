@@ -3,6 +3,8 @@ package fr.ujf.m2pgi.database.DTO;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 
 /**
  *
@@ -10,20 +12,21 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PhotoContextBigDTO {
 
 	private long photoID;
 
 	private String name;
-	
+
 	private String description;
 
 	private String webLocation;
-	
+
 	private float price;
-	
+
 	private long sellerID;
-	
+
 	private int sales;
 
 	private Date dateCreated;
@@ -31,15 +34,15 @@ public class PhotoContextBigDTO {
 	private Integer views;
 
 	private Integer likes;
-	
+
 	private boolean wishlisted;
 
 	private boolean inCart;
-	
+
 	private boolean liked;
-	
+
 	private boolean flagged;
-	
+
 	public PhotoContextBigDTO(long photoID, String name, String description, String webLocation, float price,
 			long sellerID, int sales, Date dateCreated, Integer views, Integer likes, boolean wishlisted,
 			boolean inCart, boolean liked, boolean flagged) {
@@ -99,7 +102,7 @@ public class PhotoContextBigDTO {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	
+
 	public long getSellerID() {
 		return sellerID;
 	}
@@ -139,7 +142,7 @@ public class PhotoContextBigDTO {
 	public void setLikes(Integer likes) {
 		this.likes = likes;
 	}
-	
+
 	public boolean isWishlisted() {
 		return wishlisted;
 	}
@@ -147,7 +150,7 @@ public class PhotoContextBigDTO {
 	public void setWishlisted(boolean wishlisted) {
 		this.wishlisted = wishlisted;
 	}
-	
+
 	public boolean isInCart() {
 		return inCart;
 	}
@@ -155,7 +158,7 @@ public class PhotoContextBigDTO {
 	public void setInCart(boolean inCart) {
 		this.inCart = inCart;
 	}
-	
+
 	public boolean isLiked() {
 		return liked;
 	}
@@ -163,7 +166,7 @@ public class PhotoContextBigDTO {
 	public void setLiked(boolean liked) {
 		this.liked = liked;
 	}
-	
+
 	public boolean isFlagged() {
 		return flagged;
 	}

@@ -295,12 +295,12 @@ public class RESTPhotosServlet {
 	public Response addPhotoToWishList(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 
-		HttpSession session = httpServletRequest.getSession();
-		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+		//HttpSession session = httpServletRequest.getSession();
+		//PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
 
-		if(user.getUser().getMemberID() != memberID) {
-			return Response.status(403).build();
-		}
+		//if(user.getUser().getMemberID() != memberID) {
+		//	return Response.status(403).build();
+		//}
 
 		facadePhoto.addPhotoToWishList(photoID, memberID);
 		return Response.status(200).build();
@@ -313,29 +313,29 @@ public class RESTPhotosServlet {
 	public Response removePhotoFromWishList(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 
+		//HttpSession session = httpServletRequest.getSession();
+		//PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+
+		//if(user.getUser().getMemberID() != memberID) {
+	  //	return Response.status(403).build();
+		//}
+
+		facadePhoto.removePhotoFromWishList(photoID, memberID);
+		return Response.status(200).build();
+	}
+
+	@POST
+	@Path("flag/{photoID}/{memberID}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	@Allow(groups="sellers;members;admin")
+	public Response signalPhoto(@PathParam("photoID") Long photoID, @PathParam("memberID") Long memberID) {
 		HttpSession session = httpServletRequest.getSession();
 		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
 
 		if(user.getUser().getMemberID() != memberID) {
 			return Response.status(403).build();
 		}
-
-		facadePhoto.removePhotoFromWishList(photoID, memberID);
-		return Response.status(200).build();
-	}
-
-	@GET
-	@Path("signal/{photoID}/{memberID}")
-	@Produces("application/json")
-	@Consumes("application/json")
-	//@Allow(groups="sellers;members;admin")
-	public Response signalPhoto(@PathParam("photoID") Long photoID, @PathParam("memberID") Long memberID) {
-		/*HttpSession session = httpServletRequest.getSession();
-		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
-
-		if(user.getUser().getMemberID() != memberID) {
-			return Response.status(403).build();
-		}*/
 
 		SignalDTO signalDTO = new SignalDTO();
 		signalDTO.setMemberID(memberID);
@@ -348,7 +348,7 @@ public class RESTPhotosServlet {
 				return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
 			}
 			return Response.status(Status.CREATED).entity(created).build();
-		}catch(Exception e){
+		} catch(Exception e){
 			e.printStackTrace();
 			return Response.status(Status.BAD_REQUEST).build();
 		}
