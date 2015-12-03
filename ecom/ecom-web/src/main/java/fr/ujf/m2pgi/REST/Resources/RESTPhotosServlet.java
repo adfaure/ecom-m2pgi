@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
+import fr.ujf.m2pgi.database.Service.IMemberService;
 import fr.ujf.m2pgi.facades.FacadePhoto;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -41,7 +42,7 @@ public class RESTPhotosServlet {
 	private FacadePhoto facadePhoto;
 
 	@EJB
-	private MemberService memberService;
+	private IMemberService memberService;
 
 	@EJB
 	private PhotoServiceES photoServiceES;

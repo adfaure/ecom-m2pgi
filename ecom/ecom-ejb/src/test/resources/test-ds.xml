@@ -26,7 +26,7 @@
    <datasource jndi-name="java:jboss/datasources/ecomTestDS"
       pool-name="ecom-test" enabled="true"
       use-java-context="true">
-      <connection-url>jdbc:h2:mem:ecom-test;DB_CLOSE_DELAY=-1</connection-url>
+      <connection-url>jdbc:h2:mem:ecom-test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;</connection-url>
       <driver>h2</driver>
       <security>
          <user-name>sa</user-name>
@@ -34,4 +34,4 @@
       </security>
    </datasource>
 </datasources>
- 
+
