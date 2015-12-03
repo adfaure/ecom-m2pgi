@@ -79,3 +79,27 @@
 .textAlignCenter {
     text-align:center;
 }
+
+.floatLeft {
+    float:left;
+}
+
+.floatRight {
+    float:right;
+}
+
+.colorYellow {
+    color:yellow;
+}
+
+.colorBlue {
+    color:blue;
+}
+
+.borderRight {
+    border-right: 1px solid;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}

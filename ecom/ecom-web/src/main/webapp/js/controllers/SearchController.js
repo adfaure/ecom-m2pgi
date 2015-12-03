@@ -105,6 +105,23 @@ var searchController = function($scope, $routeParams, apiToken, $location, publi
                     });
                 }
                 if(photo)
+                    photo.liked=true;
+            });
+        else
+            console.log("TODO : redirect to authentification");
+    }
+
+    
+    $scope.unlike = function (photoID){
+        console.log("unliking");
+        if(apiToken.isAuthentificated()) 
+            publicPhoto.RemovePhotoFromLikeList(photoID, user.memberID).then(function(res) {
+                if($scope.photos) {
+                    var photo = $scope.photos.find(function(photo) {
+                        return (photo.photoID == photoID);
+                    });
+                }
+                if(photo)
                     photo.liked=false;
             });
         else

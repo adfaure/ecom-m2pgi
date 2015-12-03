@@ -39,50 +39,38 @@
       <div class="caption">
 
         <div class="headerCaption">
-          <div style="float:left">
+          <div class="floatLeft">
             <p class="glyphicon glyphicon-ban-circle redSignalIcon" alt="Signaler"></p>
           </div>
-          <div style="float:right">
+          <div class="floatRight">
             <span>
-              <p class="glyphicon glyphicon-eye-open" alt="Views" style="border-right: 1px solid">{{photos[$index].views}} </p>
-              <p class="glyphicon glyphicon-thumbs-up" alt="Likes">{{photos[$index].likes}}</p>
+              <p class="glyphicon glyphicon-eye-open borderRight" alt="Views" >{{photo.views}} </p>
+              <p class="glyphicon glyphicon-thumbs-up" alt="Likes">{{photo.likes}}</p>
             </span>
           </div>
         </div>
         
         <div class="centerCaption">
-          <span class="fa fa-search-plus" data-ng-click="details(photos[$index].photoID)" alt="Agrandir"></span>
+          <span class="fa fa-search-plus cursorPointer" data-ng-click="details(photo.photoID)" alt="Agrandir"></span>
         </div>
 
         <div class="footerCaption">
-          <div style="float:left">
-            <span class="glyphicon glyphicon-euro" data-ng-click="" alt="Prix" style="float:left">{{photos[$index].price}}</span>
-            <add-to-cart-component photo="photo" style="float:right"></add-to-cart-component>
+          <div class="floatLeft">
+            <span class="glyphicon glyphicon-euro floatLeft" data-ng-click="" alt="Prix" >{{photo.price}}</span>
+            <add-to-cart-component photo="photo" class="floatRight"></add-to-cart-component>
           </div>
-          <div style="float:right">
-            <!-- En attente du commit sur les elements photos -->
-            <!--span class="fa fa-star" data-ng-show="photos[$index].wished" data-ng-click="wish(photos[$index].photoID)" >
-            </span>
-            <span class="fa fa-star" data-ng-show="!photos[$index].wished" data-ng-click="unwish(photos[$index].photoID)" >
-            </span-->
-            <!-- En attendant le commit -->
-            <span class="fa fa-star" data-ng-click="wish(photos[$index].photoID)" style="color:yellow" alt="Favoris">
+          <div class="floatRight">
+            <span class="fa fa-star cursorPointer borderRight" data-ng-class="{colorYellow: photo.wishlisted == true}" data-ng-click="(photo.wishlisted == true) ? unwish(photo.photoID) : wish(photo.photoID)" >
             </span>
 
-            <!-- En attente du commit sur les elements photos -->
-            <!--span class="fa fa-thumbs-up" data-ng-show="photos[$index].liked" data-ng-click="like(photos[$index].photoID)" >
-            </span>
-            <span class="fa fa-thumbs-up" data-ng-show="!photos[$index].liked" data-ng-click="unlike(photos[$index].photoID)" >
-            </span-->
-            <!-- En attendant le commit -->
-            <span class="fa fa-thumbs-up" style="color:blue" data-ng-click="like(photos[$index].photoID)" alt="Like">
+            <span class="fa fa-thumbs-up cursorPointer" ng-class="{colorBlue: photo.liked == true}" data-ng-click="(photo.liked == true) ? unlike(photo.photoID) :like(photo.photoID)" alt="Like">
             </span>
           </div>
         </div>
 
       </div>
 
-      <img class="image" data-ng-src="{{photos[$index].webLocation}}" alt="{{photos[$index].name}}">
+      <img class="image" data-ng-src="{{photo.webLocation}}" alt="{{photo.name}}">
 
     </div>
   </div>

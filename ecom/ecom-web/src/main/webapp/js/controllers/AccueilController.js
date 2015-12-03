@@ -76,22 +76,29 @@ var accueilController = function($scope, $location, apiToken, publicPhoto) {
                     });
                 }
                 if(photo)
-                    photo.liked=false;
+                    photo.liked=true;
             });
         else
             console.log("TODO : redirect to authentification");
     }
 
-    /* En attente du commit sur les photos
+    
     $scope.unlike = function (photoID){
         console.log("unliking");
         if(apiToken.isAuthentificated()) 
-            publicPhoto.unlikePhoto(photoID, user.memberID).then(function(res) {
+            publicPhoto.RemovePhotoFromLikeList(photoID, user.memberID).then(function(res) {
+                if($scope.photos) {
+                    var photo = $scope.photos.find(function(photo) {
+                        return (photo.photoID == photoID);
+                    });
+                }
+                if(photo)
+                    photo.liked=false;
             });
         else
-            console.log("???TODO : redirect to authentification");
+            console.log("TODO : redirect to authentification");
     }
-    */
+    
 
 /*
     $scope.search = {
