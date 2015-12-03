@@ -14,6 +14,8 @@ import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.SellerInfo;
 import fr.ujf.m2pgi.database.entities.SellerPage;
 import fr.ujf.m2pgi.Security.IStringDigest;
+import fr.ujf.m2pgi.database.entities.Follow;
+import fr.ujf.m2pgi.database.DAO.IFollowDAO;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,6 +52,10 @@ public class MemberService {
      */
     @Inject
     private IStringDigest stringDigest;
+
+
+    @Inject
+    private IFollowDAO followDao;
 
     /**
      * @param member
@@ -214,5 +220,37 @@ public class MemberService {
         return  memberMapper.getDTO(member);
     }
 
+     public boolean follow(Long followerID, Long followedID)
+    {
+        Follow follow = followDao.findFollowbyCoupleId(followerID,followedID);
+        Member follower = memberDao.find(followerID);
+        Member followed = memberDao.find(followedID);
+        if(follow == null && follower != null && followed != null && followed.getAccountType() == 'S'){
+            follow = new Follow();
+            follow.setFollower(follower);
+            follow.setFollowed(followed);
+            followDao.create(follow);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean unfollow(Long followerID, Long followedID)
+    {
+        Follow follow = followDao.findFollowbyCoupleId(followerID,followedID);
+        if(follow != null){
+            followDao.delete(follow.getId());
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isFollowedBy(Long followerID, Long memberID)
+    {
+        if(followDao.findFollowbyCoupleId(followerID, memberID) != null){
+                return true;
+        }
+        return false;
+    }
 
 }
