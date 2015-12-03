@@ -3,6 +3,7 @@ package fr.ujf.m2pgi.database.Service;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
@@ -25,7 +26,7 @@ import java.util.*;
  *
  */
 @Stateless
-public class MemberService {
+public class MemberService implements IMemberService {
 
     /**
      *
@@ -54,7 +55,10 @@ public class MemberService {
     /**
      * @param member
      */
-    public MemberDTO createMember(MemberDTO member) {
+    @Override
+    public MemberDTO createMember(MemberDTO member) throws EcomException {
+        Member m = memberDao.findMemberByLogin(member.getLogin());
+        if(m != null) throw  new EcomException("Login already in use");
         member.setPassword(stringDigest.digest(member.getPassword()));
         Member toCreate = memberMapper.getentity(member);
         Member memberEntity = memberDao.create(toCreate);
@@ -62,6 +66,7 @@ public class MemberService {
         return res;
     }
     
+    @Override
     public void deleteMember(Long id) {
         memberDao.delete(id);
         System.out.println("Deleted user: "+id);
@@ -72,6 +77,7 @@ public class MemberService {
      * @param login
      * @return
      */
+    @Override
     public MemberDTO getMemberByLogin(String login) {
         Member memberEntity = memberDao.findMemberByLogin(login);
         if (memberEntity != null)
@@ -79,6 +85,7 @@ public class MemberService {
         return null;
     }
 
+    @Override
     public MemberDTO getSellerById(long id) {
         Member member = memberDao.getSellerById(id);
         if(member != null)
@@ -90,6 +97,7 @@ public class MemberService {
      * @param id
      * @return
      */
+    @Override
     public MemberDTO getMemberbyId(long id) {
         Member memberEntity = memberDao.find(id);
         if (memberEntity != null)
@@ -101,6 +109,7 @@ public class MemberService {
      * @param member
      * @param photoDTO
      */
+    @Override
     public MemberDTO addToCart(MemberDTO member, PhotoDTO photoDTO) {
         Member attachedEntity = memberDao.find(member.getMemberID());
         Collection<Photo> cart = attachedEntity.getCart();
@@ -128,6 +137,7 @@ public class MemberService {
      * @param member
      * @param photoDTO
      */
+    @Override
     public MemberDTO removeToCart(MemberDTO member, PhotoDTO photoDTO) {
         Member attachedEntity = memberDao.find(member.getMemberID());
         Collection<Photo> cart = attachedEntity.getCart();
@@ -147,6 +157,7 @@ public class MemberService {
         return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
     }
 
+    @Override
     public MemberDTO createSellerFromMember(MemberDTO memberdto) {
         Member member   = memberDao.find(memberdto.getMemberID());
         SellerInfo info = new SellerInfo();
@@ -159,6 +170,7 @@ public class MemberService {
     }
     
     
+    @Override
     public List<MemberDTO> getAllMembers(){
     	List<MemberDTO> result = new ArrayList<MemberDTO>();
 
@@ -171,7 +183,8 @@ public class MemberService {
     }
 
 
-	public Long getMemberCount() {
+	@Override
+    public Long getMemberCount() {
 		Long count = memberDao.getMemberCount();
 		return count;
 	}
@@ -182,12 +195,14 @@ public class MemberService {
 	 * @param memberDTO
 	 * @return
      */
-	public MemberDTO deleteCart(MemberDTO memberDTO) {
+	@Override
+    public MemberDTO deleteCart(MemberDTO memberDTO) {
 		Member entity = memberMapper.getentity(memberDTO);
 		entity.setCart(new ArrayList<Photo>());
 		return  memberMapper.getDTO(memberDao.updateCart(entity));
 	}
 
+    @Override
     public MemberDTO updateMember(MemberDTO memberdto) {
         Member entity = memberMapper.getentity(memberdto);
         if(memberdto.getSellerInfo() != null){
@@ -197,6 +212,7 @@ public class MemberService {
         return memberdto;
     }
     
+    @Override
     public MemberDTO updateSeller(MemberDTO memberdto) {
        
         Member member = memberMapper.getentity(memberdto);
