@@ -7,6 +7,7 @@ function publicPhoto($http) {
 
     service.GetById = GetById;
     service.GetAll = GetAll;
+    service.GetTop10 = GetTop10;
     service.GetAllSortByDate = GetAllSortByDate;
     service.GetAllSortByDateDesc = GetAllSortByDateDesc;
     service.GetAllSortByPrice = GetAllSortByPrice;
@@ -32,6 +33,10 @@ function publicPhoto($http) {
 
     function GetAll() {
       return $http.get('api/photos/').then(handleSuccess, handleError('Error getting all photos'));
+    }
+    
+    function GetTop10(){
+    	return $http.get('api/photos/top10').then(handleSuccess, handleError('Error getting top 10 photos'));
     }
 
     function GetAllSortByDate() {

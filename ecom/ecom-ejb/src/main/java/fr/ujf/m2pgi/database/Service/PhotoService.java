@@ -157,6 +157,15 @@ public class PhotoService implements IPhotoService {
 		return result;
 	}
 
+	
+	public List<PhotoDTO> getTop10Photos() {
+		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+		for(Photo photo: photoDao.getTop10Photos()) {
+			result.add(photoMapper.getDTO(photo));
+		}
+		return result;
+	}
+	
 	public List<PhotoDTO> getPhotosSortByPrice(boolean ascending) {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getPhotosSortByPrice(ascending)) {
@@ -410,4 +419,6 @@ public class PhotoService implements IPhotoService {
 			e.printStackTrace();
 		}
 	}
+
+	
 }

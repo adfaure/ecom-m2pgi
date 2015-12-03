@@ -8,6 +8,7 @@ function sellerService($http) {
     service.GetById = GetById;
     service.GetByUsername = GetByUsername;
     service.GetCount = GetCount;
+    service.GetTopSellers = GetTopSellers;
     service.Create = Create;
     service.CreateFromMember = CreateFromMember;
     service.Update = Update;
@@ -25,6 +26,10 @@ function sellerService($http) {
 
     function GetCount(){
     	return $http.get('api/sellers/count').then(handleSuccess, handleError('Error getting the total number of sellers'));
+    }
+    
+    function GetTopSellers(){
+    	return $http.get('api/sellers/top10').then(handleSuccess, handleError('Error getting the top 10 sellers'));
     }
     
     function Create(user) {

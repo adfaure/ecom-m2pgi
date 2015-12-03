@@ -46,6 +46,10 @@ public class FacadePhoto {
     public List<PhotoDTO> getAllPhotos() {
         return photoService.getAllPhotos();
     }
+    
+    public List<PhotoDTO> getTop10Photos() {
+        return photoService.getTop10Photos();
+    }
 
     public List<PhotoDTO> getPhotosSortByPrice(boolean ascending) {
       return photoService.getPhotosSortByPrice(ascending);

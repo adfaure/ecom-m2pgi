@@ -3,9 +3,11 @@ package fr.ujf.m2pgi.database.Service;
 import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IOrderDAO;
+import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.DTO.OrderSellerDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IOrderMapper;
 import fr.ujf.m2pgi.database.Mappers.IOrderSellerMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
@@ -55,6 +57,14 @@ public class CustomerService implements ICustomerService {
     @Inject
     private IOrderSellerMapper orderSellerMapper;
 
+    
+    /**
+    *
+    */
+   @Inject
+   private IMemberMapper memberMapper;
+   
+   
     /**
      *
      * @param login
@@ -100,5 +110,14 @@ public class CustomerService implements ICustomerService {
     	return sellerCount;
     }
 
+	@Override
+	public List<MemberDTO> getTopSellers() {
+		List<Member> topSellers = memberDAO.getTopSellers();
+		List<MemberDTO> membersDTO = new ArrayList<>();
+		for(Member m: topSellers){
+			membersDTO.add(memberMapper.getDTO(m));
+		}
+		return membersDTO;
+	}
 
 }

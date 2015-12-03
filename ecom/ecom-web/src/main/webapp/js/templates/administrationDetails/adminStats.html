@@ -5,7 +5,7 @@
 	 <table class="table">
 	    <thead>
 	      <tr>
-	        <th>Number of stored pictures</th>
+	        <th>Nombre total des photos stock&eacute;s</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -14,13 +14,32 @@
 	      </tr>
 	    </tbody>
 	  </table>
+	  
+	  <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title text-center">Top 10 photos vendues</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12 col-lg-8 ">
+                            <canvas id="bar" class="chart chart-bar"
+                                    chart-data="top10Photos.data" chart-labels="top10Photos.labels"
+                                    chart-series="top10Photos.series" chart-legend="true">
+                            </canvas>
+                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
  	 
- 	 <h2>Orders</h2>
+ 	 <h2>Commandes</h2>
  	 <table class="table">
 	    <thead>
 	      <tr>
-	        <th>Number of purchases</th>
-	        <th>Total price</th>
+	        <th>Total des commandes</th>
+	        <th>Total des gains </th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -30,13 +49,39 @@
 	      </tr>
 	    </tbody>
 	  </table>
+	  
+	   <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title text-center">Ventes totales par mois {{data.year}}</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-0 col-lg-4">
+                        	Ann&eacute;e: 
+					      <select name="singleSelect" id="singleSelect" ng-model="data.singleSelect" ng-change="updateOrders()">
+						     <option ng-repeat="option in data.availableOptions" value="{{option}}">{{option}}</option>
+						  </select>
+                            <p> Total des photos vendues {{data.year}} : {{ totalNbSales }} </p>
+                            <p> Total des gains {{data.year}} : {{ totalPrice }} </p>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-lg-8 ">
+                            <canvas id="line" class="chart chart-line" chart-data="salesChart.data"
+                                    chart-labels="salesChart.labels" chart-legend="true"
+                                    chart-series="salesChart.series">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
  	 
- 	  <h2>Members</h2>
+ 	  <h2>Membres</h2>
  	 <table class="table">
 	    <thead>
 	      <tr>
-	        <th>Total number of members</th>
-	        <th>Number of sellers</th>
+	        <th>Nombre total de membres</th>
+	        <th>Nombre total de vendeurs</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -46,7 +91,25 @@
 	      </tr>
 	    </tbody>
 	  </table>
- 	
-			
+	  
+	  <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title text-center">Top 10 vendeurs</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12 col-lg-8 ">
+                            <canvas id="bar" class="chart chart-bar"
+                                    chart-data="top10Sellers.data" chart-labels="top10Sellers.labels"
+                                    chart-series="top10Sellers.series" chart-legend="true">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+	  
+	  
  </div>
   

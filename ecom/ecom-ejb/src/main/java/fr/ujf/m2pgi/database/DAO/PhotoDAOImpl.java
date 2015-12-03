@@ -64,6 +64,11 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	    return (List<Photo>)query.getResultList();
 	}
 
+	public List<Photo> getTop10Photos() {
+		Query query = entityManager.createQuery("SELECT p FROM Photo p WHERE  p.available = true ORDER BY p.sales DESC").setMaxResults(10);
+	    return (List<Photo>) query.getResultList();
+	}
+	
 	@Override
 	public List<Photo> getPhotosSortByPrice(boolean ascending) {
 		String order = ascending == true ? "ASC" : "DESC";

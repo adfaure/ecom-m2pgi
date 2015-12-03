@@ -21,6 +21,8 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @return
      */
 	List<Photo> getAllPhotos();
+	
+	List<Photo> getTop10Photos();
 
 	List<Photo> getPhotosSortByPrice(boolean ascending);
 

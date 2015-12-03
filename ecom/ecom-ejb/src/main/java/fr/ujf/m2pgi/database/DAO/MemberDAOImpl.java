@@ -76,5 +76,12 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		Query query = entityManager.createQuery(q);
 		return (Long) query.getSingleResult();
 	}
+
+	public List<Member> getTopSellers() {
+		String q = "Select m FROM Member m where m.memberID in (Select p.author FROM Order o JOIN o.orderedPhotos p GROUP BY p.author ORDER BY count(p.author) DESC)" ;
+		Query query = entityManager.createQuery(q).setMaxResults(10);
+		List<Member> members = query.getResultList();
+		return members;
+	}
 }
 
