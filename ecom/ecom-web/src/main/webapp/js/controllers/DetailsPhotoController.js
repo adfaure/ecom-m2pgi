@@ -8,7 +8,11 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
         $scope.photo = res;
       });
 
-      var user = apiToken.getUser();
+	  var user;
+		
+	  if(apiToken.isAuthentificated()) {
+		  user = apiToken.getUser();
+	  }
 
       $scope.wish = function (photoID) {
         if (user != null) {
@@ -31,7 +35,17 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
             $scope.photo.flagged = true;
           });
       }
+      
+      $scope.like = function (photoID){
+          if(apiToken.isAuthentificated()) 
+              publicPhoto.AddPhotoToLikeList(photoID, user.memberID).then(function(res) {
+              });
+          else
+              console.log("TODO : redirect to authentification");
+      }
+      
     }// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
+
 };
 
 module.exports = detailsPhotoController;

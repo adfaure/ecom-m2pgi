@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var InscriptionController = function ($scope, memberService, sellerService, alertService) {
+var InscriptionController = function ($scope, memberService, sellerService, $location, authentificationService, alertService) {
 
 	$scope.sellerTemplate = './js/templates/sellerInscription.html';
 
@@ -36,7 +36,14 @@ var InscriptionController = function ($scope, memberService, sellerService, aler
 
 						alertService.add("alert-success", "Enregistré ! ", 2000);
 		            }
-	        });
+                    return authentificationService.login($scope.user.login, $scope.user.password);
+	        }).then(function(res) {
+                    if(res.success) {
+                        $location.path("#/accueil");
+                    } else {
+                    }
+                }
+            );;
         }
     };
 };

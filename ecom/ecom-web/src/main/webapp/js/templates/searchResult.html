@@ -30,15 +30,48 @@
 
 <br/>
 
-<div class=row"> 
+
+
+<div class="row"> 
   <div class="col-lg-3 col-md-4 col-xs-6" ng-repeat="photo in photos track by $index">
-  	<div class="thumbnail">
-       <img data-ng-click="details(photos[$index].photoID)" class="image" ng-src="{{photos[$index].webLocation}}" alt="{{photos[$index].name}}">
-       <!-- div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div-->
+    <div class="thumbnail">
+
+      <div class="caption">
+
+        <div class="headerCaption">
+          <div class="floatLeft">
+            <p class="glyphicon glyphicon-ban-circle redSignalIcon" alt="Signaler"></p>
+          </div>
+          <div class="floatRight">
+            <span>
+              <p class="glyphicon glyphicon-eye-open borderRight" alt="Views" >{{photo.views}} </p>
+              <p class="glyphicon glyphicon-thumbs-up" alt="Likes">{{photo.likes}}</p>
+            </span>
+          </div>
+        </div>
+        
+        <div class="centerCaption">
+          <span class="fa fa-search-plus cursorPointer" data-ng-click="details(photo.photoID)" alt="Agrandir"></span>
+        </div>
+
+        <div class="footerCaption">
+          <div class="floatLeft">
+            <span class="glyphicon glyphicon-euro floatLeft" data-ng-click="" alt="Prix" >{{photo.price}}</span>
+            <add-to-cart-component photo="photo" class="floatRight"></add-to-cart-component>
+          </div>
+          <div class="floatRight">
+            <span class="fa fa-star cursorPointer borderRight" data-ng-class="{colorYellow: photo.wishlisted == true}" data-ng-click="(photo.wishlisted == true) ? unwish(photo.photoID) : wish(photo.photoID)" >
+            </span>
+
+            <span class="fa fa-thumbs-up cursorPointer" ng-class="{colorBlue: photo.liked == true}" data-ng-click="(photo.liked == true) ? unlike(photo.photoID) :like(photo.photoID)" alt="Like">
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <img class="image" data-ng-src="{{photo.webLocation}}" alt="{{photo.name}}">
+
     </div>
   </div>
 </div>

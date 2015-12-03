@@ -115,7 +115,7 @@ public class FacadePhoto {
     }
 
     public void unlikePhoto(Long photoID, Long memberID) {
-      photoService.likePhoto(photoID, memberID);
+      photoService.unlikePhoto(photoID, memberID);
     }
 
     public void addPhotoToWishList(Long photoID, Long memberID) {
