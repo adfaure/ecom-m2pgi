@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Photo {
 
 	@Id
-	@Column(name="photoID", columnDefinition = "serial")
+	@Column(name="photoID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long photoID;
 

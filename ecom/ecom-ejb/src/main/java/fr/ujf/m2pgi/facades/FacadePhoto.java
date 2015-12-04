@@ -54,6 +54,10 @@ public class FacadePhoto {
         return photoService.getAllPhotos();
     }
     
+    public List<PhotoDTO> getTop10Photos() {
+        return photoService.getTop10Photos();
+    }
+
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
 		return photoService.getAllPhotosContext(memberID);
 	}
@@ -115,7 +119,7 @@ public class FacadePhoto {
     }
 
     public void unlikePhoto(Long photoID, Long memberID) {
-      photoService.likePhoto(photoID, memberID);
+      photoService.unlikePhoto(photoID, memberID);
     }
 
     public void addPhotoToWishList(Long photoID, Long memberID) {

@@ -61,7 +61,7 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 	@Override
 	public Member getSellerById(long id) {
 		Member member = super.find(id);
-		if(member == null) return null;
+		if(member == null || member.getSellerInfo() == null) return null;
 		return member;
 	}
 	
@@ -75,6 +75,13 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		String q = "SELECT count(e) FROM Member e where e.accountType <> 'A'";
 		Query query = entityManager.createQuery(q);
 		return (Long) query.getSingleResult();
+	}
+
+	public List<Member> getTopSellers() {
+		String q = "Select m FROM Member m where m.memberID in (Select p.author FROM Order o JOIN o.orderedPhotos p GROUP BY p.author ORDER BY count(p.author) DESC)" ;
+		Query query = entityManager.createQuery(q).setMaxResults(10);
+		List<Member> members = query.getResultList();
+		return members;
 	}
 }
 

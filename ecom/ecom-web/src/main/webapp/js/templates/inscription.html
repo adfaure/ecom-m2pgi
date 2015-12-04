@@ -3,38 +3,38 @@
 	ng-submit="loginform.$valid && submit()">
 
 	<div class="form-group">
-		<label for="inputLogin">User name account (Login)</label> <input
+		<label for="inputLogin">Pseudo</label> <input
 			required ng-model="user.login" type="text" class="form-control "
-			id="inputLogin" placeholder="login">
+			id="inputLogin" placeholder="Pseudo">
 	</div>
 
 	<div class="form-group">
-		<label for="inputFirstName">First name</label> <input
+		<label for="inputFirstName">Nom</label> <input
 			ng-model="user.firstName" type="text" class="form-control"
-			id="inputFirstName" placeholder="first name">
+			id="inputFirstName" placeholder="Nom">
 	</div>
 
 	<div class="form-group">
-		<label for="inputLastname">Last name</label> <input
+		<label for="inputLastname">Prénom</label> <input
 			ng-model="user.lastName" type="text" class="form-control"
-			id="inputLastname" placeholder="last name">
+			id="inputLastname" placeholder="Prénom">
 	</div>
 
 	<div class="form-group">
-		<label for="inputEmail">Email address</label> <input
+		<label for="inputEmail">Adresse mail</label> <input
 			ng-model="user.email" type="text" class="form-control"
-			id="inputEmail" placeholder="Email">
+			id="inputEmail" placeholder="Adresse mail">
 	</div>
 
 	<div class="form-group">
-		<label for="inputPassword">Password</label> <input required
+		<label for="inputPassword">Mot de passe</label> <input required
 			ng-model="user.password" type="password" class="form-control"
-			id="inputPassword" placeholder="Password">
+			id="inputPassword" placeholder="Mot de passe">
 	</div>
 
 	<div class="checkbox" ng-init="checked=false">
 		<label> <input type="checkbox" data-ng-model="sellerCheckBox">
-			Je souhaite faire un compte vendeur
+			Je souhaite ouvrir un compte vendeur
 		</label>
 	</div>
 
@@ -42,6 +42,6 @@
 		<div ng-include="sellerTemplate"></div>
 	</span>
 
-	<button type="submit" class="btn btn-default">Submit</button>
+	<button type="submit" class="btn btn-default">Valider</button>
 
 </form>

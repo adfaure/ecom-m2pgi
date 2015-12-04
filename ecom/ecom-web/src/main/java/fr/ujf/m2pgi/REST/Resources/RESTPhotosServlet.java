@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
+import fr.ujf.m2pgi.database.Service.IMemberService;
 import fr.ujf.m2pgi.facades.FacadePhoto;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -41,7 +42,7 @@ public class RESTPhotosServlet {
 	private FacadePhoto facadePhoto;
 
 	@EJB
-	private MemberService memberService;
+	private IMemberService memberService;
 
 	@EJB
 	private PhotoServiceES photoServiceES;
@@ -66,6 +67,15 @@ public class RESTPhotosServlet {
 		return Response.ok(photos).build();
 	}
 
+	@GET
+	@Path("/top10")
+	@Produces("application/json")
+	@AllowAll
+	public Response getTop10Photos() {
+		List<PhotoDTO> photos = facadePhoto.getTop10Photos();
+		return Response.ok(photos).build();
+	}
+	
 	@GET
 	@Path("/orderby")
 	@Produces("application/json")
@@ -276,7 +286,7 @@ public class RESTPhotosServlet {
 	public Response likePhoto(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 		facadePhoto.likePhoto(photoID, memberID);
-		return Response.ok("cool").build();
+		return Response.ok(200).build();
 	}
 
 	@POST

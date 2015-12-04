@@ -21,6 +21,8 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	Member updateCart(Member member);
 
 	List<Member> getAllMembers();
+	
+	List<Member> getTopSellers();
 
 	Member getSellerById(long id);
 	

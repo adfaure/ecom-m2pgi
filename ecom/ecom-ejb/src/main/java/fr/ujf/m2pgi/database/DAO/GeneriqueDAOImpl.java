@@ -25,7 +25,7 @@ public abstract class GeneriqueDAOImpl<entityType> implements IGeneriqueDAO<enti
 	/**
 	 *
 	 */
-	@PersistenceContext(unitName = "EjbComponentPU")
+	@PersistenceContext
 	protected EntityManager entityManager;
 
 	/**

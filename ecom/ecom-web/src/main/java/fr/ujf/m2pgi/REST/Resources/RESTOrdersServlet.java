@@ -14,6 +14,7 @@ import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Service.ICustomerService;
+import fr.ujf.m2pgi.database.Service.IMemberService;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.database.Service.OrderService;
 
@@ -27,7 +28,7 @@ public class RESTOrdersServlet {
 	private OrderService orderService;
 
 	@EJB
-	private MemberService memberService;
+	private IMemberService memberService;
 
 	@EJB
 	private ICustomerService customerService;
