@@ -13,6 +13,7 @@ function publicPhoto($http) {
     service.GetAllSortByPriceDesc = GetAllSortByPriceDesc;
     service.GetAllSortByViews = GetAllSortByViews;
     service.GetAllSortByLikes = GetAllSortByLikes;
+    service.GetReportedPhotos = GetReportedPhotos;
     service.GetPhotoCount = GetPhotoCount;
     service.Search = Search;
     service.GetUserPhotos = GetUserPhotos;
@@ -66,6 +67,10 @@ function publicPhoto($http) {
     function GetAllSortByLikes() {
       return $http.get('api/photos/orderby?criteria=likes')
         .then(handleSuccess, handleError('Error getting photos ordered by likes'));
+    }
+
+    function GetReportedPhotos() {
+      return $http.get('api/photos/reported/').then(handleSuccess, handleError('Error getting reported photos'));
     }
 
     function GetPhotoCount() {

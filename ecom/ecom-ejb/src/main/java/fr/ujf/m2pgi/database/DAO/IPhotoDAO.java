@@ -22,9 +22,11 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @return
      */
 	List<Photo> getAllPhotos();
-	
+
+	List<Photo> getReportedPhotos();
+
 	List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
-	
+
 	PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID);
 
 	List<Photo> getPhotosSortByPrice(boolean ascending);
@@ -64,4 +66,6 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	void incrementLikes(Long id);
 
 	void decrementLikes(Long id);
+
+	void validate(Long id);
 }

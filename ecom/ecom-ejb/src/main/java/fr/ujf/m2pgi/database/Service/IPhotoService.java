@@ -20,7 +20,7 @@ public interface IPhotoService {
     PhotoDTO deletePhoto(Long id);
 
     PhotoDTO getPhotoById(Long id);
-    
+
     PhotoContextBigDTO getPhotoById(Long photoID, Long memberID);
 
     PhotoDTO createPhoto(PhotoDTO photo);
@@ -28,7 +28,9 @@ public interface IPhotoService {
     PhotoDTO updatePhoto(UpdatePhotoDTO photo);
 
     List<PhotoDTO> getAllPhotos();
-    
+
+    List<PhotoDTO> getReportedPhotos();
+
     List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
 
     List<PhotoDTO> getPhotosSortByPrice(boolean ascending);
@@ -62,6 +64,6 @@ public interface IPhotoService {
     void addPhotoToWishList(Long photoID, Long memberID);
 
     void removePhotoFromWishList(Long photoID, Long memberID);
-    
+
     SignalDTO signalPhoto(SignalDTO signalDTO);
 }

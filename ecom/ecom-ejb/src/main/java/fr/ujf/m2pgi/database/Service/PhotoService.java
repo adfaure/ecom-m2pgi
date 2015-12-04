@@ -174,6 +174,14 @@ public class PhotoService implements IPhotoService {
 		return result;
 	}
 
+	public List<PhotoDTO> getReportedPhotos() {
+		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+		for(Photo photo: photoDao.getReportedPhotos()) {
+			result.add(photoMapper.getDTO(photo));
+		}
+		return result;
+	}
+
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
 		return photoDao.getAllPhotosContext(memberID);
 	}

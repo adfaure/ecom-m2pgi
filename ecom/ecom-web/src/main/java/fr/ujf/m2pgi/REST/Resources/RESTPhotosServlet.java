@@ -68,6 +68,15 @@ public class RESTPhotosServlet {
 	}
 
 	@GET
+	@Path("/reported")
+	@Produces("application/json")
+	@AllowAll
+	public Response getReportedPhotos() {
+		List<PhotoDTO> photos = facadePhoto.getReportedPhotos();
+		return Response.ok(photos).build();
+	}
+
+	@GET
 	@Path("/orderby")
 	@Produces("application/json")
 	@AllowAll
