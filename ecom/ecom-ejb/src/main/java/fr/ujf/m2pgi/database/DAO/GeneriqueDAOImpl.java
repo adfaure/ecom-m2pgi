@@ -101,7 +101,8 @@ public abstract class GeneriqueDAOImpl<entityType> implements IGeneriqueDAO<enti
 	public entityType update(entityType entity) {
 		return entityManager.merge(entity);
 	}
-	
+
+
 	@Override
 	public Long getEntityCount() {
 		String q = "SELECT count(e) FROM " +entityClass.getName() + " e";
