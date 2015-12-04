@@ -23,6 +23,8 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
      */
 	List<Photo> getAllPhotos();
 	
+	List<Photo> getTop10Photos();
+
 	List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
 	
 	PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID);

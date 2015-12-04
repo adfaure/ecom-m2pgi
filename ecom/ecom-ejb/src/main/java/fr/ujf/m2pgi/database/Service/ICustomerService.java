@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.Service;
 
 import fr.ujf.m2pgi.EcomException;
+import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.DTO.OrderSellerDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
@@ -20,4 +21,6 @@ public interface ICustomerService {
     List<OrderSellerDTO> getOrdersBySeller(long id);
 
     Long getSellerCount();
+    
+    List<MemberDTO> getTopSellers();
 }

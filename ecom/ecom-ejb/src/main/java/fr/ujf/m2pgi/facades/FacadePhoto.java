@@ -54,6 +54,10 @@ public class FacadePhoto {
         return photoService.getAllPhotos();
     }
     
+    public List<PhotoDTO> getTop10Photos() {
+        return photoService.getTop10Photos();
+    }
+
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
 		return photoService.getAllPhotosContext(memberID);
 	}

@@ -169,6 +169,14 @@ public class RESTSellerServlet {
     }
     
     @GET
+    @Path("/top10")
+    @Produces("application/json")
+    public Response getTopSellers() {
+        List<MemberDTO> list = customerService.getTopSellers();
+        return Response.ok().entity(list).build();
+    }
+    
+    @GET
     @Path("/count")
     @Produces("application/json")
     public Response getCount() {

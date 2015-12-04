@@ -41,7 +41,6 @@ var controller = function($scope,$location ,alertService, publicPhoto, apiToken,
         ]
     };
 
-
     publicPhoto.GetUserPhotos(user.login).then(function(res) {
         photos = $scope.photos = res;
         photos.forEach(function(photo) {
