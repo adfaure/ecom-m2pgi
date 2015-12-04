@@ -1,5 +1,6 @@
 package fr.ujf.m2pgi.REST.Resources;
 
+import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
@@ -9,6 +10,7 @@ import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.DTO.SellerPageDTO;
 import fr.ujf.m2pgi.database.Service.CustomerService;
 import fr.ujf.m2pgi.database.Service.ICustomerService;
+import fr.ujf.m2pgi.database.Service.IMemberService;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.database.entities.Member;
 
@@ -35,7 +37,7 @@ public class RESTSellerServlet {
     private HttpServletRequest httpServletRequest;
 
     @EJB
-    private MemberService memberService;
+    private IMemberService memberService;
 
     @EJB
     private ICustomerService customerService;
@@ -44,7 +46,7 @@ public class RESTSellerServlet {
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-    public Response createUser(MemberDTO seller) { //FIXME the true one shall return a Member DTO
+    public Response createUser(MemberDTO seller) throws EcomException { //FIXME the true one shall return a Member DTO
 		MemberDTO createdMember = memberService.createMember(seller);
 		return Response.status(Response.Status.CREATED).entity(createdMember).build();
 	}

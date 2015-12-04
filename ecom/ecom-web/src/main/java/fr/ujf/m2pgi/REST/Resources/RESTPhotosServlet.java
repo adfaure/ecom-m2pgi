@@ -1,7 +1,6 @@
 package fr.ujf.m2pgi.REST.Resources;
 
 import java.io.*;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -18,11 +17,15 @@ import javax.ws.rs.core.Response.Status;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
+import fr.ujf.m2pgi.database.Service.IMemberService;
 import fr.ujf.m2pgi.facades.FacadePhoto;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
+import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
+import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.SignalDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Service.MemberService;
@@ -39,7 +42,7 @@ public class RESTPhotosServlet {
 	private FacadePhoto facadePhoto;
 
 	@EJB
-	private MemberService memberService;
+	private IMemberService memberService;
 
 	@EJB
 	private PhotoServiceES photoServiceES;
@@ -52,6 +55,14 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	@AllowAll
 	public Response getAllPhotos() {
+		HttpSession session = httpServletRequest.getSession();
+		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+
+		if(user != null) {
+			List<PhotoContextSmallDTO> contextPhotos = facadePhoto.getAllPhotosContext(user.getUser().getMemberID());
+			return Response.ok(contextPhotos).build();
+		}
+
 		List<PhotoDTO> photos = facadePhoto.getAllAvailablePhotos();
 		return Response.ok(photos).build();
 	}
@@ -108,8 +119,16 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
+	@AllowAll
 	public Response getPhotoByID(@PathParam("id") Long id) {
-		PhotoDTO photo =  facadePhoto.getPhotoById(id);
+		HttpSession session = httpServletRequest.getSession();
+		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+
+		if(user != null) {
+			PhotoContextBigDTO contextPhoto = facadePhoto.getPhotoById(id, user.getUser().getMemberID());
+			return Response.ok(contextPhoto).build();
+		}
+		PhotoDTO photo = facadePhoto.getPhotoById(id);
 		return Response.ok(photo).build();
 	}
 
@@ -267,7 +286,7 @@ public class RESTPhotosServlet {
 	public Response likePhoto(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 		facadePhoto.likePhoto(photoID, memberID);
-		return Response.ok("cool").build();
+		return Response.ok(200).build();
 	}
 
 	@POST
@@ -286,12 +305,12 @@ public class RESTPhotosServlet {
 	public Response addPhotoToWishList(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 
-		HttpSession session = httpServletRequest.getSession();
-		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+		//HttpSession session = httpServletRequest.getSession();
+		//PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
 
-		if(user.getUser().getMemberID() != memberID) {
-			return Response.status(403).build();
-		}
+		//if(user.getUser().getMemberID() != memberID) {
+		//	return Response.status(403).build();
+		//}
 
 		facadePhoto.addPhotoToWishList(photoID, memberID);
 		return Response.status(200).build();
@@ -304,6 +323,23 @@ public class RESTPhotosServlet {
 	public Response removePhotoFromWishList(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
 
+		//HttpSession session = httpServletRequest.getSession();
+		//PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+
+		//if(user.getUser().getMemberID() != memberID) {
+	  //	return Response.status(403).build();
+		//}
+
+		facadePhoto.removePhotoFromWishList(photoID, memberID);
+		return Response.status(200).build();
+	}
+
+	@POST
+	@Path("flag/{photoID}/{memberID}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	@Allow(groups="sellers;members;admin")
+	public Response signalPhoto(@PathParam("photoID") Long photoID, @PathParam("memberID") Long memberID) {
 		HttpSession session = httpServletRequest.getSession();
 		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
 
@@ -311,8 +347,21 @@ public class RESTPhotosServlet {
 			return Response.status(403).build();
 		}
 
-		facadePhoto.removePhotoFromWishList(photoID, memberID);
-		return Response.status(200).build();
+		SignalDTO signalDTO = new SignalDTO();
+		signalDTO.setMemberID(memberID);
+		signalDTO.setPhotoID(photoID);
+		signalDTO.setDescription("yo");
+
+		try{
+			SignalDTO created = facadePhoto.signalPhoto(signalDTO);
+			if(created == null){
+				return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
+			}
+			return Response.status(Status.CREATED).entity(created).build();
+		} catch(Exception e){
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).build();
+		}
 	}
 
 	// Parse Content-Disposition header to get the original file name.

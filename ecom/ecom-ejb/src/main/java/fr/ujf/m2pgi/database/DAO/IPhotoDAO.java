@@ -5,7 +5,8 @@ import java.util.List;
 import javax.ejb.Local;
 
 import fr.ujf.m2pgi.database.entities.Photo;
-
+import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
+import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 
 /**
@@ -23,6 +24,10 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	List<Photo> getAllPhotos();
 	
 	List<Photo> getTop10Photos();
+
+	List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
+	
+	PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID);
 
 	List<Photo> getPhotosSortByPrice(boolean ascending);
 

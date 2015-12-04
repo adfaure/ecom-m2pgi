@@ -1,5 +1,6 @@
 package fr.ujf.m2pgi.REST.Resources;
 
+import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
@@ -7,6 +8,7 @@ import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.DenyAll;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.Service.IMemberService;
 import fr.ujf.m2pgi.database.Service.MemberService;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +25,7 @@ import java.util.List;
 public class RESTMemberServlet {
 
 	@EJB
-	private MemberService memberService;
+	private IMemberService memberService;
 
 	@Context
 	private HttpServletRequest httpServletRequest;
@@ -57,7 +59,7 @@ public class RESTMemberServlet {
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response createUser(MemberDTO member) { //FIXME the true one shall return a Member DTO
+	public Response createUser(MemberDTO member) throws EcomException { //FIXME the true one shall return a Member DTO
 		MemberDTO createdMember = memberService.createMember(member);
 		return Response.status(Status.CREATED).entity(createdMember).build();
 	}

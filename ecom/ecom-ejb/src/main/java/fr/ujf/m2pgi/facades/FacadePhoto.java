@@ -1,6 +1,9 @@
 package fr.ujf.m2pgi.facades;
 
+import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
+import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.SignalDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Service.IFileService;
@@ -42,6 +45,10 @@ public class FacadePhoto {
     public PhotoDTO getPhotoById(long id) {
         return photoService.getPhotoById(id);
     }
+    
+	public PhotoContextBigDTO getPhotoById(Long photoID, Long memberID) {
+		return photoService.getPhotoById(photoID, memberID);
+	}
 
     public List<PhotoDTO> getAllPhotos() {
         return photoService.getAllPhotos();
@@ -50,6 +57,10 @@ public class FacadePhoto {
     public List<PhotoDTO> getTop10Photos() {
         return photoService.getTop10Photos();
     }
+
+	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
+		return photoService.getAllPhotosContext(memberID);
+	}
 
     public List<PhotoDTO> getPhotosSortByPrice(boolean ascending) {
       return photoService.getPhotosSortByPrice(ascending);
@@ -108,7 +119,7 @@ public class FacadePhoto {
     }
 
     public void unlikePhoto(Long photoID, Long memberID) {
-      photoService.likePhoto(photoID, memberID);
+      photoService.unlikePhoto(photoID, memberID);
     }
 
     public void addPhotoToWishList(Long photoID, Long memberID) {
@@ -117,5 +128,9 @@ public class FacadePhoto {
 
     public void removePhotoFromWishList(Long photoID, Long memberID) {
       photoService.removePhotoFromWishList(photoID, memberID);
+    }
+    
+    public SignalDTO signalPhoto (SignalDTO signalDTO){
+    	return photoService.signalPhoto(signalDTO);
     }
 }

@@ -7,6 +7,7 @@ import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.Security.ITokenGenerator;
 import fr.ujf.m2pgi.Security.IStringDigest;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
+import fr.ujf.m2pgi.database.Service.IMemberService;
 import fr.ujf.m2pgi.database.Service.MemberService;
 
 import javax.ejb.EJB;
@@ -25,7 +26,7 @@ import java.util.Map;
 public class RESTAuthentification {
 
     @EJB
-    private MemberService memberService;
+    private IMemberService memberService;
 
     @EJB
     private ITokenGenerator tokenGenerator;

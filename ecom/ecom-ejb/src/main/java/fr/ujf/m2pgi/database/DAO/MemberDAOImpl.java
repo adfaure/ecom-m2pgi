@@ -61,7 +61,7 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 	@Override
 	public Member getSellerById(long id) {
 		Member member = super.find(id);
-		if(member == null) return null;
+		if(member == null || member.getSellerInfo() == null) return null;
 		return member;
 	}
 	

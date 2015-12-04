@@ -10,15 +10,20 @@ import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
-import fr.ujf.m2pgi.database.DAO.IMemberDAO;
+import fr.ujf.m2pgi.database.DAO.ISignalDAO;
+import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
+import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.SignalDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
+import fr.ujf.m2pgi.database.Mappers.ISignalMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
-
+import fr.ujf.m2pgi.database.entities.Signal;
+import fr.ujf.m2pgi.database.entities.SignalID;
 import fr.ujf.m2pgi.elasticsearch.ElasticsearchDao;
 import fr.ujf.m2pgi.elasticsearch.PhotoDocument;
 
@@ -36,11 +41,17 @@ public class PhotoService implements IPhotoService {
 	@Inject
 	private IPhotoMapper photoMapper;
 
+	@Inject
+	private ISignalMapper signalMapper;
+
 	/**
 	 *
 	 */
 	@Inject
 	private IPhotoDAO photoDao;
+
+	@Inject
+	private ISignalDAO signalDAO;
 
 	/**
 	 *
@@ -92,6 +103,12 @@ public class PhotoService implements IPhotoService {
 		return null;
 	}
 
+	public PhotoContextBigDTO getPhotoById(Long photoID, Long memberID) {
+		PhotoContextBigDTO photo = photoDao.getPhotoContext(photoID, memberID);
+		if (photo != null) viewPhoto(photoID, memberID);
+		return photo;
+	}
+
 	/**
 	 *
 	 * @param photo
@@ -109,7 +126,7 @@ public class PhotoService implements IPhotoService {
 		  doc.setDescription(created.getDescription());
 		  doc.setLocation(created.getWebLocation());
 		  try {
-			    System.out.println(photoDaoES.index(doc));
+			    photoDaoES.index(doc);
 		  } catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,7 +153,7 @@ public class PhotoService implements IPhotoService {
 		doc.setDescription(photo.getDescription());
 
 		try {// Needs better handling!
-			System.out.println("Updated in ES? "+photoDaoES.update(doc));
+			photoDaoES.update(doc);
 		} catch (IOException | InterruptedException | ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,6 +183,10 @@ public class PhotoService implements IPhotoService {
 		return result;
 	}
 	
+	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
+		return photoDao.getAllPhotosContext(memberID);
+	}
+
 	public List<PhotoDTO> getPhotosSortByPrice(boolean ascending) {
 		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
 		for(Photo photo: photoDao.getPhotosSortByPrice(ascending)) {
@@ -263,6 +284,8 @@ public class PhotoService implements IPhotoService {
 	public void viewPhoto(Long photoID, Long memberID)
 	{
 		Photo photo = photoDao.find(photoID);
+
+		if (photo == null) return;
 
     boolean exists = false;
 		for(Member member: photo.getViewers())
@@ -393,6 +416,23 @@ public class PhotoService implements IPhotoService {
 				}
 			}
 		}
+	}
+
+	public SignalDTO signalPhoto (SignalDTO signalDTO){
+
+		Photo photo = photoDao.find(signalDTO.getPhotoID());
+		Member member = memberDAO.find(signalDTO.getMemberID());
+	    if (photo != null && member != null) {
+	    	Signal signal = signalDAO.find(new SignalID(photo,member));
+			if(signal==null){
+		    	Signal signalEntity = signalMapper.getentity(signalDTO);
+		    	signalEntity.setMember(member);
+		    	signalEntity.setPhoto(photo);
+		    	SignalDTO created = signalMapper.getDTO(signalDAO.create(signalEntity));
+		    	return created;
+			}
+		}
+		   return null;
 	}
 
 	/**

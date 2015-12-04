@@ -1,21 +1,51 @@
 var angular = require('angular');
 
-var detailsPhotoController = function($scope, $routeParams, apiToken, publicPhoto) {
-    if($routeParams.photo) {
-        $scope.photo = JSON.parse($routeParams.photo);
-    }
+var detailsPhotoController = function($scope, $location, $routeParams, apiToken, publicPhoto) {
+    var photoID = $routeParams.id;
+    if(photoID) {
 
-    if(!apiToken.isAuthentificated()) {
-
-    }
-
-    var user = apiToken.getUser();
-
-    $scope.wish = function (photoID){
-      publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function(res) {
-
+      publicPhoto.GetById(photoID).then(function(res) {
+        $scope.photo = res;
       });
-    }
+
+	  var user;
+		
+	  if(apiToken.isAuthentificated()) {
+		  user = apiToken.getUser();
+	  }
+
+      $scope.wish = function (photoID) {
+        if (user != null) {
+          publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function(res) {
+            $scope.photo.wishlisted = true;
+          });
+        } else {
+          $location.path('/login');
+        }
+      }
+
+      $scope.unwish = function (photoID) {
+          publicPhoto.RemovePhotoFromWishList(photoID, user.memberID).then(function(res) {
+            $scope.photo.wishlisted = false;
+          });
+      }
+
+      $scope.flag = function (photoID) {
+          publicPhoto.Flag(photoID, user.memberID).then(function(res) {
+            $scope.photo.flagged = true;
+          });
+      }
+      
+      $scope.like = function (photoID){
+          if(apiToken.isAuthentificated()) 
+              publicPhoto.AddPhotoToLikeList(photoID, user.memberID).then(function(res) {
+              });
+          else
+              console.log("TODO : redirect to authentification");
+      }
+      
+    }// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
+
 };
 
 module.exports = detailsPhotoController;
