@@ -68,6 +68,15 @@ public class RESTPhotosServlet {
 	}
 
 	@GET
+	@Path("/reported")
+	@Produces("application/json")
+	@AllowAll
+	public Response getReportedPhotos() {
+		List<PhotoDTO> photos = facadePhoto.getReportedPhotos();
+		return Response.ok(photos).build();
+	}
+
+	@GET
 	@Path("/top10")
 	@Produces("application/json")
 	@AllowAll
@@ -180,6 +189,24 @@ public class RESTPhotosServlet {
 		}
 		facadePhoto.deletePhoto(id);
 		return Response.ok(photo).build();
+	}
+
+	@DELETE
+	@Path("/reported/{id:[1-9][0-9]*}")
+	@Produces("application/json")
+	@Allow(groups="admin")
+	public Response deleteReportedPhoto(@PathParam("id") Long id) {
+		facadePhoto.deleteReportedPhoto(id);
+		return Response.ok().build();
+	}
+
+	@POST
+	@Path("/reported/validate/{id:[1-9][0-9]*}")
+	@Produces("application/json")
+	@Allow(groups="admin")
+	public Response validateReportedPhoto(@PathParam("id") Long id) {
+		facadePhoto.validateReportedPhoto(id);
+		return Response.ok().build();
 	}
 
 	@PUT

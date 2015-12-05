@@ -59,7 +59,15 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p");
 	    return (List<Photo>)query.getResultList();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Photo> getReportedPhotos() {
+		Query query = entityManager.createQuery("SELECT p FROM Photo p WHERE p.available = true " +
+		"AND EXISTS (SELECT r FROM Signal r WHERE r.photo.photoID = p.photoID)");
+	  return (List<Photo>)query.getResultList();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
@@ -78,7 +86,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		query.setParameter("id", memberID);
 		return query.getResultList();
 	}
-	
+
 	@Override
 	public PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO" +
@@ -102,7 +110,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p WHERE  p.available = true ORDER BY p.sales DESC").setMaxResults(10);
 	    return (List<Photo>) query.getResultList();
 	}
-	
+
 	@Override
 	public List<Photo> getPhotosSortByPrice(boolean ascending) {
 		String order = ascending == true ? "ASC" : "DESC";
