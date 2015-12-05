@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var reportedController = function($scope, publicPhoto) {
+var reportedController = function($scope, $location, publicPhoto) {
 
 	$scope.photos = [];
 
@@ -9,15 +9,19 @@ var reportedController = function($scope, publicPhoto) {
   });
 
 	$scope.delete = function(index) {
-		publicPhoto.DeletePhotoById($scope.photos[index].photoID).then(function(res) {
+		publicPhoto.DeleteReportedPhoto($scope.photos[index].photoID).then(function(res) {
 			$scope.photos.splice(index, 1);
 		});
 	};
 
 	$scope.validate = function(index) {
-		/*publicPhoto.ValidatePhotoById($scope.photos[index].photoID).then(function(res) {
+		publicPhoto.ValidateReportedPhoto($scope.photos[index].photoID).then(function(res) {
 			$scope.photos.splice(index, 1);
-		});*/
+		});
+	};
+
+	$scope.goto = function(id) {
+		$location.path('/photos/details/' + id)
 	};
 };
 

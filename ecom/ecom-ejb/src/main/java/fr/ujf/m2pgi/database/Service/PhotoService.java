@@ -80,13 +80,13 @@ public class PhotoService implements IPhotoService {
 		Photo photo = photoDao.find(id);
 	    if (photo != null) {
 			photo.setAvailable(false);
-	    	photoDao.update(photo);
-				if (!photoDaoES.delete(String.valueOf(id))) {
-					return null;// The photo couldn't be deleted from ES.
-				}
-	    	return photoMapper.getDTO(photo);
-	    }
-	    return null;// The photo doesn't exist in our DB.
+	    photoDao.update(photo);
+			if (!photoDaoES.delete(String.valueOf(id))) {
+				return null;// The photo couldn't be deleted from ES.
+			}
+	    return photoMapper.getDTO(photo);
+	  }
+	  return null;// The photo doesn't exist in our DB.
 	}
 
 	/**
@@ -432,6 +432,18 @@ public class PhotoService implements IPhotoService {
 			}
 		}
 		   return null;
+	}
+
+	public void validateReportedPhoto(Long id) {
+		// On suppprime les signalements.
+		signalDAO.deletePhotoReports(id);
+		// Ici on doit faire en sorte qu'on puisse plus signaler cette photo.
+		// Peut être un booléen "conforme = true"
+	}
+
+	public void deleteReportedPhoto(Long id) {
+		// Pour le moment rien de spécial.
+		deletePhoto(id);
 	}
 
 	/**

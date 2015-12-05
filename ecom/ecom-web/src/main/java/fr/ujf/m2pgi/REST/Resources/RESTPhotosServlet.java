@@ -182,6 +182,24 @@ public class RESTPhotosServlet {
 		return Response.ok(photo).build();
 	}
 
+	@DELETE
+	@Path("/reported/{id:[1-9][0-9]*}")
+	@Produces("application/json")
+	@Allow(groups="admin")
+	public Response deleteReportedPhoto(@PathParam("id") Long id) {
+		facadePhoto.deleteReportedPhoto(id);
+		return Response.ok().build();
+	}
+
+	@POST
+	@Path("/reported/validate/{id:[1-9][0-9]*}")
+	@Produces("application/json")
+	@Allow(groups="admin")
+	public Response validateReportedPhoto(@PathParam("id") Long id) {
+		facadePhoto.validateReportedPhoto(id);
+		return Response.ok().build();
+	}
+
 	@PUT
 	@Path("/update")
 	@Produces("application/json")

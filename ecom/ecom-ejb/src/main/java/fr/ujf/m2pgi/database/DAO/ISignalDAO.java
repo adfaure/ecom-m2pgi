@@ -5,5 +5,7 @@ import fr.ujf.m2pgi.database.entities.Signal;
 
 @Local
 public interface ISignalDAO extends IGeneriqueDAO<Signal> {
-	
+
+	void deletePhotoReports(Long id);
+
 }

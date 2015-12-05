@@ -26,6 +26,8 @@ function publicPhoto($http) {
     service.Flag = Flag;
     service.RemovePhotoFromWishList = RemovePhotoFromWishList;
     service.DeletePhotoById = DeletePhotoById;
+    service.DeleteReportedPhoto = DeleteReportedPhoto;
+    service.ValidateReportedPhoto = ValidateReportedPhoto;
     service.Update = Update;
     service.GetUserPhotosWithId = GetUserPhotosWithId;
 
@@ -119,6 +121,14 @@ function publicPhoto($http) {
 
     function DeletePhotoById(id) {
       return $http.delete('api/photos/delete/' + id).then(handleSuccess, handleError('Error when deleting photo by id'));
+    }
+
+    function DeleteReportedPhoto(id) {
+      return $http.delete('api/photos/reported/' + id).then(handleSuccess, handleError('Error when deleting reported photo by id'));
+    }
+
+    function ValidateReportedPhoto(id) {
+      return $http.post('api/photos/reported/validate/' + id).then(handleSuccess, handleError('Error when validating reported photo'));
     }
 
     function Update(photo) {

@@ -133,4 +133,12 @@ public class FacadePhoto {
     public SignalDTO signalPhoto (SignalDTO signalDTO){
     	return photoService.signalPhoto(signalDTO);
     }
+
+    public void deleteReportedPhoto(Long id){
+      photoService.deleteReportedPhoto(id);
+    }
+
+    public void validateReportedPhoto(Long id){
+      photoService.validateReportedPhoto(id);
+    }
 }

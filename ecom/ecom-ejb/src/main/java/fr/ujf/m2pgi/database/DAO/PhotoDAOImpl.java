@@ -153,18 +153,6 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	}
 
 	@Override
-	public void validate(Long id) {
-		/*Photo photo = find(id);
-
-		for(Member member: photo.getBuyers())
-		{
-			member.getCart().remove(photo);
-		}
-
-		super.delete(id);*/
-	}
-
-	@Override
 	public List<Photo> getAllAvailablePhotos() {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p where p.available = true");
 		return (List<Photo>)query.getResultList();

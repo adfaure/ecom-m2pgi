@@ -1,12 +1,14 @@
 <div data-ng-controller="reportedPhotosController">
 
-<h3>{{ photos.length }} reported photo(s)</h3>
+<h3>{{ photos.length }} photo(s) signalée(s)</h3>
 
 <table class="table">
   <tbody>
     <tr ng-repeat="photo in photos">
       <td>
-        <img width="128" ng-src="{{ photo.webLocation }}" alt="{{ photo.name }}">
+        <a href="" data-ng-click="goto(photo.photoID)">
+          <img width="128" data-ng-src="{{ photo.webLocation }}" alt="{{ photo.name }}">
+        </a>
       </td>
       <td><strong>{{ photo.name | limitTo : 20 }}</strong></td>
       <td>
@@ -14,11 +16,11 @@
       </td>
       <td>{{ photo.price | currency:"&euro;" }}</td>
       <td>
-        <button class="btn  btn-success" ng-click="validate($index)">
-          <span class="glyphicon glyphicon-ok-sign"></span> Validate
+        <button class="btn  btn-success" data-ng-click="validate($index)">
+          <span class="glyphicon glyphicon-ok-sign"></span> Valider
         </button>
-        <button class="btn btn-danger" ng-click="delete($index)">
-          <span class="glyphicon glyphicon-remove"></span> Delete
+        <button class="btn btn-danger" data-ng-click="delete($index)">
+          <span class="glyphicon glyphicon-remove"></span> Supprimer
         </button>
       </td>
     </tr>

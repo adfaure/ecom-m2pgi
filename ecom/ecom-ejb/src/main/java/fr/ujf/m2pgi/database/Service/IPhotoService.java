@@ -66,4 +66,8 @@ public interface IPhotoService {
     void removePhotoFromWishList(Long photoID, Long memberID);
 
     SignalDTO signalPhoto(SignalDTO signalDTO);
+
+    void validateReportedPhoto(Long id);
+
+    void deleteReportedPhoto(Long id);
 }
