@@ -170,9 +170,6 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("UPDATE Photo p SET p.views = p.views + 1 WHERE p.photoID = :id");
 		query.setParameter("id", id);
 		int updateCount = query.executeUpdate();
-		if (updateCount > 0) {
-			System.out.println("Done...");
-		}
 	}
 
 	@Override
@@ -180,9 +177,6 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("UPDATE Photo p SET p.likes = p.likes + 1 WHERE p.photoID = :id");
 		query.setParameter("id", id);
 		int updateCount = query.executeUpdate();
-		if (updateCount > 0) {
-			System.out.println("Done...");
-		}
 	}
 
 	@Override
@@ -190,9 +184,6 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("UPDATE Photo p SET p.likes = p.likes - 1 WHERE p.photoID = :id");
 		query.setParameter("id", id);
 		int updateCount = query.executeUpdate();
-		if (updateCount > 0) {
-			System.out.println("Done...");
-		}
 	}
 
 }

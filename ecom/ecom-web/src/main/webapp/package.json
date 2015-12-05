@@ -19,6 +19,7 @@
     "angular-chart.js": "^0.8.6",
     "angular-route": "^1.4.7",
     "bootstrap": "^3.3.5",
+    "chart.js": "^1.0.2",
     "grunt-cli": "0.1.13",
     "jquery": "^2.1.4"
   },
