@@ -8,6 +8,7 @@ function orderService($http) {
     service.GetOrderCount = GetOrderCount;
     service.GetTotalPurchaseCost = GetTotalPurchaseCost;
     service.GetOrdersWithSellerLogin = GetOrdersWithSellerLogin;
+    service.GetAllOrders = GetAllOrders;
 
     return service;
 
@@ -23,6 +24,9 @@ function orderService($http) {
         return $http.get('api/orders/customer/login/' + login).then(handleSuccess, handleError('Error getting the total purchase cost'));
     }
 
+    function GetAllOrders(){
+    	return $http.get('api/orders/').then(handleSuccess, handleError('Error getting number of purchases'));
+    }
 
     // private functions
 

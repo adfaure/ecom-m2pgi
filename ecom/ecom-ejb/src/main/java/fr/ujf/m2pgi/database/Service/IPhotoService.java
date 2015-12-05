@@ -33,6 +33,8 @@ public interface IPhotoService {
 
     List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
 
+    List<PhotoDTO> getTop10Photos();
+
     List<PhotoDTO> getPhotosSortByPrice(boolean ascending);
 
     List<PhotoDTO> getPhotosSortByViews(boolean ascending);

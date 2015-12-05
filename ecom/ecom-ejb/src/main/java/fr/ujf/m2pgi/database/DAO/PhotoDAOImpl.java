@@ -48,7 +48,9 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 
 	@Override
 	public Long getPhotoCount() {
-		return null;
+		String q = "SELECT count(p) FROM Photo p where p.available = 'TRUE'";
+		Query query = entityManager.createQuery(q);
+		return (Long) query.getSingleResult();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -102,6 +104,11 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		query.setParameter("id", memberID);
 		query.setParameter("photoid", photoID);
 		return (PhotoContextBigDTO) query.getSingleResult();
+	}
+
+	public List<Photo> getTop10Photos() {
+		Query query = entityManager.createQuery("SELECT p FROM Photo p WHERE  p.available = true ORDER BY p.sales DESC").setMaxResults(10);
+	    return (List<Photo>) query.getResultList();
 	}
 
 	@Override
