@@ -10,10 +10,6 @@ var thumbnailElementDirective = function ($compile, $location, apiToken, publicP
         controller : function ($scope ) {
             $scope.photo;
             var user = $scope.user = apiToken.getUser();
-            if(photo.wishes) {
-                
-            }
-
             $scope.details = function (photoId) {
                 $location.path('/photos/details/' + photoId);
             };
