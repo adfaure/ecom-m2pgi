@@ -7,6 +7,7 @@ var templates = {
     'managePhotos' : './js/templates/accountDetails/managePhotos.html',
     'stats'     : './js/templates/administrationDetails/adminStats.html',
     'members'   : './js/templates/administrationDetails/adminMemMgmt.html',
+    'reportedPhotos'   : './js/templates/administrationDetails/reportedPhotos.html',
     'adminNav'  : './js/templates/administrationDetails/AdminNavBar.html',
     'myCart'    : './js/Cart/detailsCart/CartDetails.html',
     'history'   : './js/Orders/OrdersHistory/ordersHistory.html',

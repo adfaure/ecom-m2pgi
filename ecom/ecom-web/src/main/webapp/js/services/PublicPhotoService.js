@@ -14,6 +14,7 @@ function publicPhoto($http) {
     service.GetAllSortByPriceDesc = GetAllSortByPriceDesc;
     service.GetAllSortByViews = GetAllSortByViews;
     service.GetAllSortByLikes = GetAllSortByLikes;
+    service.GetReportedPhotos = GetReportedPhotos;
     service.GetPhotoCount = GetPhotoCount;
     service.Search = Search;
     service.GetUserPhotos = GetUserPhotos;
@@ -26,6 +27,8 @@ function publicPhoto($http) {
     service.Flag = Flag;
     service.RemovePhotoFromWishList = RemovePhotoFromWishList;
     service.DeletePhotoById = DeletePhotoById;
+    service.DeleteReportedPhoto = DeleteReportedPhoto;
+    service.ValidateReportedPhoto = ValidateReportedPhoto;
     service.Update = Update;
     service.GetUserPhotosWithId = GetUserPhotosWithId;
 
@@ -71,6 +74,10 @@ function publicPhoto($http) {
     function GetAllSortByLikes() {
       return $http.get('api/photos/orderby?criteria=likes')
         .then(handleSuccess, handleError('Error getting photos ordered by likes'));
+    }
+
+    function GetReportedPhotos() {
+      return $http.get('api/photos/reported/').then(handleSuccess, handleError('Error getting reported photos'));
     }
 
     function GetPhotoCount() {
@@ -119,6 +126,14 @@ function publicPhoto($http) {
 
     function DeletePhotoById(id) {
       return $http.delete('api/photos/delete/' + id).then(handleSuccess, handleError('Error when deleting photo by id'));
+    }
+
+    function DeleteReportedPhoto(id) {
+      return $http.delete('api/photos/reported/' + id).then(handleSuccess, handleError('Error when deleting reported photo by id'));
+    }
+
+    function ValidateReportedPhoto(id) {
+      return $http.post('api/photos/reported/validate/' + id).then(handleSuccess, handleError('Error when validating reported photo'));
     }
 
     function Update(photo) {

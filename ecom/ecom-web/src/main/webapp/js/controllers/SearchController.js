@@ -11,10 +11,6 @@ var searchController = function($scope, $routeParams, apiToken, $location, publi
         user = apiToken.getUser();
     }
 
-
-    console.log($routeParams);
-
-
     publicPhoto.GetAll().then(function(res) {
             $scope.photos = cachedPhotos = res;
         }
@@ -62,7 +58,6 @@ var searchController = function($scope, $routeParams, apiToken, $location, publi
 
 
     $scope.wish = function (photoID){
-        console.log("wishing");
         if(apiToken.isAuthentificated()) 
             publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function(res) {
                 if($scope.photos) {
@@ -73,13 +68,10 @@ var searchController = function($scope, $routeParams, apiToken, $location, publi
                 if(photo)
                     photo.wishlisted=true;
             });
-        else
-            console.log("TODO : redirect to authentification");
     }
 
     /* En attente du commit sur les photos*/
     $scope.unwish = function (photoID){
-        console.log("unwishing");
         if(apiToken.isAuthentificated()) 
             publicPhoto.RemovePhotoFromWishList(photoID, user.memberID).then(function(res) {
                 if($scope.photos) {
@@ -90,13 +82,10 @@ var searchController = function($scope, $routeParams, apiToken, $location, publi
                 if(photo)
                     photo.wishlisted=false;
             });
-        else
-            console.log("TODO : redirect to authentification");
     }
     
 
     $scope.like = function (photoID){
-        console.log("liking");
         if(apiToken.isAuthentificated()) 
             publicPhoto.AddPhotoToLikeList(photoID, user.memberID).then(function(res) {
                 if($scope.photos) {
@@ -107,13 +96,10 @@ var searchController = function($scope, $routeParams, apiToken, $location, publi
                 if(photo)
                     photo.liked=true;
             });
-        else
-            console.log("TODO : redirect to authentification");
     }
 
     
     $scope.unlike = function (photoID){
-        console.log("unliking");
         if(apiToken.isAuthentificated()) 
             publicPhoto.RemovePhotoFromLikeList(photoID, user.memberID).then(function(res) {
                 if($scope.photos) {
@@ -124,8 +110,6 @@ var searchController = function($scope, $routeParams, apiToken, $location, publi
                 if(photo)
                     photo.liked=false;
             });
-        else
-            console.log("TODO : redirect to authentification");
     }
 
 };

@@ -45,7 +45,7 @@ public class FacadePhoto {
     public PhotoDTO getPhotoById(long id) {
         return photoService.getPhotoById(id);
     }
-    
+
 	public PhotoContextBigDTO getPhotoById(Long photoID, Long memberID) {
 		return photoService.getPhotoById(photoID, memberID);
 	}
@@ -53,7 +53,11 @@ public class FacadePhoto {
     public List<PhotoDTO> getAllPhotos() {
         return photoService.getAllPhotos();
     }
-    
+
+  public List<PhotoDTO> getReportedPhotos() {
+    return photoService.getReportedPhotos();
+  }
+
     public List<PhotoDTO> getTop10Photos() {
         return photoService.getTop10Photos();
     }
@@ -129,8 +133,16 @@ public class FacadePhoto {
     public void removePhotoFromWishList(Long photoID, Long memberID) {
       photoService.removePhotoFromWishList(photoID, memberID);
     }
-    
+
     public SignalDTO signalPhoto (SignalDTO signalDTO){
     	return photoService.signalPhoto(signalDTO);
+    }
+
+    public void deleteReportedPhoto(Long id){
+      photoService.deleteReportedPhoto(id);
+    }
+
+    public void validateReportedPhoto(Long id){
+      photoService.validateReportedPhoto(id);
     }
 }

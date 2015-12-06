@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody> 
-    <tr ng-repeat="user in users track by $index">
+    <tr data-ng-repeat="user in users track by $index">
       <td>{{ user.memberID }}</td>
       <td>{{ user.accountType }}</td>
       <td>{{ user.sellerInfo.rib }}</td>
@@ -27,12 +27,12 @@
       <td>{{ user.email }}</td>
       <td>{{ user.login }}</td>
       <td>
-        <button class="btn btn-default" ng-click="editUser($index)">
+        <button class="btn btn-default" data-ng-click="editUser($index)">
           <span class="glyphicon glyphicon-pencil"></span> Edit
         </button>
       </td>
       <td>
-        <button class="btn btn-danger btn-default" ng-click="deleteUser($index)">
+        <button class="btn btn-danger btn-default" data-ng-click="deleteUser($index)">
           <span class="glyphicon glyphicon-remove"></span>Delete
         </button>
       </td>
@@ -41,71 +41,71 @@
 </table>
 
 <hr>
-<button class="btn btn-success btn-default" ng-click="editUser('new')">
+<button class="btn btn-success btn-default" data-ng-click="editUser('new')">
 <span class="glyphicon glyphicon-user"></span> Create New User
 </button>
 <hr>
 
-<h3 ng-show="!edit">Create New User:</h3>
-<h3 ng-hide="!edit">Edit User:</h3>
+<h3 data-ng-show="!edit">Create New User:</h3>
+<h3 data-ng-hide="!edit">Edit User:</h3>
 
 <form class="form-horizontal">
-  <div class="form-group" ng-show="edit">
+  <div class="form-group" data-ng-show="edit">
     <label class="col-sm-2 control-label">Member ID:</label>
     <div class="col-sm-10">
-    <input type="text" ng-model="inEditMember.memberID" ng-disabled="edit" placeholder="Member ID">
+    <input type="text" data-ng-model="inEditMember.memberID" data-ng-disabled="edit" placeholder="Member ID">
     </div>
   </div>
   <div class="form-group">
   <label class="col-sm-2 control-label">Account Type:</label>
   	<div class="col-sm-10">
-	  <select name="singleSelect" id="singleSelect" ng-model="data.singleSelect" ng-change="reset()">
+	  <select name="singleSelect" id="singleSelect" data-ng-model="data.singleSelect" data-ng-change="reset()">
 	      <option value="M">Member</option> <!-- not selected / blank option -->
 	      <option value="S">Seller</option> <!-- interpolation -->
 	  </select>
     </div>
   </div>
-  <div class="form-group" ng-show="sellerSelected">
+  <div class="form-group" data-ng-show="sellerSelected">
     <label class="col-sm-2 control-label">RIB:</label>
     <div class="col-sm-10">
-    <input type="text" ng-model="inEditMember.sellerInfo.rib" placeholder="RIB">
+    <input type="text" data-ng-model="inEditMember.sellerInfo.rib" placeholder="RIB">
     </div>
   </div> 
   <div class="form-group">
     <label class="col-sm-2 control-label">First Name:</label>
     <div class="col-sm-10">
-    <input type="text" ng-model="inEditMember.firstName" placeholder="First Name">
+    <input type="text" data-ng-model="inEditMember.firstName" placeholder="First Name">
     </div>
   </div> 
   <div class="form-group">
     <label class="col-sm-2 control-label">Last Name:</label>
     <div class="col-sm-10">
-    <input type="text" ng-model="inEditMember.lastName" placeholder="Last Name">
+    <input type="text" data-ng-model="inEditMember.lastName" placeholder="Last Name">
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">E-mail address:</label>
     <div class="col-sm-10">
-    <input type="text" ng-model="inEditMember.email" placeholder="E-mail address">
+    <input type="text" data-ng-model="inEditMember.email" placeholder="E-mail address">
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Login:</label>
     <div class="col-sm-10">
-    <input type="text" ng-model="inEditMember.login" placeholder="Login">
+    <input type="text" data-ng-model="inEditMember.login" placeholder="Login">
     </div>
   </div>
-  <div class="form-group"  ng-hide="edit">
+  <div class="form-group"  data-ng-hide="edit">
     <label class="col-sm-2 control-label">Password:</label>
     <div class="col-sm-10">
-    <input type="password" ng-model="inEditMember.password" placeholder="Password">
+    <input type="password" data-ng-model="inEditMember.password" placeholder="Password">
     </div>
   </div>
 </form>
 
 <hr>
 
-<button class="btn btn-default" ng-click="save()" ng-disabled="incomplete">
+<button class="btn btn-default" data-ng-click="save()" data-ng-disabled="incomplete">
           <span class="glyphicon glyphicon-pencil"></span>Save
 </button>
 

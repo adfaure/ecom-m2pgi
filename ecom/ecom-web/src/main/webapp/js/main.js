@@ -24,6 +24,7 @@ var managePhotosController     = require('./controllers/accountDetails/managePho
 var accueilController          = require('./controllers/AccueilController');
 var detailsPhotoController     = require('./controllers/DetailsPhotoController');
 var administratorController    = require('./controllers/adminDetails/AdministratorController');
+var reportedPhotosController    = require('./controllers/adminDetails/ReportedPhotosController');
 var memMgmtController          = require('./controllers/adminDetails/memMgmt');
 var searchController		   = require('./controllers/SearchController');
 var navsidebarController	   = require('./controllers/NavsidebarController');
@@ -131,6 +132,7 @@ ecomApp.controller('managePhotos', managePhotosController);
 ecomApp.controller('accueilController', accueilController);
 ecomApp.controller('detailsPhotoController', detailsPhotoController);
 ecomApp.controller('administratorController', administratorController);
+ecomApp.controller('reportedPhotosController', reportedPhotosController);
 ecomApp.controller('memMgmtController', memMgmtController);
 ecomApp.controller('searchController', searchController);
 ecomApp.controller('navsidebarController', navsidebarController);

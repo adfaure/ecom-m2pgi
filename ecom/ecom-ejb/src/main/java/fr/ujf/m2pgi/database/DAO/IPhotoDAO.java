@@ -22,11 +22,13 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @return
      */
 	List<Photo> getAllPhotos();
-	
+
+	List<Photo> getReportedPhotos();
+
 	List<Photo> getTop10Photos();
 
 	List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
-	
+
 	PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID);
 
 	List<Photo> getPhotosSortByPrice(boolean ascending);

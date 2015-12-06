@@ -20,7 +20,7 @@ public interface IPhotoService {
     PhotoDTO deletePhoto(Long id);
 
     PhotoDTO getPhotoById(Long id);
-    
+
     PhotoContextBigDTO getPhotoById(Long photoID, Long memberID);
 
     PhotoDTO createPhoto(PhotoDTO photo);
@@ -28,11 +28,13 @@ public interface IPhotoService {
     PhotoDTO updatePhoto(UpdatePhotoDTO photo);
 
     List<PhotoDTO> getAllPhotos();
-    
+
+    List<PhotoDTO> getReportedPhotos();
+
     List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
 
     List<PhotoDTO> getTop10Photos();
-    
+
     List<PhotoDTO> getPhotosSortByPrice(boolean ascending);
 
     List<PhotoDTO> getPhotosSortByViews(boolean ascending);
@@ -46,7 +48,7 @@ public interface IPhotoService {
     List<PhotoDTO> getUserPhotos(String login);
 
     List<PhotoDTO> getUserWishedPhotos(String login);
-    
+
     List<WishListPhotoDTO> getUserWishedPhotos(Long id);
 
     void saveFile(InputStream uploadedInputStream, String serverLocation);
@@ -64,6 +66,10 @@ public interface IPhotoService {
     void addPhotoToWishList(Long photoID, Long memberID);
 
     void removePhotoFromWishList(Long photoID, Long memberID);
-    
+
     SignalDTO signalPhoto(SignalDTO signalDTO);
+
+    void validateReportedPhoto(Long id);
+
+    void deleteReportedPhoto(Long id);
 }

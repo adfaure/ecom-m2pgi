@@ -40,8 +40,6 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
           if(apiToken.isAuthentificated()) 
               publicPhoto.AddPhotoToLikeList(photoID, user.memberID).then(function(res) {
               });
-          else
-              console.log("TODO : redirect to authentification");
       }
       
       $scope.goToSellerPage = function(){
