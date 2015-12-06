@@ -11,13 +11,10 @@ var followController = function($scope, $location, apiToken, sellerService, memb
 	
 	memberService.GetAllFollowedSellersBy(userIDFollower).then(function(res){
 		$scope.users = res;
-		console.log("The result is: "+res);
 	});
 	
 	$scope.goToSellerPage = function(sellerID){
-	  console.log("the seller id is: "+sellerID);
   	  $location.path("/seller/page/"+sellerID);
-  	     	  
     }
 	
 };

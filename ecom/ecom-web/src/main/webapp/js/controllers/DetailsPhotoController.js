@@ -43,9 +43,7 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
       }
       
       $scope.goToSellerPage = function(){
-    	  
-    	  $location.path("/seller/page/"+$scope.photo.sellerID);
-    	  console.log("vino a user page");    	  
+    	  $location.path("/seller/page/"+$scope.photo.sellerID);  	  
       }
       
     }// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
