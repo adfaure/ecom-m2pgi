@@ -55,6 +55,15 @@ public class RESTMemberServlet {
 		return Response.ok(member).build();
 	}
 
+	
+	@GET
+	@Path("id/{id}/follows")
+	@Produces("application/json")
+	public Response getFollowedSellersBy(@PathParam("id") long id) {
+		List<MemberDTO> members =memberService.getFollowedSellersBy(id); 
+		return Response.ok(members).build();
+	}
+	
 	@POST
 	@Path("/")
 	@Produces("application/json")
@@ -138,20 +147,17 @@ public class RESTMemberServlet {
 		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
 
-		@GET
+	@POST
 	@Path("id/{memberId}/follow/{followedId}")
 	@Produces("application/json")
 	@Consumes("application/json")
 	public Response follow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId) {
 
-		
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
 		if(principal == null || 
 				!(memberId.equals(principal.getUser().getMemberID()))) return Response.status(Status.FORBIDDEN).build();
 		
-		
 		if(!memberId.equals(followedId)){
-
 			boolean response = memberService.follow(memberId, followedId);
 			return  Response.ok(response).build();
 		}
@@ -160,7 +166,7 @@ public class RESTMemberServlet {
 		
 	}
 	
-	@GET
+	@POST
 	@Path("id/{memberId}/unfollow/{followedId}")
 	@Produces("application/json")
 	@Consumes("application/json")

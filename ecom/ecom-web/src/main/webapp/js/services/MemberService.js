@@ -9,6 +9,10 @@ function memberService($http) {
     service.GetByUsername = GetByUsername;
     service.GetCount = GetCount;
     service.GetAll = GetAll;
+    service.IsFollowedBy = IsFollowedBy;
+    service.GetAllFollowedSellersBy = GetAllFollowedSellersBy;
+    service.follow = follow;
+    service.unfollow = unfollow;
     service.Create = Create;
     service.Update = Update;
     service.Delete = Delete;
@@ -26,9 +30,25 @@ function memberService($http) {
     function GetAll() {
         return $http.get('api/members/').then(handleSuccess, handleError('Error getting all users'));
     }
+    
+    function GetAllFollowedSellersBy(follower){
+    	return $http.get('api/members/id/'+follower+'/follows').then(handleSuccess, handleError('Error getting all followed sellers'));
+    }
 
     function GetCount(){
     	return $http.get('api/members/count').then(handleSuccess, handleError('Error getting the total number of members'));
+    }
+    
+    function IsFollowedBy(followed, follower){
+    	return $http.get('api/members/id/'+followed+'/isfollowedby/'+follower).then(handleSuccess, handleError('Error getting the boolean value: followedby'));
+    }
+    
+    function follow(follower, followed){
+    	return $http.post('api/members/id/'+follower+'/follow/'+followed).then(handleSuccess, handleError('Error when trying to make the user follow a seller'));
+    }
+    
+    function unfollow(follower, followed){
+    	return $http.post('api/members/id/'+follower+'/unfollow/'+followed).then(handleSuccess, handleError('Error when trying to make the user unfollow a seller'));
     }
     
     function Create(user) {

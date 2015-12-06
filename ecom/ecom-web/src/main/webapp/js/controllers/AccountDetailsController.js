@@ -11,10 +11,12 @@ var templates = {
     'myCart'    : './js/Cart/detailsCart/CartDetails.html',
     'history'   : './js/Orders/OrdersHistory/ordersHistory.html',
     'wishList'  : './js/Photos/WishList/wishlist.html',
+    'following' : './js/Follow/following.html',
     'sellerNav' : './js/templates/accountDetails/SellerNavBar.html',
     'memberNav' : './js/templates/accountDetails/MemberNavBar.html',
     'myPage'    : './js/SellerPage/ManagePage/managePageTemplate.html',
     'sellerAnalytics' : 'js/Sellers/SellerAnalytics/SellerAnalyticsTemplate.html'
+    
 };
 
 var accountDetails = function($scope, $routeParams, $location, apiToken) {
@@ -27,6 +29,7 @@ var accountDetails = function($scope, $routeParams, $location, apiToken) {
         $scope.subview = $routeParams.section;
     }
 
+    
     if(!apiToken.isAuthentificated()) {
         $location.path("/");
     } else {

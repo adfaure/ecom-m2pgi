@@ -187,6 +187,18 @@ public class MemberService implements IMemberService {
     	return result;
 
     }
+    
+    @Override
+    public List<MemberDTO> getFollowedSellersBy(long followerID){
+    	List<MemberDTO> result = new ArrayList<MemberDTO>();
+
+    	for(Member mem: memberDao.getSellersFollowedBy(followerID)) {
+    		result.add(memberMapper.getDTO(mem));
+    	}
+
+    	return result;
+
+    }
 
 
 	@Override

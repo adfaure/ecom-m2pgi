@@ -44,6 +44,12 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
               console.log("TODO : redirect to authentification");
       }
       
+      $scope.goToSellerPage = function(){
+    	  
+    	  $location.path("/seller/page/"+$scope.photo.sellerID);
+    	  console.log("vino a user page");    	  
+      }
+      
     }// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
 
 };

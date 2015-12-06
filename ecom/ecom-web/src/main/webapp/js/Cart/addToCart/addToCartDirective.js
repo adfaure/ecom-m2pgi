@@ -2,6 +2,7 @@ var angular = require('angular');
 
 var addToCart = function ($compile, apiToken, cartService) {
     return {
+    	//E -> just 
         restrict: 'E',
         scope : {
             photo : "=photo"
