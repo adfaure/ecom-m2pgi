@@ -1,7 +1,7 @@
 var angular = require('angular');
 
 var templates = {
-    'details'   : './js/templates/accountDetails/details.html',
+    'details'   : './js/Member/details.html',
     'upgrade'   : './js/templates/accountDetails/upgrade.html',
     'addPhoto'  : './js/templates/accountDetails/addPhoto.html',
     'managePhotos' : './js/templates/accountDetails/managePhotos.html',
