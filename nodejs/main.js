@@ -62,3 +62,4 @@ app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
 
 app.use('/static', express.static('static'));
 app.listen(3000);
+console.log("server running");

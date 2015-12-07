@@ -365,9 +365,10 @@
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
                     <location name="/ecom-web/static" handler="static-content"/>
+                    <location name="/ecom-web/static/thumb" handler="thumb-static-content"/>
+                    <location name="/ecom-web/upload" handler="myproxy"/>
                     <filter-ref name="server-header"/>
                     <filter-ref name="x-powered-by-header"/>
-                    <location name="/upload/*" handler="myproxy"/>
                 </host>
             </server>
             <servlet-container name="default">
@@ -375,11 +376,12 @@
                 <websockets/>
             </servlet-container>
             <handlers>
-                <reverse-proxy name="myproxy">
-                    <host name="http://localhost:3000/upload"/>
-                </reverse-proxy>
                 <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
                 <file name="static-content" path="${jboss.server.data.dir}" directory-listing="true"/>
+                <file name="thumb-static-content" path="${jboss.server.data.dir}/thumb" directory-listing="true"/>
+                <reverse-proxy name="myproxy">
+                    <host name="localhost" instance-id="myRoute" path="/upload/" outbound-socket-binding="node"/>
+                </reverse-proxy>
             </handlers>
             <filters>
                 <response-header name="server-header" header-name="Server" header-value="WildFly/9"/>
@@ -421,6 +423,9 @@
         <socket-binding name="txn-status-manager" port="4713"/>
         <outbound-socket-binding name="mail-smtp">
             <remote-destination host="localhost" port="25"/>
+        </outbound-socket-binding>
+        <outbound-socket-binding name="node">
+            <remote-destination host="localhost" port="3000"/>
         </outbound-socket-binding>
     </socket-binding-group>
 </server>
