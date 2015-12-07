@@ -35,4 +35,13 @@ public interface IMemberService {
     MemberDTO updateMember(MemberDTO memberdto);
 
     MemberDTO updateSeller(MemberDTO memberdto);
+    
+    List<MemberDTO> getFollowedSellersBy(long followerID);
+    
+    boolean follow(Long followerID, Long followedID);
+    
+    boolean unfollow(Long followerID, Long followedID);
+    
+    boolean isFollowedBy(Long followerID, Long memberID);
+    
 }

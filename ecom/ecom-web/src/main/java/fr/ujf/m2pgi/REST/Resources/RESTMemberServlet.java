@@ -55,6 +55,15 @@ public class RESTMemberServlet {
 		return Response.ok(member).build();
 	}
 
+	
+	@GET
+	@Path("id/{id}/follows")
+	@Produces("application/json")
+	public Response getFollowedSellersBy(@PathParam("id") long id) {
+		List<MemberDTO> members =memberService.getFollowedSellersBy(id); 
+		return Response.ok(members).build();
+	}
+	
 	@POST
 	@Path("/")
 	@Produces("application/json")
@@ -137,4 +146,46 @@ public class RESTMemberServlet {
 		MemberDTO res = memberService.deleteCart(dto);
 		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
+
+	@POST
+	@Path("id/{memberId}/follow/{followedId}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response follow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId) {
+
+		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
+		if(principal == null || 
+				!(memberId.equals(principal.getUser().getMemberID()))) return Response.status(Status.FORBIDDEN).build();
+		
+		if(!memberId.equals(followedId)){
+			boolean response = memberService.follow(memberId, followedId);
+			return  Response.ok(response).build();
+		}
+		return Response.status(Status.FORBIDDEN).build();
+		
+		
+	}
+	
+	@POST
+	@Path("id/{memberId}/unfollow/{followedId}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response unfollow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId) {
+		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
+		if(principal.equals(null) || (!principal.equals(null) && principal.getUser().getMemberID() != memberId)) return Response.status(Status.FORBIDDEN).build();
+			boolean response = memberService.unfollow(memberId, followedId);
+		return  Response.ok(response).build();
+	}
+	
+	@GET
+	@Path("id/{memberId}/isfollowedby/{followerId}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response isFollowedBy(@PathParam("memberId") Long memberId, @PathParam("followerId") Long followerId) {
+		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
+		if(principal.equals(null) || (!principal.equals(null) && principal.getUser().getMemberID() != memberId && principal.getUser().getMemberID() != followerId)) return Response.status(Status.FORBIDDEN).build();
+			boolean response = memberService.isFollowedBy(followerId, memberId);
+				return  Response.ok(response).build();
+	}
+	
 }

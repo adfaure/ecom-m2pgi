@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col-lg-10">
         <a href=""  class="thumbnail">
-            <p>{{photo.description}}</p>
+            <p>{{photo.description}} 
+            <p>Mis en vente par le vendeur: <a href ng-click="goToSellerPage()">{{photo.sellerID}}</a> </p>
+            </p>
             <img ng-src="{{photo.webLocation}}" alt="{{photo.name}}" >
         </a>
     </div>
