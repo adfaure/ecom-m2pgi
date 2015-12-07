@@ -40,6 +40,7 @@ var apiToken = require('./services/ApiToken');
 var authentificationService = require('./services/AuthentificationService');
 var uploadPhoto  = require('./services/uploadPhoto');
 var publicPhoto  = require('./services/PublicPhotoService');
+var properties  = require('./services/propertiesService');
 var alertService = require('./services/AlertService');
 
 /**
@@ -119,6 +120,7 @@ ecomApp.factory('apiToken', apiToken);
 ecomApp.factory('httpInterceptor', httpInterceptor);
 ecomApp.factory('uploadPhoto', uploadPhoto);
 ecomApp.factory('publicPhoto', publicPhoto);
+ecomApp.factory('properties', properties);
 ecomApp.factory('alertService', alertService);
 
 ecomApp.controller('inscriptionController', inscriptionController);

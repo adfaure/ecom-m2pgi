@@ -84,7 +84,7 @@ public class RESTPhotosServlet {
 		List<PhotoDTO> photos = facadePhoto.getTop10Photos();
 		return Response.ok(photos).build();
 	}
-	
+
 	@GET
 	@Path("/orderby")
 	@Produces("application/json")
@@ -92,7 +92,7 @@ public class RESTPhotosServlet {
 	public Response getAllPhotosSortBy(@DefaultValue("date") @QueryParam("criteria") String criteria,
 		@DefaultValue("ASC") @QueryParam("order") String order) {
 
-		boolean ascending = order.equals("DESC") ? false : true;
+		boolean ascending = !order.equals("DESC");
 		List<PhotoDTO> photos = new ArrayList<PhotoDTO>();
 		if (criteria.equals("date")) {
 			photos = facadePhoto.getPhotosSortByDate(ascending);
@@ -230,63 +230,13 @@ public class RESTPhotosServlet {
 	}
 
 	@POST
-	@Path("/upload/seller/{id:[1-9][0-9]*}")
-	@Consumes("multipart/form-data")//@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Path("/seller/{id:[1-9][0-9]*}")
+	@Consumes("application/json")
 	@Produces("application/json")
-	@Allow(groups="sellers")
-	public Response uploadFile(MultipartFormDataInput input, @PathParam("id") long id) {
-		HttpSession session = httpServletRequest.getSession();
-		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
-
-		if(user.getUser().getMemberID() != id) {
-			return Response.status(403).build();
-		}
-
-		String fileName    = "";
-		String description = "";
-		float  price = -1;
-		Map<String, List<InputPart>> formParts = input.getFormDataMap();
-
-		List<InputPart> inPart = formParts.get("file");
-		if(formParts.containsKey("description")) {
-			description = getTextFromPart(formParts.get("description"));
-		}
-
-		try {
-			InputStream istream = null;
-			if(!formParts.containsKey("description")) {
-				return Response.status(Status.BAD_REQUEST).build();
-			} else {
-				String priceString = getTextFromPart(formParts.get("price"));
-				price = Float.parseFloat(priceString);
-			}
-
-			for (InputPart inputPart : inPart) {
-
-				// Retrieve headers, read the Content-Disposition header to obtain the original name of the file
-				MultivaluedMap<String, String> headers = inputPart.getHeaders();
-				fileName = parseFileName(headers);
-				// Handle the body of that part with an InputStream
-				istream = inputPart.getBody(InputStream.class,null);
-			}
-
-
-			PhotoDTO photo = new PhotoDTO();
-			photo.setName(fileName);
-			photo.setPrice(price);
-			photo.setDescription(description);
-			photo.setSellerID(id);
-			PhotoDTO created = facadePhoto.savePhoto(istream, photo);
-			if (created == null) return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
-			return Response.status(Status.CREATED).entity(created).build();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).build();
-		} catch (NumberFormatException nb) {
-			nb.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).build();
-		}
+	public Response uploadFile(PhotoDTO input, @PathParam("id") long id) {
+		PhotoDTO created = facadePhoto.savePhoto(input);
+		if (created == null) return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
+		return Response.status(Status.CREATED).entity(created).build();
 	}
 
 	@GET
@@ -331,14 +281,6 @@ public class RESTPhotosServlet {
 	@AllowAll
 	public Response addPhotoToWishList(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
-
-		//HttpSession session = httpServletRequest.getSession();
-		//PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
-
-		//if(user.getUser().getMemberID() != memberID) {
-		//	return Response.status(403).build();
-		//}
-
 		facadePhoto.addPhotoToWishList(photoID, memberID);
 		return Response.status(200).build();
 	}
@@ -349,14 +291,6 @@ public class RESTPhotosServlet {
 	@AllowAll
 	public Response removePhotoFromWishList(@PathParam("photoID") Long photoID,
 	@PathParam("memberID") Long memberID) {
-
-		//HttpSession session = httpServletRequest.getSession();
-		//PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
-
-		//if(user.getUser().getMemberID() != memberID) {
-	  //	return Response.status(403).build();
-		//}
-
 		facadePhoto.removePhotoFromWishList(photoID, memberID);
 		return Response.status(200).build();
 	}

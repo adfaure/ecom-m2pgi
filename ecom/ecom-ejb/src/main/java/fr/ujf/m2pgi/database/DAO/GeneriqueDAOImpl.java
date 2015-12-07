@@ -57,7 +57,8 @@ public abstract class GeneriqueDAOImpl<entityType> implements IGeneriqueDAO<enti
 		entityManager.remove( entityManager.getReference(entityClass, id));
 	}
 
-	/**
+	/**fflush
+	 *
 	 *
 	 * @param id
 	 * @param flush
