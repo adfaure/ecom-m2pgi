@@ -57,6 +57,13 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		List<Member> members = query.getResultList();
 		return members;
 	}
+	
+	public List<Member> getSellersFollowedBy(long id){
+		Query query = entityManager.createQuery("SELECT m FROM Member m WHERE m IN (SELECT f.followed FROM Follow f WHERE f.follower.memberID=:memID)");
+		query.setParameter("memID", id);
+		List<Member> sellers = query.getResultList();
+		return sellers;
+	}
 
 	@Override
 	public Member getSellerById(long id) {

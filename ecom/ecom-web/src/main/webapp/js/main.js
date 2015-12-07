@@ -55,6 +55,7 @@ var pageModule       = require('./SellerPage/Module');
 var cartModule       = require('./Cart/Module');
 var orderModule      = require('./Orders/Module');
 var sellerAnalytics  = require('./Sellers/Module');
+var followModule     = require('./Follow/Module');
 
 /**
  *
