@@ -18,9 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class PhotoDTO implements Serializable {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@XmlElement
@@ -62,8 +59,15 @@ public class PhotoDTO implements Serializable {
 	@XmlElement
 	private int sales;
 
+    public String getPrivateLocation() {
+        return privateLocation;
+    }
 
-	public String getExt() {
+    public void setPrivateLocation(String privateLocation) {
+        this.privateLocation = privateLocation;
+    }
+
+    public String getExt() {
 		return ext;
 	}
 
@@ -101,14 +105,6 @@ public class PhotoDTO implements Serializable {
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
-	}
-
-	public String getPrivateLocation() {
-		return privateLocation;
-	}
-
-	public void setPrivateLocation(String publicLocation) {
-		this.privateLocation = publicLocation;
 	}
 
 	public String getDescription() {
