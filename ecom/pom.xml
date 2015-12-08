@@ -129,7 +129,7 @@
                     <version>${version.wildfly.maven.plugin}</version>
                     <inherited>true</inherited>
                     <configuration>
-                        <skip>true</skip>
+                        <skip>false</skip>
                     </configuration>
                 </plugin>
 
