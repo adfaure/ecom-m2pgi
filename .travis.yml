@@ -8,6 +8,6 @@ before_script:
  - cp ecom/scripts/wildfly/standalone-test.xml wildfly-9.0.1.Final/standalone/configuration/
  - cp ecom/scripts/wildfly/application.properties wildfly-9.0.1.Final/standalone/configuration/application.properties
  - mvn -version
- - wildfly-9.0.1.Final/bin/standalone.sh
+ - wildfly-9.0.1.Final/bin/standalone.sh &
 script :
  - mvn clean test -Parq-wildfly-remote
