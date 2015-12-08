@@ -112,7 +112,7 @@ public class RESTMemberServlet {
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
 		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
 		PhotoDTO p = new PhotoDTO();
-		p.setPhotoId(photoId);
+		p.setPhotoID(photoId);
 		MemberDTO m = new MemberDTO();
 		m.setMemberID(id);
 		MemberDTO res = memberService.addToCart(m, p);
@@ -127,7 +127,7 @@ public class RESTMemberServlet {
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
 		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
 		PhotoDTO p = new PhotoDTO();
-		p.setPhotoId(photoId);
+		p.setPhotoID(photoId);
 		MemberDTO m = new MemberDTO();
 		m.setMemberID(id);
 		MemberDTO res = memberService.removeToCart(m, p);

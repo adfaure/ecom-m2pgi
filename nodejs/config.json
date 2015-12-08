@@ -1,0 +1,9 @@
+{
+  "upload_route"     : "http://localhost:8080/ecom-web/api/photos/seller/",
+  "file_location"    : "/opt/wildfly-9.0.2.Final/standalone/data/",
+  "thumbnail_location"    : "/opt/wildfly-9.0.2.Final/standalone/data/thumb/",
+  "web_uri"     : "http://localhost:8080/ecom-web/static/",
+  "thumb_uri"   : "http://localhost:8080/ecom-web/static/thumb/",
+  "private_uri" : "http://localhost:8080/ecom-web/static/",
+  "watermark_img"    : "/home/dadou/Documents/Projets/ECOM-M2PGI/nodejs/watermark.png"
+}

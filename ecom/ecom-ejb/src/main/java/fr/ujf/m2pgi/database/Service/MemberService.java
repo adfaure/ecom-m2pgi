@@ -126,7 +126,7 @@ public class MemberService implements IMemberService {
         }
         boolean exist = false;
         for (Photo photo : cart) {
-            if (photo.getPhotoID() == photoDTO.getPhotoId()) {
+            if (photo.getPhotoID() == photoDTO.getPhotoID()) {
                 exist = true;
                 break;
             }
@@ -154,7 +154,7 @@ public class MemberService implements IMemberService {
 
         for (Iterator<Photo> iterator = cart.iterator(); iterator.hasNext(); ) {
             Photo currentPhoto = iterator.next();
-            if (currentPhoto.getPhotoID() == photoDTO.getPhotoId()) {
+            if (currentPhoto.getPhotoID() == photoDTO.getPhotoID()) {
                 iterator.remove();
                 break;
             }

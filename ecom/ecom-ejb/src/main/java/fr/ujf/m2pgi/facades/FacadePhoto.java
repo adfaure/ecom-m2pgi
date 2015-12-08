@@ -31,14 +31,7 @@ public class FacadePhoto {
     @Inject
     private IPhotoService photoService;
 
-    public PhotoDTO savePhoto(InputStream photo, PhotoDTO photoDTO) {
-        Properties prop    = applicationProperties.getApplicationProperties();
-        String storageDir  = prop.getProperty("data_dir");
-        String location    = storageDir + prop.getProperty("file.separator") + photoDTO.getName();
-        String weblocation = prop.getProperty("static_hostname") + prop.getProperty("file.separator") + photoDTO.getName();
-        fileService.saveFile(photo, location );
-        photoDTO.setFileLocation(storageDir);
-        photoDTO.setWebLocation(weblocation);
+    public PhotoDTO savePhoto(PhotoDTO photoDTO) {
         return photoService.createPhoto(photoDTO);
     }
 
