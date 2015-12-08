@@ -1,0 +1,7 @@
+language: java
+before_script:
+ - wget http://download.jboss.org/wildfly/9.0.1.Final/wildfly-9.0.1.Final.tar.gz -O /tmp/wildfly-9.0.1.Final.tar.gz
+ - tar -xvf /tmp/wildfly-9.0.1.Final.tar.gz
+ - export JBOSS_HOME=$PWD/wildfly-9.0.1.Final/
+ - cp ecom/scripts/wildfly/standalone.xml wildfly-9.0.1.Final/standalone/configuration/
+ - cp ecom/scripts/wildfly/application.properties wildfly-9.0.1.Final/standalone/configuration/application.properties
