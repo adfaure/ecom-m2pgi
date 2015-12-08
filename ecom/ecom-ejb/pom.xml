@@ -100,11 +100,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.wildfly</groupId>
-			<artifactId>wildfly-arquillian-container-managed</artifactId>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
@@ -174,7 +169,7 @@
 				tests that execute in the specified container -->
 			<id>default</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
 				<plugins>
@@ -182,7 +177,7 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<version>${version.surefire.plugin}</version>
 						<configuration>
-							<skip>false</skip>
+							<skip>true</skip>
 						</configuration>
 					</plugin>
 				</plugins>
