@@ -2,7 +2,7 @@ package fr.ujf.m2pgi.database.Mappers;
 
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Order;
 import fr.ujf.m2pgi.database.entities.Photo;
@@ -35,12 +35,11 @@ public class MapperWrapper {
             }
         });
 
-        this.modelMapper.addMappings(new PropertyMap<Photo, PhotoDTO>() {
+        this.modelMapper.addMappings(new PropertyMap<Photo, PublicPhotoDTO>() {
             @Override
             protected void configure() {
                 map().setSellerID(source.getAuthor().getMemberID());
-                // FIXME care here we loose the information of where the file is (the original).
-                  //      We only want to give to the client the name of the public file (the watermarked one) //
+                //skip().setPrivateLocation(null);
             }
         });
 

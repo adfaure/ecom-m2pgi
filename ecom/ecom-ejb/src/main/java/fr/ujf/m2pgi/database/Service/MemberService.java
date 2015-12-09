@@ -6,10 +6,9 @@ import javax.inject.Inject;
 import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.SellerInfoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
-import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
+import fr.ujf.m2pgi.database.Mappers.IPublicPhotoMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.SellerInfo;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.*;
 
 /**
  *
@@ -40,7 +38,7 @@ public class MemberService implements IMemberService {
      *
      */
     @Inject
-    private IPhotoMapper photoMapper;
+    private IPublicPhotoMapper publicPhotoMapper;
 
     /**
      *
@@ -113,10 +111,10 @@ public class MemberService implements IMemberService {
 
     /**
      * @param member
-     * @param photoDTO
+     * @param publicPhotoDTO
      */
     @Override
-    public MemberDTO addToCart(MemberDTO member, PhotoDTO photoDTO) {
+    public MemberDTO addToCart(MemberDTO member, PublicPhotoDTO publicPhotoDTO) {
         Member attachedEntity = memberDao.find(member.getMemberID());
         Collection<Photo> cart = attachedEntity.getCart();
 
@@ -126,13 +124,13 @@ public class MemberService implements IMemberService {
         }
         boolean exist = false;
         for (Photo photo : cart) {
-            if (photo.getPhotoID() == photoDTO.getPhotoID()) {
+            if (photo.getPhotoID() == publicPhotoDTO.getPhotoID()) {
                 exist = true;
                 break;
             }
         }
         if (!exist) {
-            cart.add(photoMapper.getentity(photoDTO));
+            cart.add(publicPhotoMapper.getentity(publicPhotoDTO));
             attachedEntity.setCart(cart);
             return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
         }
@@ -141,10 +139,10 @@ public class MemberService implements IMemberService {
 
     /**
      * @param member
-     * @param photoDTO
+     * @param publicPhotoDTO
      */
     @Override
-    public MemberDTO removeToCart(MemberDTO member, PhotoDTO photoDTO) {
+    public MemberDTO removeToCart(MemberDTO member, PublicPhotoDTO publicPhotoDTO) {
         Member attachedEntity = memberDao.find(member.getMemberID());
         Collection<Photo> cart = attachedEntity.getCart();
 
@@ -154,7 +152,7 @@ public class MemberService implements IMemberService {
 
         for (Iterator<Photo> iterator = cart.iterator(); iterator.hasNext(); ) {
             Photo currentPhoto = iterator.next();
-            if (currentPhoto.getPhotoID() == photoDTO.getPhotoID()) {
+            if (currentPhoto.getPhotoID() == publicPhotoDTO.getPhotoID()) {
                 iterator.remove();
                 break;
             }

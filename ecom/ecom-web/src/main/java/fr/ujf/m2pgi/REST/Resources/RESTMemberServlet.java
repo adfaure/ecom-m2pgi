@@ -3,13 +3,10 @@ package fr.ujf.m2pgi.REST.Resources;
 import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
-import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
-import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.DenyAll;
-import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Service.IMemberService;
-import fr.ujf.m2pgi.database.Service.MemberService;
+
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -111,7 +108,7 @@ public class RESTMemberServlet {
 	public Response addToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId ) {
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
 		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
-		PhotoDTO p = new PhotoDTO();
+		PublicPhotoDTO p = new PublicPhotoDTO();
 		p.setPhotoID(photoId);
 		MemberDTO m = new MemberDTO();
 		m.setMemberID(id);
@@ -126,7 +123,7 @@ public class RESTMemberServlet {
 	public Response deleteToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId) {
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
 		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
-		PhotoDTO p = new PhotoDTO();
+		PublicPhotoDTO p = new PublicPhotoDTO();
 		p.setPhotoID(photoId);
 		MemberDTO m = new MemberDTO();
 		m.setMemberID(id);

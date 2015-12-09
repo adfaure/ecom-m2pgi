@@ -32,6 +32,9 @@ app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
                 imageProcessing(serverRes, tempPath, req.file ,function () {
                     res.send(serverRes);
                 });
+            }, function(serverRes) {
+                res.send(400);
+                res.send(serverRes);
             });
         } else {
             res.status(415);

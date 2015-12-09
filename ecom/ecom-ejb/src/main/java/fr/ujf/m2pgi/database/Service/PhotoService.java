@@ -11,14 +11,9 @@ import javax.inject.Inject;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.ISignalDAO;
-import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.SignalDTO;
-import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
-import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
-import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
+import fr.ujf.m2pgi.database.DTO.*;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
+import fr.ujf.m2pgi.database.Mappers.IPublicPhotoMapper;
 import fr.ujf.m2pgi.database.Mappers.ISignalMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
@@ -43,6 +38,9 @@ public class PhotoService implements IPhotoService {
 
 	@Inject
 	private ISignalMapper signalMapper;
+
+	@Inject
+	private IPublicPhotoMapper publicPhotoMapper;
 
 	/**
 	 *
@@ -76,7 +74,7 @@ public class PhotoService implements IPhotoService {
 	 * @param id
 	 * @return
 	 */
-	public PhotoDTO deletePhoto(Long id) {
+	public PublicPhotoDTO deletePhoto(Long id) {
 		Photo photo = photoDao.find(id);
 	    if (photo != null) {
 			photo.setAvailable(false);
@@ -84,7 +82,7 @@ public class PhotoService implements IPhotoService {
 			if (!photoDaoES.delete(String.valueOf(id))) {
 				return null;// The photo couldn't be deleted from ES.
 			}
-	    return photoMapper.getDTO(photo);
+	    return publicPhotoMapper.getDTO(photo);
 	  }
 	  return null;// The photo doesn't exist in our DB.
 	}
@@ -94,10 +92,10 @@ public class PhotoService implements IPhotoService {
 	 * @param id
 	 * @return
 	 */
-	public PhotoDTO getPhotoById(Long id) {
+	public PublicPhotoDTO getPhotoById(Long id) {
 		Photo photoEntity = photoDao.find(id);
 		if(photoEntity != null) {
-			PhotoDTO dto = photoMapper.getDTO(photoEntity);
+			PublicPhotoDTO dto = publicPhotoMapper.getDTO(photoEntity);
 			return dto;
 		}
 		return null;
@@ -114,12 +112,12 @@ public class PhotoService implements IPhotoService {
 	 * @param photo
 	 * @return
 	 */
-	public PhotoDTO createPhoto(PhotoDTO photo) {
+	public PublicPhotoDTO createPhoto(FullPhotoDTO photo) {
 		  Member seller = memberDAO.find(photo.getSellerID());
 		  if (seller == null) return null;
 		  Photo photoEntity = photoMapper.getentity(photo);
 		  photoEntity.setAuthor(seller);
-		  PhotoDTO created = photoMapper.getDTO(photoDao.create(photoEntity));
+		  PublicPhotoDTO created = publicPhotoMapper.getDTO(photoDao.create(photoEntity));
 		  PhotoDocument doc = new PhotoDocument();
 		  doc.setId(created.getPhotoID());
 		  doc.setName(created.getName());
@@ -135,7 +133,7 @@ public class PhotoService implements IPhotoService {
 	}
 
 
-	public PhotoDTO updatePhoto(UpdatePhotoDTO photo) {
+	public PublicPhotoDTO updatePhoto(UpdatePhotoDTO photo) {
 
     Photo photoEntity = photoDao.find(photo.getPhotoId());
 
@@ -145,7 +143,7 @@ public class PhotoService implements IPhotoService {
 		photoEntity.setDescription(photo.getDescription());
 		photoEntity.setName(photo.getName());
 
-		PhotoDTO updated = photoMapper.getDTO(photoDao.update(photoEntity));
+		PublicPhotoDTO updated = publicPhotoMapper.getDTO(photoDao.update(photoEntity));
 
 		PhotoDocument doc = new PhotoDocument();
 		doc.setId(photo.getPhotoId());
@@ -166,26 +164,26 @@ public class PhotoService implements IPhotoService {
 	 *
 	 * @return
      */
-	public List<PhotoDTO> getAllPhotos() {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getAllPhotos() {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: photoDao.getAllPhotos()) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
 
-	public List<PhotoDTO> getReportedPhotos() {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getReportedPhotos() {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: photoDao.getReportedPhotos()) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
 
-	public List<PhotoDTO> getTop10Photos() {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getTop10Photos() {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: photoDao.getTop10Photos()) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
@@ -194,34 +192,34 @@ public class PhotoService implements IPhotoService {
 		return photoDao.getAllPhotosContext(memberID);
 	}
 
-	public List<PhotoDTO> getPhotosSortByPrice(boolean ascending) {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getPhotosSortByPrice(boolean ascending) {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: photoDao.getPhotosSortByPrice(ascending)) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
 
-	public List<PhotoDTO> getPhotosSortByViews(boolean ascending) {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getPhotosSortByViews(boolean ascending) {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: photoDao.getPhotosSortByViews(ascending)) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
 
-	public List<PhotoDTO> getPhotosSortByLikes(boolean ascending) {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getPhotosSortByLikes(boolean ascending) {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: photoDao.getPhotosSortByLikes(ascending)) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
 
-	public List<PhotoDTO> getPhotosSortByDate(boolean ascending) {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getPhotosSortByDate(boolean ascending) {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: photoDao.getPhotosSortByDate(ascending)) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
@@ -230,10 +228,10 @@ public class PhotoService implements IPhotoService {
 	 *
 	 * @return
 	 */
-	public List<PhotoDTO> getAllAvailablePhotos() {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getAllAvailablePhotos() {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo : photoDao.getAllAvailablePhotos()) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
@@ -243,10 +241,10 @@ public class PhotoService implements IPhotoService {
 	 * @param id
 	 * @return
    */
-	public List<PhotoDTO> getUserPhotos(Long id) {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getUserPhotos(Long id) {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: photoDao.getUserPhotos(id)) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
@@ -255,12 +253,12 @@ public class PhotoService implements IPhotoService {
 		return photoDao.getUserWishedPhotos(id);
 	}
 
-	public List<PhotoDTO> getUserWishedPhotos(String login) {
+	public List<PublicPhotoDTO> getUserWishedPhotos(String login) {
 		Member member = memberDAO.findMemberByLogin(login);
 		if (member == null) return null;
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: member.getWishedPhotos()) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}
@@ -270,10 +268,10 @@ public class PhotoService implements IPhotoService {
 	 * @param login
 	 * @return
      */
-	public List<PhotoDTO> getUserPhotos(String login) {
-		List<PhotoDTO> result = new ArrayList<PhotoDTO>();
+	public List<PublicPhotoDTO> getUserPhotos(String login) {
+		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
 		for(Photo photo: photoDao.getUserPhotos(login)) {
-			result.add(photoMapper.getDTO(photo));
+			result.add(publicPhotoMapper.getDTO(photo));
 		}
 		return result;
 	}

@@ -3,7 +3,6 @@ package fr.ujf.m2pgi.REST.Resources;
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -17,18 +16,11 @@ import javax.ws.rs.core.Response.Status;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
+import fr.ujf.m2pgi.database.DTO.*;
 import fr.ujf.m2pgi.database.Service.IMemberService;
 import fr.ujf.m2pgi.facades.FacadePhoto;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
-import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
-import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.SignalDTO;
-import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
-import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
-import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.elasticsearch.PhotoServiceES;
 import fr.ujf.m2pgi.elasticsearch.SearchResult;
 
@@ -63,7 +55,7 @@ public class RESTPhotosServlet {
 			return Response.ok(contextPhotos).build();
 		}
 
-		List<PhotoDTO> photos = facadePhoto.getAllAvailablePhotos();
+		List<PublicPhotoDTO> photos = facadePhoto.getAllAvailablePhotos();
 		return Response.ok(photos).build();
 	}
 
@@ -72,7 +64,7 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	@AllowAll
 	public Response getReportedPhotos() {
-		List<PhotoDTO> photos = facadePhoto.getReportedPhotos();
+		List<PublicPhotoDTO> photos = facadePhoto.getReportedPhotos();
 		return Response.ok(photos).build();
 	}
 
@@ -81,7 +73,7 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	@AllowAll
 	public Response getTop10Photos() {
-		List<PhotoDTO> photos = facadePhoto.getTop10Photos();
+		List<PublicPhotoDTO> photos = facadePhoto.getTop10Photos();
 		return Response.ok(photos).build();
 	}
 
@@ -93,7 +85,7 @@ public class RESTPhotosServlet {
 		@DefaultValue("ASC") @QueryParam("order") String order) {
 
 		boolean ascending = !order.equals("DESC");
-		List<PhotoDTO> photos = new ArrayList<PhotoDTO>();
+		List<PublicPhotoDTO> photos = new ArrayList<PublicPhotoDTO>();
 		if (criteria.equals("date")) {
 			photos = facadePhoto.getPhotosSortByDate(ascending);
 		} else if(criteria.equals("price")) {
@@ -137,7 +129,7 @@ public class RESTPhotosServlet {
 			PhotoContextBigDTO contextPhoto = facadePhoto.getPhotoById(id, user.getUser().getMemberID());
 			return Response.ok(contextPhoto).build();
 		}
-		PhotoDTO photo = facadePhoto.getPhotoById(id);
+		PublicPhotoDTO photo = facadePhoto.getPhotoById(id);
 		return Response.ok(photo).build();
 	}
 
@@ -145,7 +137,7 @@ public class RESTPhotosServlet {
 	@Path("/user/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
 	public Response getUserPhotos(@PathParam("id") Long id) {
-		List<PhotoDTO> photos = facadePhoto.getUserPhotos(id);
+		List<PublicPhotoDTO> photos = facadePhoto.getUserPhotos(id);
 		return Response.ok(photos).build();
 	}
 
@@ -153,7 +145,7 @@ public class RESTPhotosServlet {
 	@Path("/user/login/{login}")
 	@Produces("application/json")
 	public Response getUserPhotos(@PathParam("login") String login) {
-		List<PhotoDTO> photos = facadePhoto.getUserPhotos(login);
+		List<PublicPhotoDTO> photos = facadePhoto.getUserPhotos(login);
 		return Response.ok(photos).build();
 	}
 
@@ -169,7 +161,7 @@ public class RESTPhotosServlet {
 	@Path("/user/login/{login}/wishes")
 	@Produces("application/json")
 	public Response getUserWishedPhotos(@PathParam("login") String login) {
-		List<PhotoDTO> photos = facadePhoto.getUserWishedPhotos(login);
+		List<PublicPhotoDTO> photos = facadePhoto.getUserWishedPhotos(login);
 		return Response.ok(photos).build();
 	}
 
@@ -180,7 +172,7 @@ public class RESTPhotosServlet {
 	public Response deletePhotoByID(@PathParam("id") Long id) {
 		HttpSession session = httpServletRequest.getSession();
 		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
-		PhotoDTO photo = facadePhoto.getPhotoById(id);
+		PublicPhotoDTO photo = facadePhoto.getPhotoById(id);
 
 		if(photo == null) return Response.status(Status.BAD_REQUEST).build();
 
@@ -217,15 +209,15 @@ public class RESTPhotosServlet {
 
 		HttpSession session = httpServletRequest.getSession();
 		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
-		PhotoDTO photoDTO = facadePhoto.getPhotoById(photo.getPhotoId());
+		PublicPhotoDTO publicPhotoDTO = facadePhoto.getPhotoById(photo.getPhotoId());
 
-		if(photoDTO == null) return Response.status(Status.BAD_REQUEST).build();
+		if(publicPhotoDTO == null) return Response.status(Status.BAD_REQUEST).build();
 
-		if(user.getUser().getMemberID() != photoDTO.getSellerID()) {
+		if(user.getUser().getMemberID() != publicPhotoDTO.getSellerID()) {
 			return Response.status(403).build();
 		}
 
-		PhotoDTO updated =  facadePhoto.updatePhoto(photo);
+		PublicPhotoDTO updated =  facadePhoto.updatePhoto(photo);
 		return Response.ok(updated).build();
 	}
 
@@ -233,8 +225,8 @@ public class RESTPhotosServlet {
 	@Path("/seller/{id:[1-9][0-9]*}")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response uploadFile(PhotoDTO input, @PathParam("id") long id) {
-		PhotoDTO created = facadePhoto.savePhoto(input);
+	public Response uploadFile(FullPhotoDTO input, @PathParam("id") long id) {
+		PublicPhotoDTO created = facadePhoto.savePhoto(input);
 		if (created == null) return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
 		return Response.status(Status.CREATED).entity(created).build();
 	}
