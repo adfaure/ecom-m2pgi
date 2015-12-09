@@ -2,13 +2,13 @@ var concat = require('concat-stream')
 var path   = require('path')
 var uuid   = require('node-uuid');
 var randomstring = require('randomstring');
-
+var nconf = require('./../nconfLoader');
 
 
 function MemoryStorage (opts) {
 
     this.destination =  function (req, file, cb) {
-        cb(null, "/opt/wildfly-9.0.2.Final/standalone/data")
+        cb(null,nconf.get("file_location"))
     };
 
     this.filename = function (req, file, cb) {
@@ -43,4 +43,3 @@ MemoryStorage.prototype._removeFile = function _removeFile (req, file, cb) {
 module.exports = function (opts) {
     return new MemoryStorage(opts)
 };
-

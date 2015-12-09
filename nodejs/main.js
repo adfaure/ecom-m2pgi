@@ -29,8 +29,9 @@ app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
         if (req.params.fileAccepted) {
             res.status(200);
             post(photo).then(function (serverRes) {
-                imageProcessing(serverRes, tempPath, req.file ,function () {
-                    res.send(serverRes);
+                imageProcessing(serverRes, tempPath, req.file ,function (err) {
+                  if(err) console.log(err)
+                  res.send(serverRes);
                 });
             }, function(serverRes) {
                 res.send(400);
