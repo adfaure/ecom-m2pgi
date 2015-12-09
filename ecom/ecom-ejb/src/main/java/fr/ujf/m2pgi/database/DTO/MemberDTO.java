@@ -1,7 +1,5 @@
 package fr.ujf.m2pgi.database.DTO;
 
-import fr.ujf.m2pgi.database.entities.SellerInfo;
-
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -70,7 +68,7 @@ public class MemberDTO implements Serializable {
 	 *
 	 */
 	@XmlElement
-	private Collection<PhotoDTO> cart;
+	private Collection<PublicPhotoDTO> cart;
 
 	@XmlElement
 	private SellerInfoDTO sellerInfo;
@@ -94,11 +92,11 @@ public class MemberDTO implements Serializable {
 		this.orderedPhotos = orderedPhotos;
 	}
 
-	public Collection<PhotoDTO> getCart() {
+	public Collection<PublicPhotoDTO> getCart() {
 		return cart;
 	}
 
-	public void setCart(Collection<PhotoDTO> cart) {
+	public void setCart(Collection<PublicPhotoDTO> cart) {
 		this.cart = cart;
 	}
 

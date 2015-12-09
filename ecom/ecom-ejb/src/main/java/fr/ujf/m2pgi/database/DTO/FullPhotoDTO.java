@@ -16,11 +16,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class PhotoDTO implements Serializable {
+public class FullPhotoDTO implements Serializable {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@XmlElement
@@ -33,7 +30,13 @@ public class PhotoDTO implements Serializable {
 	private String name;
 
 	@XmlElement
-	private String fileLocation;
+	private String thumbnail;
+
+	@XmlElement
+	private String privateLocation;
+
+	@XmlElement
+	private String ext;
 
 	@XmlElement
 	private String webLocation;
@@ -56,6 +59,22 @@ public class PhotoDTO implements Serializable {
 	@XmlElement
 	private int sales;
 
+    public String getPrivateLocation() {
+        return privateLocation;
+    }
+
+    public void setPrivateLocation(String privateLocation) {
+        this.privateLocation = privateLocation;
+    }
+
+    public String getExt() {
+		return ext;
+	}
+
+	public void setExt(String ext) {
+		this.ext = ext;
+	}
+
 	public int getSales() {
 		return sales;
 	}
@@ -72,20 +91,20 @@ public class PhotoDTO implements Serializable {
 		this.webLocation = webLocation;
 	}
 
-	public String getFileLocation() {
-		return fileLocation;
-	}
-
-	public void setFileLocation(String fileLocation) {
-		this.fileLocation = fileLocation;
-	}
-
-	public long getPhotoId() {
+	public long getPhotoID() {
 		return photoID;
 	}
 
-	public void setPhotoId(long photoId) {
-		this.photoID = photoId;
+	public void setPhotoID(long photoID) {
+		this.photoID = photoID;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getDescription() {

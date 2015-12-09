@@ -1,7 +1,8 @@
 package fr.ujf.m2pgi.database.Mappers;
 
+import fr.ujf.m2pgi.database.DTO.FullPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
 
@@ -15,7 +16,7 @@ import java.util.Collection;
 public class MemberMapper extends GeneriqueMapperImpl<MemberDTO, Member> implements IMemberMapper {
 
     @Inject
-    private PhotoMapper photoMapper;
+    private IPublicPhotoMapper publicPhotoMapper;
 
     @Inject
     private OrderMapper orderMapper;
@@ -24,10 +25,10 @@ public class MemberMapper extends GeneriqueMapperImpl<MemberDTO, Member> impleme
     public Member getentity(MemberDTO dto) {
         Member member            = super.getentity(dto);
         Collection<Photo> photos = new ArrayList<Photo>();
-        Collection<PhotoDTO> cart = dto.getCart();
+        Collection<PublicPhotoDTO> cart = dto.getCart();
          if(cart != null) {
-            for (PhotoDTO photoDTO : dto.getCart()) {
-                photos.add(photoMapper.getentity(photoDTO));
+            for (PublicPhotoDTO fullPhotoDTO : dto.getCart()) {
+                photos.add(publicPhotoMapper.getentity(fullPhotoDTO));
             }
             member.setCart(photos);
         }

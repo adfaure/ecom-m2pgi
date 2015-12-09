@@ -5,11 +5,7 @@ import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
 
 /**
- * Created by FAURE Adrien on 29/10/15.
+ * Created by FAURE Adrien on 09/12/15.
  */
-public class PhotoMapper extends GeneriqueMapperImpl<FullPhotoDTO, Photo> implements IPhotoMapper {
+public interface IPublicPhotoMapper extends IGeneriqueMapper<PublicPhotoDTO, Photo> {
 }
-
-
-
-

@@ -21,7 +21,7 @@ public class OrderSellerDTO implements Serializable {
         private Long orderID;
 
         @XmlElement
-        private Collection<PhotoDTO> photos;
+        private Collection<FullPhotoDTO> photos;
 
         @XmlElement
         private Date dateCreated;
@@ -34,11 +34,11 @@ public class OrderSellerDTO implements Serializable {
             this.orderID = orderID;
         }
 
-        public Collection<PhotoDTO> getPhotos() {
+        public Collection<FullPhotoDTO> getPhotos() {
             return photos;
         }
 
-        public void setPhotos(Collection<PhotoDTO> photos) {
+        public void setPhotos(Collection<FullPhotoDTO> photos) {
             this.photos = photos;
         }
 

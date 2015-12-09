@@ -12,10 +12,9 @@ import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Service.ICustomerService;
 import fr.ujf.m2pgi.database.Service.IMemberService;
-import fr.ujf.m2pgi.database.Service.MemberService;
 import fr.ujf.m2pgi.database.Service.OrderService;
 
 /**
@@ -56,7 +55,7 @@ public class RESTOrdersServlet {
     @POST
     @Path("/customer/login/{login}")
     @Produces("application/json")
-    public Response createOrders(@PathParam("login") String login, Collection<PhotoDTO> order) {
+    public Response createOrders(@PathParam("login") String login, Collection<PublicPhotoDTO> order) {
         MemberDTO member = memberService.getMemberByLogin(login);
         if(member == null) {
             return Response.status(Status.NO_CONTENT).build();

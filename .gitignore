@@ -12,4 +12,4 @@ dist.js
 *.swp
 *.ipr
 *.iws
-
+[0-9]*.png

@@ -1,5 +1,6 @@
 package fr.ujf.m2pgi.REST.Interceptors;
 
+import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
@@ -25,9 +26,9 @@ import java.util.Properties;
 @Provider
 public class SecurityInterceptor implements ContainerRequestFilter {
 
-  private static final ServerResponse ACCESS_DENIED    = new ServerResponse("Access denied for this resource", 401, new Headers<Object>());;
-	private static final ServerResponse ACCESS_FORBIDDEN = new ServerResponse("Nobody can access this resource", 403, new Headers<Object>());;
-	private static final ServerResponse SERVER_ERROR     = new ServerResponse("INTERNAL SERVER ERROR", 500, new Headers<Object>());;
+  	private static final ServerResponse ACCESS_DENIED    =  new ServerResponse(new CustomServerResponse(true, "acces denied"), 401, new Headers<Object>());;
+	private static final ServerResponse ACCESS_FORBIDDEN = new ServerResponse(new CustomServerResponse(true, "UnAllow"), 403, new Headers<Object>());;
+	private static final ServerResponse SERVER_ERROR     = new ServerResponse(new CustomServerResponse(true, "ERROR"), 500, new Headers<Object>());;
 
 	/**
 	 *
