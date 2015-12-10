@@ -8,10 +8,10 @@
 
 	<h2> Mes infos:  
 		<button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="edit=true">
-	          <span class="glyphicon glyphicon-star"></span>Edit
+	          <span class="glyphicon glyphicon-star"></span>Modifier
 	  	</button>
 	  	<button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="editPSW=true;">
-	          <span class="glyphicon glyphicon-star"></span>Edit password
+	          <span class="glyphicon glyphicon-star"></span>Modifier mot de passe
 	  	</button>
 	  	
 	  	<button class="btn btn-default" ng-show="!edit && !editPSW && !compteVendeur && !addRIB" ng-click="addRIB=true;">
@@ -82,19 +82,19 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Actuel mot de passe:</label>
     <div class="col-sm-10" >
-    <input type="text" ng-init="" data-ng-model="user1.pswActuel" placeholder="Actuel">
+    <input type="password" data-ng-model="user1.pswActuel" placeholder="Actuel">
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Nouveau mot de passe:</label>
     <div class="col-sm-10">
-    <input type="text" data-ng-model="user1.pswNouveau" placeholder="Nouveau">
+    <input type="password" data-ng-model="user1.pswNouveau" placeholder="Nouveau">
     </div>
     </div>
     <div class="form-group">
     <label class="col-sm-2 control-label">Confirmer:</label>
     <div class="col-sm-10">
-    <input type="text" data-ng-model="user1.pswConfirmation" placeholder="Confirmer">
+    <input type="password" data-ng-model="user1.pswConfirmation" placeholder="Confirmer">
     </div>
   </div>
   </div>
@@ -102,11 +102,11 @@
 </form>
 
   <div ng-show="edit || editPSW || addRIB">
-	  <button class="btn btn-default" ng-disabled="editPSW && !equalsPSW" ng-click="save()">
-	          <span class="glyphicon glyphicon-ok"></span>Save
+	  <button class="btn btn-default" ng-disabled="editPSW && (!equalsPSW || !actPSWfilled)" ng-click="save()">
+	          <span class="glyphicon glyphicon-ok"></span>Sauvegarder
 	  </button>
 	  <button class="btn btn-default btn-danger" ng-click="cancel()">
-	          <span class="glyphicon glyphicon-remove"></span>Cancel
+	          <span class="glyphicon glyphicon-remove"></span>Annuler
 	  </button>
   </div>
 
