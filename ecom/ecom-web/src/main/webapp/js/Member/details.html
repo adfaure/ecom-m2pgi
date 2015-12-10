@@ -1,78 +1,114 @@
 <div data-ng-controller="MemDetailsController">
-<form class="form-horizontal">
 
 
 <h1>Compte {{AccountType}}</h1>
 
-<h2> Mes infos:  <button class="btn btn-default" ng-show="!edit" ng-click="edit=true">
-          <span class="glyphicon glyphicon-star"></span>Edit
-  </button></h2>
+
+<!-- <form class="css-form" name="editform" novalidate  ng-submit="save()"> -->
+
+	<h2> Mes infos:  
+		<button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="edit=true">
+	          <span class="glyphicon glyphicon-star"></span>Edit
+	  	</button>
+	  	<button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="editPSW=true;">
+	          <span class="glyphicon glyphicon-star"></span>Edit password
+	  	</button>
+	  	
+	  	<button class="btn btn-default" ng-show="!edit && !editPSW && !compteVendeur && !addRIB" ng-click="addRIB=true;">
+	          <span class="glyphicon glyphicon-star"></span>Devenir vendeur
+	  	</button>
+	</h2>
 
   
+<form class="form-horizontal ng-valid ng-dirty ng-valid-parse" style="">
 
   <div class="form-group">
     <label class="col-sm-2 control-label">ID Membre</label>
     <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label">{{user.memberID}}</label>
+    <label class="col-sm-2 control-label">{{user1.memberID}}</label>
     </div>
     <div class="col-sm-10" ng-show="edit">
-    <input type="text" data-ng-model="user.memberID" data-ng-disabled="edit" placeholder="ID Membre">
+    <input type="text" data-ng-model="user1.memberID" data-ng-disabled="edit" placeholder="ID Membre">
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Pr&eacute;nom:</label>
     <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label">{{user.firstName}}</label>
+    <label class="col-sm-2 control-label">{{user1.firstName}}</label>
     </div>
     <div class="col-sm-10" ng-show="edit">
-    <input type="text" data-ng-model="user.firstName" placeholder="Pr&eacute;nom">
+    <input type="text" data-ng-model="user1.firstName" placeholder="Pr&eacute;nom">
     </div>
   </div> 
   <div class="form-group">
     <label class="col-sm-2 control-label">Nom:</label>
     <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label">{{user.lastName}}</label>
+    <label class="col-sm-2 control-label">{{user1.lastName}}</label>
     </div>
     <div class="col-sm-10" ng-show="edit">
-    <input type="text" data-ng-model="user.lastName" placeholder="Nom">
+    <input type="text" data-ng-model="user1.lastName" placeholder="Nom">
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Address mail:</label>
     <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label">{{user.email}}</label>
+    <label class="col-sm-2 control-label">{{user1.email}}</label>
     </div>
     <div class="col-sm-10" ng-show="edit">
-    <input type="text" data-ng-model="user.email" placeholder="Address mail">
+    <input type="text" data-ng-model="user1.email" placeholder="Address mail">
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Pseudo:</label>
      <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label">{{user.login}}</label>
+    <label class="col-sm-2 control-label">{{user1.login}}</label>
     </div>
     <div class="col-sm-10" ng-show="edit">
-    <input type="text" data-ng-model="user.login" placeholder="Pseudo">
+    <input type="text" data-ng-model="user1.login" placeholder="Pseudo">
     </div>
   </div>
-   <div class="form-group">
-  	 <div class="checkbox" ng-init="checked=false" ng-show=false>
-		<label> <input type="checkbox" data-ng-model="sellerCheckBox">
-			Je souhaite ouvrir un compte vendeur
-		</label>
-	</div>
-	<span ng-if="sellerCheckBox" class="animate-if">
-		<div ng-include="sellerTemplate"></div>
-	</span>
-   </div>
-
-	
   
-  <button class="btn btn-default" ng-show="edit" ng-click="save()">
-          <span class="glyphicon glyphicon-ok"></span>Save
-  </button>
-  <button class="btn btn-default btn-danger" ng-show="edit" ng-click="cancel()">
-          <span class="glyphicon glyphicon-remove"></span>Cancel
-  </button>
+  <div class="form-group" ng-show="addRIB || compteVendeur">
+    <label class="col-sm-2 control-label">RIB:</label>
+     <div class="col-sm-10" ng-show="!edit && !addRIB">
+    <label class="col-sm-2 control-label">{{user1.sellerInfo.rib}}</label>
+    </div>
+    <div class="col-sm-10" ng-show="edit || addRIB">
+    <input type="text" data-ng-model="user1.sellerInfo.rib" placeholder="RIB">
+    </div>
+  </div>
+  
+  <div ng-show="editPSW">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Actuel mot de passe:</label>
+    <div class="col-sm-10" >
+    <input type="text" ng-init="" data-ng-model="user1.pswActuel" placeholder="Actuel">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Nouveau mot de passe:</label>
+    <div class="col-sm-10">
+    <input type="text" data-ng-model="user1.pswNouveau" placeholder="Nouveau">
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="col-sm-2 control-label">Confirmer:</label>
+    <div class="col-sm-10">
+    <input type="text" data-ng-model="user1.pswConfirmation" placeholder="Confirmer">
+    </div>
+  </div>
+  </div>
+	
+</form>
+
+  <div ng-show="edit || editPSW || addRIB">
+	  <button class="btn btn-default" ng-disabled="editPSW && !equalsPSW" ng-click="save()">
+	          <span class="glyphicon glyphicon-ok"></span>Save
+	  </button>
+	  <button class="btn btn-default btn-danger" ng-click="cancel()">
+	          <span class="glyphicon glyphicon-remove"></span>Cancel
+	  </button>
+  </div>
+
   
 </div>

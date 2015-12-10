@@ -32,6 +32,7 @@ var memMgmtController = function($scope, memberService, sellerService) {
 			})
 		});
 	};
+	
 
 	$scope.showUsers();
 

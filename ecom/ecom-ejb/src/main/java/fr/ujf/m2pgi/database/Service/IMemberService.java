@@ -35,4 +35,7 @@ public interface IMemberService {
     MemberDTO updateMember(MemberDTO memberdto);
 
     MemberDTO updateSeller(MemberDTO memberdto);
+    
+    MemberDTO changePassword(MemberDTO member, String newPSW);
+    
 }

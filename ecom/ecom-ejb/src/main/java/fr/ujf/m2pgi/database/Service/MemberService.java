@@ -229,6 +229,25 @@ public class MemberService implements IMemberService {
         memberDao.update(member);
         return  memberMapper.getDTO(member);
     }
+    
+    
+    public MemberDTO changePassword(MemberDTO member, String newPSW){
+    	
+    	MemberDTO result = null;
+    	Member memberEntity = memberDao.find(member.getMemberID());
+    	
+        if (memberEntity != null)
+        {
+        	String actualPSW = memberEntity.getPassword();
+        	String pswTransformed = stringDigest.digest(member.getPassword());
+        	if(actualPSW.equalsIgnoreCase(pswTransformed)){
+        		memberEntity.setPassword(stringDigest.digest(newPSW));
+        		Member memberEnt = memberDao.update(memberEntity);
+        	    result = memberMapper.getDTO(memberEnt);
+        	}
+        }
+        return result;
+    }
 
 
 }

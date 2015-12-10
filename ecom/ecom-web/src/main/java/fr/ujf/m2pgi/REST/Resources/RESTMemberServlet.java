@@ -86,6 +86,18 @@ public class RESTMemberServlet {
 		return Response.ok(updatedMember).build();
 	}
 	
+	@PUT
+	@Path("id/{id}/pwd/{newPSW}")
+	@Produces("application/json")
+	public Response updateUserPSW(@PathParam("id") Long id, MemberDTO memberDTO, @PathParam("newPSW") String newPSW) {
+		MemberDTO m = memberService.getMemberbyId(id);
+		if(m == null) return Response.status(Status.BAD_REQUEST).build();
+		
+		MemberDTO updatedMember = null;
+		updatedMember =  memberService.changePassword(memberDTO, newPSW);
+		return Response.ok(updatedMember).build();
+	}
+	
 	@GET
 	@Path("/count")
 	@Produces("application/json")
