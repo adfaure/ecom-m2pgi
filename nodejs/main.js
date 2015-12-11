@@ -28,13 +28,13 @@ app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
 
         if (req.params.fileAccepted) {
             res.status(200);
-            post(photo).then(function (serverRes) {
+            post(photo, req.headers.auth_token).then(function (serverRes) {
                 imageProcessing(serverRes, tempPath, req.file ,function (err) {
                   if(err) console.log(err)
                   res.send(serverRes);
                 });
             }, function(serverRes) {
-                res.send(400);
+                res.status(400);
                 res.send(serverRes);
             });
         } else {

@@ -114,6 +114,7 @@ public class RESTMemberServlet {
 	@Consumes("application/json")
 	@AllowAll
 	public Response addToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId, @HeaderParam("userID") Long requesterID) {
+		System.out.println(id + " " + requesterID);
 		if(requesterID != id) return Response.status(Status.FORBIDDEN).build();
 
 		PublicPhotoDTO p = new PublicPhotoDTO();

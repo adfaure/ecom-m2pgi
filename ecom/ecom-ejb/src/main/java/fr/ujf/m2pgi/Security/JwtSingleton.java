@@ -67,7 +67,7 @@ public class JwtSingleton {
 		//claims.setIssuer("Issuer");  // who creates the token and signs it
 		//claims.setAudience("Audience"); // to whom the token is intended to be sent
 		// Clients are issued with a token with a session time of 10 mins.
-		claims.setExpirationTimeMinutesInTheFuture(10); // time when the token will expire (10 minutes from now)
+		//claims.setExpirationTimeMinutesInTheFuture(10); // time when the token will expire (10 minutes from now)
 		//claims.setGeneratedJwtId(); // a unique identifier for the token
 		//claims.setIssuedAtToNow();  // when the token was issued/created (now)
 		//claims.setNotBeforeMinutesInThePast(2); // time before which the token is not yet valid (2 minutes ago)

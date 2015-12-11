@@ -99,10 +99,28 @@ public class RESTAuthentification {
     @Consumes("application/json")
     @Produces("application/json")
     @Allow(groups="sellers;members;admin")
-    public Response refresh(@HeaderParam("userID") Long id, @HeaderParam("userGroup") String group) {
-
+    public Response refresh(@HeaderParam("userID") Long id) {
+      MemberDTO member = memberService.getSellerById(id);
+      if (member == null) {
+        return Response.status(401).entity(
+            new CustomServerResponse(false, "Something went wrong! Try to reconnect!")).build();
+      }
+      String group = "";
+      switch (member.getAccountType()) {
+        case 'S':
+        group = "sellers";
+        break;
+        case 'M':
+        group = "members";
+        break;
+        case 'A':
+        group = "admin";
+        break;
+      }
+      member.setPassword("");
       Map<String, Object> resJson = new HashMap<String, Object>();
       resJson.put("token", jwtSingleton.generateToken(id, group));
-      return Response.ok().entity(new CustomServerResponse(true, "Authentification successed!", resJson)).build();
+      resJson.put("user", member);
+      return Response.ok().entity(new CustomServerResponse(true, "Refreshing session successed!", resJson)).build();
     }
 }

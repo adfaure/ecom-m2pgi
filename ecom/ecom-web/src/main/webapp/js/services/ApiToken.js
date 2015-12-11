@@ -4,12 +4,12 @@ module.exports = function apitoken(localService) {
     var service = {};
     service.token = localService.get('auth_token') !== null ? localService.get('auth_token') : null;
     service.user  = localService.get('user') !== null ? angular.fromJson(localService.get('user')) : null;
-
     service.isAuthentificated = isAuthentificated;
     service.setToken = setToken;
     service.getToken = getToken;
     service.getUser = getUser;
     service.setUser = setUser;
+
     return service;
 
     function isAuthentificated() {

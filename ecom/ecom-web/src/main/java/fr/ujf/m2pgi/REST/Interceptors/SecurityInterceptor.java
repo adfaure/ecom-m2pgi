@@ -126,11 +126,10 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 			for (String group : allowedGroup) {
 				if (userInfo.getUserGroup().equals(group)) {
 					return;
-				} else {
-					requestContext.abortWith(FORBIDDEN);
-					return;
 				}
 			}
+      requestContext.abortWith(FORBIDDEN);
+      return;
 		}
 	}
 }
