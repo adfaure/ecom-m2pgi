@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.REST.Resources;
 
 import fr.ujf.m2pgi.EcomException;
+import fr.ujf.m2pgi.Security.JwtSingleton;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
@@ -38,6 +39,9 @@ public class RESTSellerServlet {
     @EJB
     private ICustomerService customerService;
 
+    @EJB
+    private JwtSingleton jwtSingleton;
+
     @POST
 	@Path("/")
 	@Produces("application/json")
@@ -58,7 +62,7 @@ public class RESTSellerServlet {
         }
         return  Response.status(Response.Status.FOUND).entity(memberdto).build();
     }
-    
+
     @DELETE
 	@Path("id/{id}")
 	@Produces("application/json")
@@ -67,21 +71,21 @@ public class RESTSellerServlet {
 		memberService.deleteMember(id);
 		return  Response.ok().build();
 	}
-    
+
     @PUT
 	@Path("/update/id/{id}")
 	@Produces("application/json")
 	public Response updateUser(@PathParam("id") Long id, MemberDTO memberDTO) {
 		System.out.println("lastName seller"+memberDTO.getLastName());
-		
+
 		MemberDTO m = memberService.getMemberbyId(id);
 		if(m == null) return Response.status(Status.BAD_REQUEST).build();
-		
+
 		MemberDTO updatedMember = null;
 		updatedMember =  memberService.updateSeller(memberDTO);
 		return Response.ok(updatedMember).build();
 	}
-    
+
 
     @POST
     @Path("/upgrade")
@@ -93,14 +97,12 @@ public class RESTSellerServlet {
         MemberDTO newDTO = memberService.createSellerFromMember(seller);
         if(newDTO != null) {
             newDTO.setAccountType('S');
+            newDTO.setPassword("");
             resJson.put("message", "success upgrade");
             resJson.put("success", true);
             resJson.put("user", newDTO);
-            HttpSession session = httpServletRequest.getSession();
-            PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
-            user.setUser(newDTO);
-            user.setGroup("sellers");
-            session.setAttribute("principal", user);
+            // Issue new token
+            resJson.put("token", jwtSingleton.generateToken(newDTO.getMemberID(), "sellers"));
         } else {
             resJson.put("success", false);
         }
@@ -163,7 +165,7 @@ public class RESTSellerServlet {
         List<OrderSellerDTO> list = customerService.getOrdersBySeller(id);
         return Response.ok().entity(list).build();
     }
-    
+
     @GET
     @Path("/top10")
     @Produces("application/json")
@@ -171,7 +173,7 @@ public class RESTSellerServlet {
         List<MemberDTO> list = customerService.getTopSellers();
         return Response.ok().entity(list).build();
     }
-    
+
     @GET
     @Path("/count")
     @Produces("application/json")

@@ -1,13 +1,21 @@
 package fr.ujf.m2pgi.REST.Interceptors;
 
+import fr.ujf.m2pgi.SessionExpiredException;
+
 import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.DenyAll;
+
+import fr.ujf.m2pgi.Security.JwtSingleton;
+import fr.ujf.m2pgi.Security.JwtInfo;
+
 import org.jboss.resteasy.core.Headers;
 import org.jboss.resteasy.core.ServerResponse;
+
+import javax.ejb.EJB;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,9 +34,15 @@ import java.util.Properties;
 @Provider
 public class SecurityInterceptor implements ContainerRequestFilter {
 
-  	private static final ServerResponse ACCESS_DENIED    =  new ServerResponse(new CustomServerResponse(true, "acces denied"), 401, new Headers<Object>());;
-	private static final ServerResponse ACCESS_FORBIDDEN = new ServerResponse(new CustomServerResponse(true, "UnAllow"), 403, new Headers<Object>());;
-	private static final ServerResponse SERVER_ERROR     = new ServerResponse(new CustomServerResponse(true, "ERROR"), 500, new Headers<Object>());;
+  // Une authentification est nécessaire pour accéder à la ressource.
+  private static final ServerResponse UNAUTHORIZED = new ServerResponse(new CustomServerResponse(false, "Une authentification est nécessaire pour accéder à la ressource !"), 401, new Headers<Object>());
+
+  // Le serveur a compris la requête, mais refuse de l'exécuter.
+  // Contrairement à l'erreur 401, s'authentifier ne fera aucune différence.
+  // Sur les serveurs où l'authentification est requise, cela signifie
+  // généralement que l'authentification a été acceptée mais que les droits
+  // d'accès ne permettent pas au client d'accéder à la ressource
+  private static final ServerResponse FORBIDDEN = new ServerResponse(new CustomServerResponse(false, "Vos droits d'accès ne vous permettent pas d'accéder à cette ressource !"), 403, new Headers<Object>());
 
 	/**
 	 *
@@ -36,11 +50,11 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 	@Context
 	private ResourceInfo resourceInfo;
 
-	/**
-	 *
-	 */
-	@Context
-	private HttpServletRequest httpRequest;
+  @Context
+  private HttpServletRequest httpRequest;
+
+	@EJB
+	private JwtSingleton jwtService;
 
 	/**
 	 *
@@ -50,45 +64,70 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 
-		HttpSession session = httpRequest.getSession();
 		Method method = resourceInfo.getResourceMethod();
-		PrincipalUser principal = (PrincipalUser) session.getAttribute("principal");
-		String headerToken = httpRequest.getHeader("sessionToken");
+    String jwtToken = httpRequest.getHeader("auth_token");
+    JwtInfo userInfo = null;
+    if(jwtToken != null)
+    {
+
+      userInfo = jwtService.validate(jwtToken);
+
+      if (userInfo == null)// Je suis anonyme :(
+      {
+        requestContext.abortWith(UNAUTHORIZED);
+        return;
+      }
+
+      requestContext.getHeaders().add("userID", Long.toString(userInfo.getUserId()));
+      requestContext.getHeaders().add("userGroup", userInfo.getUserGroup());
+      System.err.println(userInfo.getUserId());
+    }
+
+		if(method.getAnnotation(AllowAll.class) != null) {
+			if (jwtToken == null)// Je suis anonyme :(
+			{
+				requestContext.abortWith(UNAUTHORIZED);
+				return;
+			}
+			return;
+		}
 
 		if (method.getAnnotation(DenyAll.class) != null) {
-			requestContext.abortWith(ACCESS_FORBIDDEN);
-		} else if(method.getAnnotation(AllowAll.class) != null) {
+			requestContext.abortWith(FORBIDDEN);
 			return;
-		} else {
+		}
+
+		if(method.getAnnotation(Deny.class) != null){
+
+			if (jwtToken == null) { // Je suis anonyme :(
+				requestContext.abortWith(UNAUTHORIZED);
+				return;
+			}
+
 			Deny denyAnnotation = method.getAnnotation(Deny.class);
-			if (denyAnnotation != null) {
-				String[] denyGroups = denyAnnotation.groups().split(";");
-				for (String s : denyGroups) {
-					if (principal.getGroup().equals(s)) {
-						requestContext.abortWith(ACCESS_DENIED);
-						return;
-					}
+			String[] denyGroups = denyAnnotation.groups().split(";");
+			for (String s : denyGroups) {
+				if (userInfo.getUserGroup().equals(s)) {
+					requestContext.abortWith(FORBIDDEN);
+					return;
 				}
+			}
+		}
+
+		if(method.getAnnotation(Allow.class) != null) {
+
+			if (jwtToken == null) {// Je suis anonyme
+				requestContext.abortWith(UNAUTHORIZED);
+				return;
 			}
 
 			Allow allowAnnotation = method.getAnnotation(Allow.class);
-			if (allowAnnotation != null) {
-				if (principal == null || headerToken == null) {
-					requestContext.abortWith(ACCESS_DENIED);
+			String[] allowedGroup = allowAnnotation.groups().split(";");
+			for (String group : allowedGroup) {
+				if (userInfo.getUserGroup().equals(group)) {
 					return;
 				} else {
-					String[] allowedGroup = allowAnnotation.groups().split(";");
-					for (String group : allowedGroup) {
-						if (principal.getGroup().equals(group)) {
-							if (principal.getToken().equals(headerToken)) {
-								return;
-							} else {
-								requestContext.abortWith(ACCESS_DENIED);
-								return;
-							}
-						}
-					}
-					requestContext.abortWith(ACCESS_DENIED);
+					requestContext.abortWith(FORBIDDEN);
 					return;
 				}
 			}

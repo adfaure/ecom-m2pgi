@@ -18,6 +18,7 @@ var upgrade = function($scope, $location, apiToken, sellerService) {
             sellerService.CreateFromMember(user).then(function(data) {
                 if(data.success) {
                     apiToken.setUser(data.user);
+                    apiToken.setToken(data.token);
                     $scope.setView('details');
                 }
             });

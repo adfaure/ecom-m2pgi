@@ -28,7 +28,8 @@
         <li data-ng-show="!auth"><a href="#/inscription"> Inscription </a></li>
         <li data-ng-show="!auth"><a href="#/login"> Connexion </a></li>
         <li class="dropdown" data-ng-show="auth">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <strong>{{ user.firstName }} {{ user.lastName }}</strong><span class="caret"></span></a>
           <ul class="dropdown-menu">
 		    <li data-ng-show="auth"><a href="#/profil/details"> Mon compte </a></li>
             <li role="separator" class="divider"></li>
