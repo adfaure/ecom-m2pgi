@@ -37,8 +37,8 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 			$scope.AccountType = "Vendeur";
 			$scope.compteVendeur = true;
 		}
-		
-		
+
+
 		//REMARK: This is done to get the password because IF I don't send the password, then it's set to NULL in the database when updating the member
 		memberService.GetById(userID).then(function(res){ memb = res;  fillOutInfo();});
 	}
@@ -78,7 +78,7 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 		}
 
 	}
-	
+
 
 	$scope.$watch('user1.pswActuel',function() {$scope.test();});
 	$scope.$watch('user1.pswNouveau',function() {$scope.test();});
@@ -87,24 +87,24 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 	$scope.test = function() {
 		$scope.equalsPSW = false;
 		$scope.actPSWfilled = false;
-		
+
 		if($scope.user1.pswNouveau == null || $scope.user1.pswConfirmation == null){
 			$scope.equalsPSW = false;
 		}
 		//If the passwords are not the same or if one of them is empty (and therefore the other as well)
 		else if(($scope.user1.pswNouveau === $scope.user1.pswConfirmation) && $scope.user1.pswNouveau !== ''){
-			
+
 			$scope.equalsPSW = true;
 		}
-		
-		
+
+
 		if($scope.user1.pswActuel == null){
 			$scope.actPSWfilled = false;
 		}
 		else if($scope.user1.pswActuel.length){
 			$scope.actPSWfilled = true;
 		}
-		
+
 
 	};
 
@@ -130,9 +130,7 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 					$scope.user1.password = prevPSW;
 				}
 				else{
-					console.log(res);
 					updateMemSeller(res);
-
 					$scope.editPSW = false;
 					//emptyPSWvalues();S
 					alertService.add("alert-success", "Mot de pass modifié! ", 2000);
@@ -166,7 +164,7 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 
 
 		}else{
-	
+
 			if($scope.user1.accountType == 'M'){
 				delete $scope.user1.sellerInfo;
 
@@ -187,7 +185,6 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 
 
 	function updateMemSeller(res){
-		console.log("res es " +res);
 
 		if(res.user != null){
 			//because when upgrading a member, the res.user is returned.
