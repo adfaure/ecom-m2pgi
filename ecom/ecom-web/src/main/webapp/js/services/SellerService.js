@@ -47,8 +47,8 @@ function sellerService($http) {
     }
 
     function Update(user) {
-        var newUser = parseSeller(user);
-        if (newUser != null)
+        //var newUser = parseSeller(user);
+        if (validSeller(user))
             return $http.put('api/sellers/update/id/' + user.memberID, user).then(handleSuccess, handleError('Error updating user'));
         return {success: false, message: "not valid seller"};
 
@@ -94,6 +94,15 @@ function sellerService($http) {
         validUser.password = user.password;
 
         return validUser;
+    }
+    
+    function validSeller(user){
+    	
+    	if (!user.memberID) 
+    		return false;
+    	else
+    		return true;
+    	
     }
 };
 
