@@ -143,7 +143,7 @@
         <subsystem xmlns="urn:jboss:domain:datasources:3.0">
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/postgresDS" pool-name="PgDsAui" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:postgresql://localhost:5432/ecom</connection-url>
+                    <connection-url>jdbc:postgresql://152.77.78.6:5432/ecom</connection-url>
                     <driver>postgresql</driver>
                     <pool>
                         <min-pool-size>5</min-pool-size>
@@ -153,7 +153,7 @@
                     </pool>
                     <security>
                         <user-name>postgres</user-name>
-                        <password>postgres</password>
+                        <password>secret</password>
                     </security>
                     <validation>
                         <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
@@ -400,7 +400,7 @@
             <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
+                <any-address/>
         </interface>
         <interface name="unsecure">
             <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}"/>

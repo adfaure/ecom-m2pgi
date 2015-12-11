@@ -10,6 +10,11 @@ var imageProcessing = require('./photoUpload/photoProcessing');
 var nconf           = require('./nconfLoader');
 var app             = express();
 
+app.use(function (req, res, next) {
+    console.log('Time:', Date.now());
+    next();
+});
+
 app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     if(req.file) {
@@ -28,13 +33,13 @@ app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
 
         if (req.params.fileAccepted) {
             res.status(200);
-            post(photo).then(function (serverRes) {
+            post(photo, req.params.id).then(function (serverRes) {
                 imageProcessing(serverRes, tempPath, req.file ,function (err) {
-                  if(err) console.log(err)
+                  if(err) console.log(err);
                   res.send(serverRes);
                 });
             }, function(serverRes) {
-                res.send(400);
+                res.status(400);
                 res.send(serverRes);
             });
         } else {

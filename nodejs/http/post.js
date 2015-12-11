@@ -1,9 +1,10 @@
 var request = require('request-promise');
+var nconf   = require('./../nconfLoader');
 
-module.exports = function(data) {
+module.exports = function(data, sellerID) {
   var options = {
     method: 'POST',
-    uri: 'http://localhost:8080/ecom-web/api/photos/seller/1',
+    uri: nconf.get("upload_route") + sellerID,
     body: data,
     json: true // Automatically stringifies the body to JSON
   };
