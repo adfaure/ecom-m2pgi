@@ -27,11 +27,11 @@ function sellerService($http) {
     function GetCount(){
     	return $http.get('api/sellers/count').then(handleSuccess, handleError('Error getting the total number of sellers'));
     }
-    
+
     function GetTopSellers(){
     	return $http.get('api/sellers/top10').then(handleSuccess, handleError('Error getting the top 10 sellers'));
     }
-    
+
     function Create(user) {
         var newUser = parseSeller(user);
         if (newUser != null)
@@ -47,8 +47,18 @@ function sellerService($http) {
     }
 
     function Update(user) {
-        var newUser = parseSeller(user);
-        if (newUser != null)
+           var newUser = parseSeller(user);
+           if (newUser != null)
+               return $http.put('api/sellers/update/id/' + user.memberID, user).then(handleSuccess, handleError('Error updating user'));
+               var defer = $q.defer();
+               defer.resolve({success: false, message: "not valid seller"})
+           return defer.promise;
+       }
+
+
+    function Update(user) {
+        //var newUser = parseSeller(user);
+        if (validSeller(user))
             return $http.put('api/sellers/update/id/' + user.memberID, user).then(handleSuccess, handleError('Error updating user'));
         return {success: false, message: "not valid seller"};
 
@@ -94,6 +104,15 @@ function sellerService($http) {
         validUser.password = user.password;
 
         return validUser;
+    }
+
+    function validSeller(user){
+
+    	if (!user.memberID)
+    		return false;
+    	else
+    		return true;
+
     }
 };
 

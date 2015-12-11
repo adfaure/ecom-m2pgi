@@ -36,6 +36,8 @@ public interface IMemberService {
 
     MemberDTO updateSeller(MemberDTO memberdto);
     
+    MemberDTO changePassword(MemberDTO member, String newPSW);
+
     List<MemberDTO> getFollowedSellersBy(long followerID);
     
     boolean follow(Long followerID, Long followedID);

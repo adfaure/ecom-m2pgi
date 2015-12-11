@@ -163,7 +163,7 @@ public class RESTPhotosServlet {
 
 		if(photo == null) return Response.status(Status.BAD_REQUEST).build();
 
-		if(requesterID != photo.getSellerID()) {
+		if(!requesterID.equals(photo.getSellerID())) {
 			return Response.status(403).build();
 		}
 		facadePhoto.deletePhoto(id);
@@ -198,7 +198,7 @@ public class RESTPhotosServlet {
 
 		if(publicPhotoDTO == null) return Response.status(Status.BAD_REQUEST).build();
 
-		if(requesterID != publicPhotoDTO.getSellerID()) {
+		if(!requesterID.equals(publicPhotoDTO.getSellerID())) {
 			return Response.status(403).build();
 		}
 

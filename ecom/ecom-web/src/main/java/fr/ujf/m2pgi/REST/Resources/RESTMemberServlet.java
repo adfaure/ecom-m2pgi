@@ -69,7 +69,6 @@ public class RESTMemberServlet {
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	@Allow(groups = "admin")
 	public Response createUser(MemberDTO member) throws EcomException { //FIXME the true one shall return a Member DTO
 		MemberDTO createdMember = memberService.createMember(member);
 		return Response.status(Status.CREATED).entity(createdMember).build();
@@ -99,6 +98,18 @@ public class RESTMemberServlet {
 		return Response.ok(updatedMember).build();
 	}
 
+	@PUT
+	@Path("id/{id}/pwd/{newPSW}")
+	@Produces("application/json")
+	public Response updateUserPSW(@PathParam("id") Long id, MemberDTO memberDTO, @PathParam("newPSW") String newPSW) {
+		MemberDTO m = memberService.getMemberbyId(id);
+		if(m == null) return Response.status(Status.BAD_REQUEST).build();
+
+		MemberDTO updatedMember = null;
+		updatedMember =  memberService.changePassword(memberDTO, newPSW);
+		return Response.ok(updatedMember).build();
+	}
+
 	@GET
 	@Path("/count")
 	@Produces("application/json")
@@ -114,8 +125,7 @@ public class RESTMemberServlet {
 	@Consumes("application/json")
 	@AllowAll
 	public Response addToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId, @HeaderParam("userID") Long requesterID) {
-		System.out.println(id + " " + requesterID);
-		if(requesterID != id) return Response.status(Status.FORBIDDEN).build();
+		if(!requesterID.equals(id)) return Response.status(Status.FORBIDDEN).build();
 
 		PublicPhotoDTO p = new PublicPhotoDTO();
 		p.setPhotoID(photoId);
@@ -131,7 +141,7 @@ public class RESTMemberServlet {
 	@Consumes("application/json")
 	@AllowAll
 	public Response deleteFromCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId, @HeaderParam("userID") Long requesterID) {
-		if(requesterID != id) return Response.status(Status.FORBIDDEN).build();
+		if(!requesterID.equals(id)) return Response.status(Status.FORBIDDEN).build();
 		PublicPhotoDTO p = new PublicPhotoDTO();
 		p.setPhotoID(photoId);
 		MemberDTO m = new MemberDTO();
@@ -146,7 +156,7 @@ public class RESTMemberServlet {
 	@Consumes("application/json")
 	@AllowAll
 	public Response deleteCart(@PathParam("id") Long id, @HeaderParam("userID") Long requesterID) {
-		if(requesterID != id) return Response.status(Status.FORBIDDEN).build();
+		if(!requesterID.equals(id)) return Response.status(Status.FORBIDDEN).build();
 		MemberDTO dto = new MemberDTO();
 		dto.setMemberID(id); //FIXME USe principal user
 		MemberDTO res = memberService.deleteCart(dto);
@@ -160,7 +170,7 @@ public class RESTMemberServlet {
 	@AllowAll
 	public Response follow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId, @HeaderParam("userID") Long requesterID) {
 
-		if(requesterID != memberId) return Response.status(Status.FORBIDDEN).build();
+		if(!requesterID.equals(memberId)) return Response.status(Status.FORBIDDEN).build();
 
 		if(!memberId.equals(followedId)){
 			boolean response = memberService.follow(memberId, followedId);
@@ -175,7 +185,7 @@ public class RESTMemberServlet {
 	@Consumes("application/json")
 	@AllowAll
 	public Response unfollow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId, @HeaderParam("userID") Long requesterID) {
-		if(requesterID != memberId) return Response.status(Status.FORBIDDEN).build();
+		if(!requesterID.equals(memberId)) return Response.status(Status.FORBIDDEN).build();
 
 		boolean response = memberService.unfollow(memberId, followedId);
 		return  Response.ok(response).build();
@@ -187,7 +197,7 @@ public class RESTMemberServlet {
 	@Consumes("application/json")
 	@AllowAll
 	public Response isFollowedBy(@PathParam("memberId") Long memberId, @PathParam("followerId") Long followerId, @HeaderParam("userID") Long requesterID) {
-		if(requesterID != memberId) return Response.status(Status.FORBIDDEN).build();
+		if(!requesterID.equals(memberId)) return Response.status(Status.FORBIDDEN).build();
 		boolean response = memberService.isFollowedBy(followerId, memberId);
 		return  Response.ok(response).build();
 	}
