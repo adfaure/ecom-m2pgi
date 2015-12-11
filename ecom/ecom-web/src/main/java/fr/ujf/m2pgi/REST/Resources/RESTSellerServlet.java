@@ -6,13 +6,9 @@ import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderSellerDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.DTO.SellerPageDTO;
-import fr.ujf.m2pgi.database.Service.CustomerService;
 import fr.ujf.m2pgi.database.Service.ICustomerService;
 import fr.ujf.m2pgi.database.Service.IMemberService;
-import fr.ujf.m2pgi.database.Service.MemberService;
-import fr.ujf.m2pgi.database.entities.Member;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;

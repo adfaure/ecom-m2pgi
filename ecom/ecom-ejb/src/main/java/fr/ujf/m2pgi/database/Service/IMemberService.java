@@ -2,7 +2,7 @@ package fr.ujf.m2pgi.database.Service;
 
 import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ public interface IMemberService {
 
     MemberDTO getMemberbyId(long id);
 
-    MemberDTO addToCart(MemberDTO member, PhotoDTO photoDTO);
+    MemberDTO addToCart(MemberDTO member, PublicPhotoDTO publicPhotoDTO);
 
-    MemberDTO removeToCart(MemberDTO member, PhotoDTO photoDTO);
+    MemberDTO removeToCart(MemberDTO member, PublicPhotoDTO publicPhotoDTO);
 
     MemberDTO createSellerFromMember(MemberDTO memberdto);
 
@@ -37,5 +37,13 @@ public interface IMemberService {
     MemberDTO updateSeller(MemberDTO memberdto);
     
     MemberDTO changePassword(MemberDTO member, String newPSW);
+
+    List<MemberDTO> getFollowedSellersBy(long followerID);
+    
+    boolean follow(Long followerID, Long followedID);
+    
+    boolean unfollow(Long followerID, Long followedID);
+    
+    boolean isFollowedBy(Long followerID, Long memberID);
     
 }

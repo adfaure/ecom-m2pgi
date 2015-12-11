@@ -1,7 +1,5 @@
 package fr.ujf.m2pgi.database.DTO;
 
-import fr.ujf.m2pgi.database.entities.Order;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Collection;
@@ -19,7 +17,7 @@ public class SellerPageDTO {
     private String content;
 
     @XmlElement
-    protected Collection<PhotoDTO> presentedPhotos;
+    protected Collection<FullPhotoDTO> presentedPhotos;
 
     @XmlElement
     protected String title;
@@ -48,11 +46,11 @@ public class SellerPageDTO {
         this.content = content;
     }
 
-    public Collection<PhotoDTO> getPresentedPhotos() {
+    public Collection<FullPhotoDTO> getPresentedPhotos() {
         return presentedPhotos;
     }
 
-    public void setPresentedPhotos(Collection<PhotoDTO> presentedPhotos) {
+    public void setPresentedPhotos(Collection<FullPhotoDTO> presentedPhotos) {
         this.presentedPhotos = presentedPhotos;
     }
 }

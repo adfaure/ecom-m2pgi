@@ -3,13 +3,10 @@ package fr.ujf.m2pgi.REST.Resources;
 import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
-import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
-import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.DenyAll;
-import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Service.IMemberService;
-import fr.ujf.m2pgi.database.Service.MemberService;
+
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -55,6 +52,15 @@ public class RESTMemberServlet {
 		return Response.ok(member).build();
 	}
 
+	
+	@GET
+	@Path("id/{id}/follows")
+	@Produces("application/json")
+	public Response getFollowedSellersBy(@PathParam("id") long id) {
+		List<MemberDTO> members =memberService.getFollowedSellersBy(id); 
+		return Response.ok(members).build();
+	}
+	
 	@POST
 	@Path("/")
 	@Produces("application/json")
@@ -114,8 +120,8 @@ public class RESTMemberServlet {
 	public Response addToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId ) {
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
 		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
-		PhotoDTO p = new PhotoDTO();
-		p.setPhotoId(photoId);
+		PublicPhotoDTO p = new PublicPhotoDTO();
+		p.setPhotoID(photoId);
 		MemberDTO m = new MemberDTO();
 		m.setMemberID(id);
 		MemberDTO res = memberService.addToCart(m, p);
@@ -129,8 +135,8 @@ public class RESTMemberServlet {
 	public Response deleteToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId) {
 		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
 		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
-		PhotoDTO p = new PhotoDTO();
-		p.setPhotoId(photoId);
+		PublicPhotoDTO p = new PublicPhotoDTO();
+		p.setPhotoID(photoId);
 		MemberDTO m = new MemberDTO();
 		m.setMemberID(id);
 		MemberDTO res = memberService.removeToCart(m, p);
@@ -149,4 +155,46 @@ public class RESTMemberServlet {
 		MemberDTO res = memberService.deleteCart(dto);
 		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
+
+	@POST
+	@Path("id/{memberId}/follow/{followedId}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response follow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId) {
+
+		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
+		if(principal == null || 
+				!(memberId.equals(principal.getUser().getMemberID()))) return Response.status(Status.FORBIDDEN).build();
+		
+		if(!memberId.equals(followedId)){
+			boolean response = memberService.follow(memberId, followedId);
+			return  Response.ok(response).build();
+		}
+		return Response.status(Status.FORBIDDEN).build();
+		
+		
+	}
+	
+	@POST
+	@Path("id/{memberId}/unfollow/{followedId}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response unfollow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId) {
+		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
+		if(principal.equals(null) || (!principal.equals(null) && principal.getUser().getMemberID() != memberId)) return Response.status(Status.FORBIDDEN).build();
+			boolean response = memberService.unfollow(memberId, followedId);
+		return  Response.ok(response).build();
+	}
+	
+	@GET
+	@Path("id/{memberId}/isfollowedby/{followerId}")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response isFollowedBy(@PathParam("memberId") Long memberId, @PathParam("followerId") Long followerId) {
+		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
+		if(principal.equals(null) || (!principal.equals(null) && principal.getUser().getMemberID() != memberId && principal.getUser().getMemberID() != followerId)) return Response.status(Status.FORBIDDEN).build();
+			boolean response = memberService.isFollowedBy(followerId, memberId);
+				return  Response.ok(response).build();
+	}
+	
 }

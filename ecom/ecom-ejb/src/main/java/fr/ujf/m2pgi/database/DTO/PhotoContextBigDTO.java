@@ -23,6 +23,8 @@ public class PhotoContextBigDTO {
 
 	private String webLocation;
 
+	private String thumbnail;
+
 	private float price;
 
 	private long sellerID;
@@ -43,10 +45,11 @@ public class PhotoContextBigDTO {
 
 	private boolean flagged;
 
-	public PhotoContextBigDTO(long photoID, String name, String description, String webLocation, float price,
+	public PhotoContextBigDTO(long photoID, String name, String description, String webLocation, String thumbnail, float price,
 			long sellerID, int sales, Date dateCreated, Integer views, Integer likes, boolean wishlisted,
 			boolean inCart, boolean liked, boolean flagged) {
 		super();
+		this.thumbnail = thumbnail;
 		this.photoID = photoID;
 		this.name = name;
 		this.description = description;

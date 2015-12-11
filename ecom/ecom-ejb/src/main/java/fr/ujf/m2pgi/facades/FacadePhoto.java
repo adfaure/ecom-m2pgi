@@ -1,20 +1,13 @@
 package fr.ujf.m2pgi.facades;
 
-import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.SignalDTO;
-import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
-import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
+import fr.ujf.m2pgi.database.DTO.*;
 import fr.ujf.m2pgi.database.Service.IFileService;
 import fr.ujf.m2pgi.database.Service.IPhotoService;
 import fr.ujf.m2pgi.properties.IProperties;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by FAURE Adrien on 03/11/15.
@@ -31,18 +24,11 @@ public class FacadePhoto {
     @Inject
     private IPhotoService photoService;
 
-    public PhotoDTO savePhoto(InputStream photo, PhotoDTO photoDTO) {
-        Properties prop    = applicationProperties.getApplicationProperties();
-        String storageDir  = prop.getProperty("data_dir");
-        String location    = storageDir + prop.getProperty("file.separator") + photoDTO.getName();
-        String weblocation = prop.getProperty("static_hostname") + prop.getProperty("file.separator") + photoDTO.getName();
-        fileService.saveFile(photo, location );
-        photoDTO.setFileLocation(storageDir);
-        photoDTO.setWebLocation(weblocation);
-        return photoService.createPhoto(photoDTO);
+    public PublicPhotoDTO savePhoto(FullPhotoDTO publicPhotoDTO) {
+        return photoService.createPhoto(publicPhotoDTO);
     }
 
-    public PhotoDTO getPhotoById(long id) {
+    public PublicPhotoDTO getPhotoById(long id) {
         return photoService.getPhotoById(id);
     }
 
@@ -50,15 +36,15 @@ public class FacadePhoto {
 		return photoService.getPhotoById(photoID, memberID);
 	}
 
-    public List<PhotoDTO> getAllPhotos() {
+    public List<PublicPhotoDTO> getAllPhotos() {
         return photoService.getAllPhotos();
     }
 
-  public List<PhotoDTO> getReportedPhotos() {
+  public List<PublicPhotoDTO> getReportedPhotos() {
     return photoService.getReportedPhotos();
   }
 
-    public List<PhotoDTO> getTop10Photos() {
+    public List<PublicPhotoDTO> getTop10Photos() {
         return photoService.getTop10Photos();
     }
 
@@ -66,27 +52,27 @@ public class FacadePhoto {
 		return photoService.getAllPhotosContext(memberID);
 	}
 
-    public List<PhotoDTO> getPhotosSortByPrice(boolean ascending) {
+    public List<PublicPhotoDTO> getPhotosSortByPrice(boolean ascending) {
       return photoService.getPhotosSortByPrice(ascending);
     }
 
-    public List<PhotoDTO> getPhotosSortByViews(boolean ascending) {
+    public List<PublicPhotoDTO> getPhotosSortByViews(boolean ascending) {
       return photoService.getPhotosSortByViews(ascending);
     }
 
-    public List<PhotoDTO> getPhotosSortByLikes(boolean ascending) {
+    public List<PublicPhotoDTO> getPhotosSortByLikes(boolean ascending) {
       return photoService.getPhotosSortByLikes(ascending);
     }
 
-    public List<PhotoDTO> getPhotosSortByDate(boolean ascending) {
+    public List<PublicPhotoDTO> getPhotosSortByDate(boolean ascending) {
       return photoService.getPhotosSortByDate(ascending);
     }
 
-    public List<PhotoDTO> getUserPhotos(Long id) {
+    public List<PublicPhotoDTO> getUserPhotos(Long id) {
         return photoService.getUserPhotos(id);
     }
 
-    public List<PhotoDTO> getUserPhotos(String login) {
+    public List<PublicPhotoDTO> getUserPhotos(String login) {
         return photoService.getUserPhotos(login);
     }
 
@@ -94,15 +80,15 @@ public class FacadePhoto {
         return photoService.getUserWishedPhotos(id);
     }
 
-    public List<PhotoDTO> getUserWishedPhotos(String login) {
+    public List<PublicPhotoDTO> getUserWishedPhotos(String login) {
         return photoService.getUserWishedPhotos(login);
     }
 
-    public PhotoDTO deletePhoto(Long id) {
+    public PublicPhotoDTO deletePhoto(Long id) {
         return photoService.deletePhoto(id);
     }
 
-    public PhotoDTO updatePhoto(UpdatePhotoDTO photo) {
+    public PublicPhotoDTO updatePhoto(UpdatePhotoDTO photo) {
         return photoService.updatePhoto(photo);
     }
 
@@ -110,7 +96,7 @@ public class FacadePhoto {
     	return photoService.getPhotoCount();
     }
 
-    public List<PhotoDTO> getAllAvailablePhotos() {
+    public List<PublicPhotoDTO> getAllAvailablePhotos() {
         return photoService.getAllAvailablePhotos();
     }
 

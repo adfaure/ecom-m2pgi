@@ -1,11 +1,6 @@
 package fr.ujf.m2pgi.database.Service;
 
-import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.SignalDTO;
-import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
-import fr.ujf.m2pgi.database.DTO.UpdatePhotoDTO;
+import fr.ujf.m2pgi.database.DTO.*;
 
 import javax.ejb.Local;
 import java.io.*;
@@ -17,37 +12,37 @@ import java.util.List;
 @Local
 public interface IPhotoService {
 
-    PhotoDTO deletePhoto(Long id);
+    PublicPhotoDTO deletePhoto(Long id);
 
-    PhotoDTO getPhotoById(Long id);
+    PublicPhotoDTO getPhotoById(Long id);
 
     PhotoContextBigDTO getPhotoById(Long photoID, Long memberID);
 
-    PhotoDTO createPhoto(PhotoDTO photo);
+    PublicPhotoDTO createPhoto(FullPhotoDTO photo);
 
-    PhotoDTO updatePhoto(UpdatePhotoDTO photo);
+    PublicPhotoDTO updatePhoto(UpdatePhotoDTO photo);
 
-    List<PhotoDTO> getAllPhotos();
+    List<PublicPhotoDTO> getAllPhotos();
 
-    List<PhotoDTO> getReportedPhotos();
+    List<PublicPhotoDTO> getReportedPhotos();
 
     List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
 
-    List<PhotoDTO> getTop10Photos();
+    List<PublicPhotoDTO> getTop10Photos();
 
-    List<PhotoDTO> getPhotosSortByPrice(boolean ascending);
+    List<PublicPhotoDTO> getPhotosSortByPrice(boolean ascending);
 
-    List<PhotoDTO> getPhotosSortByViews(boolean ascending);
+    List<PublicPhotoDTO> getPhotosSortByViews(boolean ascending);
 
-    List<PhotoDTO> getPhotosSortByLikes(boolean ascending);
+    List<PublicPhotoDTO> getPhotosSortByLikes(boolean ascending);
 
-    List<PhotoDTO> getPhotosSortByDate(boolean ascending);
+    List<PublicPhotoDTO> getPhotosSortByDate(boolean ascending);
 
-    List<PhotoDTO> getUserPhotos(Long id);
+    List<PublicPhotoDTO> getUserPhotos(Long id);
 
-    List<PhotoDTO> getUserPhotos(String login);
+    List<PublicPhotoDTO> getUserPhotos(String login);
 
-    List<PhotoDTO> getUserWishedPhotos(String login);
+    List<PublicPhotoDTO> getUserWishedPhotos(String login);
 
     List<WishListPhotoDTO> getUserWishedPhotos(Long id);
 
@@ -55,7 +50,7 @@ public interface IPhotoService {
 
     Long getPhotoCount();
 
-    List<PhotoDTO> getAllAvailablePhotos();
+    List<PublicPhotoDTO> getAllAvailablePhotos();
 
     void viewPhoto(Long photoID, Long memberID);
 

@@ -1,10 +1,8 @@
 package fr.ujf.m2pgi.database.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -12,11 +10,8 @@ import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IOrderDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IOrderMapper;
 import fr.ujf.m2pgi.database.entities.Order;
-import fr.ujf.m2pgi.database.entities.Photo;
-import fr.ujf.m2pgi.database.entities.Member;
 
 /**
  * 

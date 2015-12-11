@@ -3,12 +3,18 @@ var angular = require('angular');
 memberService.$inject = ['$http'];
 
 function memberService($http) {
+
+
 	var service = {};
 
 	service.GetById = GetById;
 	service.GetByUsername = GetByUsername;
 	service.GetCount = GetCount;
 	service.GetAll = GetAll;
+	service.IsFollowedBy = IsFollowedBy;
+	service.GetAllFollowedSellersBy = GetAllFollowedSellersBy;
+	service.follow = follow;
+	service.unfollow = unfollow;
 	service.Create = Create;
 	service.ChangePassword = ChangePassword;
 	service.Update = Update;
@@ -27,9 +33,24 @@ function memberService($http) {
 	function GetAll() {
 		return $http.get('api/members/').then(handleSuccess, handleError('Error getting all users'));
 	}
+	function GetAllFollowedSellersBy(follower){
+		return $http.get('api/members/id/'+follower+'/follows').then(handleSuccess, handleError('Error getting all followed sellers'));
+	}
 
 	function GetCount(){
 		return $http.get('api/members/count').then(handleSuccess, handleError('Error getting the total number of members'));
+	}
+
+	function IsFollowedBy(followed, follower){
+		return $http.get('api/members/id/'+followed+'/isfollowedby/'+follower).then(handleSuccess, handleError('Error getting the boolean value: followedby'));
+	}
+
+	function follow(follower, followed){
+		return $http.post('api/members/id/'+follower+'/follow/'+followed).then(handleSuccess, handleError('Error when trying to make the user follow a seller'));
+	}
+
+	function unfollow(follower, followed){
+		return $http.post('api/members/id/'+follower+'/unfollow/'+followed).then(handleSuccess, handleError('Error when trying to make the user unfollow a seller'));
 	}
 
 	function Create(user) {
@@ -53,7 +74,7 @@ function memberService($http) {
 		return $http.delete('api/members/id/' + id).then(handleSuccess, handleError('Error deleting user'));
 	}
 
-	// private functions
+//	private functions
 
 	function handleSuccess(res) {
 		return res.data;
@@ -83,13 +104,14 @@ function memberService($http) {
 		validUser.password = user.password;
 		return validUser;
 	}
-	
+
 	function validMember(user){
 		if (!user.memberID) 
-    		return false;
-    	else
-    		return true;
+			return false;
+		else
+			return true;
 	}
+
 
 };
 

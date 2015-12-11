@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -32,8 +33,14 @@ public class Photo {
 	@Column(name="web_location", nullable=false)
 	private String webLocation; //FIXME choose better name (maybe publicLocation, watermarkLocation ...)
 
-	@Column(name="file_location", nullable=false)
-	private String fileLocation; // FIXME same here : origirnalLocation
+	@Column(name="thumbnail")
+	private String thumbnail;
+
+	@Column(name="ext")
+	private String ext;
+
+	@Column(name="privateLocation")
+	private String privateLocation;
 
 	@Column(name="price")
 	private float price;
@@ -69,6 +76,15 @@ public class Photo {
 	@PrePersist
 	public void initInDataBase() {
 		sales = 0;
+
+	}
+
+	public String getExt() {
+		return ext;
+	}
+
+	public void setExt(String ext) {
+		this.ext = ext;
 	}
 
 	public int getSales() {
@@ -79,12 +95,20 @@ public class Photo {
 		this.sales = sales;
 	}
 
-	public String getFileLocation() {
-		return fileLocation;
+	public String getPrivateLocation() {
+		return privateLocation;
 	}
 
-	public void setFileLocation(String fileLocation) {
-		this.fileLocation = fileLocation;
+	public void setPrivateLocation(String privateLocation) {
+		this.privateLocation = privateLocation;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getWebLocation() {

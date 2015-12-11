@@ -6,21 +6,21 @@ import javax.inject.Inject;
 import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
-import fr.ujf.m2pgi.database.DTO.PhotoDTO;
-import fr.ujf.m2pgi.database.DTO.SellerInfoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
-import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
+import fr.ujf.m2pgi.database.Mappers.IPublicPhotoMapper;
 import fr.ujf.m2pgi.database.entities.Member;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.SellerInfo;
 import fr.ujf.m2pgi.database.entities.SellerPage;
 import fr.ujf.m2pgi.Security.IStringDigest;
+import fr.ujf.m2pgi.database.entities.Follow;
+import fr.ujf.m2pgi.database.DAO.IFollowDAO;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.*;
 
 /**
  *
@@ -38,7 +38,7 @@ public class MemberService implements IMemberService {
      *
      */
     @Inject
-    private IPhotoMapper photoMapper;
+    private IPublicPhotoMapper publicPhotoMapper;
 
     /**
      *
@@ -51,6 +51,10 @@ public class MemberService implements IMemberService {
      */
     @Inject
     private IStringDigest stringDigest;
+
+
+    @Inject
+    private IFollowDAO followDao;
 
     /**
      * @param member
@@ -107,10 +111,10 @@ public class MemberService implements IMemberService {
 
     /**
      * @param member
-     * @param photoDTO
+     * @param publicPhotoDTO
      */
     @Override
-    public MemberDTO addToCart(MemberDTO member, PhotoDTO photoDTO) {
+    public MemberDTO addToCart(MemberDTO member, PublicPhotoDTO publicPhotoDTO) {
         Member attachedEntity = memberDao.find(member.getMemberID());
         Collection<Photo> cart = attachedEntity.getCart();
 
@@ -120,13 +124,13 @@ public class MemberService implements IMemberService {
         }
         boolean exist = false;
         for (Photo photo : cart) {
-            if (photo.getPhotoID() == photoDTO.getPhotoId()) {
+            if (photo.getPhotoID() == publicPhotoDTO.getPhotoID()) {
                 exist = true;
                 break;
             }
         }
         if (!exist) {
-            cart.add(photoMapper.getentity(photoDTO));
+            cart.add(publicPhotoMapper.getentity(publicPhotoDTO));
             attachedEntity.setCart(cart);
             return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
         }
@@ -135,10 +139,10 @@ public class MemberService implements IMemberService {
 
     /**
      * @param member
-     * @param photoDTO
+     * @param publicPhotoDTO
      */
     @Override
-    public MemberDTO removeToCart(MemberDTO member, PhotoDTO photoDTO) {
+    public MemberDTO removeToCart(MemberDTO member, PublicPhotoDTO publicPhotoDTO) {
         Member attachedEntity = memberDao.find(member.getMemberID());
         Collection<Photo> cart = attachedEntity.getCart();
 
@@ -148,7 +152,7 @@ public class MemberService implements IMemberService {
 
         for (Iterator<Photo> iterator = cart.iterator(); iterator.hasNext(); ) {
             Photo currentPhoto = iterator.next();
-            if (currentPhoto.getPhotoID() == photoDTO.getPhotoId()) {
+            if (currentPhoto.getPhotoID() == publicPhotoDTO.getPhotoID()) {
                 iterator.remove();
                 break;
             }
@@ -175,6 +179,18 @@ public class MemberService implements IMemberService {
     	List<MemberDTO> result = new ArrayList<MemberDTO>();
 
     	for(Member mem: memberDao.getAllMembers()) {
+    		result.add(memberMapper.getDTO(mem));
+    	}
+
+    	return result;
+
+    }
+    
+    @Override
+    public List<MemberDTO> getFollowedSellersBy(long followerID){
+    	List<MemberDTO> result = new ArrayList<MemberDTO>();
+
+    	for(Member mem: memberDao.getSellersFollowedBy(followerID)) {
     		result.add(memberMapper.getDTO(mem));
     	}
 
@@ -249,5 +265,37 @@ public class MemberService implements IMemberService {
         return result;
     }
 
+     public boolean follow(Long followerID, Long followedID)
+    {
+        Follow follow = followDao.findFollowbyCoupleId(followerID,followedID);
+        Member follower = memberDao.find(followerID);
+        Member followed = memberDao.find(followedID);
+        if(follow == null && follower != null && followed != null && followed.getAccountType() == 'S'){
+            follow = new Follow();
+            follow.setFollower(follower);
+            follow.setFollowed(followed);
+            followDao.create(follow);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean unfollow(Long followerID, Long followedID)
+    {
+        Follow follow = followDao.findFollowbyCoupleId(followerID,followedID);
+        if(follow != null){
+            followDao.delete(follow.getId());
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isFollowedBy(Long followerID, Long memberID)
+    {
+        if(followDao.findFollowbyCoupleId(followerID, memberID) != null){
+                return true;
+        }
+        return false;
+    }
 
 }

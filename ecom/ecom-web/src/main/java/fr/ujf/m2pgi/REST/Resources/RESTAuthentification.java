@@ -94,7 +94,6 @@ public class RESTAuthentification {
     @POST
     @Path("/logout")
     @Produces("application/json")
-    @Allow(groups="sellers;members;admin")
     public Response logout() {
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute("principal", null);

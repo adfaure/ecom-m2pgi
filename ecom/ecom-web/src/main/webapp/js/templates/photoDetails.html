@@ -2,7 +2,9 @@
     <div class="col-lg-10">
         <a href=""  class="thumbnail">
             <p>{{photo.description}}</p>
-            <img ng-src="{{photo.webLocation}}" alt="{{photo.name}}" >
+            <p>Mis en vente par le vendeur: <a href ng-click="goToSellerPage()">{{photo.sellerID}}</a> </p>
+
+            <img class="img-responsive" ng-src="{{photo.webLocation}}" alt="{{photo.name}}">
         </a>
     </div>
 
