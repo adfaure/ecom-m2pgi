@@ -103,3 +103,11 @@
 .cursorPointer {
   cursor: pointer;
 }
+
+.reqField:after{
+	position:absolute;
+    content:'*';
+    color:red;
+    right:-10px;
+    top:0;
+}

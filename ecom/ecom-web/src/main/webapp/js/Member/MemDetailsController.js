@@ -11,6 +11,10 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 	$scope.editPSW = false;
 	$scope.equalsPSW = false;
 	$scope.compteVendeur = false;
+	
+	pswActuel.$error = { required : true };
+	
+	pswConfirmation.$error = {whatever: true};
 
 	$scope.sellerCheckBox = false;
 
