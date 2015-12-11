@@ -196,8 +196,7 @@ public class RESTMemberServlet {
 	@Produces("application/json")
 	@Consumes("application/json")
 	@AllowAll
-	public Response isFollowedBy(@PathParam("memberId") Long memberId, @PathParam("followerId") Long followerId, @HeaderParam("userID") Long requesterID) {
-		if(!requesterID.equals(memberId)) return Response.status(Status.FORBIDDEN).build();
+	public Response isFollowedBy(@PathParam("memberId") Long memberId, @PathParam("followerId") Long followerId) {
 		boolean response = memberService.isFollowedBy(followerId, memberId);
 		return  Response.ok(response).build();
 	}

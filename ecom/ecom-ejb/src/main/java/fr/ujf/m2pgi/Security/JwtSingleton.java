@@ -119,9 +119,6 @@ public class JwtSingleton {
 			JwtInfo info =  new JwtInfo();
 			info.setUserId((Long)jwtClaims.getClaimValue("id"));
 			info.setUserGroup((String)jwtClaims.getClaimValue("group"));
-			System.out.println("JWT id " + info.getUserId());
-			System.out.println("JWT group " + info.getUserGroup());
-			System.out.println("JWT validation succeeded! " + jwtClaims);
 			return info;
 		}
 		catch (InvalidJwtException e)

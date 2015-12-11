@@ -76,8 +76,6 @@ public class RESTSellerServlet {
 	@Path("/update/id/{id}")
 	@Produces("application/json")
 	public Response updateUser(@PathParam("id") Long id, MemberDTO memberDTO) {
-		System.out.println("lastName seller"+memberDTO.getLastName());
-
 		MemberDTO m = memberService.getMemberbyId(id);
 		if(m == null) return Response.status(Status.BAD_REQUEST).build();
 
@@ -140,11 +138,10 @@ public class RESTSellerServlet {
     @Produces("application/json")
     @Consumes("application/json")
     @Allow(groups="sellers")
-    public Response postSellerPage(@PathParam("id") long sellerId, SellerPageDTO pageDTO) {
-        HttpSession session = httpServletRequest.getSession();
-        PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+    public Response postSellerPage(@PathParam("id") long sellerId, SellerPageDTO pageDTO,
+     @HeaderParam("userID") Long requesterID) {
 
-        if(user.getUser().getMemberID() != pageDTO.getId()) {
+        if(!requesterID.equals(pageDTO.getId())) {
             return Response.status(403).build();
         }
 

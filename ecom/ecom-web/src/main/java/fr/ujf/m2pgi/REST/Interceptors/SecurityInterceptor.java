@@ -80,7 +80,6 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 
       requestContext.getHeaders().add("userID", Long.toString(userInfo.getUserId()));
       requestContext.getHeaders().add("userGroup", userInfo.getUserGroup());
-      System.err.println(userInfo.getUserId());
     }
 
 		if(method.getAnnotation(AllowAll.class) != null) {

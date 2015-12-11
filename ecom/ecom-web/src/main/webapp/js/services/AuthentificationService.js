@@ -4,7 +4,6 @@ function loginService($http, apiToken, localService) {
     service = {};
     service.login  = login;
     service.logout = logout;
-    //service.refresh = refresh;
     return service;
 
     function login(username, password) {
@@ -28,26 +27,10 @@ function loginService($http, apiToken, localService) {
       localService.unset('user');
     };
 
-    /*function refresh() {
-      $http.post('api/auth/refresh').then(handleRefreshSuccess, handleError('cannot refresh session!'));
-    };
-
-    function handleRefreshSuccess(res) {
-      console.log("refreshed!");
-      console.log(res);
-      apiToken.setToken(res.data.data.token);
-      setTimeout(function(){ refresh(); }, 540000);
-      return { success : true };
-    };*/
-
     function handleLoginSuccess(res) {
       var data = res.data.data;
       apiToken.setToken(data.token);
       apiToken.setUser(data.user);
-
-      // A client-side timer is created to call a service to renew the token before its expiring time.
-      // The new token will replace the existing in future calls.
-      //setTimeout(function(){ refresh(); }, 540000);
       return {success : true }; // FIXME shall we return something here ?
     };
 
