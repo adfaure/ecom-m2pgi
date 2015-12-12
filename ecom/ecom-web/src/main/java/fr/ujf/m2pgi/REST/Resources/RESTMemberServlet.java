@@ -1,7 +1,6 @@
 package fr.ujf.m2pgi.REST.Resources;
 
 import fr.ujf.m2pgi.EcomException;
-import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
@@ -44,6 +43,13 @@ public class RESTMemberServlet {
 	public Response getMemberByLogin(@PathParam("login") String login) {
 		MemberDTO member =  memberService.getMemberByLogin(login);
 		return Response.ok(member).build();
+	}
+
+	@GET
+	@Path("/existing/{login}")
+	@Produces("application/json")
+	public Response isExistingMemberByLogin(@PathParam("login") String login) {
+		return Response.ok(memberService.isExistingMemberByLogin(login)).build();
 	}
 
 	@GET

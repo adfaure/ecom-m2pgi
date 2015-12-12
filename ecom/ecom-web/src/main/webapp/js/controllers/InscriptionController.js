@@ -15,6 +15,7 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
     };
 
     $scope.sellerCheckBox = false;
+	$scope.existingLogin = false;
     
     $scope.submitInscription = function () {
     	var res = null;
@@ -30,7 +31,6 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
     	
     	if(res != null) {
 	    		res.then(function (res) {
-					console.log("resultatInscription1 >>>> "+res.success);
 		            if (res.success == false) {
 						alertService.add("alert-danger", " Erreur, lors de l'inscription ", 1000);
 						return false;
@@ -39,7 +39,6 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 						return authentificationService.login($scope.user.login, $scope.user.password);
 		            }
 	        	}).then(function(res) {
-					console.log("resultat2 >>>> "+res.success);
                     if(res.success) {
                         $location.path("/accueil");
                     } else {
@@ -52,14 +51,28 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 	$scope.logInto = function() {
 		authentificationService.login($scope.login, $scope.password).then(
 				function(res) {
-					console.log("resultatLog >>>> "+res.success);
 					if(res.success) {
 						$location.path("/");
 					} else {
-						console.log("path >>>> inscription");
 						$location.path("/inscription");
 					}
 				}
+		);
+	}
+
+	$scope.checkLogin = function() {
+		memberService.IsExisting($scope.user.login).then(
+			function(res) {
+				if(res) { //login found"
+					$location.path("/inscription");
+					$scope.existingLogin = true;
+					$scope.inscriptionform.loginInput.$setValidity("inscription login", false);
+				} else { //login not found"
+					$location.path("/inscription");
+					$scope.existingLogin = false;
+					$scope.inscriptionform.loginInput.$setValidity("inscription login", true);
+				}
+			}
 		);
 	}
 };
