@@ -11,7 +11,7 @@
       <td ng-if="editIndex != $index"><strong>{{ photo.name | limitTo : 20 }}</strong></td>
       <td ng-if="editIndex == $index">
         <input required ng-model="form.name" ng-change="test()" class="form-control"
-         type="text" ng-disabled="processing" ng-maxlength="50">
+         type="text" ng-disabled="processing" ng-maxlength="50" focus-on-load>
       </td>
       <td>
         <textarea required ng-if="editIndex == $index" class="form-control"
