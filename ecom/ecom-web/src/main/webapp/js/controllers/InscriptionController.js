@@ -16,7 +16,7 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 
     $scope.sellerCheckBox = false;
     
-    $scope.submit = function () {
+    $scope.submitInscription = function () {
     	var res = null;
     	
     	if($scope.sellerCheckBox) {
@@ -30,22 +30,38 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
     	
     	if(res != null) {
 	    		res.then(function (res) {
+					console.log("resultatInscription1 >>>> "+res.success);
 		            if (res.success == false) {
 						alertService.add("alert-danger", " Erreur, lors de l'inscription ", 1000);
+						return false;
 		            } else {
-
 						alertService.add("alert-success", "Enregistré ! ", 2000);
+						return authentificationService.login($scope.user.login, $scope.user.password);
 		            }
-                    return authentificationService.login($scope.user.login, $scope.user.password);
-	        }).then(function(res) {
+	        	}).then(function(res) {
+					console.log("resultat2 >>>> "+res.success);
                     if(res.success) {
-                        $location.path("#/accueil");
+                        $location.path("/accueil");
                     } else {
+						$location.path("/inscription");
                     }
-                }
-            );;
+                });
         }
     };
+
+	$scope.logInto = function() {
+		authentificationService.login($scope.login, $scope.password).then(
+				function(res) {
+					console.log("resultatLog >>>> "+res.success);
+					if(res.success) {
+						$location.path("/");
+					} else {
+						console.log("path >>>> inscription");
+						$location.path("/inscription");
+					}
+				}
+		);
+	}
 };
 
 module.exports = InscriptionController;

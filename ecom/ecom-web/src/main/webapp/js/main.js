@@ -15,7 +15,6 @@ var angularAnimate = require('angular-animate');
 
 var mainController             = require('./controllers/MainController');
 var inscriptionController      = require('./controllers/InscriptionController');
-var loginController            = require('./controllers/LoginController');
 var headerController           = require('./controllers/HeaderController');
 var accountDetails             = require('./controllers/AccountDetailsController');
 var upgradeController          = require('./controllers/accountDetails/upgradeAccount');
@@ -86,10 +85,6 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
             templateUrl: './js/templates/inscription.html',
             controller: 'inscriptionController'
         })
-        .when('/login',  {
-            templateUrl: './js/templates/login.html',
-            controller: 'loginController'
-        })
         .when('/profil', {
             templateUrl: './js/templates/accountDetails.html',
             controller: 'accountDetails'
@@ -129,7 +124,6 @@ ecomApp.factory('alertService', alertService);
 
 ecomApp.controller('inscriptionController', inscriptionController);
 ecomApp.controller('mainController', mainController);
-ecomApp.controller('loginController', loginController);
 ecomApp.controller('accountDetails', accountDetails);
 ecomApp.controller('upgradeController', upgradeController);
 ecomApp.controller('uploadPhoto', uploadController);

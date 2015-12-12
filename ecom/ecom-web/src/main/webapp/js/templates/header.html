@@ -25,8 +25,7 @@
               <i class="fa fa-cart-arrow-down"></i>({{ user.cart.length }})<span class="sr-only">(current)</span>
           </a>
         </li>
-        <li data-ng-show="!auth"><a href="#/inscription"> Inscription </a></li>
-        <li data-ng-show="!auth"><a href="#/login"> Connexion </a></li>
+        <li data-ng-show="!auth"><a href="#/inscription"> Authentification </a></li>
         <li class="dropdown" data-ng-show="auth">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <strong>{{ user.firstName }} {{ user.lastName }}</strong><span class="caret"></span></a>
