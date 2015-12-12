@@ -34,8 +34,8 @@
         <!--  <configuration>
       <property name="jbossHome">
             /home/smile/wildfly-9.0.2.Final
-        </property> -->
-        </configuration>
+        </property>
+      </configuration> -->
    </container>
 
     <extension qualifier="transaction">
