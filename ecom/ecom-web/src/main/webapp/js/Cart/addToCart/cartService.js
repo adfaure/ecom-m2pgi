@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var cartService =  function($http, apiToken, alertService) {
+var cartService =  function($http, $q ,apiToken, alertService) {
     service = {};
     service.addToCart    = addToCart;
     service.removeToCart = removeToCart;
@@ -51,8 +51,13 @@ var cartService =  function($http, apiToken, alertService) {
         } else {
             var usr = apiToken.getUser();
             var route = 'api/orders/customer/login/' + usr.login  ;
+            if(usr.cart.length == 0) {
+                var defer = $q.defer();
+                defer.resolve();
+                return defer.promise.then(handleError("Attention, vous ne pouvez pas valider un panier vide"));
+            }
             return $http.post(route, usr.cart).then(handleSuccess("Panier validé avec success"),
-                handleError("Erreur l'ors de la du panier")
+                handleError("Erreur lors de la validation du panier")
             )
         }
     }

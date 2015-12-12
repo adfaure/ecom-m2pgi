@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.REST.Resources;
 
 import fr.ujf.m2pgi.EcomException;
+import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
