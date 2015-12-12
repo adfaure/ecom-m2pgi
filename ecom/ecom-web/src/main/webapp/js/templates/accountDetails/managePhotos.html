@@ -4,7 +4,7 @@
 
 <table class="table">
   <tbody>
-    <tr ng-repeat="photo in photos">
+    <tr ng-repeat="photo in photos track by $index" data-ng-class="{'bg-info': $index == highlight }">
       <td>
         <img width="128" ng-src="{{ photo.webLocation }}" alt="{{ photo.name }}">
       </td>

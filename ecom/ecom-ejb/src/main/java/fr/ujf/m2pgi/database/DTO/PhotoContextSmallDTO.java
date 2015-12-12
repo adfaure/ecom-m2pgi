@@ -19,6 +19,8 @@ public class PhotoContextSmallDTO {
 
 	private String webLocation;
 
+	private long sellerID;
+
 	private String thumbnail;
 
 	private boolean wishlisted;
@@ -35,9 +37,10 @@ public class PhotoContextSmallDTO {
 
 	private boolean flagged;
 
-	public PhotoContextSmallDTO(long photoID, String name, String webLocation, String thumbnail, float price, Integer views, Integer likes,
+	public PhotoContextSmallDTO(long photoID, long sellerID,  String name, String webLocation, String thumbnail, float price, Integer views, Integer likes,
 			boolean wishlisted, boolean inCart, boolean liked, boolean flagged) {
 		super();
+		this.sellerID = sellerID;
 		this.photoID = photoID;
 		this.name = name;
 		this.webLocation = webLocation;

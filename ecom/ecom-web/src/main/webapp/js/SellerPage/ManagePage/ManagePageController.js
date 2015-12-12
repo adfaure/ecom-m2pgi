@@ -21,7 +21,7 @@ var controller = function($scope, pageService, alertService, apiToken, publicPho
 
 
     function submit() {
-        pageService.updatePage(user.memberID, page).then(function(res) {
+        pageService.updatePage(user.memberID, $scope.page).then(function(res) {
             if(res.success) {
                 $scope.page = res.data;
                 alertService.add("alert-info", " votre page à été mise à jours ! ");
