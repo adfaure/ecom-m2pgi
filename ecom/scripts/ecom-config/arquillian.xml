@@ -33,9 +33,9 @@
         <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
         <!--  <configuration>
       <property name="jbossHome">
-            /opt/wildfly-9.0.2.Final/
+            /home/smile/wildfly-9.0.2.Final
         </property>
-        </configuration> -->
+      </configuration> -->
    </container>
 
     <extension qualifier="transaction">
