@@ -1,10 +1,12 @@
 language: java
 jdk:
   - oraclejdk8
+install: /bin/true
 before_script:
  - wget http://download.jboss.org/wildfly/9.0.1.Final/wildfly-9.0.1.Final.tar.gz -O /tmp/wildfly-9.0.1.Final.tar.gz
  - tar -xvf /tmp/wildfly-9.0.1.Final.tar.gz
  - export JBOSS_HOME=$PWD/wildfly-9.0.1.Final/
+ - cp ecom/scripts/ecom-config/arquillian.xml ecom/ecom-ejb/src/test/resources/
  - cp ecom/scripts/wildfly/standalone-test.xml wildfly-9.0.1.Final/standalone/configuration/
  - cp ecom/scripts/wildfly/application.properties wildfly-9.0.1.Final/standalone/configuration/application.properties
  - mvn -version
