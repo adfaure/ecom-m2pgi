@@ -13,3 +13,7 @@ dist.js
 *.ipr
 *.iws
 [0-9]*.png
+
+ecom/ecom-ejb/src/test/resources/arquillian.xml
+ecom/ecom-ejb/src/main/resources/META-INF/persistence.xml
+nodejs/config.json

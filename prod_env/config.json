@@ -1,0 +1,9 @@
+{
+  "upload_route"     : "http://152.77.78.8:8080/ecom-web/api/photos/seller/",
+  "file_location"    : "/var/www/images/",
+  "thumbnail_location"    : "/var/www/images/thumb/",
+  "web_uri"     : "http://152.77.78.10/images/",
+  "thumb_uri"   : "http://152.77.78.10/images/thumb/",
+  "private_uri" : "http://152.77.78.10/images/",
+  "watermark_img"    : "/home/im2ag/ECOM-M2PGI/nodejs/watermark.png"
+}
