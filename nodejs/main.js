@@ -33,7 +33,7 @@ app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
 
         if (req.params.fileAccepted) {
             res.status(200);
-            post(photo, req.params.id).then(function (serverRes) {
+            post(photo, req.params.id, req.headers.auth_token).then(function (serverRes) {
                 imageProcessing(serverRes, tempPath, req.file ,function (err) {
                   if(err) console.log(err);
                   res.send(serverRes);

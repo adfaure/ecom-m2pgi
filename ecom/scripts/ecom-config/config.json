@@ -7,3 +7,22 @@
   "private_uri" : "http://localhost:8080/ecom-web/static/",
   "watermark_img"    : "/home/smile/IdeaProjects/ECOM-M2PGI/nodejs/watermark.png"
 }
+
+{
+  "file_location"    : "/home/azouzim/M2PGI/ECOM/Tools/wildfly-10.0.0.CR2/standalone/data/",
+  "thumbnail_location"    : "/home/azouzim/M2PGI/ECOM/Tools/wildfly-10.0.0.CR2/standalone/data/thumb/",
+  "web_uri"     : "http://localhost:8080/ecom-web/static/",
+  "thumb_uri"   : "http://localhost:8080/ecom-web/static/thumb/",
+  "private_uri" : "http://localhost:8080/ecom-web/static/",
+  "watermark_img"    : "/home/azouzim/M2PGI/ECOM/Tests/node_js/nodejs/watermark.png"
+}
+
+{
+  "upload_route"     : "http://localhost:8080/ecom-web/api/photos/seller/",
+  "file_location"    : "/opt/wildfly-9.0.2.Final/standalone/data/",
+  "thumbnail_location"    : "/opt/wildfly-9.0.2.Final/standalone/data/thumb/",
+  "web_uri"     : "http://localhost:8080/ecom-web/static/",
+  "thumb_uri"   : "http://localhost:8080/ecom-web/static/thumb/",
+  "private_uri" : "http://localhost:8080/ecom-web/static/",
+  "watermark_img"    : "/home/dadou/Documents/Projets/ECOM-M2PGI/nodejs/watermark.png"
+}

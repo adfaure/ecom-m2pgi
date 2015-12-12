@@ -3,6 +3,7 @@ package fr.ujf.m2pgi.REST.Resources;
 import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
+import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Service.IMemberService;
@@ -26,11 +27,11 @@ public class RESTMemberServlet {
 
 	@Context
 	private HttpServletRequest httpServletRequest;
-	
+
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	//@Allow(groups = "admin")
+	@Allow(groups = "admin")
 	public Response getAllMembers() {
 		List<MemberDTO> members = memberService.getAllMembers();
 		return Response.ok(members).build();
@@ -39,6 +40,7 @@ public class RESTMemberServlet {
 	@GET
 	@Path("/login/{login}")
 	@Produces("application/json")
+	@AllowAll
 	public Response getMemberByLogin(@PathParam("login") String login) {
 		MemberDTO member =  memberService.getMemberByLogin(login);
 		return Response.ok(member).build();
@@ -47,20 +49,22 @@ public class RESTMemberServlet {
 	@GET
 	@Path("/id/{id}")
 	@Produces("application/json")
+	@AllowAll
 	public Response getMemberById(@PathParam("id") long id) {
 		MemberDTO member =  memberService.getMemberbyId(id);
 		return Response.ok(member).build();
 	}
 
-	
+
 	@GET
 	@Path("id/{id}/follows")
 	@Produces("application/json")
+	@AllowAll
 	public Response getFollowedSellersBy(@PathParam("id") long id) {
-		List<MemberDTO> members =memberService.getFollowedSellersBy(id); 
+		List<MemberDTO> members = memberService.getFollowedSellersBy(id);
 		return Response.ok(members).build();
 	}
-	
+
 	@POST
 	@Path("/")
 	@Produces("application/json")
@@ -70,40 +74,42 @@ public class RESTMemberServlet {
 		return Response.status(Status.CREATED).entity(createdMember).build();
 	}
 
-	
+
 	@DELETE
 	@Path("id/{id}")
 	@Produces("application/json")
 	@Consumes("application/json")
+	@Allow(groups = "admin")
 	public Response deleteUser(@PathParam("id") Long id) {
 		memberService.deleteMember(id);
 		return  Response.status(Status.ACCEPTED).build();
 	}
-	
+
 	@PUT
 	@Path("/update/id/{id}")
 	@Produces("application/json")
+	@AllowAll
 	public Response updateUser(@PathParam("id") Long id, MemberDTO memberDTO) {
 		MemberDTO m = memberService.getMemberbyId(id);
 		if(m == null) return Response.status(Status.BAD_REQUEST).build();
-		
+
 		MemberDTO updatedMember = null;
 		updatedMember =  memberService.updateMember(memberDTO);
 		return Response.ok(updatedMember).build();
 	}
-	
+
 	@PUT
 	@Path("id/{id}/pwd/{newPSW}")
 	@Produces("application/json")
 	public Response updateUserPSW(@PathParam("id") Long id, MemberDTO memberDTO, @PathParam("newPSW") String newPSW) {
 		MemberDTO m = memberService.getMemberbyId(id);
 		if(m == null) return Response.status(Status.BAD_REQUEST).build();
-		
+
 		MemberDTO updatedMember = null;
 		updatedMember =  memberService.changePassword(memberDTO, newPSW);
 		return Response.ok(updatedMember).build();
 	}
-	
+
 	@GET
 	@Path("/count")
 	@Produces("application/json")
@@ -117,9 +123,10 @@ public class RESTMemberServlet {
 	@Path("id/{id}/cart/photo/id/{photoId}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response addToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId ) {
-		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
-		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
+	@AllowAll
+	public Response addToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId, @HeaderParam("userID") Long requesterID) {
+		if(!requesterID.equals(id)) return Response.status(Status.FORBIDDEN).build();
+
 		PublicPhotoDTO p = new PublicPhotoDTO();
 		p.setPhotoID(photoId);
 		MemberDTO m = new MemberDTO();
@@ -132,9 +139,9 @@ public class RESTMemberServlet {
 	@Path("id/{id}/cart/photo/id/{photoId}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response deleteToCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId) {
-		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
-		//if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
+	@AllowAll
+	public Response deleteFromCart(@PathParam("id") Long id, @PathParam("photoId") Long photoId, @HeaderParam("userID") Long requesterID) {
+		if(!requesterID.equals(id)) return Response.status(Status.FORBIDDEN).build();
 		PublicPhotoDTO p = new PublicPhotoDTO();
 		p.setPhotoID(photoId);
 		MemberDTO m = new MemberDTO();
@@ -147,9 +154,9 @@ public class RESTMemberServlet {
 	@Path("id/{id}/cart")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response deleteCart(@PathParam("id") Long id) {
-		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
-		if(principal.getUser().getMemberID() != id) return Response.status(Status.FORBIDDEN).build();
+	@AllowAll
+	public Response deleteCart(@PathParam("id") Long id, @HeaderParam("userID") Long requesterID) {
+		if(!requesterID.equals(id)) return Response.status(Status.FORBIDDEN).build();
 		MemberDTO dto = new MemberDTO();
 		dto.setMemberID(id); //FIXME USe principal user
 		MemberDTO res = memberService.deleteCart(dto);
@@ -160,41 +167,37 @@ public class RESTMemberServlet {
 	@Path("id/{memberId}/follow/{followedId}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response follow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId) {
+	@AllowAll
+	public Response follow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId, @HeaderParam("userID") Long requesterID) {
 
-		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
-		if(principal == null || 
-				!(memberId.equals(principal.getUser().getMemberID()))) return Response.status(Status.FORBIDDEN).build();
-		
+		if(!requesterID.equals(memberId)) return Response.status(Status.FORBIDDEN).build();
+
 		if(!memberId.equals(followedId)){
 			boolean response = memberService.follow(memberId, followedId);
 			return  Response.ok(response).build();
 		}
-		return Response.status(Status.FORBIDDEN).build();
-		
-		
+		return Response.status(405).build();
 	}
-	
+
 	@POST
 	@Path("id/{memberId}/unfollow/{followedId}")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response unfollow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId) {
-		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
-		if(principal.equals(null) || (!principal.equals(null) && principal.getUser().getMemberID() != memberId)) return Response.status(Status.FORBIDDEN).build();
-			boolean response = memberService.unfollow(memberId, followedId);
+	@AllowAll
+	public Response unfollow(@PathParam("memberId") Long memberId, @PathParam("followedId") Long followedId, @HeaderParam("userID") Long requesterID) {
+		if(!requesterID.equals(memberId)) return Response.status(Status.FORBIDDEN).build();
+
+		boolean response = memberService.unfollow(memberId, followedId);
 		return  Response.ok(response).build();
 	}
-	
+
 	@GET
 	@Path("id/{memberId}/isfollowedby/{followerId}")
 	@Produces("application/json")
 	@Consumes("application/json")
+	@AllowAll
 	public Response isFollowedBy(@PathParam("memberId") Long memberId, @PathParam("followerId") Long followerId) {
-		PrincipalUser principal = (PrincipalUser) httpServletRequest.getSession().getAttribute("principal");
-		if(principal.equals(null) || (!principal.equals(null) && principal.getUser().getMemberID() != memberId && principal.getUser().getMemberID() != followerId)) return Response.status(Status.FORBIDDEN).build();
-			boolean response = memberService.isFollowedBy(followerId, memberId);
-				return  Response.ok(response).build();
+		boolean response = memberService.isFollowedBy(followerId, memberId);
+		return  Response.ok(response).build();
 	}
-	
 }
