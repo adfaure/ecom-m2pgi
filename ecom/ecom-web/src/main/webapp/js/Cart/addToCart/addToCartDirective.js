@@ -8,7 +8,7 @@ var addToCart = function ($compile, apiToken, cartService) {
             photo : "=photo"
         },
         templateUrl: './js/Cart/addToCart/addToCartTemplate.html',
-        controller : function ($scope ) {
+        controller : function ($scope, $location ) {
             var user;
 
             if(apiToken.isAuthentificated()) {
@@ -18,15 +18,25 @@ var addToCart = function ($compile, apiToken, cartService) {
                             return;
                         }
                         user = apiToken.getUser();
-                        $scope.alreadyInCart = (user.cart.find(function (elem, idx, array) {
-                            return (elem.photoID == $scope.photo.photoID);
-                        }) != undefined);
+                        if(user.memberID == $scope.photo.sellerID) {
+                            $scope.owned = true;
+                        } else {
+                            $scope.owned = false;
+                            $scope.alreadyInCart = (user.cart.find(function (elem, idx, array) {
+                                return (elem.photoID == $scope.photo.photoID);
+                            }) != undefined);
+                        }
                     }
                 );
             }
 
             $scope.clickAdd    = clickAdd;
             $scope.clickRemove = clickRemove;
+            $scope.goToMyPhoto = function() {
+                $location.path('/profil/managePhotos').search({
+                    photo : JSON.stringify($scope.photo)
+                });
+            }
         }
     };
 
@@ -35,7 +45,7 @@ var addToCart = function ($compile, apiToken, cartService) {
             if(res.success)
                 apiToken.setUser(res.data);            }
         );
-    }
+    };
 
     function clickRemove (photo) {
         cartService.removeToCart(photo).then(function(res) {

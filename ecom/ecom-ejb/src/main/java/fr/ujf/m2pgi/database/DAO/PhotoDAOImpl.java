@@ -72,7 +72,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@Override
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO" +
-		"(p.photoID, p.name, p.webLocation, p.thumbnail, p.price, p.views, p.likes, " +
+		"(p.photoID, p.author.memberID, p.name, p.webLocation, p.thumbnail, p.price, p.views, p.likes, " +
 		"CASE WHEN EXISTS (SELECT w FROM Wish w WHERE p.photoID = w.photo.photoID AND w.member.memberID = :id)" +
 		"THEN true ELSE false END AS wishlisted," +
 		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
