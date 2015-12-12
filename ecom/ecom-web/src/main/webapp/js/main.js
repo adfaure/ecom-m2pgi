@@ -47,6 +47,7 @@ var alertService = require('./services/AlertService');
  * Directives
  */
 var inputFileDir = require('./directives/InputFile');
+var focusOnLoad = require('./directives/FocusOnLoad'); // module de focus sur les inputs de formumaires on page load
 
 /**
  * Modules
@@ -113,6 +114,7 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
 });
 
 ecomApp.directive('ecomInputFile', inputFileDir);
+ecomApp.directive('focusOnLoad', focusOnLoad);
 
 ecomApp.factory('memberService', memberService);
 ecomApp.factory('sellerService', sellerService);
