@@ -1,0 +1,13 @@
+server {
+
+	server_name localhost 152.77.78.10 vm5;
+
+	location / {
+		proxy_pass http://127.0.0.1:3000;
+	}
+
+	location /images/ {
+		root /var/www/;
+		#autoindex on;
+	}
+}
