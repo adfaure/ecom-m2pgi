@@ -1,14 +1,12 @@
 package fr.ujf.m2pgi.REST.Resources;
 
-import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
 import fr.ujf.m2pgi.REST.CustomServerResponse;
-import fr.ujf.m2pgi.Security.ITokenGenerator;
+import fr.ujf.m2pgi.Security.JwtSingleton;
 import fr.ujf.m2pgi.Security.IStringDigest;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.Service.IMemberService;
-import fr.ujf.m2pgi.database.Service.MemberService;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,10 +28,10 @@ public class RESTAuthentification {
     private IMemberService memberService;
 
     @EJB
-    private ITokenGenerator tokenGenerator;
+    private IStringDigest stringDigest;
 
     @EJB
-    private IStringDigest stringDigest;
+    private JwtSingleton jwtSingleton;
 
     @Context
     private HttpServletRequest httpServletRequest;
@@ -46,13 +45,13 @@ public class RESTAuthentification {
 
       if (username == null || username.equals("")) {
     	 return Response.status(401).entity(
-    			 new CustomServerResponse(false, "Authentification failed: username and password required!")).build(); 
+    			 new CustomServerResponse(false, "Authentification failed: username and password required!")).build();
       }
-      
+
       String password = httpServletRequest.getParameter("password");
       if (password == null || password.equals("")) {
     	 return Response.status(401).entity(
-    			 new CustomServerResponse(false, "Authentification failed: username and password required!")).build(); 
+    			 new CustomServerResponse(false, "Authentification failed: username and password required!")).build();
       }
 
       MemberDTO member = memberService.getMemberByLogin(username);
@@ -62,41 +61,66 @@ public class RESTAuthentification {
    			 new CustomServerResponse(false, "Authentification failed: invalid username or password!")).build();
       }
 
-      HttpSession session = httpServletRequest.getSession();
-      PrincipalUser principal = null;
-
       if(member.getPassword().equals(stringDigest.digest(password))) {
-        principal = new PrincipalUser();
-        principal.setToken(tokenGenerator.nextSessionId());
-        principal.setUser(member);
+        Long id = member.getMemberID();
+        String group = "";
         switch (member.getAccountType()) {
           case 'S':
-            principal.setGroup("sellers");
+            group = "sellers";
             break;
           case 'M':
-            principal.setGroup("members");
+            group = "members";
             break;
           case 'A':
-          	principal.setGroup("admin");
+          group = "admin";
             break;
         }
-        session.setAttribute("principal",principal);
+        Map<String, Object> resJson = new HashMap<String, Object>();
+        resJson.put("token", jwtSingleton.generateToken(id, group));
+        member.setPassword("");
+        resJson.put("user", member);
+        return Response.ok().entity(new CustomServerResponse(true, "Authentification successed!", resJson)).build();
       } else {
           return Response.status(401).entity(
         		  new CustomServerResponse(false, "Authentification failed: invalid username or password!")).build();
       }
-      Map<String, Object> resJson = new HashMap<String, Object>();
-      resJson.put("token", principal.getToken());
-      resJson.put("user", principal.getUser());
-      return Response.ok().entity(new CustomServerResponse(true, "Authentification successed!", resJson)).build();
     }
 
     @POST
     @Path("/logout")
     @Produces("application/json")
     public Response logout() {
-        HttpSession session = httpServletRequest.getSession();
-        session.setAttribute("principal", null);
-        return Response.ok().entity(new CustomServerResponse(true, "Logout successed!")).build();
+      // Here we should invalidate the token
+      return Response.ok().entity(new CustomServerResponse(true, "Logout successed!")).build();
+    }
+
+    @POST
+    @Path("/refresh")
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Allow(groups="sellers;members;admin")
+    public Response refresh(@HeaderParam("userID") Long id) {
+      MemberDTO member = memberService.getSellerById(id);
+      if (member == null) {
+        return Response.status(401).entity(
+            new CustomServerResponse(false, "Something went wrong! Try to reconnect!")).build();
+      }
+      String group = "";
+      switch (member.getAccountType()) {
+        case 'S':
+        group = "sellers";
+        break;
+        case 'M':
+        group = "members";
+        break;
+        case 'A':
+        group = "admin";
+        break;
+      }
+      member.setPassword("");
+      Map<String, Object> resJson = new HashMap<String, Object>();
+      resJson.put("token", jwtSingleton.generateToken(id, group));
+      resJson.put("user", member);
+      return Response.ok().entity(new CustomServerResponse(true, "Refreshing session successed!", resJson)).build();
     }
 }
