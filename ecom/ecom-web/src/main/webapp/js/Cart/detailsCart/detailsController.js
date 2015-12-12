@@ -38,6 +38,8 @@ module.exports = function($scope, $location, apiToken, cartService) {
         cartService.validateCart().then(function(res) {
             if(res.success)
                 apiToken.setUser(res.data);
+        }, function(err) {
+            console.log(err);
         });
     }
 
