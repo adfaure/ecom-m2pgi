@@ -11,7 +11,7 @@ before_script:
  - cp ecom/scripts/wildfly/application.properties wildfly-9.0.1.Final/standalone/configuration/application.properties
  - mvn -version
  - touch wildfly.log
- - wildfly-9.0.1.Final/bin/standalone.sh 2>&1 wildfly.log
+ - ./wildfly-9.0.1.Final/bin/standalone.sh 2>&1 wildfly.log
 script :
  - mvn clean test -Parq-wildfly-remote
 after_script :
