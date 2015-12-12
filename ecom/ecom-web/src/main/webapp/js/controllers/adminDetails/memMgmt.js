@@ -89,19 +89,19 @@ var memMgmtController = function($scope, memberService, sellerService) {
 				delete user.sellerInfo;
 
 				memberService.Create(user).then(function(res) {
-					user.memberID = res.memberID;
+					//user.memberID = res.memberID;
+					showCreatedUser(res);
 				});	
 
 
 			}else{
 
 				sellerService.Create(user).then(function(res) {
-					user.memberID = res.memberID;
+					//user.memberID = res.memberID;
+					showCreatedUser(res);
 				});
 			}
-
-
-			$scope.users.push(user);		
+		
 		}
 		else{
 
@@ -110,25 +110,18 @@ var memMgmtController = function($scope, memberService, sellerService) {
 			if($scope.data.singleSelect == 'M'){
 				delete user.sellerInfo;
 				memberService.Update(user).then(function(res) {
-
-					user = res;
-
+					addEditedUser(res, $scope.indexMemberList);
+					
 				});
 			}else{
 				sellerService.Update(user).then(function(res) {
-
-					user = res;
-
+					addEditedUser(res, $scope.indexMemberList);
+					
 				});
 			}
-
-
-
-			$scope.users[$scope.indexMemberList] = user;
-			$scope.edit = false;
 		}
 
-		emptyFields();
+		
 
 	}
 
@@ -174,6 +167,28 @@ var memMgmtController = function($scope, memberService, sellerService) {
 		$scope.inEditMember.login = "";
 		$scope.inEditMember.password = "";
 		$scope.inEditMember.sellerInfo.rib = "";
+	}
+	
+	function showCreatedUser(res){
+		if(res.success != null && res.success == false){
+			alertService.add("alert-danger", " Erreur, le membre n'as pas pu été ajouté", 2000);
+		}
+		else{
+			$scope.users.push(res);
+			emptyFields();
+		}
+	}
+	
+	
+	function addEditedUser(res, index){
+		if(res.success != null && res.success == false){
+			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre édité", 2000);
+		}
+		else{
+			$scope.users[index] = res;
+			$scope.edit = false;
+			emptyFields();
+		}
 	}
 
 
