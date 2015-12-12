@@ -1,47 +1,101 @@
 
-<form class="css-form" name="loginform" novalidate
-	ng-submit="loginform.$valid && submit()">
+<br>
+<div class="row">
 
-	<div class="form-group">
-		<label for="inputLogin">Pseudo</label> <input
-			required ng-model="user.login" type="text" class="form-control "
-			id="inputLogin" placeholder="Pseudo" focus-on-load>
+	<div class="col-xs-12 col-sm-6 textAlignCenter">
+
+		<h3>J'ai déjà un compte</h3>
+		<br>
+
+		<div class="row">
+			<div class="col-xs-0 col-sm-2">
+			</div>
+
+			<div class="col-xs-12 col-sm-8">
+				<form class="css-form" name="loginform" novalidate ng-submit="loginform.$valid && logInto()">
+
+					<div class="form-group">
+						<input required ng-model="login" type="text" class="form-control " id="inputLogin" placeholder="Pseudo" focus-on-load/>
+					</div>
+					<div class="form-group">
+						<input required ng-model="password" type="password" class="form-control" id="inputPassword" placeholder="Mot de passe"/>
+					</div>
+					<br>
+
+					<button type="submit" class="btn btn-default">Connexion</button>
+				</form>
+			</div>
+
+			<div class="col-xs-0 col-sm-2">
+			</div>
+		</div>
+
 	</div>
 
-	<div class="form-group">
-		<label for="inputFirstName">Nom</label> <input
-			ng-model="user.firstName" type="text" class="form-control"
-			id="inputFirstName" placeholder="Nom">
+	<div class="col-xs-12 col-sm-6 textAlignCenter vertical-divider-left">
+
+		<h3>Je veux créer un compte</h3>
+		<br>
+
+		<div class="row">
+			<div class="col-xs-0 col-sm-2">
+			</div>
+
+			<div class="col-xs-12 col-sm-8">
+
+
+				<form class="css-form" name="loginforminscription" novalidate ng-submit="loginforminscription.$valid && submitInscription()">
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<input ng-model="user.firstName" type="text" class="form-control" id="inputFirstName" placeholder="Nom">
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<input ng-model="user.lastName" type="text" class="form-control" id="inputLastname" placeholder="Prénom">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<input ng-model="user.email" type="text" class="form-control" id="inputEmail" placeholder="Adresse mail">
+					</div>
+
+					<div class="form-group">
+						<input required ng-model="user.login" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo">
+					</div>
+
+					<div class="form-group">
+						<input required ng-model="user.password" type="password" class="form-control" id="inputPasswordInscription" placeholder="Mot de passe">
+					</div>
+
+					<div class="checkbox" ng-init="checked=false">
+						<label> <input type="checkbox" data-ng-model="sellerCheckBox">
+							Je souhaite ouvrir un compte vendeur
+						</label>
+					</div>
+
+					<span ng-if="sellerCheckBox" class="animate-if">
+						<div ng-include="sellerTemplate"></div>
+					</span>
+					<br>
+
+					<button type="submit" class="btn btn-default">Valider</button>
+
+				</form>
+
+			</div>
+
+			<div class="col-xs-0 col-sm-2">
+			</div>
+
+		</div>
+
+
+
 	</div>
 
-	<div class="form-group">
-		<label for="inputLastname">Prénom</label> <input
-			ng-model="user.lastName" type="text" class="form-control"
-			id="inputLastname" placeholder="Prénom">
-	</div>
+</div>
 
-	<div class="form-group">
-		<label for="inputEmail">Adresse mail</label> <input
-			ng-model="user.email" type="text" class="form-control"
-			id="inputEmail" placeholder="Adresse mail">
-	</div>
-
-	<div class="form-group">
-		<label for="inputPassword">Mot de passe</label> <input required
-			ng-model="user.password" type="password" class="form-control"
-			id="inputPassword" placeholder="Mot de passe">
-	</div>
-
-	<div class="checkbox" ng-init="checked=false">
-		<label> <input type="checkbox" data-ng-model="sellerCheckBox">
-			Je souhaite ouvrir un compte vendeur
-		</label>
-	</div>
-
-	<span ng-if="sellerCheckBox" class="animate-if">
-		<div ng-include="sellerTemplate"></div>
-	</span>
-
-	<button type="submit" class="btn btn-default">Valider</button>
-
-</form>

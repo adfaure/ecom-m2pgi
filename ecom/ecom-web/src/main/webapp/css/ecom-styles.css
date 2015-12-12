@@ -111,3 +111,9 @@
     right:-10px;
     top:0;
 }
+
+.vertical-divider-left {
+    overflow: hidden;
+    border-left: 1px solid #ccc;
+}
+
