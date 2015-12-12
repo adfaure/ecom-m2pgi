@@ -1,23 +1,23 @@
 <div class="row">
-    <div class="col-lg-10">
-        <a href=""  class="thumbnail">
-            <p>{{photo.description}}</p>
-            <p>Mis en vente par le vendeur: <a href ng-click="goToSellerPage()">{{photo.sellerID}}</a> </p>
-
-            <img class="img-responsive" ng-src="{{photo.webLocation}}" alt="{{photo.name}}">
-        </a>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <p>Mise en vente par <a href="" ng-click="goToSellerPage()">{{photo.sellerLogin}}</a></p>
     </div>
-
-    <div class="col-lg-2">
-        <add-to-cart-component photo="photo"></add-to-cart-component>
-        <button class="btn btn-default" ng-show="!photo.wishlisted" ng-click="wish(photo.photoID)">
-          <span class="glyphicon glyphicon-star"></span>Rajouter aux favories
-        </button>
-        <button class="btn btn-danger" ng-show="photo.wishlisted" ng-click="unwish(photo.photoID)">
-          <span class="glyphicon glyphicon-star"></span>Enlever des favories
-        </button>
-        <button class="btn btn-default" ng-show="!photo.flagged" ng-click="flag(photo.photoID)">
-          <span class="glyphicon glyphicon-flag"></span>Signaler
-        </button>
+    <div class="panel-body">
+      <a href="" class="thumbnail">
+        <img class="img-responsive" ng-src="{{photo.webLocation}}" alt="{{photo.name}}">
+      </a>
+      <span ng-repeat="tag in photo.tags"><span class="label label-primary">{{tag.name}}</span> </span>
+      <add-to-cart-component photo="photo"></add-to-cart-component>
+      <button class="btn btn-default" ng-show="!photo.wishlisted" ng-click="wish(photo.photoID)">
+        <span class="glyphicon glyphicon-star"></span>Rajouter aux favories
+      </button>
+      <button class="btn btn-danger" ng-show="photo.wishlisted" ng-click="unwish(photo.photoID)">
+        <span class="glyphicon glyphicon-star"></span>Enlever des favories
+      </button>
+      <button class="btn btn-default" ng-show="!photo.flagged" ng-click="flag(photo.photoID)">
+        <span class="glyphicon glyphicon-flag"></span>Signaler
+      </button>
     </div>
+  </div>
 </div>

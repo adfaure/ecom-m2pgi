@@ -9,12 +9,17 @@
             <label for="description">Description</label>
             <input required ng-model="photoData.description" type="text" class="form-control" name="description" id="description" placeholder="description">
         </div>
-
+        <div class="form-group">
+          <label for="tags">Mots-clés</label>
+          <input required ng-model="photoData.tags" type="text" class="form-control" name="tags" id="tags" placeholder="mots-clés">
+          <span ng-repeat="tag in photoData.tags.split(';')"><span class="label label-primary">{{tag}}</span> </span>
+        </div>
         <div class="form-group">
             <label for="price">Prix</label>
-            <input required ng-model="photoData.price" type="number" class="form-control" name="price" id="price" placeholder="price" data-required>
+            <input required ng-model="photoData.price" type="number"
+            min="0.01" max="999.99" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+            class="form-control" name="price" id="price" placeholder="price" data-required>
         </div>
-
         <button type="submit" class="btn btn-default" data-ng-click="upload.$valid && submit('addPhoto')" >Valider et Rajouter</button>
 
         <button type="submit" class="btn btn-default" data-ng-click="upload.$valid && submit('managePhotos')" >Valider et Terminer</button>

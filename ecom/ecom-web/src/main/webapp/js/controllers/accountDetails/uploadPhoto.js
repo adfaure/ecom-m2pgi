@@ -18,9 +18,9 @@ var upload = function($scope, uploadPhoto, alertService) {
             function(res) {
                 if(res.success) {
                     $scope.setView(redirect);
-                    alertService.add("alert-success", "Photo chargée avec succès ! ", 2000);
+                    alertService.add("alert-success", "Photo chargée avec succès !", 2000);
                 }else{
-                    alertService.add("alert-danger", " Erreur Zlors du chargement de la photo ", 1000);
+                    alertService.add("alert-danger", " Erreur lors du chargement de la photo !", 1000);
                 }
             }
         );

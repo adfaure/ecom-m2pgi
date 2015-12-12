@@ -6,10 +6,11 @@ var manage = function($scope, publicPhoto, apiToken) {
 			id : '',
 			name : '',
 			description : '',
+			tags : [],
 			price : 0
 	};
 
-	$scope.photos = {}; 
+	$scope.photos = {};
 
 	publicPhoto.GetUserPhotos(apiToken.getUser().login).then(function(res) {
 		$scope.photos = res;
@@ -24,16 +25,19 @@ var manage = function($scope, publicPhoto, apiToken) {
 		$scope.form.id = $scope.photos[index].photoID;
 		$scope.form.name = $scope.photos[index].name;
 		$scope.form.description = $scope.photos[index].description;
+		$scope.form.tags = $scope.photos[index].tags;
 		$scope.form.price = $scope.photos[index].price;
 		$scope.editIndex = index;
 	};
 
 	$scope.save = function(index) {
 		$scope.processing = true;
+		$scope.form.tags = $scope.text.tags.split(';');
 
 		publicPhoto.Update($scope.form).then(function(res) {
 			$scope.photos[index].name = $scope.form.name;
 			$scope.photos[index].description = $scope.form.description;
+			$scope.photos[index].tags = $scope.text.tags;
 			$scope.photos[index].price = $scope.form.price;
 			$scope.processing = false;
 			$scope.removeIndex = -1;
