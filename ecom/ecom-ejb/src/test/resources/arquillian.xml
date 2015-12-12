@@ -31,11 +31,11 @@
    <!-- Example configuration for a remote WildFly instance -->
    <container qualifier="jboss" default="true">
         <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
-        <!--  <configuration>
+          <configuration>
       <property name="jbossHome">
-            /opt/wildfly-9.0.2.Final/
+            /home/smile/wildfly-9.0.2.Final
         </property>
-        </configuration> -->
+        </configuration>
    </container>
 
     <extension qualifier="transaction">
