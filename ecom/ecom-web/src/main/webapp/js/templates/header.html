@@ -15,12 +15,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <form id="searchnavbar"  class="navbar-form navbar-left" role="search" name="searchForm" data-ng-submit="searchForm.$valid && goToSearch()">
         <div class="form-group">
-          <input id="searchInput" type="text" class="form-control" data-ng-model="terms" placeholder="Entrer recherche...">
+          <input id="searchInput" type="text" class="form-control" data-ng-model="terms" placeholder="Entrer recherche..." focus-on-load>
         </div>
         <button type="submit" class="btn btn-default">Chercher</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li data-ng-show="auth">
+        <li data-ng-show="auth" class="cursorPointer">
           <a class="fa" data-ng-click="gotToProfil('myCart')" >
               <i class="fa fa-cart-arrow-down"></i>({{ user.cart.length }})<span class="sr-only">(current)</span>
           </a>
