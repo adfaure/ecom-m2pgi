@@ -1,12 +1,14 @@
 package fr.ujf.m2pgi.database.DAO;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.ManagePhotoDTO;
 import fr.ujf.m2pgi.database.DTO.TagCustomDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Member;
@@ -20,10 +22,27 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Photo> getUserPhotos(Long id) {
-		Query query = entityManager.createQuery("SELECT p FROM Photo p left join p.author s WHERE s.memberID=:id AND p.available = true");
+	public List<ManagePhotoDTO> getUserPhotos(Long id) {
+		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.ManagePhotoDTO" +
+		"(p.photoID, p.description, p.name, p.price, p.thumbnail) "+
+		"FROM Photo p WHERE p.available = true AND p.author.memberID = :id";
+		Query query = entityManager.createQuery(str, ManagePhotoDTO.class);
 		query.setParameter("id", id);
-		return (List<Photo>)query.getResultList();
+		List<ManagePhotoDTO> photos = query.getResultList();
+
+		for (ManagePhotoDTO photo: photos) {
+			long photoID = photo.getPhotoId();
+			query = entityManager.createQuery("SELECT t.name FROM Tags ts LEFT JOIN ts.tag t WHERE ts.photo.photoID = :photoid");
+			query.setParameter("photoid", photoID);
+			List<String> tags = (List<String>)query.getResultList();
+			StringJoiner sj = new StringJoiner(" ");
+			for (String tag : tags) {
+				sj.add(tag);
+			}
+			photo.setTags(sj.toString());
+		}
+
+		return photos;
 	}
 
 	@Override
@@ -41,10 +60,27 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Photo> getUserPhotos(String login) {
-		Query query = entityManager.createQuery("SELECT p FROM Photo p left join p.author s WHERE s.login=:login and p.available = true");
+	public List<ManagePhotoDTO> getUserPhotos(String login) {
+		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.ManagePhotoDTO" +
+		"(p.photoID, p.description, p.name, p.price, p.thumbnail) "+
+		"FROM Photo p LEFT JOIN p.author s WHERE s.login = :login AND p.available = true";
+		Query query = entityManager.createQuery(str, ManagePhotoDTO.class);
 		query.setParameter("login", login);
-		return (List<Photo>)query.getResultList();
+		List<ManagePhotoDTO> photos = query.getResultList();
+
+		for (ManagePhotoDTO photo: photos) {
+			long photoID = photo.getPhotoId();
+			query = entityManager.createQuery("SELECT t.name FROM Tags ts LEFT JOIN ts.tag t WHERE ts.photo.photoID = :photoid");
+			query.setParameter("photoid", photoID);
+			List<String> tags = (List<String>)query.getResultList();
+			StringJoiner sj = new StringJoiner(" ");
+			for (String tag : tags) {
+				sj.add(tag);
+			}
+			photo.setTags(sj.toString());
+		}
+
+		return photos;
 	}
 
 	@Override

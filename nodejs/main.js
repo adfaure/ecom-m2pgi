@@ -27,6 +27,7 @@ app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
         photo.price = req.body.price;
         photo.name = photoName;
         photo.description = req.body.description;
+        photo.tags = req.body.tags.split(' ');
         photo.sellerID = req.params.id;
         photo.ext = req.file.ext;
         photo.privateLocation = nconf.get("private_uri") + req.file.filename;

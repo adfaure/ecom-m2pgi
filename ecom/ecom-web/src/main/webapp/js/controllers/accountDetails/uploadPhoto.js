@@ -4,7 +4,9 @@ var angular = require('angular');
 var upload = function($scope, uploadPhoto, alertService) {
     $scope.submit = submit;
     $scope.photoData = {
-
+      description: '',
+      tags: '',
+      price: 1,
     };
     if($scope.user.accountType == 'M') {
         $scope.subview = 'details';

@@ -28,12 +28,12 @@
     <tr>
       <td class="col-md-2">Mots-clés : </td>
       <td ng-if="editIndex != $index">
-        <span ng-repeat="tag in photo.tags"><span class="label label-primary">{{tag.name}}</span> </span>
+        <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
       </td>
       <td ng-if="editIndex == $index">
-        <input required ng-model="text.tags" ng-change="test()" class="form-control"
+        <input required ng-model="form.tags" ng-change="test()" class="form-control"
         type="text" ng-disabled="processing">
-        <span ng-repeat="tag in text.tags.split(';')"><span class="label label-primary">{{tag}}</span> </span>
+        <span ng-repeat="tag in form.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
       </td>
     </tr>
     <tr>

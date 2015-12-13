@@ -12,7 +12,7 @@
         <div class="form-group">
           <label for="tags">Mots-clés</label>
           <input required ng-model="photoData.tags" type="text" class="form-control" name="tags" id="tags" placeholder="mots-clés">
-          <span ng-repeat="tag in photoData.tags.split(';')"><span class="label label-primary">{{tag}}</span> </span>
+          <span ng-repeat="tag in photoData.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
         </div>
         <div class="form-group">
             <label for="price">Prix</label>
