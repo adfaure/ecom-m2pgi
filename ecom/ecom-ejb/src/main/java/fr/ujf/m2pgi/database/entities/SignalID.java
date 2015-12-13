@@ -1,8 +1,8 @@
 package fr.ujf.m2pgi.database.entities;
 
 import java.io.Serializable;
-import fr.ujf.m2pgi.database.entities.Photo;
-import fr.ujf.m2pgi.database.entities.Member;
+//import fr.ujf.m2pgi.database.entities.Photo;
+//import fr.ujf.m2pgi.database.entities.Member;
 
 public class SignalID implements Serializable{
 

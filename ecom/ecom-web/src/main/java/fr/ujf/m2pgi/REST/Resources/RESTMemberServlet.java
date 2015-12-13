@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.REST.Resources;
 
 import fr.ujf.m2pgi.EcomException;
+import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
@@ -69,9 +70,13 @@ public class RESTMemberServlet {
 	@Path("/")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response createUser(MemberDTO member) throws EcomException { //FIXME the true one shall return a Member DTO
-		MemberDTO createdMember = memberService.createMember(member);
-		return Response.status(Status.CREATED).entity(createdMember).build();
+	public Response createUser(MemberDTO member){ //FIXME the true one shall return a Member DTO
+		try{
+			MemberDTO createdMember = memberService.createMember(member);
+			return Response.status(Status.CREATED).entity(createdMember).build();
+		}catch(EcomException e){
+			return Response.status(Status.BAD_REQUEST).entity(new CustomServerResponse(false, e.getMessage())).build();
+		}
 	}
 
 

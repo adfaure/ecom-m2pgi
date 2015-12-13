@@ -56,7 +56,7 @@ function memberService($http) {
 	function Create(user) {
 		var validUser = parseUser(user);
 		if(validUser != null)
-			return $http.post('api/members', user).then(handleSuccess, handleError('Error creating user'));
+			return $http.post('api/members', user).then(handleSuccess, handleError2);
 		return { success : false, message : "not valid user"};
 	}
 
@@ -67,7 +67,7 @@ function memberService($http) {
 	}
 
 	function ChangePassword(user, newPSW) {
-		return $http.put('api/members/id/'+user.memberID+'/pwd/'+newPSW, user).then(handleSuccess, handleError('Error changing user password'));
+		return $http.put('api/members/id/'+user.memberID+'/pwd/'+newPSW, user).then(handleSuccess, handleError('Error changing the password'));
 	}
 
 	function Delete(id) {
@@ -83,6 +83,11 @@ function memberService($http) {
 	function handleError(error) {
 		return function () {
 			return { success: false, message: error };
+		};
+	}
+	function handleError2(res) {
+		return function () {
+			return { success: false, message : res.data };
 		};
 	}
 

@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var memMgmtController = function($scope, memberService, sellerService) {
+var memMgmtController = function($scope, memberService, sellerService, alertService) {
 
 	$scope.error = false;
 	$scope.incomplete = false;
@@ -25,6 +25,7 @@ var memMgmtController = function($scope, memberService, sellerService) {
 			}
 	};
 
+	
 	$scope.showUsers = function () {
 		memberService.GetAll().then(function(res){
 			$scope.users = res.filter( function(member) {
@@ -150,11 +151,14 @@ var memMgmtController = function($scope, memberService, sellerService) {
 
 	$scope.deleteUser = function(index) {
 		if($scope.users[index].accountType == 'M'){
-			memberService.Delete($scope.users[index].memberID);
+			memberService.Delete($scope.users[index].memberID).then(function(res) {
+				takeOutUser(res, index);
+			});
 		}else if($scope.users[index].accountType == 'S'){
-			sellerService.Delete($scope.users[index].memberID);
+			sellerService.Delete($scope.users[index].memberID).then(function(res) {
+				takeOutUser(res, index);
+			});
 		}
-		$scope.users.splice(index, 1);
 	};
 
 
@@ -170,7 +174,7 @@ var memMgmtController = function($scope, memberService, sellerService) {
 	}
 	
 	function showCreatedUser(res){
-		if(res.success != null && res.success == false){
+		if(res.success != null && !res.success){
 			alertService.add("alert-danger", " Erreur, le membre n'as pas pu été ajouté", 2000);
 		}
 		else{
@@ -188,6 +192,16 @@ var memMgmtController = function($scope, memberService, sellerService) {
 			$scope.users[index] = res;
 			$scope.edit = false;
 			emptyFields();
+		}
+	}
+	
+	function takeOutUser(res, index){
+		
+		if(res.success != null && res.success == false){
+			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre supprimé", 2000);
+		}
+		else{
+			$scope.users.splice(index, 1);
 		}
 	}
 
