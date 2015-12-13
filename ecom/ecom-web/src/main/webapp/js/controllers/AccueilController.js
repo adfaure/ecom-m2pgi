@@ -17,54 +17,13 @@ var accueilController = function($scope, $location, apiToken, publicPhoto) {
         }
     );
 
-    
+    $scope.tags = [
+        { text: 'just' },
+        { text: 'some' },
+        { text: 'cool' },
+        { text: 'tags' }
+    ];
 
-/*
-    $scope.search = {
-        terms : '',
-        hitCount : 0,
-        took : 0
-    };
-
-    $scope.elasticsearch = function (){
-      publicPhoto.Search($scope.terms).then(function(res) {
-        $scope.search.terms = $scope.terms;
-        $scope.search.hitCount = res.totalHits;
-        $scope.search.took = res.took;
-        $scope.photos = res.hits;
-      });
-    };
-
-    $scope.sortByDate = function (){
-      publicPhoto.GetAllSortByDate().then(function(res) {
-        $scope.photos = res;
-      });
-    };
-
-    $scope.sortByPrice = function (){
-      publicPhoto.GetAllSortByPrice().then(function(res) {
-        $scope.photos = res;
-      });
-    };
-
-    $scope.sortByViews = function (){
-      publicPhoto.GetAllSortByViews().then(function(res) {
-        $scope.photos = res;
-      });
-    };
-
-    $scope.sortByLikes = function (){
-      publicPhoto.GetAllSortByLikes().then(function(res) {
-        $scope.photos = res;
-      });
-    };
-
-    $scope.photosFromCache = function (){
-      $scope.terms = '';
-      $scope.search.hitCount = null;
-      $scope.photos = cachedPhotos;
-    }
-*/
 };
 
 module.exports = accueilController;
