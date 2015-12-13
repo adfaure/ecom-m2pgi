@@ -56,6 +56,8 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 */
 	List<ManagePhotoDTO> getUserPhotos(String login);
 
+	List<Photo> getUserPhotosEntity(String login);
+
 	/**
 	 *
 	 * @return number of photos in the DB

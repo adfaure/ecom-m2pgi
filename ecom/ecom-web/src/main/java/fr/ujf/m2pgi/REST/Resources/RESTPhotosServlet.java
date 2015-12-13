@@ -45,13 +45,10 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	@AllowAll
-	public Response getAllPhotos() {
-		HttpSession session = httpServletRequest.getSession();
-		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+	public Response getAllPhotos(@HeaderParam("userID") Long requesterID) {
 
-		if(user != null) {
-			List<PhotoContextSmallDTO> contextPhotos = facadePhoto.getAllPhotosContext(user.getUser().getMemberID());
+		if(requesterID != null) {
+			List<PhotoContextSmallDTO> contextPhotos = facadePhoto.getAllPhotosContext(requesterID);
 			return Response.ok(contextPhotos).build();
 		}
 
@@ -62,7 +59,7 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/reported")
 	@Produces("application/json")
-	@AllowAll
+	@Allow(groups="admin")
 	public Response getReportedPhotos() {
 		List<PublicPhotoDTO> photos = facadePhoto.getReportedPhotos();
 		return Response.ok(photos).build();
@@ -71,7 +68,6 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/top10")
 	@Produces("application/json")
-	@AllowAll
 	public Response getTop10Photos() {
 		List<PublicPhotoDTO> photos = facadePhoto.getTop10Photos();
 		return Response.ok(photos).build();
@@ -80,7 +76,6 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/orderby")
 	@Produces("application/json")
-	@AllowAll
 	public Response getAllPhotosSortBy(@DefaultValue("date") @QueryParam("criteria") String criteria,
 		@DefaultValue("ASC") @QueryParam("order") String order) {
 
@@ -102,7 +97,6 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/search")
 	@Produces("application/json")
-	@AllowAll
 	public Response getAllPhotosES() {
 		SearchResult photos = photoServiceES.getAllPhotos();
 		return Response.ok(photos).build();
@@ -111,7 +105,6 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/search/{text}")
 	@Produces("application/json")
-	@AllowAll
 	public Response searchPhotosES(@PathParam("text") String text) {
 		SearchResult photos = photoServiceES.searchPhotos(text);
 		return Response.ok(photos).build();
@@ -120,13 +113,9 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
-	@AllowAll
-	public Response getPhotoByID(@PathParam("id") Long id) {
-		HttpSession session = httpServletRequest.getSession();
-		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
-
-		if(user != null) {
-			PhotoContextBigDTO contextPhoto = facadePhoto.getPhotoById(id, user.getUser().getMemberID());
+	public Response getPhotoByID(@PathParam("id") Long id, @HeaderParam("userID") Long requesterID) {
+		if(requesterID != null) {
+			PhotoContextBigDTO contextPhoto = facadePhoto.getPhotoById(id, requesterID);
 			return Response.ok(contextPhoto).build();
 		}
 		PublicPhotoDTO photo = facadePhoto.getPhotoById(id);
@@ -169,14 +158,12 @@ public class RESTPhotosServlet {
 	@Path("/delete/{id:[1-9][0-9]*}")
 	@Produces("application/json")
 	@Allow(groups="sellers")
-	public Response deletePhotoByID(@PathParam("id") Long id) {
-		HttpSession session = httpServletRequest.getSession();
-		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
+	public Response deletePhotoByID(@PathParam("id") Long id, @HeaderParam("userID") Long requesterID) {
 		PublicPhotoDTO photo = facadePhoto.getPhotoById(id);
 
 		if(photo == null) return Response.status(Status.BAD_REQUEST).build();
 
-		if(user.getUser().getMemberID() != photo.getSellerID()) {
+		if(!requesterID.equals(photo.getSellerID())) {
 			return Response.status(403).build();
 		}
 		facadePhoto.deletePhoto(id);
@@ -205,15 +192,13 @@ public class RESTPhotosServlet {
 	@Path("/update")
 	@Produces("application/json")
 	@Allow(groups="sellers")
-	public Response updatePhoto(UpdatePhotoDTO photo) {
+	public Response updatePhotoByID(UpdatePhotoDTO photo, @HeaderParam("userID") Long requesterID) {
 
-		HttpSession session = httpServletRequest.getSession();
-		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
 		PublicPhotoDTO publicPhotoDTO = facadePhoto.getPhotoById(photo.getPhotoId());
 
 		if(publicPhotoDTO == null) return Response.status(Status.BAD_REQUEST).build();
 
-		if(user.getUser().getMemberID() != publicPhotoDTO.getSellerID()) {
+		if(!requesterID.equals(publicPhotoDTO.getSellerID())) {
 			return Response.status(403).build();
 		}
 
@@ -225,6 +210,7 @@ public class RESTPhotosServlet {
 	@Path("/seller/{id:[1-9][0-9]*}")
 	@Consumes("application/json")
 	@Produces("application/json")
+	@AllowAll // Everyone could upload photos but guests
 	public Response uploadFile(FullPhotoDTO input, @PathParam("id") long id) {
 		PublicPhotoDTO created = facadePhoto.savePhoto(input);
 		if (created == null) return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
@@ -243,27 +229,27 @@ public class RESTPhotosServlet {
 	@POST
 	@Path("/view/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
-	public Response viewPhoto(@PathParam("photoID") Long photoID,
-	@PathParam("memberID") Long memberID) {
-		facadePhoto.viewPhoto(photoID, memberID);
+	@AllowAll
+	public Response viewPhoto(@PathParam("photoID") Long photoID, @HeaderParam("userID") Long requesterID) {
+		facadePhoto.viewPhoto(photoID, requesterID);
 		return Response.status(200).build();
 	}
 
 	@POST
 	@Path("/like/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
-	public Response likePhoto(@PathParam("photoID") Long photoID,
-	@PathParam("memberID") Long memberID) {
-		facadePhoto.likePhoto(photoID, memberID);
+	@AllowAll
+	public Response likePhoto(@PathParam("photoID") Long photoID, @HeaderParam("userID") Long requesterID) {
+		facadePhoto.likePhoto(photoID, requesterID);
 		return Response.ok(200).build();
 	}
 
 	@POST
 	@Path("/unlike/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
-	public Response unlikePhoto(@PathParam("photoID") Long photoID,
-	@PathParam("memberID") Long memberID) {
-		facadePhoto.unlikePhoto(photoID, memberID);
+	@AllowAll
+	public Response unlikePhoto(@PathParam("photoID") Long photoID, @HeaderParam("userID") Long requesterID) {
+		facadePhoto.unlikePhoto(photoID, requesterID);
 		return Response.status(200).build();
 	}
 
@@ -271,9 +257,8 @@ public class RESTPhotosServlet {
 	@Path("/wish/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
 	@AllowAll
-	public Response addPhotoToWishList(@PathParam("photoID") Long photoID,
-	@PathParam("memberID") Long memberID) {
-		facadePhoto.addPhotoToWishList(photoID, memberID);
+	public Response addPhotoToWishList(@PathParam("photoID") Long photoID, @HeaderParam("userID") Long requesterID) {
+		facadePhoto.addPhotoToWishList(photoID, requesterID);
 		return Response.status(200).build();
 	}
 
@@ -281,9 +266,8 @@ public class RESTPhotosServlet {
 	@Path("/unwish/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
 	@AllowAll
-	public Response removePhotoFromWishList(@PathParam("photoID") Long photoID,
-	@PathParam("memberID") Long memberID) {
-		facadePhoto.removePhotoFromWishList(photoID, memberID);
+	public Response removePhotoFromWishList(@PathParam("photoID") Long photoID, @HeaderParam("userID") Long requesterID) {
+		facadePhoto.removePhotoFromWishList(photoID, requesterID);
 		return Response.status(200).build();
 	}
 
@@ -292,16 +276,10 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Allow(groups="sellers;members;admin")
-	public Response signalPhoto(@PathParam("photoID") Long photoID, @PathParam("memberID") Long memberID) {
-		HttpSession session = httpServletRequest.getSession();
-		PrincipalUser user = (PrincipalUser) session.getAttribute("principal");
-
-		if(user.getUser().getMemberID() != memberID) {
-			return Response.status(403).build();
-		}
+	public Response signalPhoto(@PathParam("photoID") Long photoID, @HeaderParam("userID") Long requesterID) {
 
 		SignalDTO signalDTO = new SignalDTO();
-		signalDTO.setMemberID(memberID);
+		signalDTO.setMemberID(requesterID);
 		signalDTO.setPhotoID(photoID);
 		signalDTO.setDescription("yo");
 

@@ -15,8 +15,9 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
     };
 
     $scope.sellerCheckBox = false;
+	$scope.existingLogin = false;
     
-    $scope.submit = function () {
+    $scope.submitInscription = function () {
     	var res = null;
     	
     	if($scope.sellerCheckBox) {
@@ -32,20 +33,48 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 	    		res.then(function (res) {
 		            if (res.success == false) {
 						alertService.add("alert-danger", " Erreur, lors de l'inscription ", 1000);
+						return false;
 		            } else {
-
 						alertService.add("alert-success", "Enregistré ! ", 2000);
+						return authentificationService.login($scope.user.login, $scope.user.password);
 		            }
-                    return authentificationService.login($scope.user.login, $scope.user.password);
-	        }).then(function(res) {
+	        	}).then(function(res) {
                     if(res.success) {
-                        $location.path("#/accueil");
+                        $location.path("/accueil");
                     } else {
+						$location.path("/inscription");
                     }
-                }
-            );;
+                });
         }
     };
+
+	$scope.logInto = function() {
+		authentificationService.login($scope.login, $scope.password).then(
+				function(res) {
+					if(res.success) {
+						$location.path("/");
+					} else {
+						$location.path("/inscription");
+					}
+				}
+		);
+	}
+
+	$scope.checkLogin = function() {
+		memberService.IsExisting($scope.user.login).then(
+			function(res) {
+				if(res) { //login found"
+					$location.path("/inscription");
+					$scope.existingLogin = true;
+					$scope.inscriptionform.loginInput.$setValidity("inscription login", false);
+				} else { //login not found"
+					$location.path("/inscription");
+					$scope.existingLogin = false;
+					$scope.inscriptionform.loginInput.$setValidity("inscription login", true);
+				}
+			}
+		);
+	}
 };
 
 module.exports = InscriptionController;

@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var manage = function($scope, publicPhoto, apiToken) {
+var manage = function($scope, $location , $routeParams, publicPhoto, apiToken) {
 
 	$scope.form = {
 			id : '',
@@ -10,10 +10,22 @@ var manage = function($scope, publicPhoto, apiToken) {
 			price : 0
 	};
 
-	$scope.photos = {};
-
+	$scope.photos = [];
+	$scope.highlight = -1;
+	
 	publicPhoto.GetUserPhotos(apiToken.getUser().login).then(function(res) {
 		$scope.photos = res;
+
+		if($routeParams.photo) {
+			var paramPhoto = JSON.parse($routeParams.photo);
+			var idx = $scope.photos.findIndex(function(photo) {
+				return (paramPhoto .photoID == photo.photoID)
+			});
+
+			if (idx != -1) {
+				$scope.highlight = idx;
+			}
+		}
 	});
 
 	$scope.editIndex = -1;
@@ -29,6 +41,7 @@ var manage = function($scope, publicPhoto, apiToken) {
 		$scope.form.price = $scope.photos[index].price;
 		$scope.editIndex = index;
 	};
+
 
 	$scope.save = function(index) {
 		$scope.processing = true;
@@ -63,7 +76,7 @@ var manage = function($scope, publicPhoto, apiToken) {
 
 	$scope.test = function() {
 		$scope.valid = true;
-		if (!$scope.form.name || !$scope.form.description || $scope.form.price === undefined) {
+		if(!$scope.form.name || !$scope.form.description || $scope.form.price === undefined) {
 			$scope.valid = false;
 		}
 	};

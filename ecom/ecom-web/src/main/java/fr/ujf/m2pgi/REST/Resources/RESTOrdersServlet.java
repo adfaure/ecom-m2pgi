@@ -9,7 +9,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import fr.ujf.m2pgi.EcomException;
+import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
+import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
@@ -39,7 +41,7 @@ public class RESTOrdersServlet {
 		List<OrderDTO> orders = orderService.getAllOrders();
 		return Response.ok(orders).build();
 	}
-	
+
 	@GET
 	@Path("/customer/login/{login}")
 	@Produces("application/json")
@@ -60,6 +62,9 @@ public class RESTOrdersServlet {
         if(member == null) {
             return Response.status(Status.NO_CONTENT).build();
         }
+		if(order.size() == 0) {
+			return  Response.status(Status.BAD_REQUEST).entity(new CustomServerResponse(false, "Cannot create empty order")).build();
+		}
 		try {
 			customerService.createOrder(login, order);
 		} catch (EcomException e) {
@@ -78,7 +83,7 @@ public class RESTOrdersServlet {
 		Long orderCount = orderService.getOrderCount();
 		return Response.ok(orderCount).build();
 	}
-	
+
 	@GET
 	@Path("/totalPurchaseCost")
 	@Produces("application/json")
