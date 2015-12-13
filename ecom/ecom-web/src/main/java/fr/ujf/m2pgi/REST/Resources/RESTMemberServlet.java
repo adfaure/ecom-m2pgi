@@ -48,6 +48,13 @@ public class RESTMemberServlet {
 	}
 
 	@GET
+	@Path("/existing/{login}")
+	@Produces("application/json")
+	public Response isExistingMemberByLogin(@PathParam("login") String login) {
+		return Response.ok(memberService.isExistingMemberByLogin(login)).build();
+	}
+
+	@GET
 	@Path("/id/{id}")
 	@Produces("application/json")
 	@AllowAll
