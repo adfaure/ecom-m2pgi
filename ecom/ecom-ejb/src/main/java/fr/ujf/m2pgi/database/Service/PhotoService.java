@@ -117,7 +117,9 @@ public class PhotoService implements IPhotoService {
 	public PublicPhotoDTO createPhoto(FullPhotoDTO photo) {
 
 		  Member seller = memberDAO.find(photo.getSellerID());
-		  if (seller == null) return null;
+		  if (seller == null) {
+				return null;
+			}
 		  Photo photoEntity = photoMapper.getentity(photo);
 		  photoEntity.setAuthor(seller);
 			photoEntity.setTags(tagDAO.getTags(photo.getTags()));

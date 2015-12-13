@@ -17,6 +17,7 @@ app.use(function (req, res, next) {
 
 app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
+    console.log(req.body);
     if(req.file) {
         var file =  req.file;
         var tempPath = req.file.path;
@@ -31,6 +32,7 @@ app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
         photo.sellerID = req.params.id;
         photo.ext = req.file.ext;
         photo.privateLocation = nconf.get("private_uri") + req.file.filename;
+        console.log(photo);
 
         if (req.params.fileAccepted) {
             res.status(200);

@@ -12,7 +12,7 @@ var manage = function($scope, $location , $routeParams, publicPhoto, apiToken) {
 
 	$scope.photos = [];
 	$scope.highlight = -1;
-	
+
 	publicPhoto.GetUserPhotos(apiToken.getUser().login).then(function(res) {
 		$scope.photos = res;
 
@@ -76,10 +76,15 @@ var manage = function($scope, $location , $routeParams, publicPhoto, apiToken) {
 
 	$scope.test = function() {
 		$scope.valid = true;
-		if(!$scope.form.name || !$scope.form.description || $scope.form.price === undefined) {
+		if(!$scope.form.name || !$scope.form.description || hasDuplicates($scope.form.tags.split(' '))
+		|| $scope.form.price === undefined) {
 			$scope.valid = false;
 		}
 	};
+
+	function hasDuplicates(array) {
+    return (new Set(array)).size !== array.length;
+	}
 };
 
 module.exports = manage;
