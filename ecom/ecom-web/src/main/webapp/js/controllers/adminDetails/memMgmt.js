@@ -1,11 +1,12 @@
 var angular = require('angular');
 
-var memMgmtController = function($scope, memberService, sellerService) {
+var memMgmtController = function($scope, memberService, sellerService, alertService) {
 
 	$scope.error = false;
 	$scope.incomplete = false;
 	$scope.sellerSelected = false;
 	$scope.edit = false;
+	$scope.existingLogin = false;
 	$scope.indexMemberList = 0;
 
 	$scope.data = {
@@ -25,6 +26,7 @@ var memMgmtController = function($scope, memberService, sellerService) {
 			}
 	};
 
+	
 	$scope.showUsers = function () {
 		memberService.GetAll().then(function(res){
 			$scope.users = res.filter( function(member) {
@@ -53,6 +55,7 @@ var memMgmtController = function($scope, memberService, sellerService) {
 	$scope.$watch('inEditMember.password', function() {$scope.test();});
 
 	$scope.test = function() {
+		
 
 		$scope.incomplete = false;
 		if ((!$scope.edit && (!$scope.inEditMember.email.length ||
@@ -61,9 +64,31 @@ var memMgmtController = function($scope, memberService, sellerService) {
 				
 				($scope.edit && (!$scope.inEditMember.email.length ||
 				!$scope.inEditMember.login.length))) {
+			
+			$scope.creationForm.loginInput.$setValidity("incomplete fields", false);
 			$scope.incomplete = true;
 		}
+		else{
+			$scope.creationForm.loginInput.$setValidity("incomplete fields", true);
+		}
 	};
+	
+	
+	$scope.checkLogin = function() {
+		memberService.IsExisting($scope.inEditMember.login).then(
+			function(res) {
+				if(res) { //login found"
+					//$location.path("/inscription");
+					$scope.existingLogin = true;
+					$scope.creationForm.loginInput.$setValidity("inscription login", false);
+				} else { //login not found"
+					//$location.path("/inscription");
+					$scope.existingLogin = false;
+					$scope.creationForm.loginInput.$setValidity("inscription login", true);
+				}
+			}
+		);
+	}
 
 
 	$scope.save = function(){
@@ -89,19 +114,19 @@ var memMgmtController = function($scope, memberService, sellerService) {
 				delete user.sellerInfo;
 
 				memberService.Create(user).then(function(res) {
-					user.memberID = res.memberID;
+					//user.memberID = res.memberID;
+					showCreatedUser(res);
 				});	
 
 
 			}else{
 
 				sellerService.Create(user).then(function(res) {
-					user.memberID = res.memberID;
+					//user.memberID = res.memberID;
+					showCreatedUser(res);
 				});
 			}
-
-
-			$scope.users.push(user);		
+		
 		}
 		else{
 
@@ -110,25 +135,18 @@ var memMgmtController = function($scope, memberService, sellerService) {
 			if($scope.data.singleSelect == 'M'){
 				delete user.sellerInfo;
 				memberService.Update(user).then(function(res) {
-
-					user = res;
-
+					addEditedUser(res, $scope.indexMemberList);
+					
 				});
 			}else{
 				sellerService.Update(user).then(function(res) {
-
-					user = res;
-
+					addEditedUser(res, $scope.indexMemberList);
+					
 				});
 			}
-
-
-
-			$scope.users[$scope.indexMemberList] = user;
-			$scope.edit = false;
 		}
 
-		emptyFields();
+		
 
 	}
 
@@ -157,11 +175,14 @@ var memMgmtController = function($scope, memberService, sellerService) {
 
 	$scope.deleteUser = function(index) {
 		if($scope.users[index].accountType == 'M'){
-			memberService.Delete($scope.users[index].memberID);
+			memberService.Delete($scope.users[index].memberID).then(function(res) {
+				takeOutUser(res, index);
+			});
 		}else if($scope.users[index].accountType == 'S'){
-			sellerService.Delete($scope.users[index].memberID);
+			sellerService.Delete($scope.users[index].memberID).then(function(res) {
+				takeOutUser(res, index);
+			});
 		}
-		$scope.users.splice(index, 1);
 	};
 
 
@@ -174,6 +195,39 @@ var memMgmtController = function($scope, memberService, sellerService) {
 		$scope.inEditMember.login = "";
 		$scope.inEditMember.password = "";
 		$scope.inEditMember.sellerInfo.rib = "";
+	}
+	
+	function showCreatedUser(res){
+		
+		if(res.success != null && !res.success){
+			alertService.add("alert-danger", " Erreur, le membre n'as pas pu été ajouté", 2000);
+		}
+		else{
+			$scope.users.push(res);
+			emptyFields();
+		}
+	}
+	
+	
+	function addEditedUser(res, index){
+		if(res.success != null && res.success == false){
+			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre édité", 2000);
+		}
+		else{
+			$scope.users[index] = res;
+			$scope.edit = false;
+			emptyFields();
+		}
+	}
+	
+	function takeOutUser(res, index){
+		
+		if(res.success != null && res.success == false){
+			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre supprimé", 2000);
+		}
+		else{
+			$scope.users.splice(index, 1);
+		}
 	}
 
 
