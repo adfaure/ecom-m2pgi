@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var cartService =  function($http, $q ,apiToken, alertService) {
+var cartService =  function($http, $q, $sce, apiToken, alertService) {
     service = {};
     service.addToCart    = addToCart;
     service.removeToCart = removeToCart;
@@ -10,7 +10,7 @@ var cartService =  function($http, $q ,apiToken, alertService) {
 
     function addToCart(photo) {
         if (!apiToken.isAuthentificated()) {
-            alertService.add("alert-danger", "You need to be logged ", 3000);
+            alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour effectuer cette action ...</strong>"), 3000);
         } else {
             var usr = apiToken.getUser();
             var route = 'api/members/id/' + usr.memberID + "/cart/photo/id/" + photo.photoID;
@@ -23,7 +23,7 @@ var cartService =  function($http, $q ,apiToken, alertService) {
 
     function removeToCart(photo) {
         if (!apiToken.isAuthentificated()) {
-            alertService.add("alert-danger", "You need to be logged ", 3000);
+            alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour effectuer cette action ...</strong>"), 3000);
         } else {
             var usr = apiToken.getUser();
             var route = 'api/members/id/' + usr.memberID + "/cart/photo/id/" + photo.photoID;
@@ -35,7 +35,7 @@ var cartService =  function($http, $q ,apiToken, alertService) {
 
     function clearCart() {
         if (!apiToken.isAuthentificated()) {
-            alertService.add("alert-danger", "You need to be logged ", 3000);
+            alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour effectuer cette action ...</strong>"), 3000);
         } else {
             var usr = apiToken.getUser();
             var route = 'api/members/id/' + usr.memberID + "/cart";
@@ -47,7 +47,7 @@ var cartService =  function($http, $q ,apiToken, alertService) {
 
     function validateCart() {
         if (!apiToken.isAuthentificated()) {
-            alertService.add("alert-danger", "You need to be logged ", 3000);
+            alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour effectuer cette action ...</strong>"), 3000);
         } else {
             var usr = apiToken.getUser();
             var route = 'api/orders/customer/login/' + usr.login  ;
@@ -64,7 +64,7 @@ var cartService =  function($http, $q ,apiToken, alertService) {
 
     function handleSuccess(message) {
         return function(res) {
-            alertService.add("alert-success", message, 3000);
+            alertService.add("alert-success", $sce.trustAsHtml("<strong>"+message+"</strong>"), 3000);
             return { success : true, data : res.data };
         }
 
@@ -72,7 +72,7 @@ var cartService =  function($http, $q ,apiToken, alertService) {
 
     function handleError(error) {
         return function(res) {
-            alertService.add("alert-danger" , error, 3000);
+            alertService.add("alert-danger" , $sce.trustAsHtml("<strong>"+error+"</strong>"), 3000);
             return { success :false, error : res };
         }
     }

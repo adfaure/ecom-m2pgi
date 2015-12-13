@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var InscriptionController = function ($scope, memberService, sellerService, $location, authentificationService, alertService) {
+var InscriptionController = function ($scope, $sce, memberService, sellerService, $location, authentificationService, alertService) {
 
 	$scope.sellerTemplate = './js/templates/sellerInscription.html';
 
@@ -32,10 +32,10 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
     	if(res != null) {
 	    		res.then(function (res) {
 		            if (res.success == false) {
-						alertService.add("alert-danger", " Erreur, lors de l'inscription ", 1000);
+						alertService.add("alert-danger", $sce.trustAsHtml("<strong>Erreur, lors de l'inscription</strong>"), 1000);
 						return false;
 		            } else {
-						alertService.add("alert-success", "Enregistré ! ", 2000);
+						alertService.add("alert-success", $sce.trustAsHtml("<strong>Enregistré !</strong>"), 2000);
 						return authentificationService.login($scope.user.login, $scope.user.password);
 		            }
 	        	}).then(function(res) {

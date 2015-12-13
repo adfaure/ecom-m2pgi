@@ -14,10 +14,10 @@ var intToMonth = [
     'decembre'
 ];
 
-var controller = function($scope,$location ,alertService, publicPhoto, apiToken, sellerService) {
+var controller = function($scope, $location, $sce, alertService, publicPhoto, apiToken, sellerService) {
 
     if(!apiToken.isAuthentificated()) {
-        alertService.add("alert-danger", " Vous devez vous connecter ou posseder un compte vendeur pour acceder à cette page");
+        alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour effectuer cette action ...</strong>"), 3000);
         $location.path("/");
         return;
     }
@@ -92,7 +92,7 @@ var controller = function($scope,$location ,alertService, publicPhoto, apiToken,
         });
 
         $scope.showChart = (photoChart.labels.length > 0);
-        if(!$scope.showChart) alertService.add("alert-info", " Vous n'avez aucune photo de selectionné ");
+        if(!$scope.showChart) alertService.add("alert-info",  $sce.trustAsHtml("<strong>Vous n'avez aucune donnée statistique à afficher ! </strong>"), 2000);
 
     }
 };
