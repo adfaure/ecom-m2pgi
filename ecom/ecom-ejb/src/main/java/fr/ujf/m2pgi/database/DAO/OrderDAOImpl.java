@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.persistence.Query;
 
-import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.entities.Order;
 import fr.ujf.m2pgi.database.entities.Photo;
 
@@ -64,5 +61,19 @@ public class OrderDAOImpl extends GeneriqueDAOImpl<Order> implements IOrderDAO {
 		Query query = entityManager.createQuery("SELECT DISTINCT o FROM Order o left join o.orderedPhotos p WHERE p.author.memberID=:id");
 		query.setParameter("id", id);
 		return (List<Order>)query.getResultList();
+	}
+
+	@Override
+	public List<Photo> getBoughtPhoto(long id) {
+		Query query = entityManager.createQuery("SELECT DISTINCT o.orderedPhotos FROM Order o WHERE o.member.memberID=:id");
+		query.setParameter("id", id);
+		return (List<Photo>) query.getResultList();
+	}
+
+	public boolean isPhotoBought(long id, long photoID) {
+		Query query = entityManager.createQuery("SELECT DISTINCT o.orderedPhotos FROM Order o  left join o.orderedPhotos p  WHERE o.member.memberID=:id AND p.photoID = :photoID");
+		query.setParameter("id", id);
+		query.setParameter("photoID", photoID);
+		return (query.getResultList().size() > 0);
 	}
 }

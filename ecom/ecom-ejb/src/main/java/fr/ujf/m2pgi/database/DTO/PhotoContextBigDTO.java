@@ -19,6 +19,8 @@ public class PhotoContextBigDTO {
 
 	private String name;
 
+	private boolean isBought;
+
 	private String description;
 
 	private String webLocation;
@@ -177,4 +179,13 @@ public class PhotoContextBigDTO {
 	public void setFlagged(boolean flagged) {
 		this.flagged = flagged;
 	}
+
+	public boolean isBought() {
+		return isBought;
+	}
+
+	public void setBought(boolean bought) {
+		isBought = bought;
+	}
+
 }

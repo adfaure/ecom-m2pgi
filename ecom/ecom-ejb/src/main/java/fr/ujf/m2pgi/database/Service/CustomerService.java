@@ -80,6 +80,9 @@ public class CustomerService implements ICustomerService {
         Order order = new Order();
         Collection<Photo> orderedEntities = new ArrayList<Photo>();
         for(PublicPhotoDTO publicPhotoDto : photos ) {
+            if(orderDAO.isPhotoBought(member.getMemberID(), publicPhotoDto.getPhotoID())) {
+                throw new EcomException("Duplicate photo order (one member can only by a photo once)");
+            }
             orderedEntities.add(publicPhotoMapper.getentity(publicPhotoDto));
         }
         order.setOrderedPhotos(orderedEntities);
@@ -120,5 +123,20 @@ public class CustomerService implements ICustomerService {
 		}
 		return membersDTO;
 	}
+
+    @Override
+    public List<FullPhotoDTO> getBoughPhoto(long id) {
+
+        List<Photo> photos = orderDAO.getBoughtPhoto(id);
+        List<FullPhotoDTO> resPhotos = new ArrayList<FullPhotoDTO>();
+        for(Photo photo : photos) {
+            resPhotos.add(photoMapper.getDTO(photo));
+        }
+        return resPhotos;
+    }
+
+    public boolean  ishotoBought(long id, long photoID) {
+        return orderDAO.isPhotoBought(id, photoID);
+    }
 
 }

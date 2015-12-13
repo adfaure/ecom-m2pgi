@@ -8,8 +8,7 @@ var thumbnailElementDirective = function ($compile, $location, apiToken, publicP
         },
         templateUrl: './js/Photos/Thumbnail/photoThumbnailTemplate.html',
         controller : function ($scope ) {
-            $scope.photo;
-            var user = $scope.user = apiToken.getUser();
+            
             $scope.details = function (photoId) {
                 $location.path('/photos/details/' + photoId);
             };

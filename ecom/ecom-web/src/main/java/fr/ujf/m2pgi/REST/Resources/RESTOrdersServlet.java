@@ -69,7 +69,7 @@ public class RESTOrdersServlet {
 			customerService.createOrder(login, order);
 		} catch (EcomException e) {
 			e.printStackTrace();
-			return  Response.status(Status.BAD_REQUEST).build();
+			return  Response.status(Status.BAD_REQUEST).entity(new CustomServerResponse(false, "duplicate photo order")).build();
 		}
 		member = memberService.getMemberByLogin(login);
 		return Response.ok(member).build();
