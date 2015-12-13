@@ -9,6 +9,7 @@ function memberService($http) {
 
 	service.GetById = GetById;
 	service.GetByUsername = GetByUsername;
+	service.IsExisting = IsExisting;
 	service.GetCount = GetCount;
 	service.GetAll = GetAll;
 	service.IsFollowedBy = IsFollowedBy;
@@ -28,6 +29,10 @@ function memberService($http) {
 
 	function GetByUsername(username) {
 		return $http.get('api/members/login/' + username).then(handleSuccess, handleError('Error getting user by username'));
+	}
+
+	function IsExisting(username) {
+		return $http.get('api/members/existing/' + username).then(handleSuccess, handleError('Error getting user by username'));
 	}
 
 	function GetAll() {

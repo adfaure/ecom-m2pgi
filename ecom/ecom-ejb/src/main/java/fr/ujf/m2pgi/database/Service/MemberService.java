@@ -1,22 +1,17 @@
 package fr.ujf.m2pgi.database.Service;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-
 import fr.ujf.m2pgi.EcomException;
+import fr.ujf.m2pgi.Security.IStringDigest;
+import fr.ujf.m2pgi.database.DAO.IFollowDAO;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPublicPhotoMapper;
-import fr.ujf.m2pgi.database.entities.Member;
-import fr.ujf.m2pgi.database.entities.Photo;
-import fr.ujf.m2pgi.database.entities.SellerInfo;
-import fr.ujf.m2pgi.database.entities.SellerPage;
-import fr.ujf.m2pgi.Security.IStringDigest;
-import fr.ujf.m2pgi.database.entities.Follow;
-import fr.ujf.m2pgi.database.DAO.IFollowDAO;
+import fr.ujf.m2pgi.database.entities.*;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -87,6 +82,18 @@ public class MemberService implements IMemberService {
         if (memberEntity != null)
             return memberMapper.getDTO(memberEntity);
         return null;
+    }
+
+    /**
+     * @param login
+     * @return
+     */
+    @Override
+    public Boolean isExistingMemberByLogin(String login) {
+        Member memberEntity = memberDao.findMemberByLogin(login);
+        if (memberEntity == null)
+            return false;
+        return true;
     }
 
     @Override

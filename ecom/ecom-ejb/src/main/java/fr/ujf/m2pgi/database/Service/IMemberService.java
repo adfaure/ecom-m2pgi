@@ -16,6 +16,8 @@ public interface IMemberService {
 
     MemberDTO getMemberByLogin(String login);
 
+    Boolean isExistingMemberByLogin(String login);
+
     MemberDTO getSellerById(long id);
 
     MemberDTO getMemberbyId(long id);
