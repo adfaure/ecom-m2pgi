@@ -61,7 +61,7 @@ function memberService($http) {
 	function Create(user) {
 		var validUser = parseUser(user);
 		if(validUser != null)
-			return $http.post('api/members', user).then(handleSuccess, handleError2);
+			return $http.post('api/members', user).then(handleSuccess, handleError("Error when creating the user"));
 		return { success : false, message : "not valid user"};
 	}
 
@@ -90,12 +90,7 @@ function memberService($http) {
 			return { success: false, message: error };
 		};
 	}
-	function handleError2(res) {
-		return function () {
-			return { success: false, message : res.data };
-		};
-	}
-
+	
 	function parseUser(user) {
 		var validUser = {
 				email: "",

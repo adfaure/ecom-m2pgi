@@ -49,7 +49,7 @@
 <h3 data-ng-show="!edit">Create New User:</h3>
 <h3 data-ng-hide="!edit">Edit User:</h3>
 
-<form class="form-horizontal">
+<form class="form-horizontal" name ="creationForm">
   <div class="form-group" data-ng-show="edit">
     <label class="col-sm-2 control-label">Member ID:</label>
     <div class="col-sm-10">
@@ -92,7 +92,8 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Login:</label>
     <div class="col-sm-10">
-    <input type="text" data-ng-model="inEditMember.login" placeholder="Login">
+    <input type="text" name="loginInput" data-ng-model="inEditMember.login" placeholder="Login" ng-change="checkLogin()">
+    <div role="alert" ng-show="existingLogin">Ce pseudo existe d&eacute;j&agrave;</div>
     </div>
   </div>
   <div class="form-group"  data-ng-hide="edit">
@@ -102,10 +103,9 @@
     </div>
   </div>
 </form>
-
 <hr>
 
-<button class="btn btn-default" data-ng-click="save()" data-ng-disabled="incomplete">
+<button class="btn btn-default" data-ng-click="save()" ng-disabled="creationForm.$invalid">
           <span class="glyphicon glyphicon-pencil"></span>Save
 </button>
 

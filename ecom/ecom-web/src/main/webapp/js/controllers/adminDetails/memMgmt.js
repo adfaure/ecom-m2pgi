@@ -6,6 +6,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 	$scope.incomplete = false;
 	$scope.sellerSelected = false;
 	$scope.edit = false;
+	$scope.existingLogin = false;
 	$scope.indexMemberList = 0;
 
 	$scope.data = {
@@ -54,6 +55,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 	$scope.$watch('inEditMember.password', function() {$scope.test();});
 
 	$scope.test = function() {
+		
 
 		$scope.incomplete = false;
 		if ((!$scope.edit && (!$scope.inEditMember.email.length ||
@@ -62,9 +64,31 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 				
 				($scope.edit && (!$scope.inEditMember.email.length ||
 				!$scope.inEditMember.login.length))) {
+			
+			$scope.creationForm.loginInput.$setValidity("incomplete fields", false);
 			$scope.incomplete = true;
 		}
+		else{
+			$scope.creationForm.loginInput.$setValidity("incomplete fields", true);
+		}
 	};
+	
+	
+	$scope.checkLogin = function() {
+		memberService.IsExisting($scope.inEditMember.login).then(
+			function(res) {
+				if(res) { //login found"
+					//$location.path("/inscription");
+					$scope.existingLogin = true;
+					$scope.creationForm.loginInput.$setValidity("inscription login", false);
+				} else { //login not found"
+					//$location.path("/inscription");
+					$scope.existingLogin = false;
+					$scope.creationForm.loginInput.$setValidity("inscription login", true);
+				}
+			}
+		);
+	}
 
 
 	$scope.save = function(){
@@ -174,6 +198,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 	}
 	
 	function showCreatedUser(res){
+		
 		if(res.success != null && !res.success){
 			alertService.add("alert-danger", " Erreur, le membre n'as pas pu été ajouté", 2000);
 		}
