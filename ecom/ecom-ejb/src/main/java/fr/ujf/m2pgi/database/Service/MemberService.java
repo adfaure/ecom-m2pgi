@@ -141,7 +141,7 @@ public class MemberService implements IMemberService {
             attachedEntity.setCart(cart);
             return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
         }
-        return member;
+        return memberMapper.getDTO(attachedEntity);
     }
 
     /**

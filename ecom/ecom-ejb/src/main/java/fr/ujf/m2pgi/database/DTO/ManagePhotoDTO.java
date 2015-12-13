@@ -34,11 +34,11 @@ public class ManagePhotoDTO {
 	private String tags;
 
 
-	public long getPhotoId() {
+	public long getPhotoID() {
 		return photoID;
 	}
 
-	public void setPhotoId(long photoID) {
+	public void setPhotoID(long photoID) {
 		this.photoID = photoID;
 	}
 

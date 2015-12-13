@@ -9,17 +9,21 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
         firstName: "",
         lastName: "",
         accountType: 'N',
+		password : "",
 		sellerInfo : {
 			rib : ""
 		}
     };
 
     $scope.sellerCheckBox = false;
-	$scope.existingLogin = false;
-    
-    $scope.submitInscription = function () {
+	$scope.existingLogin  = false;
+	$scope.checkPass      = {
+		valide : true,
+		message : ""
+	};
+
+	$scope.submitInscription = function () {
     	var res = null;
-    	
     	if($scope.sellerCheckBox) {
     		res = sellerService.Create($scope.user);
     		$scope.user.accountType = 'S';
@@ -28,7 +32,6 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
     		$scope.user.accountType = 'M';
     		delete $scope.user.sellerInfo;
     	}
-    	
     	if(res != null) {
 	    		res.then(function (res) {
 		            if (res.success == false) {
@@ -58,7 +61,19 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 					}
 				}
 		);
-	}
+	};
+
+	$scope.checkPassword = function() {
+		if(!$scope.user.password) {
+			$scope.checkPass.valide = false;
+			$scope.checkPass.message = "Le champs mot de passe est obligatoire !";
+		} else if($scope.user.password.length <= 4) {
+			$scope.checkPass.valide = false;
+			$scope.checkPass.message = "Le mot de passe est très court !";
+		} else {
+			$scope.checkPass.valide = true
+		}
+	};
 
 	$scope.checkLogin = function() {
 		memberService.IsExisting($scope.user.login).then(
@@ -72,6 +87,7 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 					$scope.existingLogin = false;
 					$scope.inscriptionform.loginInput.$setValidity("inscription login", true);
 				}
+				return $scope.existingLogin;
 			}
 		);
 	}

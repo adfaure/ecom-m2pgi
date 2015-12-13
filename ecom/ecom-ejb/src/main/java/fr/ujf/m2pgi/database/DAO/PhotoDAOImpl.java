@@ -31,7 +31,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		List<ManagePhotoDTO> photos = query.getResultList();
 
 		for (ManagePhotoDTO photo: photos) {
-			long photoID = photo.getPhotoId();
+			long photoID = photo.getPhotoID();
 			query = entityManager.createQuery("SELECT t.name FROM Tags ts LEFT JOIN ts.tag t WHERE ts.photo.photoID = :photoid");
 			query.setParameter("photoid", photoID);
 			List<String> tags = (List<String>)query.getResultList();
@@ -69,7 +69,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		List<ManagePhotoDTO> photos = query.getResultList();
 
 		for (ManagePhotoDTO photo: photos) {
-			long photoID = photo.getPhotoId();
+			long photoID = photo.getPhotoID();
 			query = entityManager.createQuery("SELECT t.name FROM Tags ts LEFT JOIN ts.tag t WHERE ts.photo.photoID = :photoid");
 			query.setParameter("photoid", photoID);
 			List<String> tags = (List<String>)query.getResultList();

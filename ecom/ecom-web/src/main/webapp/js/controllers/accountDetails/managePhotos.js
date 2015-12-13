@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var manage = function($scope, $location , $routeParams, publicPhoto, apiToken) {
+var manage = function($scope, $location , $routeParams, $interval, publicPhoto, apiToken) {
 
 	$scope.form = {
 			id : '',
@@ -24,6 +24,9 @@ var manage = function($scope, $location , $routeParams, publicPhoto, apiToken) {
 
 			if (idx != -1) {
 				$scope.highlight = idx;
+				$interval(function() {
+					$scope.highlight = -1;
+				}, 1500, 1);
 			}
 		}
 	});

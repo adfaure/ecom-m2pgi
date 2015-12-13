@@ -5,9 +5,9 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
   var photoID = $routeParams.id;
   if(isNaN(photoID)) return;// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
 
-  $scope.photo = {};
-
+  $scope.loaded = false;
   publicPhoto.GetById(photoID).then(function(res) {
+    $scope.loaded = true;
     $scope.photo = res;
   });
 

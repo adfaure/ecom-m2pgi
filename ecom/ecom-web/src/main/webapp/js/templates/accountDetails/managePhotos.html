@@ -15,7 +15,7 @@
          type="text" ng-disabled="processing" ng-maxlength="50" focus-on-load>
       </td>
     </tr>
-    <tr>
+    <tr data-ng-class="{'bg-info': $index == highlight }">
       <td class="col-md-2">Description : </td>
       <td ng-if="editIndex == $index">
         <textarea required class="form-control" ng-model="form.description"
@@ -25,7 +25,7 @@
         <span>{{ photo.description }}</span>
       </td>
     </tr>
-    <tr>
+    <tr data-ng-class="{'bg-info': $index == highlight }">
       <td class="col-md-2">Mots-clés : </td>
       <td ng-if="editIndex != $index">
         <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
@@ -36,7 +36,7 @@
         <span ng-repeat="tag in form.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
       </td>
     </tr>
-    <tr>
+    <tr data-ng-class="{'bg-info': $index == highlight }">
       <td class="col-md-2">Prix : </td>
       <td ng-if="editIndex != $index">{{ photo.price | currency:"&euro;" }}</td>
       <td ng-if="editIndex == $index">
@@ -45,7 +45,7 @@
         ng-disabled="processing" >
       </td>
     </tr>
-    <tr ng-repeat-end>
+    <tr ng-repeat-end data-ng-class="{'bg-info': $index == highlight }">
       <td></td>
       <td>
         <button ng-if="editIndex != $index" class="btn  btn-default" ng-click="edit($index)" ng-disabled="processing">
