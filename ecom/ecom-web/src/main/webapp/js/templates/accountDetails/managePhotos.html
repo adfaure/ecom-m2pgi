@@ -31,15 +31,6 @@
       </td>
     </tr>
     <tr data-ng-class="{'bg-info': $index == highlight }">
-      <td ng-if="editIndex == $index">
-        <textarea required class="form-control" ng-model="form.description"
-         ng-change="test()" ng-disabled="processing" ng-maxlength="250"></textarea>
-       </td>
-       <td ng-if="editIndex != $index">
-        <span>{{ photo.description }}</span>
-      </td>
-    </tr>
-    <tr data-ng-class="{'bg-info': $index == highlight }">
       <td class="col-md-2">Mots-clés : </td>
       <td ng-if="editIndex != $index">
         <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
