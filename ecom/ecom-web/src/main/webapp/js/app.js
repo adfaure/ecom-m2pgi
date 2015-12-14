@@ -9,6 +9,6 @@ var angularMessages = require('angular-messages');
  *
  * @type {module}
  */
-var ecomApp = angular.module('ecomApp', ['ngRoute', 'ngAnimate', 'chart.js', 'ngMessages']);
+var ecomApp = angular.module('ecomApp', ['ngRoute', 'ngAnimate', 'chart.js', 'ngMessages' ]);
 
 module.exports = ecomApp;
