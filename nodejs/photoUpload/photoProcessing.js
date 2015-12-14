@@ -12,7 +12,7 @@ module.exports = function (photo, tempPath, file , finalCb) {
         img.resize(400, 400).write(nconf.get("thumbnail_location") + photo.name, function (err) { //gm("img.png").thumb(width, height, outName, quality, callback)
             if(err) console.log(err);
             img.size(function (err, value) {
-              if(err)  console.log(err),
+              if(err)  console.log(err);
                 var tempWatermarkName = "watermark-sized/" + value.width + ".png";
                 if (fs.existsSync(tempWatermarkName)) {
                     img.draw(['image Over 0,0 0,0 ' + tempWatermarkName])
