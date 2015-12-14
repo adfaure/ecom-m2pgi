@@ -1,8 +1,8 @@
 var angular = require('angular');
 
-publicPhoto.$inject = ['$http'];
+publicPhoto.$inject = ['$http', 'localService', '$q'];
 
-function publicPhoto($http) {
+function publicPhoto($http, localService, $q) {
     var service = {};
 
     service.GetById = GetById;
@@ -31,6 +31,8 @@ function publicPhoto($http) {
     service.ValidateReportedPhoto = ValidateReportedPhoto;
     service.Update = Update;
     service.GetUserPhotosWithId = GetUserPhotosWithId;
+    service.getBoughtPhoto= getBoughtPhoto;
+    service.isPhotoBought= isPhotoBought;
 
     return service;
 
@@ -138,6 +140,43 @@ function publicPhoto($http) {
 
     function Update(photo) {
     	return $http.put('api/photos/update', photo).then(handleSuccess, handleError('Error updating photo'));
+    }
+
+    function isPhotoBought (photo, memberID) {
+        var photos = localService.getObject('boughtPhoto');
+        var idx = photos.indexOf(function(elem) {return photo.photoID == elem.photoID});
+        if( idx != -1) {
+            var defer = $q.defer();
+            defer.resolve(photos[idx]);
+            return defer.promise.then(handleSuccess);
+        }
+
+        return $http.get('api/photos/id/' + photo.photoID + '/user/id/' + memberID + '/isBought').then(function(res) {
+            console.log(res);
+            return res;
+        }).then(handleSuccess)
+
+    }
+
+
+    function getBoughtPhoto(memberID) {
+
+        return $http.get('api/photos/bought/user/id/'+ memberID).then(function(res) {
+            var photos = localService.getObject('boughtPhoto');
+            if(!photos) {
+                photos = res.data;
+            } else {
+                photos = photos.concat(res.data.filter(function(elem) {
+                    return (photos.indexOf(function(photo) {
+                        return elem.photoID == photo.photoID;
+                    }) != -1);
+                }));
+            }
+            localService.set('boughtPhoto', JSON.stringify(photos));
+            res.data = photos
+            return res;
+        }, handleError('Erreur')).then(handleSuccess);
+
     }
 
     // private functions

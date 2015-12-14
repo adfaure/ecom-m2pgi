@@ -1,10 +1,7 @@
 package fr.ujf.m2pgi.database.Service;
 
 import fr.ujf.m2pgi.EcomException;
-import fr.ujf.m2pgi.database.DTO.MemberDTO;
-import fr.ujf.m2pgi.database.DTO.OrderDTO;
-import fr.ujf.m2pgi.database.DTO.OrderSellerDTO;
-import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.*;
 
 import javax.ejb.Local;
 import java.util.Collection;
@@ -23,4 +20,9 @@ public interface ICustomerService {
     Long getSellerCount();
     
     List<MemberDTO> getTopSellers();
+
+    List<FullPhotoDTO>  getBoughPhoto(long id);
+
+    boolean  ishotoBought(long id, long photoID);
+
 }

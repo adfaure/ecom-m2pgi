@@ -21,6 +21,8 @@ public class PhotoContextSmallDTO {
 
 	private long sellerID;
 
+	private boolean isBought;
+
 	private String thumbnail;
 
 	private boolean wishlisted;
@@ -140,5 +142,13 @@ public class PhotoContextSmallDTO {
 
 	public void setFlagged(boolean flagged) {
 		this.flagged = flagged;
+	}
+
+	public boolean isBought() {
+		return isBought;
+	}
+
+	public void setBought(boolean bought) {
+		isBought = bought;
 	}
 }
