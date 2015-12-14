@@ -15,6 +15,9 @@ public class PhotoDocument {
 	@XmlElement
 	private String name;
 
+	@XmlElement
+	private String tags;
+
 	@XmlElement(name = "webLocation")
 	private String location;
 
@@ -40,6 +43,14 @@ public class PhotoDocument {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	public String getLocation() {

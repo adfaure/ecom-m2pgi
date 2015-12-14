@@ -2,6 +2,7 @@ module.exports = function() {
   this.description     = null,
   this.photoID         = 0,
   this.name            = null,
+  this.tags            = [],
   this.webLocation     = null,
   this.price           = null,
   this.dateCreated     = null,

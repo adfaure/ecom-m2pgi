@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.DTO;
 
 import java.util.Date;
+import java.util.Collection;
 
 import java.io.Serializable;
 
@@ -55,6 +56,9 @@ public class PublicPhotoDTO implements Serializable {
 
     @XmlElement
     private int sales;
+
+    @XmlElement
+    private Collection<TagDTO> tags;
 
     public String getExt() {
         return ext;
@@ -150,6 +154,14 @@ public class PublicPhotoDTO implements Serializable {
 
     public void setSellerID(long sellerID) {
         this.sellerID = sellerID;
+    }
+
+    public Collection<TagDTO> getTags() {
+      return tags;
+    }
+
+    public void setTags(Collection<TagDTO> tags) {
+      this.tags = tags;
     }
 
     public static long getSerialversionuid() {
