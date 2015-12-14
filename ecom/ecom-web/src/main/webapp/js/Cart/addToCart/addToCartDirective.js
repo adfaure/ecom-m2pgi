@@ -5,7 +5,8 @@ var addToCart = function ($compile, apiToken, cartService) {
         //E -> just
         restrict: 'E',
         scope: {
-            photo: "=photo"
+            photo: "=photo",
+            isButton : "="
         },
         templateUrl: './js/Cart/addToCart/addToCartTemplate.html',
         controller: function ($scope, $location) {
@@ -30,6 +31,16 @@ var addToCart = function ($compile, apiToken, cartService) {
                 );
             }
 
+            $scope.clicked = function() {
+                if($scope.owned) {
+                    goToMyPhoto();
+                } else if($scope.alreadyInCart)  {
+                    clickRemove($scope.photo);
+                } else {
+                    clickAdd($scope.photo);
+                }
+            };
+
             $scope.clickAdd    = clickAdd;
             $scope.clickRemove = clickRemove;
             $scope.goToMyPhoto = function () {
@@ -46,7 +57,7 @@ var addToCart = function ($compile, apiToken, cartService) {
                     apiToken.setUser(res.data);
             }
         );
-    };
+    }
 
     function clickRemove(photo) {
         cartService.removeToCart(photo).then(function (res) {

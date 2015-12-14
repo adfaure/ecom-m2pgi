@@ -1,18 +1,17 @@
-<div class="ecom-margin-bottom">
-    <div data-ng-if="!owned">
+<div class="ecom-margin-bottom" data-ng-class="{'btn btn-default' : isButton }" data-ng-click="clicked()">
+    <div data-ng-if="!owned" >
         <div data-ng-if="!photo.isBought">
 
             <div class="floatLeft marginRight5px">
                 <i class="fa fa-euro" title="Prix">{{photo.price}}</i>
             </div>
 
-
             <div data-ng-if="!alreadyInCart" class="cursorPointer floatLeft">
-                <i class="fa fa-cart-plus brightOnHover" data-ng-click="clickAdd(photo)" title="Ajouter au panier"></i>
+                <i class="fa fa-cart-plus brightOnHover"  title="Ajouter au panier"></i>
             </div>
 
             <div data-ng-if="alreadyInCart" class=" cursorPointer floatLeft">
-                <i class="fa fa-shopping-cart greenIcon brightOnHover" data-ng-click="clickRemove(photo)" title="Enlever du panier"></i>
+                <i class="fa fa-shopping-cart greenIcon brightOnHover"  title="Enlever du panier"></i>
             </div>
         </div>
         <div data-ng-if="photo.isBought">
@@ -20,6 +19,6 @@
         </div>
     </div>
 </div>
-<div data-ng-if="owned" class="cursorPointer" data-ng-click="goToMyPhoto()">
+<div data-ng-if="owned" class="cursorPointer">
     <i class="fa fa fa-user" title="Je suis propriétaire"></i>
 </div>
