@@ -1,9 +1,9 @@
 var angular = require('angular');
 
-var orders = function($scope,$location,alertService ,apiToken, orderService) {
+var orders = function($scope, $location, $sce, alertService ,apiToken, orderService) {
 
     if(!apiToken.isAuthentificated()) {
-        alertService.add("alert-danger", "you need to be logged to access to this zone");
+        alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour effectuer cette action ...</strong>"), 3000);
         $location.path("/");
     }
 
