@@ -31,5 +31,7 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	public Long getSellerCount();
 	
 	public Long getMemberCount();
+	
+	public Member findMemberByEmail(String email);
 
 }

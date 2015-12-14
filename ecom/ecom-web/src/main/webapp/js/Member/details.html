@@ -20,7 +20,7 @@
 	</h2>
 
   
-<form class="form-horizontal ng-valid ng-dirty ng-valid-parse" style="" name="myForm">
+<form class="form-horizontal ng-valid ng-dirty ng-valid-parse" style="" name="userDataForm">
 
   <div class="form-group">
     <label class="col-sm-2 control-label">ID Membre</label>
@@ -28,7 +28,16 @@
     <label class="col-sm-2 control-label">{{user1.memberID}}</label>
     </div>
     <div class="col-sm-10" ng-show="edit">
-    <input type="text" data-ng-model="user1.memberID" data-ng-disabled="edit" placeholder="ID Membre">
+    <input type="text" data-ng-model="user1.memberID" data-ng-disabled="true" placeholder="ID Membre">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Pseudo:</label>
+     <div class="col-sm-10" ng-show="!edit">
+    <label class="col-sm-2 control-label">{{user1.login}}</label>
+    </div>
+    <div class="col-sm-10" ng-show="edit">
+    <input type="text" data-ng-model="user1.login" data-ng-disabled="true" placeholder="Pseudo">
     </div>
   </div>
   <div class="form-group">
@@ -55,63 +64,64 @@
     <label class="col-sm-2 control-label">{{user1.email}}</label>
     </div>
     <div class="col-sm-10" ng-show="edit">
-    <input type="text" data-ng-model="user1.email" placeholder="Address mail">
+    <input type="text" name="emailAddress" data-ng-model="user1.email" placeholder="Address mail" required>
     </div>
+    <div class="col-sm-12 col-md-6" ng-messages="userDataForm.emailAddress.$error" role="alert" ng-show="userDataForm.emailAddress.$touched">
+	    <div ng-message="required">Le champ doit &ecirc;tre rempli</div>
+	</div>
   </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Pseudo:</label>
-     <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label">{{user1.login}}</label>
-    </div>
-    <div class="col-sm-10" ng-show="edit">
-    <input type="text" data-ng-model="user1.login" placeholder="Pseudo">
-    </div>
-  </div>
+  </form>
   
-  <div class="form-group" ng-show="addRIB || compteVendeur">
+  <form ng-show="addRIB || compteVendeur" class="form-horizontal ng-valid ng-dirty ng-valid-parse" name="userRIBForm">
+  <div class="form-group" >
     <label class="col-sm-2 control-label">RIB:</label>
      <div class="col-sm-10" ng-show="!edit && !addRIB">
     <label class="col-sm-2 control-label">{{user1.sellerInfo.rib}}</label>
     </div>
     <div class="col-sm-10" ng-show="edit || addRIB">
-    <input type="text" data-ng-model="user1.sellerInfo.rib" placeholder="RIB">
+    <input type="text" name="rib" data-ng-model="user1.sellerInfo.rib" placeholder="RIB" required>
     </div>
+    <div class="col-sm-12 col-md-6" ng-messages="userRIBForm.rib.$error" role="alert" ng-show="userRIBForm.rib.$touched">
+	    <div ng-message="required">Le champ doit &ecirc;tre rempli</div>
+	</div>
   </div>
+  </form>
   
-  <div ng-show="editPSW">
+  <form ng-show="editPSW" class="form-horizontal ng-valid ng-dirty ng-valid-parse" style="" name="userPSWForm">
+  
   <div class="form-group">
     <label class="col-sm-2 control-label reqField">Actuel mot de passe:</label>
     <div class="col-sm-10" >
-    <input type="password" data-ng-model="user1.pswActuel" placeholder="Actuel" name="pswActuel" required>
+    <input type="password" data-ng-model="user1.pswActuel" placeholder="Actuel" name="pswActuel" required >
     </div>
-    <div class="col-sm-12 col-md-6" ng-messages="myForm.pswActuel.$error" role="alert" ng-show="myForm.pswActuel.$touched">
+    <div class="col-sm-12 col-md-6" ng-messages="userPSWForm.pswActuel.$error" role="alert" ng-show="userPSWForm.pswActuel.$touched">
 	    <div ng-message="required">Le champ doit &ecirc;tre rempli</div>
 	</div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label reqField">Nouveau mot de passe:</label>
     <div class="col-sm-10">
-    <input type="password" data-ng-model="user1.pswNouveau" placeholder="Nouveau" required>
-   </div>
+    <input type="password" name="pswNouveau" data-ng-model="user1.pswNouveau" placeholder="Nouveau" required minlength='5'>
+   	</div>
+   	<div class="col-sm-12 col-md-6" ng-messages="userPSWForm.pswNouveau.$error" role="alert" ng-show="userPSWForm.pswNouveau.$touched">
+	    <div ng-message="required">Le champ doit &ecirc;tre rempli</div>
+	    <div ng-message="minlength">Le champ doit avoir minimum 5 characters</div>
+	</div>
+   	
     </div>
     <div class="form-group">
     <label class="col-sm-2 control-label reqField">Confirmer:</label>
     <div class="col-sm-10">
     <input type="password" data-ng-model="user1.pswConfirmation" name="pswConfirmation" placeholder="Confirmer" required>
-      <div ng-messages="myForm.pswConfirmation.$error" role="alert" ng-show="myForm.pswConfirmation.$touched">
-	    <div ng-message="whatever">They are not the same</div>
-	  </div>
+     
     </div>
-    
-  </div>
-  
-  
-  </div>
-	
+  	</div>
+
 </form>
 
   <div ng-show="edit || editPSW || addRIB">
-	  <button class="btn btn-default" ng-disabled="editPSW && (!equalsPSW || !actPSWfilled)" ng-click="save()">
+	  <button class="btn btn-default" ng-disabled=" (edit && userDataForm.$invalid) || (editPSW && userPSWForm.$invalid) || (addRIB && userRIBForm.$invalid) 
+	  												|| (edit && compteVendeur && userRIBForm.$invalid) " ng-click="save()">
 	          <span class="glyphicon glyphicon-ok"></span>Sauvegarder
 	  </button>
 	  <button class="btn btn-default btn-danger" ng-click="cancel()">

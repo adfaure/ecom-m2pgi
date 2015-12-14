@@ -139,7 +139,7 @@ public class RESTSellerServlet {
     @Consumes("application/json")
     @Allow(groups="sellers")
     public Response postSellerPage(@PathParam("id") long sellerId, SellerPageDTO pageDTO,
-     @HeaderParam("userID") Long requesterID) {
+     @HeaderParam("userID") Long requesterID) throws EcomException {
 
         if(!requesterID.equals(pageDTO.getId())) {
             return Response.status(403).build();
