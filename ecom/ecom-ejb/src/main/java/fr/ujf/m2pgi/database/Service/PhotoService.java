@@ -69,6 +69,10 @@ public class PhotoService implements IPhotoService {
 	@Inject
  	private ElasticsearchDao photoDaoES;
 
+  public List<PhotoContextSmallDTO> searchPhotosContext(String text, Long memberID) {
+		return photoDao.getPhotosContext(memberID, photoDaoES.searchIds(text));
+	}
+
 	/**
 	 *
 	 * @param id

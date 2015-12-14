@@ -132,6 +132,18 @@ public class ElasticsearchDao {
 		return result;
 	}
 
+	public List<Long> searchIds(String text) {
+		Client client = connection.getClient();
+		SearchResponse response = client.prepareSearch("ecom")
+				.setTypes("photo").setQuery(QueryBuilders.matchQuery("description", text)).execute().actionGet();
+
+		List<Long> hits = new ArrayList<Long>();
+		for (SearchHit hit: response.getHits().hits()) {
+			hits.add(Long.parseLong(hit.getId()));
+		}
+		return hits;
+	}
+
 	/**
 	 * Allows to execute a search query and get back search hits that match the query.
 	 */

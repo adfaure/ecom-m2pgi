@@ -29,6 +29,8 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 
 	List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
 
+	List<PhotoContextSmallDTO> getPhotosContext(Long memberID, List<Long> photos);
+
 	PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID);
 
 	List<Photo> getPhotosSortByPrice(boolean ascending);

@@ -24,6 +24,10 @@ public class FacadePhoto {
     @Inject
     private IPhotoService photoService;
 
+    public List<PhotoContextSmallDTO> searchPhotosContext(String text, Long memberID) {
+      return photoService.searchPhotosContext(text, memberID);
+    }
+
     public PublicPhotoDTO savePhoto(FullPhotoDTO publicPhotoDTO) {
         return photoService.createPhoto(publicPhotoDTO);
     }
