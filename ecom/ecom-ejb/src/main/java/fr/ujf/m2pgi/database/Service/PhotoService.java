@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
+import fr.ujf.m2pgi.database.DAO.IOrderDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.ISignalDAO;
 import fr.ujf.m2pgi.database.DTO.*;
@@ -48,6 +49,13 @@ public class PhotoService implements IPhotoService {
 	@Inject
 	private IPhotoDAO photoDao;
 
+
+	/**
+	 *
+	 */
+	@Inject
+	private IOrderDAO orderDAO;
+
 	@Inject
 	private ISignalDAO signalDAO;
 
@@ -56,12 +64,6 @@ public class PhotoService implements IPhotoService {
 	 */
 	@Inject
 	private IMemberDAO memberDAO;
-
-	/**
-	 *
-	 */
-	@Inject
-	private IMemberDAO memberDao;
 
 	/**
 	 *
@@ -103,6 +105,7 @@ public class PhotoService implements IPhotoService {
 
 	public PhotoContextBigDTO getPhotoById(Long photoID, Long memberID) {
 		PhotoContextBigDTO photo = photoDao.getPhotoContext(photoID, memberID);
+		photo.setBought(orderDAO.isPhotoBought(memberID, photoID));
 		if (photo != null) viewPhoto(photoID, memberID);
 		return photo;
 	}
@@ -189,7 +192,11 @@ public class PhotoService implements IPhotoService {
 	}
 
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
-		return photoDao.getAllPhotosContext(memberID);
+		List<PhotoContextSmallDTO> photos = photoDao.getAllPhotosContext(memberID);
+		for(PhotoContextSmallDTO photo : photos) {
+			photo.setBought(orderDAO.isPhotoBought(memberID, photo.getPhotoId()));
+		}
+		return photos;
 	}
 
 	public List<PublicPhotoDTO> getPhotosSortByPrice(boolean ascending) {
@@ -304,7 +311,7 @@ public class PhotoService implements IPhotoService {
 
 		if (!exists)
 		{
-			Member member = memberDao.find(memberID);
+			Member member = memberDAO.find(memberID);
 			if (member != null)
 			{
 				photo.getViewers().add(member);
@@ -331,7 +338,7 @@ public class PhotoService implements IPhotoService {
 
 		if (!exists)
 		{
-			Member member = memberDao.find(memberID);
+			Member member = memberDAO.find(memberID);
 			if (member != null)
 			{
 				photo.getLikers().add(member);
@@ -358,7 +365,7 @@ public class PhotoService implements IPhotoService {
 
 		if (exists)
 		{
-			Member member = memberDao.find(memberID);
+			Member member = memberDAO.find(memberID);
 			if (member != null)
 			{
 				photo.getLikers().remove(member);
@@ -385,7 +392,7 @@ public class PhotoService implements IPhotoService {
 
 		if (!exists)
 		{
-			Member member = memberDao.find(memberID);
+			Member member = memberDAO.find(memberID);
 			if (member != null)
 			{
 				photo.getWishers().add(member);
@@ -397,7 +404,7 @@ public class PhotoService implements IPhotoService {
 
 	public void removePhotoFromWishList(Long photoID, Long memberID)
 	{
-		Member member = memberDao.find(memberID);
+		Member member = memberDAO.find(memberID);
 		if (member != null) {// If member exists in our DB
 
 			Photo photo = photoDao.find(photoID);

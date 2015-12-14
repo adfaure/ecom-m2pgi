@@ -13,7 +13,7 @@ public class Like implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-@Id @ManyToOne @JoinColumn(name = "memberID")
+  @Id @ManyToOne @JoinColumn(name = "memberID")
   private Member member;
 
   @Id @ManyToOne @JoinColumn(name = "photoID")
