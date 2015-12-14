@@ -34,7 +34,7 @@
                      ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3]"
                      ng-if="photos[i] != null">
                     <a href="" data-ng-click="details(photos[i].photoID)" class="thumbnail">
-                        <img ng-src="{{photos[i].webLocation}}" alt="{{photos[i].name}}">
+                        <img ng-src="{{photos[i].thumbnail}}" alt="{{photos[i].name}}">
                     </a>
                 </div>
             </div>

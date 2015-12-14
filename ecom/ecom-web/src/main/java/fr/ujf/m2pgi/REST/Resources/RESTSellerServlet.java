@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.REST.Resources;
 
 import fr.ujf.m2pgi.EcomException;
+import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.Security.JwtSingleton;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
@@ -54,13 +55,18 @@ public class RESTSellerServlet {
     @GET
     @Path("id/{id}")
     @Produces("application/json")
-    @AllowAll
-    public Response getSellerById(@PathParam("id") long sellerId) {
-        MemberDTO memberdto = memberService.getSellerById(sellerId);
-        if(memberdto == null | memberdto.getSellerInfo() == null) {
-            return Response.status(Response.Status.NO_CONTENT).build();
+    public Response getSellerById(@PathParam("id") long sellerId, @HeaderParam("userID") Long requesterID) {
+        if(requesterID == null) {
+            return Response.status(Status.OK).entity(memberService.getPublicSellerById(sellerId)).build();
+        } else if(requesterID.equals(sellerId)) {
+            MemberDTO memberdto = memberService.getSellerById(sellerId);
+            if (memberdto == null | memberdto.getSellerInfo() == null) {
+                return Response.status(Response.Status.NO_CONTENT).build();
+            }
+            return Response.status(Response.Status.OK).entity(memberdto).build();
+        } else {
+            return Response.status(Status.OK).entity(memberService.getPublicSellerById(sellerId)).build();
         }
-        return  Response.status(Response.Status.FOUND).entity(memberdto).build();
     }
 
     @DELETE
@@ -110,7 +116,6 @@ public class RESTSellerServlet {
     @GET
     @Path("page/{id}")
     @Produces("application/json")
-    @AllowAll
     public Response getSellerPage(@PathParam("id") long sellerId) {
         MemberDTO memberdto = memberService.getSellerById(sellerId);
         if(memberdto != null && memberdto.getSellerInfo() != null) {
@@ -123,7 +128,7 @@ public class RESTSellerServlet {
     @GET
     @Path("page/login/{login}")
     @Produces("application/json")
-    @AllowAll
+
     public Response getSellerPagebyLogin(@PathParam("login") String login) {
         MemberDTO memberdto = memberService.getMemberByLogin(login);
         if(memberdto != null && memberdto.getSellerInfo() != null) {
@@ -131,6 +136,7 @@ public class RESTSellerServlet {
             return  Response.status(Response.Status.OK).entity(page).build();
         }
         return Response.status(Response.Status.NO_CONTENT).entity(null).build();
+
     }
 
     @POST

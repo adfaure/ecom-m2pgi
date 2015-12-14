@@ -32,6 +32,8 @@ public class PhotoContextBigDTO {
 
 	private long sellerID;
 
+	private boolean available;
+
 	private String sellerLogin;
 
 	private int sales;
@@ -52,9 +54,10 @@ public class PhotoContextBigDTO {
 
 	private Collection<TagCustomDTO> tags;
 
-	public PhotoContextBigDTO(long photoID, String name, String description, String webLocation, String thumbnail, float price,
+	public PhotoContextBigDTO(long photoID, boolean available, String name, String description, String webLocation, String thumbnail, float price,
 			long sellerID, String sellerLogin, int sales, Date dateCreated, Integer views, Integer likes, boolean wishlisted,
 			boolean inCart, boolean liked, boolean flagged) {
+		this.available = available;
 		this.thumbnail = thumbnail;
 		this.photoID = photoID;
 		this.name = name;

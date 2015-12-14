@@ -135,7 +135,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@Override
 	public PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO" +
-		"(p.photoID, p.name, p.description, p.webLocation, p.thumbnail, p.price, p.author.memberID, s.login, p.sales, p.dateCreated, p.views, p.likes, " +
+		"(p.photoID,p.available , p.name, p.description, p.webLocation, p.thumbnail, p.price, p.author.memberID, s.login, p.sales, p.dateCreated, p.views, p.likes, " +
 		"CASE WHEN EXISTS (SELECT w FROM Wish w WHERE p.photoID = w.photo.photoID AND w.member.memberID = :id)" +
 		"THEN true ELSE false END AS wishlisted," +
 		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
@@ -144,7 +144,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		"THEN true ELSE false END AS liked, " +
 		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
 		"THEN true ELSE false END AS flagged) " +
-		"FROM Photo p LEFT JOIN p.author s WHERE p.available = true AND p.photoID = :photoid";
+		"FROM Photo p LEFT JOIN p.author s WHERE p.photoID = :photoid";
 		Query query = entityManager.createQuery(str, PhotoContextBigDTO.class);
 		query.setParameter("id", memberID);
 		query.setParameter("photoid", photoID);

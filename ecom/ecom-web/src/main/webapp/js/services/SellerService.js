@@ -17,7 +17,7 @@ function sellerService($http) {
     return service;
 
     function GetById(id) {
-        return $http.get('api/sellers/' + id).then(handleSuccess, handleError('Error getting user by id'));
+        return $http.get('api/sellers/id/' + id).then(handleSuccess, handleError('Error getting user by id'));
     }
 
     function GetByUsername(username) {

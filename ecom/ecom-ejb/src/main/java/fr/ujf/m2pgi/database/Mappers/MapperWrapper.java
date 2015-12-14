@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
@@ -18,6 +19,7 @@ import javax.ejb.Startup;
  */
 @Singleton
 @Startup
+@Local
 public class MapperWrapper {
 
     private ModelMapper modelMapper;
