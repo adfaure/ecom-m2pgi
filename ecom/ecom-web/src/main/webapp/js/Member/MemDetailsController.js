@@ -10,6 +10,7 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 	$scope.editPSW = false;
 	//$scope.equalsPSW = false;
 	$scope.compteVendeur = false;
+	$scope.pswTheSame = true;
 	
 
 	$scope.sellerCheckBox = false;
@@ -95,13 +96,16 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 			if(!$scope.user1.pswNouveau || !$scope.user1.pswConfirmation){
 				//$scope.equalsPSW = false;
 				$scope.userPSWForm.pswConfirmation.$setValidity("the passwords don't match", false);
+				$scope.pswTheSame = false;
 			}
 			//If the passwords are not the same or if one of them is empty (and therefore the other as well)
 			else if(($scope.user1.pswNouveau.replace(/\s+/g, '') !== '' && $scope.user1.pswConfirmation.replace(/\s+/g, '') !== '') 
 					&& ($scope.user1.pswNouveau === $scope.user1.pswConfirmation) && $scope.user1.pswNouveau !== ''){
 				//$scope.equalsPSW = true;
 				$scope.userPSWForm.pswConfirmation.$setValidity("the passwords don't match", true);
+				$scope.pswTheSame = true;
 			}
+			
 		}
 	};
 
