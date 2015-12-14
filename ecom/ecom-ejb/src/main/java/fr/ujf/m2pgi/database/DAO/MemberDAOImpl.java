@@ -40,6 +40,18 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		}
 		return null;
 	}
+	
+	@Override
+	public Member findMemberByEmail(String email) {
+		Query query = entityManager.createQuery("select m FROM Member m WHERE m.email=:email");
+		query.setParameter("email", email);
+		List<Member> members = query.getResultList();
+		if (members != null && members.size() == 1) {
+			Member member = members.get(0);
+			return member ;
+		}
+		return null;
+	}
 
 	//https://forum.hibernate.org/viewtopic.php?p=2404391
 	public Member updateCart(Member member) {

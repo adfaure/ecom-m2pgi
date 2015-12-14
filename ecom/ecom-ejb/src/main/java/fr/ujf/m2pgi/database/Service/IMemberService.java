@@ -34,7 +34,7 @@ public interface IMemberService {
 
     MemberDTO deleteCart(MemberDTO memberDTO);
 
-    MemberDTO updateMember(MemberDTO memberdto);
+    MemberDTO updateMember(MemberDTO memberdto) throws EcomException;
 
     MemberDTO updateSeller(MemberDTO memberdto);
     

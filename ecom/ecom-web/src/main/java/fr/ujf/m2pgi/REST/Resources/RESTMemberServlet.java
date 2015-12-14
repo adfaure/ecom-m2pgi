@@ -105,9 +105,13 @@ public class RESTMemberServlet {
 		MemberDTO m = memberService.getMemberbyId(id);
 		if(m == null) return Response.status(Status.BAD_REQUEST).build();
 
-		MemberDTO updatedMember = null;
-		updatedMember =  memberService.updateMember(memberDTO);
-		return Response.ok(updatedMember).build();
+		try{
+			MemberDTO updatedMember = null;
+			updatedMember =  memberService.updateMember(memberDTO);
+			return Response.ok(updatedMember).build();
+		}catch(EcomException e){
+			return Response.status(Status.BAD_REQUEST).entity(new CustomServerResponse(false, e.getMessage())).build();
+		}
 	}
 
 	@PUT
