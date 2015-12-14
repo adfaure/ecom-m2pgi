@@ -1,7 +1,7 @@
 var angular = require('angular');
 var ecomApp = require('./../app');
 
-var headerController = function($rootScope, $scope, $location, apiToken, authentificationService, searchService) {
+var headerController = function($rootScope, $scope, $location, $sce, apiToken, authentificationService, alertService, searchService) {
     $scope.auth = apiToken.isAuthentificated();
 
     $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
@@ -17,7 +17,7 @@ var headerController = function($rootScope, $scope, $location, apiToken, authent
         }
     );
 
-    $scope.placeholder = "Rechercher dans le site";
+    $scope.placeholder = "Rechercher dans le site...";
 
     $scope.logout = authentificationService.logout;
 
@@ -25,6 +25,13 @@ var headerController = function($rootScope, $scope, $location, apiToken, authent
         $location.path('/profil').search( {
             'section' : subview
         });
+    };
+
+    $scope.goToAddPhoto = function() {
+        if($scope.auth)
+            $location.path('/profil/addPhoto');
+        else
+            alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour uploader une photo ...</strong>"), 3000);
     };
 
     $scope.goToSearch = function() {

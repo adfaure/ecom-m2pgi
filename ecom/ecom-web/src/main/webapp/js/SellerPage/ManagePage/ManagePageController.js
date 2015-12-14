@@ -2,7 +2,8 @@ var angular = require('angular');
 
 var pageTemplate = "./js/SellerPage/Page/PageTemplate.html";
 
-var controller = function($scope, $filter, pageService, alertService, apiToken, publicPhoto) {
+var controller = function($scope, $filter, $sce, pageService, alertService, apiToken, publicPhoto) {
+
     var user = {};
     $scope.pageTemplate = pageTemplate;
     $scope.user    = user = apiToken.getUser();
@@ -28,7 +29,7 @@ var controller = function($scope, $filter, pageService, alertService, apiToken, 
         pageService.updatePage(user.memberID, $scope.page).then(function(res) {
             if(res.success) {
                 $scope.page = res.data;
-                alertService.add("alert-info", " votre page à été mise à jours ! ");
+                alertService.add("alert-info", $sce.trustAsHtml("<strong>Votre page a bien été mise à jour ! </strong>"), 1000);
                 toogleMode();
             }
         })
@@ -43,7 +44,6 @@ var controller = function($scope, $filter, pageService, alertService, apiToken, 
       if (!data.query) $scope.photos = cachedPhotos;
       $scope.photos = $filter('matchQueries')(cachedPhotos, data.query);
     });
-
 };
 
 module.exports = controller;

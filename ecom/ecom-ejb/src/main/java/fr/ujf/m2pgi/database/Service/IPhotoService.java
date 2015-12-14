@@ -40,9 +40,9 @@ public interface IPhotoService {
 
     List<PublicPhotoDTO> getPhotosSortByDate(boolean ascending);
 
-    List<PublicPhotoDTO> getUserPhotos(Long id);
+    List<ManagePhotoDTO> getUserPhotos(Long id);
 
-    List<PublicPhotoDTO> getUserPhotos(String login);
+    List<ManagePhotoDTO> getUserPhotos(String login);
 
     List<PublicPhotoDTO> getUserWishedPhotos(String login);
 

@@ -30,6 +30,9 @@ public class UpdatePhotoDTO implements Serializable {
 	@XmlElement
 	private float price;
 
+	@XmlElement
+	private String tags;
+
 	public long getPhotoId() {
 		return photoID;
 	}
@@ -62,4 +65,11 @@ public class UpdatePhotoDTO implements Serializable {
 		this.price = price;
 	}
 
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 }

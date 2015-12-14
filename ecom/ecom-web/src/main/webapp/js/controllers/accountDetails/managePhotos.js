@@ -1,11 +1,12 @@
 var angular = require('angular');
 
-var manage = function($scope, $location, $routeParams, $filter, publicPhoto, apiToken) {
+var manage = function($scope, $location , $routeParams, $filter,  $interval, TagsService, publicPhoto, apiToken) {
 
 	$scope.form = {
 			id : '',
 			name : '',
 			description : '',
+			tags : [],
 			price : 0
 	};
 	var cachedPhotos = [];
@@ -24,6 +25,9 @@ var manage = function($scope, $location, $routeParams, $filter, publicPhoto, api
 
 			if (idx != -1) {
 				$scope.highlight = idx;
+				$interval(function() {
+					$scope.highlight = -1;
+				}, 1500, 1);
 			}
 		}
 	});
@@ -37,6 +41,11 @@ var manage = function($scope, $location, $routeParams, $filter, publicPhoto, api
 		$scope.form.id = $scope.photos[index].photoID;
 		$scope.form.name = $scope.photos[index].name;
 		$scope.form.description = $scope.photos[index].description;
+		if($scope.photos[index].tags == "") {
+			$scope.form.tags = [];
+		} else {
+			$scope.form.tags = $scope.photos[index].tags.split(" ");
+		}
 		$scope.form.price = $scope.photos[index].price;
 		$scope.editIndex = index;
 	};
@@ -44,11 +53,21 @@ var manage = function($scope, $location, $routeParams, $filter, publicPhoto, api
 
 	$scope.save = function(index) {
 		$scope.processing = true;
+		var photo = {};
+		photo.id = $scope.form.id;
+		photo.name = $scope.form.name;
+		photo.description = $scope.form.description;
+		photo.tags = $scope.form.tags.map(function(tag) {return tag.name}).join(" ").trim();
+		console.log(photo.tags);
+		photo.price = $scope.form.price;
 
-		publicPhoto.Update($scope.form).then(function(res) {
-			$scope.photos[index].name = $scope.form.name;
-			$scope.photos[index].description = $scope.form.description;
-			$scope.photos[index].price = $scope.form.price;
+
+		publicPhoto.Update(photo).then(function(res) {
+			$scope.valid = false;
+			$scope.photos[index].name = photo.name;
+			$scope.photos[index].description = photo.description;
+			$scope.photos[index].tags = photo.tags;
+			$scope.photos[index].price = photo.price;
 			$scope.processing = false;
 			$scope.removeIndex = -1;
 			$scope.editIndex = -1;
@@ -75,6 +94,7 @@ var manage = function($scope, $location, $routeParams, $filter, publicPhoto, api
 	$scope.test = function() {
 		$scope.valid = true;
 		if(!$scope.form.name || !$scope.form.description || $scope.form.price === undefined) {
+			console.log("tes jambon!");
 			$scope.valid = false;
 		}
 	};
@@ -86,6 +106,11 @@ var manage = function($scope, $location, $routeParams, $filter, publicPhoto, api
 		//$scope.photos = $filter('filter')(cachedPhotos, {description: data.query});
 		$scope.photos = $filter('matchQueries')(cachedPhotos, data.query);
 	});
+
+	var autoComp = new  TagsService.autoComplete();
+	$scope.load = function(query) {
+		return autoComp.get(query);
+	}
 };
 
 module.exports = manage;

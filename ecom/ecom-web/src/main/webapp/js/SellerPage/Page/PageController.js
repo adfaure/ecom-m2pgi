@@ -14,6 +14,7 @@ var controller = function($scope, $location, $filter, alertService, $routeParams
         publicPhoto.GetUserPhotosWithId($routeParams.id).then(
             function (res) {
                 $scope.photos = cachedPhotos = res;
+                $scope.photos = res;
             }
         );
         pageService.getPage($routeParams.id).then(function (res) {
@@ -53,15 +54,7 @@ var controller = function($scope, $location, $filter, alertService, $routeParams
 
     $scope.details = function(photoId) {
         if(isNaN(photoId)) return;
-        if($scope.photos) {
-            var photo = $scope.photos.find(function(photo) {
-                return (photo.photoID == photoId);
-            });
-        }
-        if(photo)
-            $location.path('/photos/details/' + photoId).search( {
-                'photo' :JSON.stringify(photo)
-            });
+        $location.path('/photos/details/' + photoId);
     };
 
     $scope.$on('search', function(event, data) {

@@ -34,6 +34,7 @@ public class ElasticsearchDao {
 			                    .startObject()
 			                        .field("name", doc.getName())
 															.field("description", doc.getDescription())
+															.field("tags", doc.getTags())
 															.field("location", doc.getLocation())
 			                    .endObject()
 			                  )
@@ -75,7 +76,10 @@ public class ElasticsearchDao {
 
   	    updateRequest.doc(jsonBuilder()
   	    		.startObject()
-  	    			.field("description", doc.getDescription())
+							.field("name", doc.getName())
+							.field("description", doc.getDescription())
+							.field("tags", doc.getTags())
+							.field("location", doc.getLocation())
 			    .endObject());
 
 		UpdateResponse resp = connection.getClient().update(updateRequest).get();
@@ -96,6 +100,7 @@ public class ElasticsearchDao {
         	document.setId(Long.parseLong(hit.getId()));
         	document.setName((String)hit.getSource().get("name"));
         	document.setDescription((String)hit.getSource().get("description"));
+					document.setTags((String)hit.getSource().get("tags"));
         	document.setLocation((String)hit.getSource().get("location"));
         	hits.add(document);
         }
@@ -111,7 +116,7 @@ public class ElasticsearchDao {
 	public SearchResult search(String text, int first, int pageSize) {
 		Client client = connection.getClient();
 		SearchResponse response = client.prepareSearch("ecom")
-				.setTypes("photo").setQuery(QueryBuilders.matchQuery("description", text)).execute().actionGet();
+				.setTypes("photo").setQuery(QueryBuilders.matchQuery("_all", text)).execute().actionGet();
 
 		SearchResult result = new SearchResult();
 		result.setTotalHits(response.getHits().totalHits());
@@ -123,6 +128,7 @@ public class ElasticsearchDao {
         	document.setId(Long.parseLong(hit.getId()));
         	document.setName((String)hit.getSource().get("name"));
         	document.setDescription((String)hit.getSource().get("description"));
+					document.setTags((String)hit.getSource().get("tags"));
         	document.setLocation((String)hit.getSource().get("location"));
         	hits.add(document);
         }

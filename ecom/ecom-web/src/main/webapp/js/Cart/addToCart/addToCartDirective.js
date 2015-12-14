@@ -2,23 +2,24 @@ var angular = require('angular');
 
 var addToCart = function ($compile, apiToken, cartService) {
     return {
-    	//E -> just 
+        //E -> just
         restrict: 'E',
-        scope : {
-            photo : "=photo"
+        scope: {
+            photo: "=photo",
+            isButton : "="
         },
         templateUrl: './js/Cart/addToCart/addToCartTemplate.html',
-        controller : function ($scope, $location ) {
+        controller: function ($scope, $location) {
             var user;
 
-            if(apiToken.isAuthentificated()) {
-                var updateCart = $scope.$watch(apiToken.getUser, function() {
-                        if(!apiToken.isAuthentificated()) {
+            if (apiToken.isAuthentificated()) {
+                var updateCart = $scope.$watch(apiToken.getUser, function () {
+                        if (!apiToken.isAuthentificated()) {
                             updateCart(); //stop the watch if the user is not logged in anymore
                             return;
                         }
                         user = apiToken.getUser();
-                        if(user.memberID == $scope.photo.sellerID) {
+                        if (user.memberID == $scope.photo.sellerID) {
                             $scope.owned = true;
                         } else {
                             $scope.owned = false;
@@ -30,26 +31,37 @@ var addToCart = function ($compile, apiToken, cartService) {
                 );
             }
 
+            $scope.clicked = function() {
+                if($scope.owned) {
+                    goToMyPhoto();
+                } else if($scope.alreadyInCart)  {
+                    clickRemove($scope.photo);
+                } else {
+                    clickAdd($scope.photo);
+                }
+            };
+
             $scope.clickAdd    = clickAdd;
             $scope.clickRemove = clickRemove;
-            $scope.goToMyPhoto = function() {
+            $scope.goToMyPhoto = function () {
                 $location.path('/profil/managePhotos').search({
-                    photo : JSON.stringify($scope.photo)
+                    photo: JSON.stringify($scope.photo)
                 });
             }
         }
     };
 
-    function clickAdd (photo) {
-        cartService.addToCart(photo).then(function(res) {
-            if(res.success)
-                apiToken.setUser(res.data);            }
+    function clickAdd(photo) {
+        cartService.addToCart(photo).then(function (res) {
+                if (res.success)
+                    apiToken.setUser(res.data);
+            }
         );
-    };
+    }
 
-    function clickRemove (photo) {
-        cartService.removeToCart(photo).then(function(res) {
-            if(res.success)
+    function clickRemove(photo) {
+        cartService.removeToCart(photo).then(function (res) {
+            if (res.success)
                 apiToken.setUser(res.data);
         })
     }

@@ -1,8 +1,10 @@
 package fr.ujf.m2pgi.REST.Resources;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +15,14 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import fr.ujf.m2pgi.REST.CustomServerResponse;
+import fr.ujf.m2pgi.REST.Interceptors.SecurityInterceptor;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
 import fr.ujf.m2pgi.database.DTO.*;
+import fr.ujf.m2pgi.database.Service.CustomerService;
+import fr.ujf.m2pgi.database.Service.ICustomerService;
 import fr.ujf.m2pgi.database.Service.IMemberService;
 import fr.ujf.m2pgi.facades.FacadePhoto;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
@@ -38,6 +44,9 @@ public class RESTPhotosServlet {
 
 	@EJB
 	private PhotoServiceES photoServiceES;
+
+	@EJB
+	private ICustomerService customerService;
 
 	@Context
 	private HttpServletRequest httpServletRequest;
@@ -129,10 +138,38 @@ public class RESTPhotosServlet {
 	}
 
 	@GET
+	@Path("/bought/user/id/{id:[1-9][0-9]*}")
+	@Produces("application/json")
+	@Allow(groups = "members;sellers")
+	public Response getBoughtPhoto(@PathParam("id") Long id, @HeaderParam("userID") Long requesterID) {
+		if(requesterID == null) {
+			return SecurityInterceptor.FORBIDDEN;
+		} else if(requesterID.equals(id)) {
+			return Response.status(Status.OK).entity(customerService.getBoughPhoto(id)).build();
+		} else {
+			return SecurityInterceptor.FORBIDDEN;
+		}
+	}
+
+	@GET
+	@Path("/id/{photoId:[1-9][0-9]*}/user/id/{id:[1-9][0-9]*}/isBought")
+	@Produces("application/json")
+	@Allow(groups = "members;sellers")
+	public Response isPhotoBought(@PathParam("id") Long id, @PathParam("photoId") Long photoId, @HeaderParam("userID") Long requesterID) {
+		if(requesterID.equals(id)) {
+			Map<String, Object> res = new HashMap<>();
+			res.put("isBougth", (customerService.ishotoBought(id, photoId)));
+			return Response.status(Status.OK).entity(res).build();
+		} else {
+			return SecurityInterceptor.FORBIDDEN;
+		}
+	}
+
+	@GET
 	@Path("/user/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
 	public Response getUserPhotos(@PathParam("id") Long id) {
-		List<PublicPhotoDTO> photos = facadePhoto.getUserPhotos(id);
+		List<ManagePhotoDTO> photos = facadePhoto.getUserPhotos(id);
 		return Response.ok(photos).build();
 	}
 
@@ -140,7 +177,7 @@ public class RESTPhotosServlet {
 	@Path("/user/login/{login}")
 	@Produces("application/json")
 	public Response getUserPhotos(@PathParam("login") String login) {
-		List<PublicPhotoDTO> photos = facadePhoto.getUserPhotos(login);
+		List<ManagePhotoDTO> photos = facadePhoto.getUserPhotos(login);
 		return Response.ok(photos).build();
 	}
 

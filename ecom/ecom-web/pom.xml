@@ -128,7 +128,6 @@
 	</dependencies>
 
 	<build>
-
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
@@ -140,6 +139,7 @@
 					<installDirectory>target</installDirectory>
 				</configuration>
 				<executions>
+					
 					<execution>
 						<!-- optional: you don't really need execution ids, but it looks nice 
 							in your build log. -->
@@ -147,7 +147,7 @@
 						<goals>
 							<goal>install-node-and-npm</goal>
 						</goals>
-						<!-- optional: default phase is "generate-resources" -->
+					<!-- optional: default phase is "generate-resources" -->
 						<phase>generate-resources</phase>
 						<configuration>
 							<nodeVersion>v0.10.18</nodeVersion>
@@ -175,7 +175,7 @@
 							<arguments>install</arguments>
 						</configuration>
 					</execution>
-					<execution>
+				<execution>
 						<id>grunt build</id>
 						<goals>
 							<goal>grunt</goal>

@@ -5,10 +5,9 @@ var $ = jQuery = require('jquery');
 var bootsrap = require('bootstrap');
 
 /** Angular deps */
-var angular        = require('angular');
-var angularRoute   = require('angular-route');
-var angularAnimate = require('angular-animate');
-
+var angular         = require('angular');
+var angularRoute    = require('angular-route');
+var angularAnimate  = require('angular-animate');
 /**
  * Controllers
  */
@@ -59,7 +58,7 @@ var orderModule      = require('./Orders/Module');
 var sellerAnalytics  = require('./Sellers/Module');
 var memberModule	 = require('./Member/Module');
 var followModule     = require('./Follow/Module');
-
+var tags             = require('./Tags/Module');
 /**
  *
  * @type {module}

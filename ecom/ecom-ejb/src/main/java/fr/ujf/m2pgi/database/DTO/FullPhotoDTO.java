@@ -1,7 +1,7 @@
 package fr.ujf.m2pgi.database.DTO;
 
 import java.util.Date;
-
+import java.util.List;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -58,6 +58,9 @@ public class FullPhotoDTO implements Serializable {
 
 	@XmlElement
 	private int sales;
+
+	@XmlElement
+	private List<String> tags;
 
     public String getPrivateLocation() {
         return privateLocation;
@@ -161,6 +164,14 @@ public class FullPhotoDTO implements Serializable {
 
 	public void setSellerID(long sellerID) {
 		this.sellerID = sellerID;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 
 	public static long getSerialversionuid() {

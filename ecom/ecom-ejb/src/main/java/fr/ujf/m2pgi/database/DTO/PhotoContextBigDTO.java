@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.DTO;
 
 import java.util.Date;
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -19,6 +20,8 @@ public class PhotoContextBigDTO {
 
 	private String name;
 
+	private boolean isBought;
+
 	private String description;
 
 	private String webLocation;
@@ -28,6 +31,8 @@ public class PhotoContextBigDTO {
 	private float price;
 
 	private long sellerID;
+
+	private String sellerLogin;
 
 	private int sales;
 
@@ -45,10 +50,11 @@ public class PhotoContextBigDTO {
 
 	private boolean flagged;
 
+	private Collection<TagCustomDTO> tags;
+
 	public PhotoContextBigDTO(long photoID, String name, String description, String webLocation, String thumbnail, float price,
-			long sellerID, int sales, Date dateCreated, Integer views, Integer likes, boolean wishlisted,
+			long sellerID, String sellerLogin, int sales, Date dateCreated, Integer views, Integer likes, boolean wishlisted,
 			boolean inCart, boolean liked, boolean flagged) {
-		super();
 		this.thumbnail = thumbnail;
 		this.photoID = photoID;
 		this.name = name;
@@ -56,6 +62,7 @@ public class PhotoContextBigDTO {
 		this.webLocation = webLocation;
 		this.price = price;
 		this.sellerID = sellerID;
+		this.sellerLogin = sellerLogin;
 		this.sales = sales;
 		this.dateCreated = dateCreated;
 		this.views = views;
@@ -112,6 +119,14 @@ public class PhotoContextBigDTO {
 
 	public void setSellerID(long sellerID) {
 		this.sellerID = sellerID;
+	}
+
+	public void setSellerLogin(String sellerLogin) {
+		this.sellerLogin = sellerLogin;
+	}
+
+	public String getSellerLogin() {
+		return sellerLogin;
 	}
 
 	public int getSales() {
@@ -177,4 +192,21 @@ public class PhotoContextBigDTO {
 	public void setFlagged(boolean flagged) {
 		this.flagged = flagged;
 	}
+
+	public Collection<TagCustomDTO> getTags() {
+		return tags;
+	}
+
+	public void setTags(Collection<TagCustomDTO> tags) {
+		this.tags = tags;
+	}
+
+	public boolean isBought() {
+		return isBought;
+	}
+
+	public void setBought(boolean bought) {
+		isBought = bought;
+	}
+
 }

@@ -1,39 +1,41 @@
 <div class="thumbnail">
 
-    <div class="caption">
+    <div class="caption cursorPointer">
 
-        <div class="headerCaption">
-            <div class="floatLeft">
-                <p class="glyphicon glyphicon-ban-circle redSignalIcon"></p>
+        <div class="headerCaption BGField">
+            <div class="floatLeft cursorPointer">
+                <span class="fa fa-flag redSignalIcon brightOnHover" title="Signaler cette photo"></span>
             </div>
             <div class="floatRight">
                 <div>
-                  <p class="glyphicon glyphicon-eye-open borderRight">{{photo.views}}</p>
-                  <p class="glyphicon glyphicon-thumbs-up" >{{photo.likes}}</p>
+                  <span class="fa fa-eye marginRight5px" title="Nombre de vues">{{photo.views}}</span>
+                  <span class="fa fa-thumbs-o-up" title="Nombre de likes">{{photo.likes}}</span>
                 </div>
             </div>
         </div>
 
-        <div class="centerCaption">
-            <span class="fa fa-search-plus fa-5x cursorPointer" data-ng-click="details(photo.photoID)" ></span>
+        <div class="centerCaption" data-ng-click="details(photo.photoID)">
         </div>
 
-        <div class="footerCaption">
+        <!--<div class="centerCaption">
+            <span class="fa fa-search-plus fa-5x cursorPointer" data-ng-click="details(photo.photoID)" ></span>
+        </div>-->
+
+        <div class="footerCaption BGField">
             <div class="floatLeft">
-                <span class="glyphicon glyphicon-euro floatLeft" data-ng-click="" >{{photo.price}}</span>
                 <add-to-cart-component photo="photo" class="floatRight"></add-to-cart-component>
             </div>
             <div class="floatRight">
-            <span class="fa fa-star cursorPointer borderRight" data-ng-class="{colorYellow: photo.wishlisted == true}" data-ng-click="(photo.wishlisted == true) ? unwish(photo.photoID) : wish(photo.photoID)" >
-            </span>
+                <span class="fa fa-star cursorPointer marginRight5px brightOnHover" data-ng-class="{colorYellow: photo.wishlisted == true}" data-ng-click="(photo.wishlisted == true) ? unwish(photo.photoID) : wish(photo.photoID)" title="Ajouter aux favories" >
+                </span>
 
-            <span class="fa fa-thumbs-up cursorPointer" data-ng-class="{colorBlue: photo.liked == true}" data-ng-click="(photo.liked == true) ? unlike(photo.photoID) :like(photo.photoID)" alt="Like">
-            </span>
+                <span class="fa fa-thumbs-up cursorPointer brightOnHover" data-ng-class="{colorBlue: photo.liked == true}" data-ng-click="(photo.liked == true) ? unlike(photo.photoID) :like(photo.photoID)" title="Liker cette photo">
+                </span>
             </div>
         </div>
 
     </div>
 
-    <img class="image" data-ng-src="{{photo.thumbnail}}" alt="{{photo.name}}">
+    <img class="image" data-ng-src="{{photo.thumbnail}}" title="{{photo.name}}">
 
 </div>

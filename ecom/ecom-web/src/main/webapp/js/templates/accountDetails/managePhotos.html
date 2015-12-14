@@ -9,10 +9,11 @@
 
 <table class="table">
   <tbody>
-    <tr ng-repeat="photo in photos track by $index" data-ng-class="{'bg-info': $index == highlight }">
-      <td>
-        <img width="128" ng-src="{{ photo.webLocation }}" alt="{{ photo.name }}">
+    <tr ng-repeat-start="photo in photos track by $index" data-ng-class="{'bg-info': $index == highlight }">
+      <td rowspan="5" class="col-md-2">
+        <img width="128" ng-src="{{ photo.thumbnail }}" alt="{{ photo.name }}">
       </td>
+      <td class="col-md-2">Nom : </td>
       <td ng-if="editIndex != $index">
         <strong><span ng-bind-html="photo.name | highlight:query"></span></strong>
       </td>
@@ -20,16 +21,44 @@
         <input required ng-model="form.name" ng-change="test()" class="form-control"
          type="text" ng-disabled="processing" ng-maxlength="50" focus-on-load>
       </td>
+    </tr>
+    <tr data-ng-class="{'bg-info': $index == highlight }">
+      <td class="col-md-2">Description : </td>
       <td>
         <textarea required ng-if="editIndex == $index" class="form-control"
          ng-model="form.description" ng-change="test()" ng-disabled="processing" ng-maxlength="250"></textarea>
         <span ng-if="editIndex != $index" ng-bind-html="photo.description | highlight:query"></span>
       </td>
+    </tr>
+    <tr data-ng-class="{'bg-info': $index == highlight }">
+      <td ng-if="editIndex == $index">
+        <textarea required class="form-control" ng-model="form.description"
+         ng-change="test()" ng-disabled="processing" ng-maxlength="250"></textarea>
+       </td>
+       <td ng-if="editIndex != $index">
+        <span>{{ photo.description }}</span>
+      </td>
+    </tr>
+    <tr data-ng-class="{'bg-info': $index == highlight }">
+      <td class="col-md-2">Mots-clés : </td>
+      <td ng-if="editIndex != $index">
+        <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
+      </td>
+      <td ng-if="editIndex == $index">
+        <tags-input on-tag-removing="test()" on-tag-added="test()" ng-model="form.tags" display-property="name" add-on-paste="true">
+          <auto-complete min-length="1" source="load($query)"></auto-complete>
+        </tags-input>
+      </td>
+    </tr>
+    <tr data-ng-class="{'bg-info': $index == highlight }">
+      <td class="col-md-2">Prix : </td>
       <td ng-if="editIndex != $index">{{ photo.price | currency:"&euro;" }}</td>
       <td ng-if="editIndex == $index">
         <input required ng-model="form.price" ng-change="test()" class="form-control"
         type="number" min="0.01" max="999.99" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-disabled="processing" >
       </td>
+    </tr>
+    <tr ng-repeat-end data-ng-class="{'bg-info': $index == highlight }">
       <td>
         <button ng-if="editIndex != $index" class="btn  btn-default" ng-click="edit($index)" ng-disabled="processing">
           <span class="glyphicon glyphicon-pencil"></span> Edit
