@@ -41,6 +41,7 @@ var searchController = function($scope, $location, $routeParams, apiToken, publi
     $scope.search.took = res.took;
     $scope.photos = res.hits;
   });
+  console.log("reloaded");
 
   $scope.$on('search', function(event, mass) { console.log(mass); });
 };

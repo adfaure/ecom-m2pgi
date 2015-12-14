@@ -36,6 +36,7 @@ var sellerService = require('./services/SellerService');
 var localService = require('./services/LocalService');
 var httpInterceptor = require('./services/HttpInterceptor');
 var apiToken = require('./services/ApiToken');
+var searchService = require('./services/SearchService');
 var authentificationService = require('./services/AuthentificationService');
 var uploadPhoto  = require('./services/uploadPhoto');
 var publicPhoto  = require('./services/PublicPhotoService');
@@ -116,6 +117,7 @@ ecomApp.factory('sellerService', sellerService);
 ecomApp.factory('localService', localService);
 ecomApp.factory('authentificationService', authentificationService);
 ecomApp.factory('apiToken', apiToken);
+ecomApp.factory('searchService', searchService);
 ecomApp.factory('httpInterceptor', httpInterceptor);
 ecomApp.factory('uploadPhoto', uploadPhoto);
 ecomApp.factory('publicPhoto', publicPhoto);
@@ -135,3 +137,28 @@ ecomApp.controller('reportedPhotosController', reportedPhotosController);
 ecomApp.controller('memMgmtController', memMgmtController);
 ecomApp.controller('searchController', searchController);
 ecomApp.controller('navsidebarController', navsidebarController);
+
+ecomApp.filter('highlight', function($sce) {
+  return function(text, phrase) {
+    var tokens = phrase.trim().split(/\b\s+/).join('|');
+    if (phrase) text = text.replace(new RegExp('('+tokens+')', 'gi'), '<span class="highlighted">$1</span>');
+    return $sce.trustAsHtml(text);
+  }
+});
+
+ecomApp.filter('matchQueries', function() {
+  return function(items, phrase) {
+    var tokens = phrase.split(/\b\s+/);
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      var matched = false;
+      angular.forEach(tokens, function(token) {
+        if(!matched && (item.description.indexOf(token) > -1 || item.name.indexOf(token) > -1)) {
+          filtered.push(item);
+          matched = true;
+        }
+      });
+    });
+    return filtered;
+  };
+});

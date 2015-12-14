@@ -1,6 +1,11 @@
 <div data-ng-controller="managePhotos">
 
-<h3>Manage photos ({{ photos.length }})</h3>
+<h3 ng-show="query">
+  La recherche a retourné <strong>{{ photos.length }}</strong> photo(s) !
+</h3>
+<h3 ng-show="!query">
+  Vous avez <strong>{{ photos.length }}</strong> photo(s) dans votre magasin !
+</h3>
 
 <table class="table">
   <tbody>
@@ -8,7 +13,9 @@
       <td>
         <img width="128" ng-src="{{ photo.webLocation }}" alt="{{ photo.name }}">
       </td>
-      <td ng-if="editIndex != $index"><strong>{{ photo.name | limitTo : 20 }}</strong></td>
+      <td ng-if="editIndex != $index">
+        <strong><span ng-bind-html="photo.name | highlight:query"></span></strong>
+      </td>
       <td ng-if="editIndex == $index">
         <input required ng-model="form.name" ng-change="test()" class="form-control"
          type="text" ng-disabled="processing" ng-maxlength="50" focus-on-load>
@@ -16,12 +23,12 @@
       <td>
         <textarea required ng-if="editIndex == $index" class="form-control"
          ng-model="form.description" ng-change="test()" ng-disabled="processing" ng-maxlength="250"></textarea>
-        <span ng-if="editIndex != $index">{{ photo.description }}</span>
+        <span ng-if="editIndex != $index" ng-bind-html="photo.description | highlight:query"></span>
       </td>
       <td ng-if="editIndex != $index">{{ photo.price | currency:"&euro;" }}</td>
       <td ng-if="editIndex == $index">
-      <input required ng-model="form.price" ng-change="test()" class="form-control"
-       type="number" min="0.01" max="999.99" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-disabled="processing" >
+        <input required ng-model="form.price" ng-change="test()" class="form-control"
+        type="number" min="0.01" max="999.99" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-disabled="processing" >
       </td>
       <td>
         <button ng-if="editIndex != $index" class="btn  btn-default" ng-click="edit($index)" ng-disabled="processing">

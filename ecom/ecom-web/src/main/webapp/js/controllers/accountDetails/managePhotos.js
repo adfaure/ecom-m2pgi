@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var manage = function($scope, $location , $routeParams, publicPhoto, apiToken) {
+var manage = function($scope, $location, $routeParams, $filter, publicPhoto, apiToken) {
 
 	$scope.form = {
 			id : '',
@@ -8,11 +8,13 @@ var manage = function($scope, $location , $routeParams, publicPhoto, apiToken) {
 			description : '',
 			price : 0
 	};
-
+	var cachedPhotos = [];
 	$scope.photos = [];
 	$scope.highlight = -1;
+	$scope.query = '';
+
 	publicPhoto.GetUserPhotos(apiToken.getUser().login).then(function(res) {
-		$scope.photos = res;
+		$scope.photos = cachedPhotos = res;
 
 		if($routeParams.photo) {
 			var paramPhoto = JSON.parse($routeParams.photo);
@@ -76,6 +78,14 @@ var manage = function($scope, $location , $routeParams, publicPhoto, apiToken) {
 			$scope.valid = false;
 		}
 	};
+
+	$scope.$on('search', function(event, data) {
+		$scope.query = data.query;
+		if($scope.editIndex != -1 || $scope.processing) return;
+		if (!data.query) $scope.photos = cachedPhotos;
+		//$scope.photos = $filter('filter')(cachedPhotos, {description: data.query});
+		$scope.photos = $filter('matchQueries')(cachedPhotos, data.query);
+	});
 };
 
 module.exports = manage;

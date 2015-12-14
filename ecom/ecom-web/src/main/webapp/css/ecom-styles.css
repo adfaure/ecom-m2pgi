@@ -1,3 +1,7 @@
+.highlighted {
+	background-color: rgb(250, 255, 189);
+}
+
 .posAbs {
 	position: absolute;
 }
@@ -21,7 +25,7 @@
 	background: #CCC;
 	opacity:0.6;
 }
- 
+
 .caption {
     position:absolute;
     top:0;
@@ -36,7 +40,7 @@
 }
 
 
-.caption {   
+.caption {
     opacity: 0;
     -webkit-transition: opacity 0.2s ease-in-out;
        -moz-transition: opacity 0.2s ease-in-out;

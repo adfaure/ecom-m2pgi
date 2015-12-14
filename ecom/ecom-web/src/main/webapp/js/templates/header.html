@@ -13,9 +13,10 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form id="searchnavbar"  class="navbar-form navbar-left" role="search" name="searchForm" data-ng-submit="searchForm.$valid && goToSearch()">
+      <form id="searchnavbar"  class="navbar-form navbar-left" role="search" name="searchForm" data-ng-submit="search();">
         <div class="form-group">
-          <input id="searchInput" type="text" class="form-control" data-ng-model="terms" placeholder="Entrer recherche..." focus-on-load>
+          <input id="searchInput" type="text" class="form-control" data-ng-model="terms" data-ng-change="search();"
+          placeholder="{{placeholder}}" focus-on-load>
         </div>
         <button type="submit" class="btn btn-default">Chercher</button>
       </form>
