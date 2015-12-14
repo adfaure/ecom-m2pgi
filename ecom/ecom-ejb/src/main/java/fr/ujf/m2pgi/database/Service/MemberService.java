@@ -141,7 +141,7 @@ public class MemberService implements IMemberService {
             attachedEntity.setCart(cart);
             return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
         }
-        return member;
+        return memberMapper.getDTO(attachedEntity);
     }
 
     /**
@@ -226,11 +226,21 @@ public class MemberService implements IMemberService {
 	}
 
     @Override
-    public MemberDTO updateMember(MemberDTO memberdto) {
+    public MemberDTO updateMember(MemberDTO memberdto) throws EcomException{
         Member entity = memberMapper.getentity(memberdto);
+        
+        //It means the person wants to change his/her email
+        Member mem = memberDao.findMemberByLogin(memberdto.getLogin());
+        if(!mem.getEmail().equalsIgnoreCase(memberdto.getEmail())){
+        	Member m = memberDao.findMemberByEmail(memberdto.getEmail());
+            if(m != null) throw  new EcomException("Email already in use");
+        }
+        
         if(memberdto.getSellerInfo() != null){
         	memberdto.setSellerInfo(null);
         }
+        
+        System.out.println("This will be executed");
         memberDao.update(entity);
         return memberdto;
     }

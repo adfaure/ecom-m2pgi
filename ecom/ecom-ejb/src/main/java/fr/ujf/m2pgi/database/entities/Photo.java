@@ -61,6 +61,12 @@ public class Photo {
 	@Column(name="likes", insertable = false, updatable = true, columnDefinition = "int default 0")
 	private Integer likes;
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "tags",
+			joinColumns =  @JoinColumn(name = "photoid"), inverseJoinColumns = @JoinColumn(name = "tagid")
+	)
+	private Collection<Tag> tags;
+
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "cart")
 	private Collection<Member> buyers;
 
@@ -189,6 +195,14 @@ public class Photo {
 
 	public void setLikes(Integer likes) {
 		this.likes = likes;
+	}
+
+	public Collection<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Collection<Tag> tags) {
+		this.tags = tags;
 	}
 
 	public Collection<Member> getBuyers() {

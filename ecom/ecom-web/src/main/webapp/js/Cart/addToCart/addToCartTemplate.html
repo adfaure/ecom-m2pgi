@@ -1,30 +1,24 @@
-<div class="ecom-margin-bottom">
-    <div data-ng-if="!owned">
+<div class="ecom-margin-bottom" data-ng-class="{'btn btn-default' : isButton }" data-ng-click="clicked()">
+    <div data-ng-if="!owned" >
         <div data-ng-if="!photo.isBought">
 
-            <span class="glyphicon glyphicon-euro floatLeft" >{{photo.price}}</span>
-
-            <div data-ng-if="!alreadyInCart">
-                <button type="button" class="btn btn-success btn-sm" data-ng-click="clickAdd(photo)" data-toggle="tooltip" data-placement="left" alt="Ajouter au panier" title="Ajouter au panier">
-                    <i class="fa fa-cart-plus"></i>
-                </button>
+            <div class="floatLeft marginRight5px">
+                <i class="fa fa-euro" title="Prix">{{photo.price}}</i>
             </div>
 
-            <div data-ng-if="alreadyInCart">
-                <button type="button" class="btn btn-success btn-sm" data-ng-click="clickRemove(photo)"  data-toggle="tooltip" data-placement="left" alt="Enlever du panier" title="Enlever du panier">
-                    <span class="fa-stack">
-                        <i class="fa fa-shopping-cart fa-stack-1x"></i>
-                        <i class="fa fa-ban fa-stack-2x text-danger"></i>
-                    </span>
-                </button>
+            <div data-ng-if="!alreadyInCart" class="cursorPointer floatLeft">
+                <i class="fa fa-cart-plus brightOnHover"  title="Ajouter au panier"></i>
+            </div>
+
+            <div data-ng-if="alreadyInCart" class=" cursorPointer floatLeft">
+                <i class="fa fa-shopping-cart greenIcon brightOnHover"  title="Enlever du panier"></i>
             </div>
         </div>
         <div data-ng-if="photo.isBought">
-                <i class="fa fa-2x fa-check"></i>
+                <i class="fa fa-check greenIcon" title="Déjà achetée"></i>
         </div>
     </div>
 </div>
-    <div data-ng-if="owned" class="cursorPointer" data-ng-click="goToMyPhoto()">
-        <i class="fa fa-2x fa-user"></i>
-    </div>
+<div data-ng-if="owned" class="cursorPointer">
+    <i class="fa fa fa-user" title="Je suis propriétaire"></i>
 </div>

@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import javax.ejb.Stateless;
@@ -13,6 +14,7 @@ import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IOrderDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.ISignalDAO;
+import fr.ujf.m2pgi.database.DAO.ITagDAO;
 import fr.ujf.m2pgi.database.DTO.*;
 import fr.ujf.m2pgi.database.Mappers.IPhotoMapper;
 import fr.ujf.m2pgi.database.Mappers.IPublicPhotoMapper;
@@ -64,7 +66,11 @@ public class PhotoService implements IPhotoService {
 	 *
 	 */
 	@Inject
+	private ITagDAO tagDAO;
+
+	@Inject
 	private IMemberDAO memberDAO;
+
 
 	/**
 	 *
@@ -117,15 +123,24 @@ public class PhotoService implements IPhotoService {
 	 * @return
 	 */
 	public PublicPhotoDTO createPhoto(FullPhotoDTO photo) {
+
 		  Member seller = memberDAO.find(photo.getSellerID());
-		  if (seller == null) return null;
+		  if (seller == null) {
+				return null;
+			}
 		  Photo photoEntity = photoMapper.getentity(photo);
 		  photoEntity.setAuthor(seller);
+			photoEntity.setTags(tagDAO.getTags(photo.getTags()));
 		  PublicPhotoDTO created = publicPhotoMapper.getDTO(photoDao.create(photoEntity));
 		  PhotoDocument doc = new PhotoDocument();
 		  doc.setId(created.getPhotoID());
 		  doc.setName(created.getName());
 		  doc.setDescription(created.getDescription());
+			StringBuilder sb = new StringBuilder();
+			for (String tag : photo.getTags()) {
+				sb.append(tag).append(' ');
+			}
+			doc.setTags(sb.toString());
 		  doc.setLocation(created.getWebLocation());
 		  try {
 			    photoDaoES.index(doc);
@@ -146,6 +161,7 @@ public class PhotoService implements IPhotoService {
 		photoEntity.setPrice(photo.getPrice());
 		photoEntity.setDescription(photo.getDescription());
 		photoEntity.setName(photo.getName());
+		photoEntity.setTags(tagDAO.getTags(Arrays.asList(photo.getTags().split(" "))));
 
 		PublicPhotoDTO updated = publicPhotoMapper.getDTO(photoDao.update(photoEntity));
 
@@ -153,6 +169,7 @@ public class PhotoService implements IPhotoService {
 		doc.setId(photo.getPhotoId());
 		doc.setName(photo.getName());
 		doc.setDescription(photo.getDescription());
+		doc.setTags(photo.getTags());
 
 		try {// Needs better handling!
 			photoDaoES.update(doc);
@@ -249,12 +266,8 @@ public class PhotoService implements IPhotoService {
 	 * @param id
 	 * @return
    */
-	public List<PublicPhotoDTO> getUserPhotos(Long id) {
-		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
-		for(Photo photo: photoDao.getUserPhotos(id)) {
-			result.add(publicPhotoMapper.getDTO(photo));
-		}
-		return result;
+	public List<ManagePhotoDTO> getUserPhotos(Long id) {
+		return photoDao.getUserPhotos(id);
 	}
 
 	public List<WishListPhotoDTO> getUserWishedPhotos(Long id) {
@@ -276,12 +289,8 @@ public class PhotoService implements IPhotoService {
 	 * @param login
 	 * @return
      */
-	public List<PublicPhotoDTO> getUserPhotos(String login) {
-		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
-		for(Photo photo: photoDao.getUserPhotos(login)) {
-			result.add(publicPhotoMapper.getDTO(photo));
-		}
-		return result;
+	public List<ManagePhotoDTO> getUserPhotos(String login) {
+		return photoDao.getUserPhotos(login);
 	}
 	
 	public List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos) {

@@ -8,8 +8,8 @@
                         {{ page.content }}
                     </p>
                 </div>
-                
                 <div class="col-md-12" ng-show="logged && !sameSeller">
+
                     <button class="btn btn-default" ng-show="!followed" ng-click="follow()">
 			          <span class="glyphicon glyphicon-plus"></span>Follow
 			        </button>
@@ -17,14 +17,14 @@
 			          <span class="glyphicon glyphicon-ok"></span>Following
 			        </button>
                 </div>
-             
+
             </div>
             <div class="row panel" ng-repeat="photo in photos track by $index" ng-if="$index % 4 == 0">
                 <div class="col-xs-6 col-md-3"
                      ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3]"
                      ng-if="photos[i] != null">
                     <a href="" data-ng-click="details(photos[i].photoID)" class="thumbnail">
-                        <img ng-src="{{photos[i].webLocation}}" alt="{{photos[i].name}}">
+                        <img ng-src="{{photos[i].thumbnail}}" alt="{{photos[i].name}}">
                     </a>
                 </div>
             </div>

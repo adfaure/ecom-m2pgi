@@ -163,7 +163,7 @@ public class RESTPhotosServlet {
 	@Path("/user/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
 	public Response getUserPhotos(@PathParam("id") Long id) {
-		List<PublicPhotoDTO> photos = facadePhoto.getUserPhotos(id);
+		List<ManagePhotoDTO> photos = facadePhoto.getUserPhotos(id);
 		return Response.ok(photos).build();
 	}
 
@@ -171,7 +171,7 @@ public class RESTPhotosServlet {
 	@Path("/user/login/{login}")
 	@Produces("application/json")
 	public Response getUserPhotos(@PathParam("login") String login) {
-		List<PublicPhotoDTO> photos = facadePhoto.getUserPhotos(login);
+		List<ManagePhotoDTO> photos = facadePhoto.getUserPhotos(login);
 		return Response.ok(photos).build();
 	}
 

@@ -68,11 +68,11 @@ public class FacadePhoto {
       return photoService.getPhotosSortByDate(ascending);
     }
 
-    public List<PublicPhotoDTO> getUserPhotos(Long id) {
+    public List<ManagePhotoDTO> getUserPhotos(Long id) {
         return photoService.getUserPhotos(id);
     }
 
-    public List<PublicPhotoDTO> getUserPhotos(String login) {
+    public List<ManagePhotoDTO> getUserPhotos(String login) {
         return photoService.getUserPhotos(login);
     }
 

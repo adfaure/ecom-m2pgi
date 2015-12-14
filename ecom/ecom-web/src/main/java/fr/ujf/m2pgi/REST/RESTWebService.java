@@ -13,6 +13,7 @@ import fr.ujf.m2pgi.REST.Resources.RESTMemberServlet;
 import fr.ujf.m2pgi.REST.Resources.RESTOrdersServlet;
 import fr.ujf.m2pgi.REST.Resources.RESTPhotosServlet;
 import fr.ujf.m2pgi.REST.Resources.RESTSellerServlet;
+import fr.ujf.m2pgi.REST.Resources.RESTTagServlet;
 
 /**
  *
@@ -34,6 +35,7 @@ public class RESTWebService extends Application {
         classes.add(RESTSellerServlet.class         );
         classes.add(RESTPhotosServlet.class         );
         classes.add(RESTOrdersServlet.class         );
+        classes.add(RESTTagServlet.class         );
         return classes;
     }
 

@@ -4,18 +4,19 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
     var photoID = $routeParams.id;
     $scope.vendeurLogin = "";
     
+    if(isNaN(photoID)) return;// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
     
-    if(photoID) {
-      publicPhoto.GetById(photoID).then(function(res) {
-        $scope.photo = res;
-        
-        sellerService.GetById($scope.photo.sellerID).then(function(res){
+    $scope.loaded = false;
+    publicPhoto.GetById(photoID).then(function(res) {
+      $scope.loaded = true;
+      $scope.photo = res;
       
-        		$scope.vendeurLogin = res.login;
-        });
-        
+      sellerService.GetById($scope.photo.sellerID).then(function(res){
+  		$scope.vendeurLogin = res.login;
       });
-
+      
+    });
+    
       
 	  var user;
 	  
@@ -54,9 +55,8 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
       $scope.goToSellerPage = function(){
     	  $location.path("/seller/page/"+$scope.photo.sellerID);  	  
       }
-      
-    }// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
 
-};
+
+};// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
 
 module.exports = detailsPhotoController;
