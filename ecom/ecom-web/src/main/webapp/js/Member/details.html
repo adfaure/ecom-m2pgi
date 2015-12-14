@@ -6,20 +6,20 @@
 
 <!-- <form class="css-form" name="editform" novalidate  ng-submit="save()"> -->
 
-	<h2> Mes infos:  
+	<h2> Mes infos:
 		<button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="edit=true">
 	          <span class="glyphicon glyphicon-star"></span>Modifier
 	  	</button>
 	  	<button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="editPSW=true;">
 	          <span class="glyphicon glyphicon-star"></span>Modifier mot de passe
 	  	</button>
-	  	
+
 	  	<button class="btn btn-default" ng-show="!edit && !editPSW && !compteVendeur && !addRIB" ng-click="addRIB=true;">
 	          <span class="glyphicon glyphicon-star"></span>Devenir vendeur
 	  	</button>
 	</h2>
 
-  
+
 <form class="form-horizontal ng-valid ng-dirty ng-valid-parse css-form" style="" name="userDataForm">
 
   <div class="form-group">
@@ -48,7 +48,7 @@
     <div class="col-sm-10" ng-show="edit">
     <input type="text" id="firstName" class="form-control" data-ng-model="user1.firstName" placeholder="Pr&eacute;nom">
     </div>
-  </div> 
+  </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Nom:</label>
     <div class="col-sm-10" ng-show="!edit">
@@ -67,11 +67,11 @@
     <input type="text" id="email" class="form-control" name="emailAddress" data-ng-model="user1.email" placeholder="Address mail" required>
     </div>
     <div class="col-sm-12 col-md-6" ng-messages="userDataForm.emailAddress.$error" role="alert" ng-show="userDataForm.emailAddress.$touched">
-	    <div ng-message="required">Le champ doit &ecirc;tre rempli</div>
+	    <div ng-message="required">Le champ doit être rempli</div>
 	</div>
   </div>
   </form>
-  
+
   <form ng-show="addRIB || compteVendeur" class="form-horizontal ng-valid ng-dirty ng-valid-parse css-form" name="userRIBForm">
   <div class="form-group" >
     <label class="col-sm-2 control-label">RIB:</label>
@@ -82,20 +82,20 @@
     <input type="text" id="rib" class="form-control" name="rib" data-ng-model="user1.sellerInfo.rib" placeholder="RIB" required>
     </div>
     <div class="col-sm-12 col-md-6" ng-messages="userRIBForm.rib.$error" role="alert" ng-show="userRIBForm.rib.$touched">
-	    <div ng-message="required">Le champ doit &ecirc;tre rempli</div>
+	    <div ng-message="required">Le champ doit être rempli</div>
 	</div>
   </div>
   </form>
-  
+
   <form ng-show="editPSW" class="form-horizontal ng-valid ng-dirty ng-valid-parse css-form" style="" name="userPSWForm">
-  
+
   <div class="form-group">
     <label class="col-sm-2 control-label reqField" for="actuel">Actuel mot de passe:</label>
     <div class="col-sm-10" >
     <input type="password" id="actuel" class="form-control" data-ng-model="user1.pswActuel" placeholder="Actuel" name="pswActuel" required >
     </div>
     <div class="col-sm-12 col-md-6" ng-messages="userPSWForm.pswActuel.$error" role="alert" ng-show="userPSWForm.pswActuel.$touched">
-	    <div ng-message="required">Le champ doit &ecirc;tre rempli</div>
+	    <div ng-message="required">Le champ doit être rempli</div>
 	</div>
   </div>
   <div class="form-group">
@@ -104,10 +104,10 @@
     <input type="password" id="pswNouveau" class="form-control" name="pswNouveau" data-ng-model="user1.pswNouveau" placeholder="Nouveau" required minlength='5'>
    	</div>
    	<div class="col-sm-12 col-md-6" ng-messages="userPSWForm.pswNouveau.$error" role="alert" ng-show="userPSWForm.pswNouveau.$touched">
-	    <div ng-message="required">Le champ doit &ecirc;tre rempli</div>
+	    <div ng-message="required">Le champ doit être rempli</div>
 	    <div ng-message="minlength">Le champ doit avoir minimum 5 characters</div>
 	</div>
-   	
+
     </div>
     <div class="form-group">
     <label class="col-sm-2 control-label reqField" for="pswConfirmation">Confirmer:</label>
@@ -115,14 +115,14 @@
     <input type="password" id="pswConfirmation" class="form-control" data-ng-model="user1.pswConfirmation" name="pswConfirmation" placeholder="Confirmer" required>
     </div>
     <div ng-show="!pswTheSame">
-    	La confirmation du mot de passe n'est pas la m�me.
+    	La confirmation du mot de passe n'est pas la même.
     </div>
   	</div>
 
 </form>
 
   <div ng-show="edit || editPSW || addRIB">
-	  <button class="btn btn-default" ng-disabled=" (edit && userDataForm.$invalid) || (editPSW && userPSWForm.$invalid) || (addRIB && userRIBForm.$invalid) 
+	  <button class="btn btn-default" ng-disabled=" (edit && userDataForm.$invalid) || (editPSW && userPSWForm.$invalid) || (addRIB && userRIBForm.$invalid)
 	  												|| (edit && compteVendeur && userRIBForm.$invalid) " ng-click="save()">
 	          <span class="glyphicon glyphicon-ok"></span>Sauvegarder
 	  </button>
@@ -131,5 +131,5 @@
 	  </button>
   </div>
 
-  
+
 </div>
