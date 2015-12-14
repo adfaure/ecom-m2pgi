@@ -31,6 +31,10 @@
     color: lawngreen;
 }
 
+.cartIconHeader:hover {
+    color: lawngreen;
+}
+
 .thumbnail {
     position:relative;
     overflow:hidden;
