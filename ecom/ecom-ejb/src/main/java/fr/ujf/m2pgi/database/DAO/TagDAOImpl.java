@@ -48,6 +48,7 @@ public class TagDAOImpl extends GeneriqueDAOImpl<Tag> implements ITagDAO {
   public List<Tag> getTags(List<String> tokens) {
     List<Tag> tags = new ArrayList<Tag>();
     for (String token : tokens) {
+      token = token.toLowerCase();
       Tag tag = getByString(token);
       if (tag != null) {
         tags.add(tag);

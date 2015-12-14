@@ -147,12 +147,13 @@ ecomApp.filter('highlight', function($sce) {
 
 ecomApp.filter('matchQueries', function() {
   return function(items, phrase) {
-    var tokens = phrase.split(/\b\s+/);
+    var tokens = phrase.toLowerCase().split(/\b\s+/);
     var filtered = [];
     angular.forEach(items, function(item) {
       var matched = false;
       angular.forEach(tokens, function(token) {
-        if(!matched && (item.description.indexOf(token) > -1 || item.name.indexOf(token) > -1)) {
+        if(!matched && (item.description.toLowerCase().indexOf(token) > -1 || item.name.toLowerCase().indexOf(token) > -1
+         || (item.tags && item.tags.indexOf(token) > -1))) {
           filtered.push(item);
           matched = true;
         }

@@ -141,7 +141,7 @@ public class PhotoService implements IPhotoService {
 		  doc.setDescription(created.getDescription());
 			StringBuilder sb = new StringBuilder();
 			for (String tag : photo.getTags()) {
-				sb.append(tag).append(' ');
+				sb.append(tag.toLowerCase()).append(' ');
 			}
 			doc.setTags(sb.toString());
 		  doc.setLocation(created.getWebLocation());
