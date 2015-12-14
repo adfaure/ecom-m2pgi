@@ -54,6 +54,8 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @return
 	 */
 	List<Photo> getUserPhotos(String login);
+	
+	List<PhotoContextSmallDTO> getLastPhotosContext(Long memberID, Long sellerID, int numberOfPics);
 
 	/**
 	 *

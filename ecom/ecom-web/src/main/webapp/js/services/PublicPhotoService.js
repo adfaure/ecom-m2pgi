@@ -106,6 +106,10 @@ function publicPhoto($http, localService, $q) {
       return $http.get('api/photos/user/id/' + id + '/wishes').then(handleSuccess, handleError('Error when getting user wishlist'));
     }
 
+    function GetLastPhotosFromSellers(id, numberMax) {
+        return $http.get('api/photos/user/id/' + id + '/maxNum/'+numberMax).then(handleSuccess, handleError('Error when getting user wishlist'));
+    }
+    
     function Flag(photoID, memberID) {
       return $http.post('api/photos/flag/' + photoID + '/' + memberID).then(handleSuccess, handleError('Error when wishing photo'));
     }

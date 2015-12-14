@@ -1,15 +1,24 @@
 var angular = require('angular');
 
-var detailsPhotoController = function($scope, $location, $routeParams, apiToken, publicPhoto) {
+var detailsPhotoController = function($scope, $location, $routeParams, apiToken, publicPhoto, sellerService) {
     var photoID = $routeParams.id;
+    $scope.vendeurLogin = "";
+    
+    
     if(photoID) {
-
       publicPhoto.GetById(photoID).then(function(res) {
         $scope.photo = res;
+        
+        sellerService.GetById($scope.photo.sellerID).then(function(res){
+      
+        		$scope.vendeurLogin = res.login;
+        });
+        
       });
 
+      
 	  var user;
-		
+	  
 	  if(apiToken.isAuthentificated()) {
 		  user = apiToken.getUser();
 	  }

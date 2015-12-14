@@ -2,6 +2,7 @@ package fr.ujf.m2pgi.database.Service;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -282,6 +283,23 @@ public class PhotoService implements IPhotoService {
 		}
 		return result;
 	}
+	
+	public List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos) {
+		
+		List<LastPhotosDTO> result = new ArrayList<LastPhotosDTO>();
+    	LastPhotosDTO lastphotos;
+    	Collection<PhotoContextSmallDTO> photos;
+    	
+    	for(Member seller: memberDAO.getSellersFollowedBy(followerID)) {
+    		lastphotos=new LastPhotosDTO(seller.getLogin());
+    		photos = photoDao.getLastPhotosContext(followerID, seller.getMemberID(), numberOfPhotos);
+    		lastphotos.setPhotos(photos);
+    		result.add(lastphotos);
+    	}
+    	
+		return result;
+	}
+	
 
 	/**
 	 *

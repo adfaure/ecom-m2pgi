@@ -9,7 +9,7 @@
                     </p>
                 </div>
                 
-                <div class="col-md-12" ng-show="logged">
+                <div class="col-md-12" ng-show="logged && !sameSeller">
                     <button class="btn btn-default" ng-show="!followed" ng-click="follow()">
 			          <span class="glyphicon glyphicon-plus"></span>Follow
 			        </button>

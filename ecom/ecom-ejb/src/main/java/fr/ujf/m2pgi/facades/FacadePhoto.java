@@ -83,6 +83,10 @@ public class FacadePhoto {
     public List<PublicPhotoDTO> getUserWishedPhotos(String login) {
         return photoService.getUserWishedPhotos(login);
     }
+    
+    public List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos) {
+        return photoService.getLastPhotosFromSellers(followerID, numberOfPhotos);
+    }
 
     public PublicPhotoDTO deletePhoto(Long id) {
         return photoService.deletePhoto(id);

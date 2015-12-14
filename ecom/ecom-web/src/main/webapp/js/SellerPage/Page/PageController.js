@@ -7,6 +7,7 @@ var controller = function($scope, $location, alertService, $routeParams, memberS
     
     $scope.followed = false;
     $scope.logged = false;
+    $scope.sameSeller = false;
     
     if(!$scope.user) { // si le scope parent ne contient pas déjà
         publicPhoto.GetUserPhotosWithId($routeParams.id).then(
@@ -24,13 +25,16 @@ var controller = function($scope, $location, alertService, $routeParams, memberS
 	if(apiToken.isAuthentificated()) {
 		userIDFollower  = apiToken.getUser().memberID;
 		$scope.logged = true;
-		
-	    memberService.IsFollowedBy(followedID, userIDFollower).then(function(res){
-	    	var isFollowed = res;
-	    	$scope.followed = isFollowed;
-	    });
+		if(userIDFollower == followedID){
+			$scope.sameSeller = true;
+		}else{
+			memberService.IsFollowedBy(followedID, userIDFollower).then(function(res){
+		    	var isFollowed = res;
+		    	$scope.followed = isFollowed;
+		    });
+		}
     } 
-    
+	
     
     $scope.follow = function(){
     	memberService.follow(userIDFollower, followedID).then(function(res){

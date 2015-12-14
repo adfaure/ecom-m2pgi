@@ -41,6 +41,8 @@ public interface IPhotoService {
     List<PublicPhotoDTO> getUserPhotos(Long id);
 
     List<PublicPhotoDTO> getUserPhotos(String login);
+    
+    List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos);
 
     List<PublicPhotoDTO> getUserWishedPhotos(String login);
 
