@@ -35,14 +35,14 @@ import java.util.Properties;
 public class SecurityInterceptor implements ContainerRequestFilter {
 
   // Une authentification est nécessaire pour accéder à la ressource.
-  private static final ServerResponse UNAUTHORIZED = new ServerResponse(new CustomServerResponse(false, "Une authentification est nécessaire pour accéder à la ressource !"), 401, new Headers<Object>());
+  public static final ServerResponse UNAUTHORIZED = new ServerResponse(new CustomServerResponse(false, "Une authentification est nécessaire pour accéder à la ressource !"), 401, new Headers<Object>());
 
   // Le serveur a compris la requête, mais refuse de l'exécuter.
   // Contrairement à l'erreur 401, s'authentifier ne fera aucune différence.
   // Sur les serveurs où l'authentification est requise, cela signifie
   // généralement que l'authentification a été acceptée mais que les droits
   // d'accès ne permettent pas au client d'accéder à la ressource
-  private static final ServerResponse FORBIDDEN = new ServerResponse(new CustomServerResponse(false, "Vos droits d'accès ne vous permettent pas d'accéder à cette ressource !"), 403, new Headers<Object>());
+  public static final ServerResponse FORBIDDEN = new ServerResponse(new CustomServerResponse(false, "Vos droits d'accès ne vous permettent pas d'accéder à cette ressource !"), 403, new Headers<Object>());
 
 	/**
 	 *

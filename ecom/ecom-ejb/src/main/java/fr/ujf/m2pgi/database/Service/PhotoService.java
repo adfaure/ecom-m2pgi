@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
+import fr.ujf.m2pgi.database.DAO.IOrderDAO;
 import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
 import fr.ujf.m2pgi.database.DAO.ISignalDAO;
 import fr.ujf.m2pgi.database.DAO.ITagDAO;
@@ -50,6 +51,13 @@ public class PhotoService implements IPhotoService {
 	@Inject
 	private IPhotoDAO photoDao;
 
+
+	/**
+	 *
+	 */
+	@Inject
+	private IOrderDAO orderDAO;
+
 	@Inject
 	private ISignalDAO signalDAO;
 
@@ -57,13 +65,11 @@ public class PhotoService implements IPhotoService {
 	 *
 	 */
 	@Inject
+	private ITagDAO tagDAO;
+
+	@Inject
 	private IMemberDAO memberDAO;
 
-	/**
-	 *
-	 */
-	@Inject
-	private ITagDAO tagDAO;
 
 	/**
 	 *
@@ -105,6 +111,7 @@ public class PhotoService implements IPhotoService {
 
 	public PhotoContextBigDTO getPhotoById(Long photoID, Long memberID) {
 		PhotoContextBigDTO photo = photoDao.getPhotoContext(photoID, memberID);
+		photo.setBought(orderDAO.isPhotoBought(memberID, photoID));
 		if (photo != null) viewPhoto(photoID, memberID);
 		return photo;
 	}
@@ -202,7 +209,11 @@ public class PhotoService implements IPhotoService {
 	}
 
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
-		return photoDao.getAllPhotosContext(memberID);
+		List<PhotoContextSmallDTO> photos = photoDao.getAllPhotosContext(memberID);
+		for(PhotoContextSmallDTO photo : photos) {
+			photo.setBought(orderDAO.isPhotoBought(memberID, photo.getPhotoId()));
+		}
+		return photos;
 	}
 
 	public List<PublicPhotoDTO> getPhotosSortByPrice(boolean ascending) {

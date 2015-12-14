@@ -20,6 +20,8 @@ public class PhotoContextBigDTO {
 
 	private String name;
 
+	private boolean isBought;
+
 	private String description;
 
 	private String webLocation;
@@ -198,4 +200,13 @@ public class PhotoContextBigDTO {
 	public void setTags(Collection<TagCustomDTO> tags) {
 		this.tags = tags;
 	}
+
+	public boolean isBought() {
+		return isBought;
+	}
+
+	public void setBought(boolean bought) {
+		isBought = bought;
+	}
+
 }

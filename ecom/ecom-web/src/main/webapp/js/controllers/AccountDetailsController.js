@@ -16,8 +16,8 @@ var templates = {
     'sellerNav' : './js/templates/accountDetails/SellerNavBar.html',
     'memberNav' : './js/templates/accountDetails/MemberNavBar.html',
     'myPage'    : './js/SellerPage/ManagePage/managePageTemplate.html',
+    'gallery'   : './js/Member/Gallery/galleryTemplate.html',
     'sellerAnalytics' : 'js/Sellers/SellerAnalytics/SellerAnalyticsTemplate.html'
-    
 };
 
 var accountDetails = function($scope, $routeParams, $location, apiToken) {

@@ -4,6 +4,8 @@ import javax.ejb.Local;
 
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.entities.Member;
+import fr.ujf.m2pgi.database.entities.Photo;
+
 import java.util.List;
 
 /**
@@ -28,8 +30,9 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 
 	Member getSellerById(long id);
 	
-	public Long getSellerCount();
+	Long getSellerCount();
 	
-	public Long getMemberCount();
+	Long getMemberCount();
+
 
 }

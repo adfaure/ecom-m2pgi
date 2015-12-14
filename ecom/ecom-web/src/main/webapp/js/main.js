@@ -5,10 +5,9 @@ var $ = jQuery = require('jquery');
 var bootsrap = require('bootstrap');
 
 /** Angular deps */
-var angular        = require('angular');
-var angularRoute   = require('angular-route');
-var angularAnimate = require('angular-animate');
-
+var angular         = require('angular');
+var angularRoute    = require('angular-route');
+var angularAnimate  = require('angular-animate');
 /**
  * Controllers
  */
