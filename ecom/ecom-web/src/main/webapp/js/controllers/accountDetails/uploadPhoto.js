@@ -1,18 +1,26 @@
 var angular = require('angular');
 
 
-var upload = function($scope, uploadPhoto, alertService) {
+var upload = function($scope, $http,$q ,uploadPhoto ,TagsService , alertService) {
     $scope.submit = submit;
     $scope.photoData = {
       description: '',
       tags: '',
-      price: 1,
+      price: 1
     };
+    $scope.inputTags = [];
     if($scope.user.accountType == 'M') {
         $scope.subview = 'details';
     }
 
     function submit(redirect) {
+
+        $scope.photoData.tags = $scope.inputTags.map(function(currentValue) {
+            return currentValue.name;
+        }).join(" ");
+
+        console.log($scope.photoData.tags );
+
         uploadPhoto.uploadFileToUrl({
             file : $scope.uploadPhoto,
             data : $scope.photoData
@@ -27,6 +35,12 @@ var upload = function($scope, uploadPhoto, alertService) {
             }
         );
     }
+
+    var autoComp = new  TagsService.autoComplete();
+    $scope.load = function(query) {
+        return autoComp.get(query);
+    }
+
 };
 
 module.exports = upload;

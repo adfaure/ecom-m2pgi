@@ -58,7 +58,7 @@ var orderModule      = require('./Orders/Module');
 var sellerAnalytics  = require('./Sellers/Module');
 var memberModule	 = require('./Member/Module');
 var followModule     = require('./Follow/Module');
-
+var tags             = require('./Tags/Module');
 /**
  *
  * @type {module}

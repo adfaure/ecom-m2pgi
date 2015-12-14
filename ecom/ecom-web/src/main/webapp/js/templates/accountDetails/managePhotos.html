@@ -31,9 +31,9 @@
         <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
       </td>
       <td ng-if="editIndex == $index">
-        <input required ng-model="form.tags" ng-change="test()" class="form-control"
-        type="text" ng-disabled="processing">
-        <span ng-repeat="tag in form.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
+        <tags-input on-tag-removing="test()"  on-tag-added="test()" ng-model="form.tags" display-property="name" add-on-paste="true">
+          <auto-complete min-length="1" source="load($query)"></auto-complete>
+        </tags-input>
       </td>
     </tr>
     <tr data-ng-class="{'bg-info': $index == highlight }">

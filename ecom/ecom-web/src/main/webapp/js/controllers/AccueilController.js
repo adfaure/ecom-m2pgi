@@ -11,18 +11,10 @@ var accueilController = function($scope, $location, apiToken, publicPhoto) {
         user = apiToken.getUser();
     }
 
-
     publicPhoto.GetAll().then(function(res) {
             $scope.photos = cachedPhotos = res;
         }
     );
-
-    $scope.tags = [
-        { text: 'just' },
-        { text: 'some' },
-        { text: 'cool' },
-        { text: 'tags' }
-    ];
 
 };
 
