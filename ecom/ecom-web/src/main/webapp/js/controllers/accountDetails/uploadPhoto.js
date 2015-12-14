@@ -1,7 +1,7 @@
 var angular = require('angular');
 
 
-var upload = function($scope, $http,$q ,uploadPhoto ,TagsService , alertService) {
+var upload = function($scope, $sce, $http, $q ,uploadPhoto ,TagsService , alertService) {
     $scope.submit = submit;
     $scope.photoData = {
       description: '',
@@ -28,9 +28,9 @@ var upload = function($scope, $http,$q ,uploadPhoto ,TagsService , alertService)
             function(res) {
                 if(res.success) {
                     $scope.setView(redirect);
-                    alertService.add("alert-success", "Photo chargée avec succès !", 2000);
+                    alertService.add("alert-success", $sce.trustAsHtml("<strong>Photo chargée avec succès !</strong>"), 2000);
                 }else{
-                    alertService.add("alert-danger", " Erreur lors du chargement de la photo !", 1000);
+                    alertService.add("alert-danger", $sce.trustAsHtml("<strong>Erreur lors du chargement de la photo !</strong>"), 1000);
                 }
             }
         );

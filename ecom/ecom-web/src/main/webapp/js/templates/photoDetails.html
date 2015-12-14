@@ -9,7 +9,9 @@
       </a>
       <span ng-repeat="tag in photo.tags"><span class="label label-primary">{{tag.name}}</span> </span>
         <div data-ng-if="loaded">
+          <div class="btn btn-default">
             <add-to-cart-component photo="photo"></add-to-cart-component>
+          </div>
         </div>
       <button class="btn btn-default" ng-show="!photo.wishlisted" ng-click="wish(photo.photoID)">
         <span class="glyphicon glyphicon-star"></span>Rajouter aux favories

@@ -45,7 +45,7 @@ var thumbnailElementDirective = function ($compile, $location, apiToken, publicP
 
             $scope.unlike = function(photoID){
                 if(apiToken.isAuthentificated()) {
-                    var user = apitToken.getUser();
+                    var user = apiToken.getUser();
                     publicPhoto.RemovePhotoFromLikeList(photoID, user.memberID).then(function (res) {
                         $scope.photo.liked = false;
                         $scope.photo.likes--;

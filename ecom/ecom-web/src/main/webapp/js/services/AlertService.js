@@ -14,10 +14,14 @@ module.exports = function alertService($interval) {
 
     function add(type, msg, timer) {
 
+        for(var i=0; i<alerts.length; i++)
+            alerts[i].show = false;
+
         var alert = {
             type  : type,
             msg   : msg,
             id    : id++,
+            show : true,
             alive : true,
             close : function() {
                 return closeAlert(this);

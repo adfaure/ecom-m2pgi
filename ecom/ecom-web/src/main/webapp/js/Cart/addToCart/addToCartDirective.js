@@ -30,7 +30,7 @@ var addToCart = function ($compile, apiToken, cartService) {
                 );
             }
 
-            $scope.clickAdd = clickAdd;
+            $scope.clickAdd    = clickAdd;
             $scope.clickRemove = clickRemove;
             $scope.goToMyPhoto = function () {
                 $location.path('/profil/managePhotos').search({

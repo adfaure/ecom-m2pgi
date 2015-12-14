@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var MemDetailsController = function($scope, $location, $routeParams, apiToken, publicPhoto, memberService, sellerService, alertService) {
+var MemDetailsController = function($scope, $location, $routeParams, $sce, apiToken, publicPhoto, memberService, sellerService, alertService) {
 	//$routeParams.id;
 
 	var userID;
@@ -127,14 +127,14 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 
 			memberService.ChangePassword($scope.user1, newPSW).then(function(res){
 				if((res.success != null && !res.success) || !res){
-					alertService.add("alert-danger", " Erreur, le mot de passe actuel n'est pas correct", 2000);
+					alertService.add("alert-danger", $sce.trustAsHtml("<strong>Erreur, le mot de passe actuel n'est pas correct !</strong>"), 3000);
 					$scope.user1.password = prevPSW;
 				}
 				else{
 					updateMemSeller(res);
 					$scope.editPSW = false;
 					//emptyPSWvalues();S
-					alertService.add("alert-success", "Mot de pass modifié! ", 2000);
+					alertService.add("alert-success", $sce.trustAsHtml("<strong>Mot de passe modifié! </strong>"), 2000);
 				}
 			});
 
@@ -145,7 +145,7 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 			sellerService.CreateFromMember($scope.user1).then(function(res){
 
 				if(res.success){
-					alertService.add("alert-success", "Promotion faite! ", 2000);
+					alertService.add("alert-success", $sce.trustAsHtml("<strong>Votre compte a bien été upgradé </strong>"), 2000);
 					//if it's not successful then say it couldn't be.
 
 					$scope.AccountType = "Vendeur";
@@ -159,7 +159,7 @@ var MemDetailsController = function($scope, $location, $routeParams, apiToken, p
 					});
 
 				}else{
-					alertService.add("alert-danger", " Erreur, la promotion n'as pas pu être faite", 2000);
+					alertService.add("alert-danger", $sce.trustAsHtml("<strong>Erreur lors de l'upgrade de votre compte</strong>"), 3000);
 				}
 			});
 
