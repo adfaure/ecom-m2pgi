@@ -1,7 +1,7 @@
 package fr.ujf.m2pgi.database.DTO;
 
-import java.io.Serializable;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,34 +11,43 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-public class UpdatePhotoDTO implements Serializable {
+public class ManagePhotoDTO {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+	public ManagePhotoDTO(long photoID, String description, String name, float price, String thumbnail) {
+		this.photoID = photoID;
+		this.description = description;
+		this.name = name;
+		this.price = price;
+		this.thumbnail = thumbnail;
+	}
 
-	@XmlElement(name="id")
 	private long photoID;
 
-	@XmlElement
 	private String description;
 
-	@XmlElement
 	private String name;
 
-	@XmlElement
 	private float price;
 
-	@XmlElement
+	private String thumbnail;
+
 	private String tags;
 
-	public long getPhotoId() {
+
+	public long getPhotoID() {
 		return photoID;
 	}
 
-	public void setPhotoId(long photoId) {
-		this.photoID = photoId;
+	public void setPhotoID(long photoID) {
+		this.photoID = photoID;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getDescription() {

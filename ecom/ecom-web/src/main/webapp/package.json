@@ -11,6 +11,11 @@
       "jquery:jQuery"
     ]
   },
+  "ng-tags-input" : {
+    "depends": [
+      "jquery:jQuery"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,7 +27,8 @@
     "bootstrap": "^3.3.5",
     "chart.js": "^1.0.2",
     "grunt-cli": "0.1.13",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "ng-tags-input": "^3.0.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

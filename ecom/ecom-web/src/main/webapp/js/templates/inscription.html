@@ -15,9 +15,11 @@
 				<form class="css-form" name="loginform" novalidate ng-submit="loginform.$valid && logInto()">
 
 					<div class="form-group">
+						<label for="inputLogin">Login</label>
 						<input required ng-model="login" type="text" class="form-control " id="inputLogin" placeholder="Pseudo" focus-on-load/>
 					</div>
 					<div class="form-group">
+						<label for="inputPassword">Password</label>
 						<input required ng-model="password" type="password" class="form-control" id="inputPassword" placeholder="Mot de passe"/>
 					</div>
 					<br>
@@ -49,27 +51,33 @@
 					<div class="row">
 						<div class="col-xs-12 col-md-6">
 							<div class="form-group">
+								<label for="inputFirstName">Prenom</label>
 								<input required ng-model="user.firstName" type="text" class="form-control" id="inputFirstName" placeholder="Nom">
 							</div>
 						</div>
 						<div class="col-xs-12 col-md-6">
 							<div class="form-group">
+								<label for="inputLastname">Nom</label>
 								<input required ng-model="user.lastName" type="text" class="form-control" id="inputLastname" placeholder="PrÃ©nom">
 							</div>
 						</div>
 					</div>
 
 					<div class="form-group">
+						<label for="inputEmail">Email</label>
 						<input required ng-model="user.email" type="text" class="form-control" id="inputEmail" placeholder="Adresse mail">
 					</div>
 
 					<div class="form-group">
-						<input required name="loginInput" ng-model="user.login" ng-change="checkLogin()" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo">
-						<div role="alert" ng-show="existingLogin">Ce pseudo existe d&eacute;j&agrave; </div>
+						<label for="inputLoginInscription">Login</label>
+						<input required name="loginInput"  ng-mouseleave="checkLogin()"  ng-model="user.login" ng-blur="checkLogin()" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo">
+						<div role="alert" class="alert-danger" ng-show="existingLogin">Ce pseudo existe d&eacute;j&agrave;</div>
 					</div>
 
 					<div class="form-group">
-						<input required ng-model="user.password" type="password" class="form-control" id="inputPasswordInscription" placeholder="Mot de passe">
+						<label for="inputPasswordInscription">Password</label>
+						<input required data-ng-blur="checkPassword()"  ng-mouseleave="checkPassword()" ng-model="user.password" type="password" class="form-control" id="inputPasswordInscription" placeholder="Mot de passe">
+						<div role="alert" class="alert-danger" data-ng-show="!checkPass.valide">{{ checkPass.message }}</div>
 					</div>
 
 					<div class="checkbox" ng-init="checked=false">

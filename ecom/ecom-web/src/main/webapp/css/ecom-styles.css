@@ -156,3 +156,23 @@
 #ecom-margin-bottom {
     margin-bottom: 7px;
 }
+
+.bs-callout-warning h4 {
+    color: #AA6708;
+}
+
+.bs-callout-info {
+    border-left-color: #1B809E;
+}
+
+.img-container {
+    position:relative;
+    padding-top:66.59%;
+}
+
+.img-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+}

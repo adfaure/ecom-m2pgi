@@ -8,6 +8,7 @@ import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.ManagePhotoDTO;
 
 /**
  *
@@ -44,7 +45,7 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @param id
 	 * @return
 	 */
-	List<Photo> getUserPhotos(Long id);
+	List<ManagePhotoDTO> getUserPhotos(Long id);
 
 	List<WishListPhotoDTO> getUserWishedPhotos(Long id);
 
@@ -53,7 +54,9 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @param login
 	 * @return
 	 */
-	List<Photo> getUserPhotos(String login);
+	List<ManagePhotoDTO> getUserPhotos(String login);
+
+	List<Photo> getUserPhotosEntity(String login);
 
 	/**
 	 *
