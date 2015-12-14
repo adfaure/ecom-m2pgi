@@ -77,6 +77,10 @@ public class PhotoService implements IPhotoService {
 	@Inject
  	private ElasticsearchDao photoDaoES;
 
+  public List<PhotoContextSmallDTO> searchPhotosContext(String text, Long memberID) {
+		return photoDao.getPhotosContext(memberID, photoDaoES.searchIds(text));
+	}
+
 	/**
 	 *
 	 * @param id
@@ -137,7 +141,7 @@ public class PhotoService implements IPhotoService {
 		  doc.setDescription(created.getDescription());
 			StringBuilder sb = new StringBuilder();
 			for (String tag : photo.getTags()) {
-				sb.append(tag).append(' ');
+				sb.append(tag.toLowerCase()).append(' ');
 			}
 			doc.setTags(sb.toString());
 		  doc.setLocation(created.getWebLocation());

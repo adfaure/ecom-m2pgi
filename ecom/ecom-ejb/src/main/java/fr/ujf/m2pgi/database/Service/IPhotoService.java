@@ -12,6 +12,8 @@ import java.util.List;
 @Local
 public interface IPhotoService {
 
+    List<PhotoContextSmallDTO> searchPhotosContext(String text, Long memberID);
+
     PublicPhotoDTO deletePhoto(Long id);
 
     PublicPhotoDTO getPhotoById(Long id);
