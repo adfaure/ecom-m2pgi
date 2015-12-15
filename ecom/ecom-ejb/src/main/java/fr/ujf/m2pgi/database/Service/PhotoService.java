@@ -2,6 +2,7 @@ package fr.ujf.m2pgi.database.Service;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
@@ -115,7 +116,7 @@ public class PhotoService implements IPhotoService {
 
 	public PhotoContextBigDTO getPhotoById(Long photoID, Long memberID) {
 		PhotoContextBigDTO photo = photoDao.getPhotoContext(photoID, memberID);
-		photo.setBought(orderDAO.isPhotoBought(memberID, photoID));
+		//photo.setBought(orderDAO.isPhotoBought(memberID, photoID));
 		if (photo != null) viewPhoto(photoID, memberID);
 		return photo;
 	}
@@ -214,9 +215,9 @@ public class PhotoService implements IPhotoService {
 
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
 		List<PhotoContextSmallDTO> photos = photoDao.getAllPhotosContext(memberID);
-		for(PhotoContextSmallDTO photo : photos) {
+		/*for(PhotoContextSmallDTO photo : photos) {
 			photo.setBought(orderDAO.isPhotoBought(memberID, photo.getPhotoId()));
-		}
+		}*/
 		return photos;
 	}
 
@@ -295,6 +296,23 @@ public class PhotoService implements IPhotoService {
 	public List<ManagePhotoDTO> getUserPhotos(String login) {
 		return photoDao.getUserPhotos(login);
 	}
+	
+	public List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos) {
+		
+		List<LastPhotosDTO> result = new ArrayList<LastPhotosDTO>();
+    	LastPhotosDTO lastphotos;
+    	Collection<PhotoContextSmallDTO> photos;
+    	
+    	for(Member seller: memberDAO.getSellersFollowedBy(followerID)) {
+    		lastphotos=new LastPhotosDTO(seller.getLogin());
+    		photos = photoDao.getLastPhotosContext(followerID, seller.getMemberID(), numberOfPhotos);
+    		lastphotos.setPhotos(photos);
+    		result.add(lastphotos);
+    	}
+    	
+		return result;
+	}
+	
 
 	/**
 	 *

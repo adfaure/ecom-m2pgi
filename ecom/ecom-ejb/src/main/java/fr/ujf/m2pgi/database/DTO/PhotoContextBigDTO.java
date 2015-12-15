@@ -54,7 +54,7 @@ public class PhotoContextBigDTO {
 
 	public PhotoContextBigDTO(long photoID, String name, String description, String webLocation, String thumbnail, float price,
 			long sellerID, String sellerLogin, int sales, Date dateCreated, Integer views, Integer likes, boolean wishlisted,
-			boolean inCart, boolean liked, boolean flagged) {
+			boolean inCart, boolean isBought, boolean liked, boolean flagged) {
 		this.thumbnail = thumbnail;
 		this.photoID = photoID;
 		this.name = name;
@@ -69,6 +69,7 @@ public class PhotoContextBigDTO {
 		this.likes = likes;
 		this.wishlisted = wishlisted;
 		this.inCart = inCart;
+		this.isBought = isBought;
 		this.liked = liked;
 		this.flagged = flagged;
 	}

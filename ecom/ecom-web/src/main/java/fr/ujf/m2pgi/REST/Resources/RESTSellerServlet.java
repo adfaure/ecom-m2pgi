@@ -60,7 +60,8 @@ public class RESTSellerServlet {
         if(memberdto == null | memberdto.getSellerInfo() == null) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
-        return  Response.status(Response.Status.FOUND).entity(memberdto).build();
+        //return  Response.status(Response.Status.FOUND).entity(memberdto).build();
+        return Response.ok(memberdto).build();
     }
 
     @DELETE
