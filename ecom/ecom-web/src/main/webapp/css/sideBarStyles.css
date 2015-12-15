@@ -39,7 +39,7 @@
     overflow-x: hidden;
 }
 .xyz{
-    min-width: 360px;
+    /*min-width: 360px;*/
 }
 #wrapper.toggled #page-content-wrapper {
     position: relative;
@@ -99,6 +99,10 @@
 }
 .no-margin{
     margin:0;
+}
+
+li.divider{
+    border-bottom: 1px solid #999999;
 }
 
 @media(min-width:768px) {

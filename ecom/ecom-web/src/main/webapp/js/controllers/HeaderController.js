@@ -10,8 +10,13 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
                 $scope.user = apiToken.getUser();
                 var userWatch = $scope.$watch(apiToken.getUser, function(user) {
                     $scope.user = user;
+                    $scope.seller = (user && user.accountType == "S");
+                    $scope.admin  = (user && user.accountType == "A");
                 });
             } else {
+                $scope.auth = false;
+                $scope.seller = false;
+                $scope.admin = false;
                 if(userWatch) userWatch();
             }
         }
