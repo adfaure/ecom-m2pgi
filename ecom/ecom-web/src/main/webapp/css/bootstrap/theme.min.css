@@ -2516,6 +2516,7 @@ input[type="checkbox"] {
 }
 input[type="file"] {
     display: block;
+    color: white;
 }
 input[type="range"] {
     display: block;
@@ -6924,7 +6925,8 @@ label,
 }
 .alert a,
 .alert .alert-link {
-    color: #fff;
+    color: blue;
+    text-decoration: underline;
 }
 .well {
     -webkit-box-shadow: none;
