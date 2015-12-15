@@ -132,6 +132,10 @@
     color:yellow;
 }
 
+.colorRed {
+    color:red;
+}
+
 .colorBlue {
     color:rgb(0, 140, 255);
 }
@@ -207,7 +211,7 @@
 }
 
 .sellerLoginFollowed{
-	font-size:40px;
+    font-size:40px;
 }
 
 

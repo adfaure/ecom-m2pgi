@@ -152,11 +152,10 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 					$scope.addRIB = false;
 					$scope.compteVendeur = true;
 
-					memberService.GetById(userID).then(function(res){ 
-						memb = res;  
-						apiToken.setUser(memb);
-						fillOutInfo(); 
-					});
+					apiToken.setUser(res.user);
+					apiToken.setToken(res.token);
+					fillOutInfo();
+
 
 				}else{
 					alertService.add("alert-danger", $sce.trustAsHtml("<strong>Erreur lors de l'upgrade de votre compte</strong>"), 3000);
