@@ -1,5 +1,6 @@
 package fr.ujf.m2pgi.database.Mappers;
 
+import fr.ujf.m2pgi.database.DTO.FullPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.OrderDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
@@ -10,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
@@ -19,7 +19,6 @@ import javax.ejb.Startup;
  */
 @Singleton
 @Startup
-@Local
 public class MapperWrapper {
 
     private ModelMapper modelMapper;
@@ -44,6 +43,15 @@ public class MapperWrapper {
                 //skip().setPrivateLocation(null);
             }
         });
+
+        this.modelMapper.addMappings(new PropertyMap<Photo, FullPhotoDTO>() {
+            @Override
+            protected void configure() {
+                map().setSellerID(source.getAuthor().getMemberID());
+                //skip().setPrivateLocation(null);
+            }
+        });
+
 
 
         this.modelMapper.addMappings(new PropertyMap<Member, MemberDTO >() {
