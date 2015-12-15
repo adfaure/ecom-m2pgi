@@ -19,6 +19,9 @@
                 </div>
 
             </div>
+            <div ng-show="query">
+              La recherche a retourné <strong>{{ photos.length }}</strong> photo(s) !
+            <br></div>
             <div class="row panel" ng-repeat="photo in photos track by $index" ng-if="$index % 4 == 0">
                 <div class="col-xs-6 col-md-3"
                      ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3]"

@@ -113,7 +113,6 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	  return (List<Photo>)query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO" +
@@ -127,6 +126,30 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
 		"THEN true ELSE false END AS flagged) " +
 		"FROM Photo p WHERE p.available = true";
+		Query query = entityManager.createQuery(str, PhotoContextSmallDTO.class);
+		query.setParameter("id", memberID);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<PhotoContextSmallDTO> getPhotosContext(Long memberID, List<Long> photos) {
+		if (photos == null || photos.size() == 0) return null;
+
+		StringJoiner sj = new StringJoiner(",", "(", ")");
+		for (Long id : photos) sj.add(String.valueOf(id));
+		System.out.println(sj.toString());
+
+		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO" +
+		"(p.photoID, p.author.memberID, p.name, p.webLocation, p.thumbnail, p.price, p.views, p.likes, " +
+		"CASE WHEN EXISTS (SELECT w FROM Wish w WHERE p.photoID = w.photo.photoID AND w.member.memberID = :id)" +
+		"THEN true ELSE false END AS wishlisted," +
+		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
+		"THEN true ELSE false END AS inCart, " +
+		"CASE WHEN EXISTS (SELECT l FROM Like l WHERE p.photoID = l.photo.photoID AND l.member.memberID = :id)" +
+		"THEN true ELSE false END AS liked, " +
+		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
+		"THEN true ELSE false END AS flagged) " +
+		"FROM Photo p WHERE p.available = true AND p.photoID IN " + sj.toString();
 		Query query = entityManager.createQuery(str, PhotoContextSmallDTO.class);
 		query.setParameter("id", memberID);
 		return query.getResultList();
