@@ -6925,7 +6925,8 @@ label,
 }
 .alert a,
 .alert .alert-link {
-    color: #fff;
+    color: blue;
+    text-decoration: underline;
 }
 .well {
     -webkit-box-shadow: none;
