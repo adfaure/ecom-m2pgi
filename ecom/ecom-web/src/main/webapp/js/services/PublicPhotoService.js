@@ -15,6 +15,7 @@ function publicPhoto($http, localService, $q) {
     service.GetAllSortByViews = GetAllSortByViews;
     service.GetAllSortByLikes = GetAllSortByLikes;
     service.GetReportedPhotos = GetReportedPhotos;
+    service.GetLastPhotosFromSellers = GetLastPhotosFromSellers;
     service.GetPhotoCount = GetPhotoCount;
     service.Search = Search;
     service.GetUserPhotos = GetUserPhotos;
@@ -106,6 +107,10 @@ function publicPhoto($http, localService, $q) {
       return $http.get('api/photos/user/id/' + id + '/wishes').then(handleSuccess, handleError('Error when getting user wishlist'));
     }
 
+    function GetLastPhotosFromSellers(id, numberMax) {
+        return $http.get('api/photos/user/id/' + id + '/maxNum/'+numberMax).then(handleSuccess, handleError('Error when getting user wishlist'));
+    }
+    
     function Flag(photoID, memberID) {
       return $http.post('api/photos/flag/' + photoID + '/' + memberID).then(handleSuccess, handleError('Error when wishing photo'));
     }
