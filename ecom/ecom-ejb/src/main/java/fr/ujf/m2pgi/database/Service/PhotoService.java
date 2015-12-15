@@ -137,7 +137,7 @@ public class PhotoService implements IPhotoService {
 			photoEntity.setTags(tagDAO.getTags(photo.getTags()));
 		  PublicPhotoDTO created = publicPhotoMapper.getDTO(photoDao.create(photoEntity));
 		  PhotoDocument doc = new PhotoDocument();
-		  doc.setId(created.getPhotoID());
+		  doc.setPhotoId(created.getPhotoID());
 		  doc.setName(created.getName());
 		  doc.setDescription(created.getDescription());
 			StringBuilder sb = new StringBuilder();
@@ -145,7 +145,7 @@ public class PhotoService implements IPhotoService {
 				sb.append(tag.toLowerCase()).append(' ');
 			}
 			doc.setTags(sb.toString());
-		  doc.setLocation(created.getThumbnail());
+		  doc.setThumbnail(created.getThumbnail());
 		  try {
 			    photoDaoES.index(doc);
 		  } catch (IOException e) {
@@ -170,7 +170,7 @@ public class PhotoService implements IPhotoService {
 		PublicPhotoDTO updated = publicPhotoMapper.getDTO(photoDao.update(photoEntity));
 
 		PhotoDocument doc = new PhotoDocument();
-		doc.setId(photo.getPhotoId());
+		doc.setPhotoId(photo.getPhotoId());
 		doc.setName(photo.getName());
 		doc.setDescription(photo.getDescription());
 		doc.setTags(photo.getTags());

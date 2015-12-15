@@ -17,7 +17,11 @@ public interface IMemberService {
 
     MemberDTO getMemberByLogin(String login);
 
+    MemberDTO getMemberByEmail(String email);
+
     Boolean isExistingMemberByLogin(String login);
+
+    Boolean isExistingMemberByEmail(String email);
 
     MemberDTO getSellerById(long id);
 
@@ -40,15 +44,15 @@ public interface IMemberService {
     MemberDTO updateMember(MemberDTO memberdto) throws EcomException;
 
     MemberDTO updateSeller(MemberDTO memberdto);
-    
+
     MemberDTO changePassword(MemberDTO member, String newPSW);
 
     List<MemberDTO> getFollowedSellersBy(long followerID);
-    
+
     boolean follow(Long followerID, Long followedID);
-    
+
     boolean unfollow(Long followerID, Long followedID);
-    
+
     boolean isFollowedBy(Long followerID, Long memberID);
-    
+
 }

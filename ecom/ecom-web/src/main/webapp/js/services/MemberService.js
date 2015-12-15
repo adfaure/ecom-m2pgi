@@ -10,6 +10,7 @@ function memberService($http) {
 	service.GetById = GetById;
 	service.GetByUsername = GetByUsername;
 	service.IsExisting = IsExisting;
+	service.IsExistingByEmail = IsExistingByEmail;
 	service.GetCount = GetCount;
 	service.GetAll = GetAll;
 	service.IsFollowedBy = IsFollowedBy;
@@ -32,7 +33,11 @@ function memberService($http) {
 	}
 
 	function IsExisting(username) {
-		return $http.get('api/members/existing/' + username).then(handleSuccess, handleError('Error getting user by username'));
+		return $http.get('api/members/exists/' + username).then(handleSuccess, handleError('Error getting user by username'));
+	}
+
+	function IsExistingByEmail(email) {
+		return $http.get('api/members/exists/email/' + email).then(handleSuccess, handleError('Error getting user by username'));
 	}
 
 	function GetAll() {
@@ -90,7 +95,7 @@ function memberService($http) {
 			return { success: false, message: error };
 		};
 	}
-	
+
 	function parseUser(user) {
 		var validUser = {
 				email: "",
@@ -111,7 +116,7 @@ function memberService($http) {
 	}
 
 	function validMember(user){
-		if (!user.memberID) 
+		if (!user.memberID)
 			return false;
 		else
 			return true;

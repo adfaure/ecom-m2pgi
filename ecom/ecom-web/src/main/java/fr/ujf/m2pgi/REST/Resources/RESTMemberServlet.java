@@ -48,10 +48,17 @@ public class RESTMemberServlet {
 	}
 
 	@GET
-	@Path("/existing/{login}")
+	@Path("/exists/{login}")
 	@Produces("application/json")
 	public Response isExistingMemberByLogin(@PathParam("login") String login) {
 		return Response.ok(memberService.isExistingMemberByLogin(login)).build();
+	}
+
+	@GET
+	@Path("/exists/email/{email}")
+	@Produces("application/json")
+	public Response isExistingMemberByEmail(@PathParam("email") String email) {
+		return Response.ok(memberService.isExistingMemberByEmail(email)).build();
 	}
 
 	@GET

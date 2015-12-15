@@ -29,13 +29,13 @@ public class ElasticsearchDao {
 	 * @throws IOException
 	 */
 	public boolean index(PhotoDocument doc) throws IOException {
-		IndexResponse response = connection.getClient().prepareIndex("ecom", "photo", String.valueOf(doc.getId()))
+		IndexResponse response = connection.getClient().prepareIndex("ecom", "photo", String.valueOf(doc.getPhotoId()))
 			        .setSource(jsonBuilder()
 			                    .startObject()
 			                        .field("name", doc.getName())
 															.field("description", doc.getDescription())
 															.field("tags", doc.getTags())
-															.field("location", doc.getLocation())
+															.field("location", doc.getThumbnail())
 			                    .endObject()
 			                  )
 			        .get();
@@ -57,7 +57,7 @@ public class ElasticsearchDao {
 		GetResponse response = connection.getClient().prepareGet("ecom", "photo", id).get();
 		if (!response.isExists()) return null;
 		PhotoDocument document = new PhotoDocument();
-    	document.setId(Long.parseLong(response.getId()));
+    	document.setPhotoId(Long.parseLong(response.getId()));
     	document.setDescription((String)response.getSource().get("description"));
     	return document;
 	}
@@ -72,14 +72,14 @@ public class ElasticsearchDao {
 		UpdateRequest updateRequest = new UpdateRequest();
   	    updateRequest.index("ecom");
   	    updateRequest.type("photo");
-  	    updateRequest.id(String.valueOf(doc.getId()));
+  	    updateRequest.id(String.valueOf(doc.getPhotoId()));
 
   	    updateRequest.doc(jsonBuilder()
   	    		.startObject()
 							.field("name", doc.getName())
 							.field("description", doc.getDescription())
 							.field("tags", doc.getTags())
-							.field("location", doc.getLocation())
+							.field("location", doc.getThumbnail())
 			    .endObject());
 
 		UpdateResponse resp = connection.getClient().update(updateRequest).get();
@@ -97,11 +97,11 @@ public class ElasticsearchDao {
 		List<PhotoDocument> hits = new ArrayList<PhotoDocument>();
         for (SearchHit hit: response.getHits().hits()) {
         	PhotoDocument document = new PhotoDocument();
-        	document.setId(Long.parseLong(hit.getId()));
+        	document.setPhotoId(Long.parseLong(hit.getId()));
         	document.setName((String)hit.getSource().get("name"));
         	document.setDescription((String)hit.getSource().get("description"));
 					document.setTags((String)hit.getSource().get("tags"));
-        	document.setLocation((String)hit.getSource().get("location"));
+        	document.setThumbnail((String)hit.getSource().get("location"));
         	hits.add(document);
         }
 
@@ -125,11 +125,11 @@ public class ElasticsearchDao {
 		List<PhotoDocument> hits = new ArrayList<PhotoDocument>();
         for (SearchHit hit: response.getHits().hits()) {
         	PhotoDocument document = new PhotoDocument();
-        	document.setId(Long.parseLong(hit.getId()));
+        	document.setPhotoId(Long.parseLong(hit.getId()));
         	document.setName((String)hit.getSource().get("name"));
         	document.setDescription((String)hit.getSource().get("description"));
 					document.setTags((String)hit.getSource().get("tags"));
-        	document.setLocation((String)hit.getSource().get("location"));
+        	document.setThumbnail((String)hit.getSource().get("location"));
         	hits.add(document);
         }
 
