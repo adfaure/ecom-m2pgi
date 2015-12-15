@@ -160,28 +160,17 @@ function publicPhoto($http, localService, $q) {
             console.log(res);
             return res;
         }).then(handleSuccess)
-
     }
 
 
     function getBoughtPhoto(memberID) {
-
         return $http.get('api/photos/bought/user/id/'+ memberID).then(function(res) {
-            var photos = localService.getObject('boughtPhoto');
-            if(!photos) {
-                photos = res.data;
-            } else {
-                photos = photos.concat(res.data.filter(function(elem) {
-                    return (photos.indexOf(function(photo) {
-                        return elem.photoID == photo.photoID;
-                    }) != -1);
-                }));
-            }
-            localService.set('boughtPhoto', JSON.stringify(photos));
-            res.data = photos
+            res.data = res.data.map(function(elem) {
+                elem.isBought = true;
+                return elem;
+            });
             return res;
-        }, handleError('Erreur')).then(handleSuccess);
-
+        }).then(handleSuccess,handleError("erreur"))
     }
 
     // private functions

@@ -81,7 +81,7 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
             templateUrl : './js/templates/photoDetails.html',
             controller : 'detailsPhotoController'
         })
-        .when('/inscription', {
+        .when('/inscription/:type?', {
             templateUrl: './js/templates/inscription.html',
             controller: 'inscriptionController'
         })

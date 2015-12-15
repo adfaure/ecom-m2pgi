@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var addToCart = function ($compile, apiToken, cartService) {
+var addToCart = function ($compile, $location, apiToken, cartService) {
     return {
         //E -> just
         restrict: 'E',
@@ -9,7 +9,7 @@ var addToCart = function ($compile, apiToken, cartService) {
             isButton : "="
         },
         templateUrl: './js/Cart/addToCart/addToCartTemplate.html',
-        controller: function ($scope, $location) {
+        controller: function ($scope) {
             var user;
 
             if (apiToken.isAuthentificated()) {
@@ -32,12 +32,16 @@ var addToCart = function ($compile, apiToken, cartService) {
             }
 
             $scope.clicked = function() {
-                if($scope.owned) {
-                    goToMyPhoto();
-                } else if($scope.alreadyInCart)  {
-                    clickRemove($scope.photo);
-                } else {
-                    clickAdd($scope.photo);
+                if(!$scope.photo.isBought) {
+                    if ($scope.owned) {
+                        $scope.goToMyPhoto();
+                    } else if ($scope.alreadyInCart) {
+                        clickRemove($scope.photo);
+                    } else {
+                        clickAdd($scope.photo);
+                    }
+                } else  {
+                    $location.path('/photos/details/' + $scope.photo.photoID);
                 }
             };
 
@@ -52,11 +56,16 @@ var addToCart = function ($compile, apiToken, cartService) {
     };
 
     function clickAdd(photo) {
-        cartService.addToCart(photo).then(function (res) {
-                if (res.success)
-                    apiToken.setUser(res.data);
-            }
-        );
+        if(!apiToken.isAuthentificated()) {
+            var currentPath = $location.path();
+            $location.path('/inscription').search('redirect', currentPath);
+        } else {
+            cartService.addToCart(photo).then(function (res) {
+                    if (res.success)
+                        apiToken.setUser(res.data);
+                }
+            );
+        }
     }
 
     function clickRemove(photo) {

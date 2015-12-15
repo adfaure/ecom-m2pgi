@@ -1,25 +1,35 @@
 var angular = require('angular');
 
 
-var upload = function($scope, $sce, $http, $q ,uploadPhoto ,TagsService , alertService) {
+var upload = function($scope, $sce, $http, $q ,$location ,uploadPhoto , apiToken, TagsService , alertService) {
+    var user = {};
+    if(!apiToken.isAuthentificated()) {
+        alertService.add("alert-info", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour uploader une photo ...</strong>"), 3000);
+        $location.path('/inscription/seller').search('redirect', '/profil/addPhoto');
+    } else {
+        user = apiToken.getUser();
+        if($scope.user.accountType == 'M') {
+            alertService.add("alert-info", $sce.trustAsHtml("<strong>Il faut posseder un compte vendeur pour uploader un photo</strong>"), 3000);
+            $location.path('/profil/upgrade').search('redirect', '/profil/addPhoto');
+        }
+    }
+
     $scope.submit = submit;
     $scope.photoData = {
       description: '',
       tags: '',
       price: 1
     };
+
     $scope.inputTags = [];
-    if($scope.user.accountType == 'M') {
-        $scope.subview = 'details';
-    }
+
+
 
     function submit(redirect) {
 
         $scope.photoData.tags = $scope.inputTags.map(function(currentValue) {
             return currentValue.name;
         }).join(" ");
-
-        console.log($scope.photoData.tags );
 
         uploadPhoto.uploadFileToUrl({
             file : $scope.uploadPhoto,

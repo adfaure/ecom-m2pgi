@@ -1,6 +1,10 @@
 var angular = require('angular');
 
-var InscriptionController = function ($scope, $sce, memberService, sellerService, $location, authentificationService, alertService) {
+var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memberService, sellerService, $location, authentificationService, alertService) {
+
+	if(apiToken.isAuthentificated()) {
+		$location.path('/');
+	};
 
 	$scope.sellerTemplate = './js/templates/sellerInscription.html';
 
@@ -15,9 +19,9 @@ var InscriptionController = function ($scope, $sce, memberService, sellerService
 		}
     };
 
-    $scope.sellerCheckBox = false;
-	$scope.existingLogin  = false;
-	$scope.checkPass      = {
+	$scope.sellerCheckBox  = $routeParams.type == 'seller';
+	$scope.existingLogin   = false;
+	$scope.checkPass       = {
 		valide : true,
 		message : ""
 	};
@@ -43,7 +47,12 @@ var InscriptionController = function ($scope, $sce, memberService, sellerService
 		            }
 	        	}).then(function(res) {
                     if(res.success) {
-                        $location.path("/accueil");
+						if($routeParams.redirect) {
+							var payLoad = $routeParams.payLoad || JSON.stringify({});
+							$location.path($routeParams.redirect).search('payLoad', payLoad);
+						} else {
+							$location.path("/accueil");
+						}
                     } else {
 						$location.path("/inscription");
                     }
@@ -55,7 +64,12 @@ var InscriptionController = function ($scope, $sce, memberService, sellerService
 		authentificationService.login($scope.login, $scope.password).then(
 				function(res) {
 					if(res.success) {
-						$location.path("/");
+						if($routeParams.redirect) {
+							var payLoad = $routeParams.payLoad || JSON.stringify({});
+							$location.path($routeParams.redirect).search('payLoad', payLoad);
+						} else {
+							$location.path("/accueil");
+						}
 					} else {
 						$location.path("/inscription");
 					}
@@ -79,11 +93,9 @@ var InscriptionController = function ($scope, $sce, memberService, sellerService
 		memberService.IsExisting($scope.user.login).then(
 			function(res) {
 				if(res) { //login found"
-					$location.path("/inscription");
 					$scope.existingLogin = true;
 					$scope.inscriptionform.loginInput.$setValidity("inscription login", false);
 				} else { //login not found"
-					$location.path("/inscription");
 					$scope.existingLogin = false;
 					$scope.inscriptionform.loginInput.$setValidity("inscription login", true);
 				}

@@ -427,6 +427,7 @@ public class PhotoService implements IPhotoService {
 			if (member != null)
 			{
 				photo.getWishers().add(member);
+				photo.setWishes(photo.getWishes() + 1);
 				member.getWishedPhotos().add(photo);
 				photoDao.update(photo);
 			}
@@ -454,6 +455,7 @@ public class PhotoService implements IPhotoService {
 
 				if(exists) {
 					photo.getWishers().remove(member);
+					photo.setWishes(photo.getWishes() - 1);
 					member.getWishedPhotos().remove(photo);
 					photoDao.update(photo);
 				}
