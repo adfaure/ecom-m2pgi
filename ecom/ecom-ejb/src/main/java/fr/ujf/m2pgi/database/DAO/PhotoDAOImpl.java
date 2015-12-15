@@ -122,6 +122,8 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		"THEN true ELSE false END AS wishlisted," +
 		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
 		"THEN true ELSE false END AS inCart, " +
+		"CASE WHEN EXISTS (SELECT oe FROM OrderEntry oe LEFT JOIN oe.order o WHERE oe.photo.photoID = p.photoID AND o.member.memberID = :id)" +
+		"THEN true ELSE false END AS isBought, " +
 		"CASE WHEN EXISTS (SELECT l FROM Like l WHERE p.photoID = l.photo.photoID AND l.member.memberID = :id)" +
 		"THEN true ELSE false END AS liked, " +
 		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
@@ -139,6 +141,8 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 				"THEN true ELSE false END AS wishlisted," +
 				"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
 				"THEN true ELSE false END AS inCart, " +
+				"CASE WHEN EXISTS (SELECT oe FROM OrderEntry oe LEFT JOIN oe.order o WHERE oe.photo.photoID = p.photoID AND o.member.memberID = :id)" +
+				"THEN true ELSE false END AS isBought, " +
 				"CASE WHEN EXISTS (SELECT l FROM Like l WHERE p.photoID = l.photo.photoID AND l.member.memberID = :id)" +
 				"THEN true ELSE false END AS liked, " +
 				"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
@@ -147,7 +151,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 				Query query = entityManager.createQuery(str, PhotoContextSmallDTO.class);
 				query.setParameter("id", memberID);
 				query.setParameter("sellerid", sellerID);
-				query.setMaxResults(5);
+				query.setMaxResults(numberOfPics);
 				return query.getResultList();
 	}
 
@@ -159,6 +163,8 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		"THEN true ELSE false END AS wishlisted," +
 		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
 		"THEN true ELSE false END AS inCart, " +
+		"CASE WHEN EXISTS (SELECT oe FROM OrderEntry oe LEFT JOIN oe.order o WHERE oe.photo.photoID = p.photoID AND o.member.memberID = :id)" +
+		"THEN true ELSE false END AS isBought, " +
 		"CASE WHEN EXISTS (SELECT l FROM Like l WHERE p.photoID = l.photo.photoID AND l.member.memberID = :id)" +
 		"THEN true ELSE false END AS liked, " +
 		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +

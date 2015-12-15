@@ -15,6 +15,7 @@ function publicPhoto($http, localService, $q) {
     service.GetAllSortByViews = GetAllSortByViews;
     service.GetAllSortByLikes = GetAllSortByLikes;
     service.GetReportedPhotos = GetReportedPhotos;
+    service.GetLastPhotosFromSellers = GetLastPhotosFromSellers;
     service.GetPhotoCount = GetPhotoCount;
     service.Search = Search;
     service.GetUserPhotos = GetUserPhotos;

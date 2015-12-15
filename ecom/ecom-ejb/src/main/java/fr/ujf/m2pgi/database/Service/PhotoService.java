@@ -112,7 +112,7 @@ public class PhotoService implements IPhotoService {
 
 	public PhotoContextBigDTO getPhotoById(Long photoID, Long memberID) {
 		PhotoContextBigDTO photo = photoDao.getPhotoContext(photoID, memberID);
-		photo.setBought(orderDAO.isPhotoBought(memberID, photoID));
+		//photo.setBought(orderDAO.isPhotoBought(memberID, photoID));
 		if (photo != null) viewPhoto(photoID, memberID);
 		return photo;
 	}
@@ -211,9 +211,9 @@ public class PhotoService implements IPhotoService {
 
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
 		List<PhotoContextSmallDTO> photos = photoDao.getAllPhotosContext(memberID);
-		for(PhotoContextSmallDTO photo : photos) {
+		/*for(PhotoContextSmallDTO photo : photos) {
 			photo.setBought(orderDAO.isPhotoBought(memberID, photo.getPhotoId()));
-		}
+		}*/
 		return photos;
 	}
 

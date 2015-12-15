@@ -2,16 +2,18 @@
 
 	<h1>Je suis abonn&eacute;(e) &agrave;: </h1>
 
-    <div ng-repeat="user in users track by $index">
+    <div ng-repeat="seller in followed track by $index">
      
       <div>
-      	<a href ng-click="goToSellerPage(user.memberID)"><h2>{{ user.login}}</h2></a>
+      	<span class="glyphicon glyphicon-star"></span><a href class="sellerLoginFollowed" ng-click="goToSellerPage()">{{ seller.sellerLogin}}</a>
       </div>
       <div>
-      	<h4>Les derniers 5 photos t&eacute;l&eacute;charg&eacute;s:</h4>
-      </div>	
-      <div>
-      photos
+      	<h4>Les derniers {{numberPhotos}} photos téléchargés:</h4>
+      </div>
+      <div class="row">
+      <div class="col-lg-3 col-md-4 col-xs-6" ng-repeat="photo in seller.photos track by $index">
+     	 <thumbnail photo = "photo"></thumbnail> 
+      </div>
       </div>
      
     </div>
