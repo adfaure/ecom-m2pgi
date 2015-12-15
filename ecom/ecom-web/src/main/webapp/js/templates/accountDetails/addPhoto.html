@@ -21,8 +21,8 @@
             min="0.01" max="999.99" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
             class="form-control" name="price" id="price" placeholder="prix de la photo" data-required>
         </div>
-        <button type="submit" class="btn btn-default" data-ng-click="upload.$valid && submit('addPhoto')" >Valider et Rajouter</button>
+        <button type="submit" class="btn btn-default" data-ng-click="upload.$valid && submit('addPhoto')" >Uploader photo</button>
 
-        <button type="submit" class="btn btn-default" data-ng-click="upload.$valid && submit('managePhotos')" >Valider et Terminer</button>
+        <button type="submit" class="btn btn-default floatRight" data-ng-click="setView('managePhotos')" >Retour magasin</button>
     </form>
 </div>
