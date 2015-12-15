@@ -114,7 +114,13 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/search/{text}")
 	@Produces("application/json")
-	public Response searchPhotosES(@PathParam("text") String text) {
+	public Response searchPhotosES(@PathParam("text") String text, @HeaderParam("userID") Long requesterID) {
+
+		if(requesterID != null) {
+			List<PhotoContextSmallDTO> contextPhotos = facadePhoto.searchPhotosContext(text, requesterID);
+			return Response.ok(contextPhotos).build();
+		}
+
 		SearchResult photos = photoServiceES.searchPhotos(text);
 		return Response.ok(photos).build();
 	}

@@ -1,3 +1,7 @@
+.highlighted {
+	background-color: rgb(250, 255, 189);
+}
+
 .posAbs {
 	position: absolute;
 }
@@ -27,6 +31,10 @@
     color: lawngreen;
 }
 
+.cartIconHeader:hover {
+    color: lawngreen;
+}
+
 .thumbnail {
     position:relative;
     overflow:hidden;
@@ -36,7 +44,7 @@
 	background: #CCC;
 	opacity:0.6;
 }
- 
+
 .caption {
     position:absolute;
     top:0;
@@ -51,7 +59,7 @@
 }
 
 
-.caption {   
+.caption {
     opacity: 0;
     -webkit-transition: opacity 0.2s ease-in-out;
        -moz-transition: opacity 0.2s ease-in-out;
@@ -180,3 +188,4 @@
 .sellerLoginFollowed{
 	font-size:40px;
 }
+
