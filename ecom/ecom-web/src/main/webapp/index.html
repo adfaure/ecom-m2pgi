@@ -15,7 +15,8 @@
   <!-- Font-Awesome CSS -->
   <link rel="stylesheet" href="css/css/font-awesome.min.css">
   <!-- Our Own CSS -->
-  <link rel="stylesheet" href="css/ecom-styles.css">
+    <link rel="stylesheet" href="css/sideBarStyles.css">
+    <link rel="stylesheet" href="css/ecom-styles.css">
   <link rel="stylesheet" href="node_modules/ng-tags-input/build/ng-tags-input.min.css">
   <link rel="stylesheet" href="node_modules/ng-tags-input/build/ng-tags-input.bootstrap.min.css">
 
@@ -25,18 +26,28 @@
     <div class="container-fluid" data-ng-include="templates.headerTemplate"></div>
 
     <div class="container-fluid">
-        <div class="row">
-		    <div class="col-sm-3 col-md-2 sidebar" data-pg-collapsed>
-		        <div data-ng-include="templates.navsidebarTemplate" ng-controller="navsidebarController"></div>
-		    </div>
-		    <div class="col-sm-9 col-md-10 main">
 
-    			<div data-ng-include="templates.alertTemplate"></div>
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <div id="sideBarTemplContainer" class="floatLeft fullHeight collapse in" data-ng-include="templates.navsidebarTemplate" ng-controller="navsidebarController"></div>
 
-        		<div data-ng-view></div>
 
-		    </div>
-		</div>
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid xyz">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div data-ng-include="templates.alertTemplate"></div>
+
+                            <div data-ng-view></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+        </div>
+        <!-- /#wrapper -->
+
     </div>
 
     <script src="node_modules/chart.js/Chart.min.js"></script>

@@ -1,124 +1,167 @@
-<ul class="nav nav-sidebar">
-    <li>
-        <a href="#/accueil">Accueil</a>
-    </li>
-</ul>
+
+<div id="sidebar-wrapper" class="navbar-default magrinLeftSideBar">
+    <ul class="sidebar-nav nav-pills nav-stacked">
+        <li>
+            <a href="#/accueil">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-plus fa-stack-1x "> </i>
+                <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>-->
+                </span>
+                <div>Accueil</div>
+            </a>
+        </li>
 
 
-<!-- Admin section -->
-<ul class="nav nav-sidebar" ng-show="admin">
-    <li>
-        <a href="#/profil/stats">
-            <i class="glyphicon glyphicon-plus"> </i>
-            Statistiques
-        </a>
-    </li>
-    <li>
-        <a href="#/profil/members">
-            <i class="glyphicon glyphicon-plus"> </i>
-            Manage members
-        </a>
-    </li>
-    <li>
-        <a href="#/profil/reportedPhotos">
-            <i class="glyphicon glyphicon-flag"> </i>
-            Reported photos
-        </a>
-    </li>
-	<li role="separator" class="divider"></li>
-</ul>
+    <!-- Admin section -->
+        <li ng-show="admin">
+            <a href="#/profil/stats">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-plus fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>-->
+                </span>
+                <div>Statistiques</div>
+            </a>
+        </li>
+        <li ng-show="admin">
+            <a href="#/profil/members">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-plus fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>-->
+                </span>
+                <div>Manage members</div>
+            </a>
+        </li>
+        <li ng-show="admin">
+            <a href="#/profil/reportedPhotos">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-flag fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-flag floatLeft"> </i>>-->
+                </span>
+                <div>Reported photos</div>
+            </a>
+        </li>
+        <li ng-show="admin" role="separator" class="divider"></li>
 
 
-<!-- Seller section -->
-<ul ng-show="seller" class="nav nav-sidebar">
-    <li>
-        <a href="#/profil/managePhotos"> Mes photos </a>
-    </li>
-    <li>
-        <a href="#/profil/addPhoto">
-            <i class="glyphicon glyphicon-plus"> </i>
-            Ajouter une photo
-        </a>
-    </li>
-    <li>
-        <a href="#/profil/sellerAnalytics">
-            <i class="fa fa-line-chart"></i>
-            Mes statistiques
-        </a>
-    </li>
-	<li role="separator" class="divider"></li>
-</ul>
+    <!-- Seller section -->
+        <li ng-show="seller">
+            <a href="#/profil/managePhotos">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-plus fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>>-->
+                </span>
+                <div>Mes photos</div>
+            </a>
+        </li>
+        <li ng-show="seller">
+            <a href="#/profil/addPhoto">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-plus fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>>-->
+                </span>
+                <div>Ajouter une photo</div>
+            </a>
+        </li>
+        <li ng-show="seller">
+            <a href="#/profil/sellerAnalytics">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-line-chart fa-stack-1x "> </i>
+                    <!--<i class="fa fa-line-chart floatLeft"></i>>-->
+                </span>
+                <div>Mes statistiques</div>
+            </a>
+        </li>
+        <li ng-show="seller">
+            <a href="#/profil/myPage">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-user fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-user floatLeft"> </i>>-->
+                </span>
+                <div>Ma page</div>
+            </a>
+        </li>
+        <li ng-show="seller" role="separator" class="divider"></li>
 
 
-<!-- Simple member section -->
-<ul ng-show="auth" class="nav nav-sidebar">
-    <li >
-        <a href="#/profil/details">
-            <i class="glyphicon glyphicon-home"></i>
-            Mon compte
-        </a>
-    </li>
-    <li >
-        <a href="#/profil/history">
-            Mes commandes
-        </a>
-    </li>
-    <li >
-        <a href="#/profil/gallery">
-            <i class="fa fa-heart"></i>
-            Ma gallerie
-        </a>
-    </li>
-    <li >
-        <a href="#/profil/wishList">
-          <i class="fa fa-heart"></i>
-          Mes photos favorites
-        </a>
-    </li>
-    <li>
-        <a href="#/profil/myCart" >
-            <i class="glyphicon glyphicon-shopping-cart"></i>
-            Mon panier
-        </a>
-    </li>
-    <li>
-        <a href="#/profil/following" >
-            <i class="glyphicon glyphicon-menu-right"></i>
-            Abonn&eacute;(e) &agrave;...
-        </a>
-    </li>
-    <li ng-show="!seller">
-        <a href="#/profil/upgrade">Devenir vendeur</a>
-    </li>
-	<li role="separator" class="divider"></li>
-</ul>
+        <!-- Simple member section -->
+        <li ng-show="auth">
+            <a href="#/profil/details">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-home fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-home floatLeft"></i>>-->
+                </span>
+                <div>Mon compte</div>
+            </a>
+        </li>
+        <li ng-show="auth">
+            <a href="#/profil/history">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-plus fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>>-->
+                </span>
+                <div>Mes commandes</div>
+            </a>
+        </li>
+        <li ng-show="auth">
+            <a href="#/profil/gallery">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-heart fa-stack-1x "> </i>
+                    <!--<i class="fa fa-heart floatLeft"></i>>-->
+                </span>
+                <div>Ma gallerie</div>
+            </a>
+        </li>
+        <li ng-show="auth">
+            <a href="#/profil/wishList">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-heart fa-stack-1x "> </i>
+                    <!--<i class="fa fa-heart floatLeft"></i>>-->
+                </span>
+                <div>Mes photos favorites</div>
+            </a>
+        </li>
+        <li ng-show="auth">
+            <a href="#/profil/myCart" >
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-shopping-cart fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-shopping-cart"></i>>-->
+                </span>
+                <div>Mon panier</div>
+            </a>
+        </li>
+        <li ng-show="auth">
+            <a href="#/profil/following" >
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-arrow-right fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-menu-right floatLeft"></i>>-->
+                </span>
+                <div>Abonn&eacute;(e) &agrave;...</div>
+            </a>
+        </li>
+        <li ng-show="auth && !seller">
+            <a href="#/profil/upgrade">
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-plus fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>>-->
+                </span>
+                <div>Devenir vendeur</div>
+            </a>
+        </li>
+        <li ng-show="auth" role="separator" class="divider"></li>
 
 
-<!-- Visitor section -->
-<ul ng-show="auth" class="nav nav-sidebar">
-    <!-- li>
-        <a href="#/profil/myCart" >
-            <i class="glyphicon glyphicon-shopping-cart"></i>
-            Mon panier
-        </a>
-    </li-->
-	<li role="separator" class="divider"></li>
-    <li>
-        <a href="#/profil/myPage">
-            <i class="glyphicon glyphicon-user"> </i>
-            Ma page
-        </a>
-    </li>
-</ul>
 
+    <!-- Visitor section -->
+        <li>
+            <a href="#/contactUs" >
+                <span class="fa-stack fa-lg pull-left">
+                    <i class="fa fa-envelope-o fa-stack-1x "> </i>
+                    <!--<i class="glyphicon glyphicon-envelope floatLeft"></i>-->
+                </span>
+                <div>Nous contacter</div>
+            </a>
+        </li>
+        <li role="separator" class="divider"></li>
 
-<!-- Visitor section -->
-<ul class="nav nav-sidebar">
-    <li>
-        <a href="#/contactUs" >
-            <i class="glyphicon glyphicon-envelope"></i>
-            Nous contacter
-        </a>
-    </li>
-	<li role="separator" class="divider"></li>
-</ul>
+    </ul>
+</div><!-- /#sidebar-wrapper -->

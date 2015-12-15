@@ -1,0 +1,128 @@
+<ul class="nav nav-sidebar">
+    <li>
+        <a href="#/accueil">
+            <i class="glyphicon glyphicon-plus floatLeft"> </i>
+            <div>Accueil</div>
+        </a>
+    </li>
+</ul>
+
+
+<!-- Admin section -->
+<ul class="nav nav-sidebar" ng-show="admin">
+    <li>
+        <a href="#/profil/stats">
+            <i class="glyphicon glyphicon-plus floatLeft"> </i>
+            <div>Statistiques</div>
+        </a>
+    </li>
+    <li>
+        <a href="#/profil/members">
+            <i class="glyphicon glyphicon-plus floatLeft"> </i>
+            <div>Manage members</div>
+        </a>
+    </li>
+    <li>
+        <a href="#/profil/reportedPhotos">
+            <i class="glyphicon glyphicon-flag floatLeft"> </i>
+            <div>Reported photos</div>
+        </a>
+    </li>
+	<li role="separator" class="divider"></li>
+</ul>
+
+
+<!-- Seller section -->
+<ul ng-show="seller" class="nav nav-sidebar">
+    <li>
+        <a href="#/profil/managePhotos">
+            <i class="glyphicon glyphicon-plus floatLeft"> </i>
+            <div>Mes photos</div>
+        </a>
+    </li>
+    <li>
+        <a href="#/profil/addPhoto">
+            <i class="glyphicon glyphicon-plus floatLeft"> </i>
+            <div>Ajouter une photo</div>
+        </a>
+    </li>
+    <li>
+        <a href="#/profil/sellerAnalytics">
+            <i class="fa fa-line-chart floatLeft"></i>
+            <div>Mes statistiques</div>
+        </a>
+    </li>
+	<li role="separator" class="divider"></li>
+</ul>
+
+
+<!-- Simple member section -->
+<ul ng-show="auth" class="nav nav-sidebar">
+    <li role="separator" class="divider"></li>
+    <li>
+        <a href="#/profil/myPage">
+            <i class="glyphicon glyphicon-user floatLeft"> </i>
+            <div>Ma page</div>
+        </a>
+    </li>
+</ul>
+
+<!-- Simple member section -->
+<ul ng-show="auth" class="nav nav-sidebar">
+    <li >
+        <a href="#/profil/details">
+            <i class="glyphicon glyphicon-home floatLeft"></i>
+            <div>Mon compte</div>
+        </a>
+    </li>
+    <li >
+        <a href="#/profil/history">
+            <i class="glyphicon glyphicon-plus floatLeft"> </i>
+            <div>Mes commandes</div>
+        </a>
+    </li>
+    <li >
+        <a href="#/profil/gallery">
+            <i class="fa fa-heart floatLeft"></i>
+            <div>Ma gallerie</div>
+        </a>
+    </li>
+    <li >
+        <a href="#/profil/wishList">
+          <i class="fa fa-heart floatLeft"></i>
+            <div>Mes photos favorites</div>
+        </a>
+    </li>
+    <li>
+        <a href="#/profil/myCart" >
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+            <div>Mon panier</div>
+        </a>
+    </li>
+    <li>
+        <a href="#/profil/following" >
+            <i class="glyphicon glyphicon-menu-right floatLeft"></i>
+            <div>Abonn&eacute;(e) &agrave;...</div>
+        </a>
+    </li>
+    <li ng-show="!seller">
+        <a href="#/profil/upgrade">
+            <i class="glyphicon glyphicon-plus floatLeft"> </i>
+            <div>Devenir vendeur</div>
+        </a>
+    </li>
+	<li role="separator" class="divider"></li>
+</ul>
+
+
+
+<!-- Visitor section -->
+<ul class="nav nav-sidebar">
+    <li>
+        <a href="#/contactUs" >
+            <i class="glyphicon glyphicon-envelope floatLeft"></i>
+            <div>Nous contacter</div>
+        </a>
+    </li>
+	<li role="separator" class="divider"></li>
+</ul>
