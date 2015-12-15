@@ -1,37 +1,36 @@
+<div data-ng-controller="searchController">
+	<div class=row>
+		<div class="row">
+			<div class="col-lg-9">
+				<p ng-if="search.hitCount">{{ search.hitCount }} résultat(s) trouvé(s) pour "
+					<span id="fake-link1" ng-click="photosFromCache()" class="glyphicon glyphicon-remove">{{ search.terms }}</span>" en {{ search.took }} ms!</p>
+					<p ng-if="search.hitCount == 0 && search.terms">
+						Aucun résultat pour la recherche "<strong>{{ search.terms }}</strong>
+						<span id="fake-link" ng-click="photosFromCache()">". Essayez une autre recherche.</span></p>
+					</div>
+					<div class="col-lg-3">
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Trier par
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+								<li><a href="" ng-click="photosFromCache()">Nouveauté</a></li>
+								<li><a href="" ng-click="sortByDate()">Ancienneté</a></li>
+								<li><a href="" ng-click="sortByPrice()">Moins cher</a></li>
+								<li><a href="" ng-click="sortByPriceDesc()">Plus cher</a></li>
+								<li><a href="" ng-click="sortByViews()">Nb. vues</a></li>
+								<li><a href="" ng-click="sortByLikes()">Nb. likes</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 
-<br/>
-<div class=row>
-	<div class="row">
-	  <div class="col-lg-9">
-		<p ng-if="search.hitCount">{{ search.hitCount }} résultat(s) trouvé(s) pour "
-		   <span id="fake-link1" ng-click="photosFromCache()" class="glyphicon glyphicon-remove">{{ search.terms }}</span>" en {{ search.took }} ms!</p>
-		<p ng-if="search.hitCount == 0 && search.terms">
-		  Aucun résultat pour la recherche "<strong>{{ search.terms }}</strong>
-		  <span id="fake-link" ng-click="photosFromCache()">". Essayez une autre recherche.</span></p>
-	  </div>
-	  <div class="col-lg-3">
-	    <div class="dropdown">
-	    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	      Trier par
-	      <span class="caret"></span>
-	    </button>
-	      <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-	        <li><a href="" ng-click="photosFromCache()">Nouveauté</a></li>
-	        <li><a href="" ng-click="sortByDate()">Ancienneté</a></li>
-	        <li><a href="" ng-click="sortByPrice()">Moins cher</a></li>
-	        <li><a href="" ng-click="sortByPriceDesc()">Plus cher</a></li>
-	        <li><a href="" ng-click="sortByViews()">Nb. vues</a></li>
-	        <li><a href="" ng-click="sortByLikes()">Nb. likes</a></li>
-	      </ul>
-	    </div>
-	  </div>
-	</div>
-</div>
-
-<br/>
-
-<div class="row" data-ng-controller="searchController">
-  <div class="col-lg-3 col-md-4 col-xs-6" data-ng-repeat="photo in photos track by $index">
-    <thumbnail photo = "photo"></thumbnail>
-  </div>
-</div>
+			<br/>
+			<div class="row">
+				<div class="col-lg-3 col-md-4 col-xs-6" data-ng-repeat="photo in photos track by $index">
+					<thumbnail photo = "photo"></thumbnail>
+				</div>
+			</div>
+		</div>

@@ -18,6 +18,7 @@ app.use(function (req, res, next) {
 app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     console.log(req.body);
+    console.log(req.headers.authtoken);
     if(req.file) {
         var file =  req.file;
         var tempPath = req.file.path;
@@ -36,7 +37,7 @@ app.post('/upload/:id', upload.single('photo'), function (req, res, next) {
 
         if (req.params.fileAccepted) {
             res.status(200);
-            post(photo, req.params.id, req.headers.auth_token).then(function (serverRes) {
+            post(photo, req.params.id, req.headers.authtoken).then(function (serverRes) {
                 imageProcessing(serverRes, tempPath, req.file ,function (err) {
                   if(err) console.log(err);
                   res.send(serverRes);

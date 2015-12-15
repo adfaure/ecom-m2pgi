@@ -1,8 +1,11 @@
 <div data-ng-controller="galleryCtrl">
-
-    {{ ecom }}
-    <div class="col-lg-3 col-md-4 col-xs-6" data-ng-repeat="photo in photos track by $index">
-        <thumbnail photo="photo"></thumbnail>
-    </div>
+  <h3 ng-show="query">
+    La recherche a retourné <strong>{{ photos.length }}</strong> photo(s)
+  </h3>
+  <h3 ng-show="!query">
+    Vous avez <strong>{{ photos.length }}</strong> photo(s) dans votre gallerie
+  </h3>
+  <div class="col-lg-3 col-md-4 col-xs-6" data-ng-repeat="photo in photos track by $index">
+    <thumbnail photo="photo"></thumbnail>
+  </div>
 </div>
-

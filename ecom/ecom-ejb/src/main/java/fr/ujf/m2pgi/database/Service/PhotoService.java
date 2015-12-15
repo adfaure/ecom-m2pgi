@@ -88,15 +88,15 @@ public class PhotoService implements IPhotoService {
 	 */
 	public PublicPhotoDTO deletePhoto(Long id) {
 		Photo photo = photoDao.find(id);
-	    if (photo != null) {
+		if (photo != null) {
 			photo.setAvailable(false);
-	    photoDao.update(photo);
+			photoDao.update(photo);
 			if (!photoDaoES.delete(String.valueOf(id))) {
 				return null;// The photo couldn't be deleted from ES.
 			}
-	    return publicPhotoMapper.getDTO(photo);
-	  }
-	  return null;// The photo doesn't exist in our DB.
+			return publicPhotoMapper.getDTO(photo);
+		}
+		return null;// The photo doesn't exist in our DB.
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class PhotoService implements IPhotoService {
 				sb.append(tag.toLowerCase()).append(' ');
 			}
 			doc.setTags(sb.toString());
-		  doc.setLocation(created.getWebLocation());
+		  doc.setLocation(created.getThumbnail());
 		  try {
 			    photoDaoES.index(doc);
 		  } catch (IOException e) {
@@ -328,9 +328,9 @@ public class PhotoService implements IPhotoService {
 			if (member != null)
 			{
 				photo.getViewers().add(member);
+				photo.setViews(photo.getViews() + 1);
 				member.getViewedPhotos().add(photo);
 				photoDao.update(photo);
-				photoDao.incrementViews(photoID);
 			}
 		}
 	}
@@ -355,9 +355,9 @@ public class PhotoService implements IPhotoService {
 			if (member != null)
 			{
 				photo.getLikers().add(member);
+				photo.setLikes(photo.getLikes() + 1);
 				member.getLikedPhotos().add(photo);
 				photoDao.update(photo);
-				photoDao.incrementLikes(photoID);
 			}
 		}
 	}
@@ -382,9 +382,9 @@ public class PhotoService implements IPhotoService {
 			if (member != null)
 			{
 				photo.getLikers().remove(member);
+				photo.setLikes(photo.getLikes() - 1);
 				member.getLikedPhotos().remove(photo);
 				photoDao.update(photo);
-				photoDao.decrementLikes(photoID);
 			}
 		}
 	}
@@ -409,6 +409,7 @@ public class PhotoService implements IPhotoService {
 			if (member != null)
 			{
 				photo.getWishers().add(member);
+				photo.setWishes(photo.getWishes() + 1);
 				member.getWishedPhotos().add(photo);
 				photoDao.update(photo);
 			}
@@ -436,6 +437,7 @@ public class PhotoService implements IPhotoService {
 
 				if(exists) {
 					photo.getWishers().remove(member);
+					photo.setWishes(photo.getWishes() - 1);
 					member.getWishedPhotos().remove(photo);
 					photoDao.update(photo);
 				}
@@ -443,7 +445,7 @@ public class PhotoService implements IPhotoService {
 		}
 	}
 
-	public SignalDTO signalPhoto (SignalDTO signalDTO){
+	public SignalDTO signalPhoto(SignalDTO signalDTO){
 
 		Photo photo = photoDao.find(signalDTO.getPhotoID());
 		Member member = memberDAO.find(signalDTO.getMemberID());
@@ -452,6 +454,7 @@ public class PhotoService implements IPhotoService {
 			if(signal==null){
 		    	Signal signalEntity = signalMapper.getentity(signalDTO);
 		    	signalEntity.setMember(member);
+					photo.setReports(photo.getReports() + 1);
 		    	signalEntity.setPhoto(photo);
 		    	SignalDTO created = signalMapper.getDTO(signalDAO.create(signalEntity));
 		    	return created;
@@ -461,10 +464,16 @@ public class PhotoService implements IPhotoService {
 	}
 
 	public void validateReportedPhoto(Long id) {
-		// On suppprime les signalements.
-		signalDAO.deletePhotoReports(id);
-		// Ici on doit faire en sorte qu'on puisse plus signaler cette photo.
-		// Peut être un booléen "conforme = true"
+		Photo photo = photoDao.find(id);
+		if(photo != null) {
+			// On mets le conteur à zero.
+			photo.setReports(0);
+			photoDao.update(photo);
+			// On suppprime les signalements.
+			signalDAO.deletePhotoReports(id);
+			// Ici on doit faire en sorte qu'on puisse plus signaler cette photo.
+			// Peut être un booléen "conforme = true"
+		}
 	}
 
 	public void deleteReportedPhoto(Long id) {

@@ -67,10 +67,4 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	Long getPhotoCount();
 
 	List<Photo> getAllAvailablePhotos();
-
-	void incrementViews(Long id);
-
-	void incrementLikes(Long id);
-
-	void decrementLikes(Long id);
 }

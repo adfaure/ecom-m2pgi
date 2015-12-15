@@ -6,7 +6,7 @@ module.exports = function(data, sellerID, auth) {
     method: 'POST',
     uri: nconf.get("upload_route") + sellerID,
     body: data,
-    headers : {'auth_token': auth},
+    headers : {'authtoken': auth},
     json: true // Automatically stringifies the body to JSON
   };
   return request(options);

@@ -3,7 +3,10 @@ var angular = require('angular');
 var detailsPhotoController = function($scope, $location, $routeParams, apiToken, publicPhoto) {
 
   var photoID = $routeParams.id;
-  if(isNaN(photoID)) return;// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
+  if(isNaN(photoID)) {
+    $location.path('/accueil');
+    return;// ICI on doit afficher un message pour dire que la photo n'éxiste pas.
+  }
 
   $scope.loaded = false;
   publicPhoto.GetById(photoID).then(function(res) {
