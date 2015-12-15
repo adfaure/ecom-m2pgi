@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var InscriptionController = function ($scope, $sce, $routeParams,apiToken, memberService, sellerService, $location, authentificationService, alertService) {
+var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memberService, sellerService, $location, authentificationService, alertService) {
 
 	if(apiToken.isAuthentificated()) {
 		$location.path('/');
@@ -19,9 +19,9 @@ var InscriptionController = function ($scope, $sce, $routeParams,apiToken, membe
 		}
     };
 
-    $scope.sellerCheckBox = false;
-	$scope.existingLogin  = false;
-	$scope.checkPass      = {
+	$scope.sellerCheckBox  = $routeParams.type == 'seller';
+	$scope.existingLogin   = false;
+	$scope.checkPass       = {
 		valide : true,
 		message : ""
 	};
@@ -48,7 +48,7 @@ var InscriptionController = function ($scope, $sce, $routeParams,apiToken, membe
 	        	}).then(function(res) {
                     if(res.success) {
 						if($routeParams.redirect) {
-							var payLoad = $routeParams.payLoad || {};
+							var payLoad = $routeParams.payLoad || JSON.stringify({});
 							$location.path($routeParams.redirect).search('payLoad', payLoad);
 						} else {
 							$location.path("/accueil");
@@ -65,7 +65,7 @@ var InscriptionController = function ($scope, $sce, $routeParams,apiToken, membe
 				function(res) {
 					if(res.success) {
 						if($routeParams.redirect) {
-							var payLoad = $routeParams.payLoad || {};
+							var payLoad = $routeParams.payLoad || JSON.stringify({});
 							$location.path($routeParams.redirect).search('payLoad', payLoad);
 						} else {
 							$location.path("/accueil");
@@ -93,11 +93,9 @@ var InscriptionController = function ($scope, $sce, $routeParams,apiToken, membe
 		memberService.IsExisting($scope.user.login).then(
 			function(res) {
 				if(res) { //login found"
-					$location.path("/inscription");
 					$scope.existingLogin = true;
 					$scope.inscriptionform.loginInput.$setValidity("inscription login", false);
 				} else { //login not found"
-					$location.path("/inscription");
 					$scope.existingLogin = false;
 					$scope.inscriptionform.loginInput.$setValidity("inscription login", true);
 				}

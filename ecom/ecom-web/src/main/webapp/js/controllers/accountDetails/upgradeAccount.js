@@ -1,7 +1,7 @@
 var angular = require('angular');
 
 
-var upgrade = function($scope, $location, apiToken, sellerService) {
+var upgrade = function($scope, $location, $sce, $routeParams,apiToken, alertService,sellerService) {
     $scope.RIB    = "";
     $scope.submit = submit;
 
@@ -16,10 +16,17 @@ var upgrade = function($scope, $location, apiToken, sellerService) {
             user.sellerInfo = {};
             user.sellerInfo.rib = $scope.RIB;
             sellerService.CreateFromMember(user).then(function(data) {
+                console.log("avant");
                 if(data.success) {
+                    console.log("apres");
                     apiToken.setUser(data.user);
                     apiToken.setToken(data.token);
-                    $scope.setView('details');
+                    if($routeParams.redirect) {
+                        alertService.add("alert-success", $sce.trustAsHtml("<strong>Vous pouvez à présent commencer à uplodaer des photo !</strong>"), 2000);
+                        $location.path($routeParams.redirect);
+                    } else {
+                        $scope.setView('details');
+                    }
                 }
             });
         }
