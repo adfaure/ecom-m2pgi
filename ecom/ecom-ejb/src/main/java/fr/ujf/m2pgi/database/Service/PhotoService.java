@@ -197,12 +197,8 @@ public class PhotoService implements IPhotoService {
 		return result;
 	}
 
-	public List<PublicPhotoDTO> getReportedPhotos() {
-		List<PublicPhotoDTO> result = new ArrayList<PublicPhotoDTO>();
-		for(Photo photo: photoDao.getReportedPhotos()) {
-			result.add(publicPhotoMapper.getDTO(photo));
-		}
-		return result;
+	public List<ReportedPhotoDTO> getReportedPhotos() {
+		return photoDao.getReportedPhotos();
 	}
 
 	public List<PublicPhotoDTO> getTop10Photos() {
@@ -296,23 +292,23 @@ public class PhotoService implements IPhotoService {
 	public List<ManagePhotoDTO> getUserPhotos(String login) {
 		return photoDao.getUserPhotos(login);
 	}
-	
+
 	public List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos) {
-		
+
 		List<LastPhotosDTO> result = new ArrayList<LastPhotosDTO>();
     	LastPhotosDTO lastphotos;
     	Collection<PhotoContextSmallDTO> photos;
-    	
+
     	for(Member seller: memberDAO.getSellersFollowedBy(followerID)) {
     		lastphotos=new LastPhotosDTO(seller.getLogin());
     		photos = photoDao.getLastPhotosContext(followerID, seller.getMemberID(), numberOfPhotos);
     		lastphotos.setPhotos(photos);
     		result.add(lastphotos);
     	}
-    	
+
 		return result;
 	}
-	
+
 
 	/**
 	 *

@@ -51,7 +51,7 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
 							var payLoad = $routeParams.payLoad || JSON.stringify({});
 							$location.path($routeParams.redirect).search('payLoad', payLoad);
 						} else {
-							$location.path("/accueil");
+							$location.path("/profil/myPage").search('first');
 						}
                     } else {
 						$location.path("/inscription");
