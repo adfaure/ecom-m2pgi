@@ -24,7 +24,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@Override
 	public List<ManagePhotoDTO> getUserPhotos(Long id) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.ManagePhotoDTO" +
-		"(p.photoID, p.description, p.name, p.price, p.thumbnail) "+
+		"(p.photoID, p.name, p.description, p.price, p.views, p.likes, p.wishes, p.sales, p.thumbnail) "+
 		"FROM Photo p WHERE p.available = true AND p.author.memberID = :id";
 		Query query = entityManager.createQuery(str, ManagePhotoDTO.class);
 		query.setParameter("id", id);
@@ -62,7 +62,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@Override
 	public List<ManagePhotoDTO> getUserPhotos(String login) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.ManagePhotoDTO" +
-		"(p.photoID, p.description, p.name, p.price, p.thumbnail) "+
+		"(p.photoID, p.name, p.description, p.price, p.views, p.likes, p.wishes, p.sales, p.thumbnail) "+
 		"FROM Photo p LEFT JOIN p.author s WHERE s.login = :login AND p.available = true";
 		Query query = entityManager.createQuery(str, ManagePhotoDTO.class);
 		query.setParameter("login", login);
@@ -265,4 +265,17 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		int updateCount = query.executeUpdate();
 	}
 
+	@Override
+	public void incrementWishes(Long id) {
+		Query query = entityManager.createQuery("UPDATE Photo p SET p.wishes = p.wishes + 1 WHERE p.photoID = :id");
+		query.setParameter("id", id);
+		int updateCount = query.executeUpdate();
+	}
+
+	@Override
+	public void decrementWishes(Long id) {
+		Query query = entityManager.createQuery("UPDATE Photo p SET p.wishes = p.wishes - 1 WHERE p.photoID = :id");
+		query.setParameter("id", id);
+		int updateCount = query.executeUpdate();
+	}
 }

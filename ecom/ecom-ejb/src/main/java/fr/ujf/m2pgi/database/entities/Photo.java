@@ -61,6 +61,9 @@ public class Photo {
 	@Column(name="likes", insertable = false, updatable = true, columnDefinition = "int default 0")
 	private Integer likes;
 
+	@Column(name="wishes", insertable = false, updatable = true, columnDefinition = "int default 0")
+	private Integer wishes;
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "tags",
 			joinColumns =  @JoinColumn(name = "photoid"), inverseJoinColumns = @JoinColumn(name = "tagid")
@@ -195,6 +198,14 @@ public class Photo {
 
 	public void setLikes(Integer likes) {
 		this.likes = likes;
+	}
+
+	public Integer getWishes() {
+		return wishes;
+	}
+
+	public void setWishes(Integer wishes) {
+		this.wishes = wishes;
 	}
 
 	public Collection<Tag> getTags() {
