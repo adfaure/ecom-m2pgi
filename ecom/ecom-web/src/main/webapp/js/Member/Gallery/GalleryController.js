@@ -2,8 +2,10 @@ var angular = require('angular');
 
 var gallery = function($scope, $location, $filter, apiToken, publicPhoto) {
     var user;
-
-    if(apiToken.isAuthentificated()) {
+    var photo = [];
+    if(!apiToken.isAuthentificated()) {
+        $location.path('/');
+    } else {
         user = apiToken.getUser();
     }
 

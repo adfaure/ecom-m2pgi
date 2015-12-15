@@ -6,8 +6,10 @@ import fr.ujf.m2pgi.database.DAO.IFollowDAO;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicSeller;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPublicPhotoMapper;
+import fr.ujf.m2pgi.database.Mappers.MapperWrapper;
 import fr.ujf.m2pgi.database.entities.*;
 
 import javax.ejb.Stateless;
@@ -22,6 +24,9 @@ import java.util.List;
  */
 @Stateless
 public class MemberService implements IMemberService {
+
+    @Inject
+    private MapperWrapper mapperWrapper;
 
     /**
      *
@@ -103,6 +108,16 @@ public class MemberService implements IMemberService {
             return  memberMapper.getDTO(member);
         return  null;
     }
+
+    @Override
+    public PublicSeller getPublicSellerById(long id) {
+        Member member = memberDao.getSellerById(id);
+        if(member != null)
+            return  mapperWrapper.getMapper().map(member, PublicSeller.class);
+        return  null;
+    }
+
+
 
     /**
      * @param id

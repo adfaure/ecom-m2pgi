@@ -7,6 +7,7 @@ module.exports = function localService() {
   service.getObject = getObject;
   service.set = set;
   service.unset = unset;
+  service.clear = clear;
   return service;
 
   function get(key) {
@@ -23,6 +24,10 @@ module.exports = function localService() {
 
   function unset(key) {
     return localStorage.removeItem(key);
+  }
+
+  function clear() {
+    localStorage.clear();
   }
 
 };

@@ -1,20 +1,28 @@
 var angular = require('angular');
 
 
-var followController = function($scope, $location, apiToken, sellerService, memberService) {
-   
+var followController = function($scope, $location, apiToken, sellerService, memberService, publicPhoto) {
+	
+	$scope.numberPhotos = 5;
+	
     var userIDFollower = 0;
 	if(apiToken.isAuthentificated()) {
 		userIDFollower  = apiToken.getUser().memberID;
     } 
 	
 	
-	memberService.GetAllFollowedSellersBy(userIDFollower).then(function(res){
-		$scope.users = res;
+	
+	publicPhoto.GetLastPhotosFromSellers(userIDFollower, $scope.numberPhotos).then(function(res){
+		$scope.followed = res;
 	});
 	
-	$scope.goToSellerPage = function(sellerID){
-  	  $location.path("/seller/page/"+sellerID);
+	
+	/*memberService.GetAllFollowedSellersBy(userIDFollower).then(function(res){
+		$scope.users = res;
+	});*/
+	
+	$scope.goToSellerPage = function(){
+  	  //$location.path("/seller/page/"+sellerID);
     }
 	
 };

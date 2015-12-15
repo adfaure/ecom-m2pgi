@@ -24,7 +24,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@Override
 	public List<ManagePhotoDTO> getUserPhotos(Long id) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.ManagePhotoDTO" +
-		"(p.photoID, p.description, p.name, p.price, p.thumbnail) "+
+		"(p.photoID, p.name, p.description, p.price, p.views, p.likes, p.wishes, p.sales, p.thumbnail) "+
 		"FROM Photo p WHERE p.available = true AND p.author.memberID = :id";
 		Query query = entityManager.createQuery(str, ManagePhotoDTO.class);
 		query.setParameter("id", id);
@@ -62,7 +62,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@Override
 	public List<ManagePhotoDTO> getUserPhotos(String login) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.ManagePhotoDTO" +
-		"(p.photoID, p.description, p.name, p.price, p.thumbnail) "+
+		"(p.photoID, p.name, p.description, p.price, p.views, p.likes, p.wishes, p.sales, p.thumbnail) "+
 		"FROM Photo p LEFT JOIN p.author s WHERE s.login = :login AND p.available = true";
 		Query query = entityManager.createQuery(str, ManagePhotoDTO.class);
 		query.setParameter("login", login);
@@ -121,6 +121,8 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		"THEN true ELSE false END AS wishlisted," +
 		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
 		"THEN true ELSE false END AS inCart, " +
+		"CASE WHEN EXISTS (SELECT oe FROM OrderEntry oe LEFT JOIN oe.order o WHERE oe.photo.photoID = p.photoID AND o.member.memberID = :id)" +
+		"THEN true ELSE false END AS isBought, " +
 		"CASE WHEN EXISTS (SELECT l FROM Like l WHERE p.photoID = l.photo.photoID AND l.member.memberID = :id)" +
 		"THEN true ELSE false END AS liked, " +
 		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
@@ -129,6 +131,27 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery(str, PhotoContextSmallDTO.class);
 		query.setParameter("id", memberID);
 		return query.getResultList();
+	}
+
+	public List<PhotoContextSmallDTO> getLastPhotosContext(Long memberID, Long sellerID, int numberOfPics) {
+		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO" +
+				"(p.photoID, p.author.memberID, p.name, p.webLocation, p.thumbnail, p.price, p.views, p.likes, " +
+				"CASE WHEN EXISTS (SELECT w FROM Wish w WHERE p.photoID = w.photo.photoID AND w.member.memberID = :id)" +
+				"THEN true ELSE false END AS wishlisted," +
+				"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
+				"THEN true ELSE false END AS inCart, " +
+				"CASE WHEN EXISTS (SELECT oe FROM OrderEntry oe LEFT JOIN oe.order o WHERE oe.photo.photoID = p.photoID AND o.member.memberID = :id)" +
+				"THEN true ELSE false END AS isBought, " +
+				"CASE WHEN EXISTS (SELECT l FROM Like l WHERE p.photoID = l.photo.photoID AND l.member.memberID = :id)" +
+				"THEN true ELSE false END AS liked, " +
+				"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
+				"THEN true ELSE false END AS flagged) " +
+				"FROM Photo p WHERE p.available = true AND p.author.memberID = :sellerid ORDER BY p.dateCreated DESC";
+				Query query = entityManager.createQuery(str, PhotoContextSmallDTO.class);
+				query.setParameter("id", memberID);
+				query.setParameter("sellerid", sellerID);
+				query.setMaxResults(numberOfPics);
+				return query.getResultList();
 	}
 
 	@Override
@@ -158,16 +181,18 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	@Override
 	public PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO" +
-		"(p.photoID, p.name, p.description, p.webLocation, p.thumbnail, p.price, p.author.memberID, s.login, p.sales, p.dateCreated, p.views, p.likes, " +
+		"(p.photoID,p.available , p.name, p.description, p.webLocation, p.thumbnail, p.price, p.author.memberID, s.login, p.sales, p.dateCreated, p.views, p.likes, " +
 		"CASE WHEN EXISTS (SELECT w FROM Wish w WHERE p.photoID = w.photo.photoID AND w.member.memberID = :id)" +
 		"THEN true ELSE false END AS wishlisted," +
 		"CASE WHEN EXISTS (SELECT c FROM Cart c WHERE p.photoID = c.photo.photoID AND c.member.memberID = :id)" +
 		"THEN true ELSE false END AS inCart, " +
+		"CASE WHEN EXISTS (SELECT oe FROM OrderEntry oe LEFT JOIN oe.order o WHERE oe.photo.photoID = p.photoID AND o.member.memberID = :id)" +
+		"THEN true ELSE false END AS isBought, " +
 		"CASE WHEN EXISTS (SELECT l FROM Like l WHERE p.photoID = l.photo.photoID AND l.member.memberID = :id)" +
 		"THEN true ELSE false END AS liked, " +
 		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
 		"THEN true ELSE false END AS flagged) " +
-		"FROM Photo p LEFT JOIN p.author s WHERE p.available = true AND p.photoID = :photoid";
+		"FROM Photo p LEFT JOIN p.author s WHERE p.photoID = :photoid";
 		Query query = entityManager.createQuery(str, PhotoContextBigDTO.class);
 		query.setParameter("id", memberID);
 		query.setParameter("photoid", photoID);

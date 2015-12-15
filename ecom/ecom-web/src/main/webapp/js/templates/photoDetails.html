@@ -1,25 +1,59 @@
 <div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <p>Mise en vente par <a href="" ng-click="goToSellerPage()">{{photo.sellerLogin}}</a></p>
-    </div>
-    <div class="panel-body">
-      <a href="" class="thumbnail">
+    
+    <div class="col-md-8 col-lg-8 col-sm-8">
         <img class="img-responsive" ng-src="{{photo.webLocation}}" alt="{{photo.name}}">
-      </a>
-      <span ng-repeat="tag in photo.tags"><span class="label label-primary">{{tag.name}}</span> </span>
-        <div data-ng-if="loaded">
-            <add-to-cart-component photo="photo" data-is-button="true" ></add-to-cart-component>
-        </div>
-      <button class="btn btn-default" ng-show="!photo.wishlisted" ng-click="wish(photo.photoID)">
-        <span class="glyphicon glyphicon-star"></span>Rajouter aux favories
-      </button>
-      <button class="btn btn-danger" ng-show="photo.wishlisted" ng-click="unwish(photo.photoID)">
-        <span class="glyphicon glyphicon-star"></span>Enlever des favories
-      </button>
-      <button class="btn btn-default" ng-show="!photo.flagged" ng-click="flag(photo.photoID)">
-        <span class="glyphicon glyphicon-flag"></span>Signaler
-      </button>
     </div>
-  </div>
+
+    <div class="col-md-4 col-lg-4 col-sm-4">
+        <div class="row bs-callout bs-callout-info">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <p>Mise en vente par <a href="" ng-click="goToSellerPage()"> {{seller.login}} </a></p>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row padding-4pc">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p>tags : </p>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span ng-repeat="tag in photo.tags"><span
+                                class="label label-primary">{{tag.name}}</span>
+                        </span>
+                    </div>
+                </div>
+                <div data-ng-if="loaded" class="row padding-4pc">
+                    <div class="col-lg-12  col-md-12 col-sm-12">
+                        <add-to-cart-component photo="photo" data-is-button="true"></add-to-cart-component>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <p data-ng-if="!photo.isBought"> Ajouter au panier </p>
+                        <p data-ng-if="photo.isBought"> Vous avez déja acheté cette photo </p>
+                    </div>
+                </div>
+                <div class="row  padding-4pc">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <button class=" btn btn-default" ng-if="!photo.wishlisted"
+                                ng-click="wish(photo.photoID)">
+                            <span class="glyphicon glyphicon-star"></span>Rajouter aux favories
+                        </button>
+                        <button class="btn btn-danger" ng-if="photo.wishlisted"
+                                ng-click="unwish(photo.photoID)">
+                            <span class="glyphicon glyphicon-star"></span>Enlever des favories
+                        </button>
+                    </div>
+                </div>
+                <div class="row  padding-4pc">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <button class="btn btn-default" ng-show="!photo.flagged" ng-click="flag(photo.photoID)">
+                            <span class="glyphicon glyphicon-flag"></span>Signaler
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

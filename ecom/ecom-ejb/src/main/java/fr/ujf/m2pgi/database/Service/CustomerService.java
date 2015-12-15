@@ -126,7 +126,6 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<FullPhotoDTO> getBoughPhoto(long id) {
-
         List<Photo> photos = orderDAO.getBoughtPhoto(id);
         List<FullPhotoDTO> resPhotos = new ArrayList<FullPhotoDTO>();
         for(Photo photo : photos) {

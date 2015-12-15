@@ -17,7 +17,7 @@ function sellerService($http) {
     return service;
 
     function GetById(id) {
-        return $http.get('api/sellers/' + id).then(handleSuccess, handleError('Error getting user by id'));
+        return $http.get('api/sellers/id/' + id).then(handleSuccess, handleError('Error getting user by id'));
     }
 
     function GetByUsername(username) {
@@ -56,13 +56,7 @@ function sellerService($http) {
        }
 
 
-    function Update(user) {
-        //var newUser = parseSeller(user);
-        if (validSeller(user))
-            return $http.put('api/sellers/update/id/' + user.memberID, user).then(handleSuccess, handleError('Error updating user'));
-        return {success: false, message: "not valid seller"};
 
-    }
 
     function getOrderBySellerId(userID) {
         return $http.get('api/sellers/id/' + userID + '/orders').then(handleSuccess, handleError('Error getting orders'));

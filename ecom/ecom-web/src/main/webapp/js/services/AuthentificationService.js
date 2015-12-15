@@ -23,8 +23,9 @@ function loginService($http, apiToken, localService) {
       apiToken.setToken(null);
       apiToken.setUser(null);
       // The backend doesn't care about logouts, delete the token and you're good to go.
-      localService.unset('auth_token');
-      localService.unset('user');
+        localService.unset('auth_token');
+        localService.unset('user');
+        localService.clear();
     };
 
     function handleLoginSuccess(res) {

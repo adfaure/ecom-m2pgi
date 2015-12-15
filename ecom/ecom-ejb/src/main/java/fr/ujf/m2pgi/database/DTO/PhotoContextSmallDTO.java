@@ -21,8 +21,6 @@ public class PhotoContextSmallDTO {
 
 	private long sellerID;
 
-	private boolean isBought;
-
 	private String thumbnail;
 
 	private boolean wishlisted;
@@ -34,15 +32,17 @@ public class PhotoContextSmallDTO {
 	private Integer likes;
 
 	private boolean inCart;
+	
+	private boolean isBought;
 
 	private boolean liked;
 
 	private boolean flagged;
 
 	public PhotoContextSmallDTO(long photoID, long sellerID,  String name, String webLocation, String thumbnail, float price, Integer views, Integer likes,
-			boolean wishlisted, boolean inCart, boolean liked, boolean flagged) {
+			boolean wishlisted, boolean inCart, boolean isBought, boolean liked, boolean flagged) {
 		super();
-		this.sellerID = sellerID;
+		this.setSellerID(sellerID);
 		this.photoID = photoID;
 		this.name = name;
 		this.webLocation = webLocation;
@@ -52,6 +52,7 @@ public class PhotoContextSmallDTO {
 		this.likes = likes;
 		this.wishlisted = wishlisted;
 		this.inCart = inCart;
+		this.isBought = isBought;
 		this.liked = liked;
 		this.flagged = flagged;
 	}
@@ -150,5 +151,13 @@ public class PhotoContextSmallDTO {
 
 	public void setBought(boolean bought) {
 		isBought = bought;
+	}
+
+	public long getSellerID() {
+		return sellerID;
+	}
+
+	public void setSellerID(long sellerID) {
+		this.sellerID = sellerID;
 	}
 }

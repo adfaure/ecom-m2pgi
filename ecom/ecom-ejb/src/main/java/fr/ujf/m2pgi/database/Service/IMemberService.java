@@ -3,6 +3,7 @@ package fr.ujf.m2pgi.database.Service;
 import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicSeller;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface IMemberService {
     Boolean isExistingMemberByLogin(String login);
 
     MemberDTO getSellerById(long id);
+
+    PublicSeller getPublicSellerById(long id);
 
     MemberDTO getMemberbyId(long id);
 

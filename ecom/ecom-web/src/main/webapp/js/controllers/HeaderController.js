@@ -28,10 +28,7 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
     };
 
     $scope.goToAddPhoto = function() {
-        if($scope.auth)
-            $location.path('/profil/addPhoto');
-        else
-            alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour uploader une photo ...</strong>"), 3000);
+        $location.path('/profil/addPhoto');
     };
 
     $scope.goToSearch = function() {

@@ -196,6 +196,14 @@ public class RESTPhotosServlet {
 		List<PublicPhotoDTO> photos = facadePhoto.getUserWishedPhotos(login);
 		return Response.ok(photos).build();
 	}
+	
+	@GET
+	@Path("/user/id/{id:[1-9][0-9]*}/maxNum/{numberMax}")
+	@Produces("application/json")
+	public Response getLastPhotosFromSellers(@PathParam("id") Long followerID, @PathParam("numberMax") int numberOfPhotos) {
+		List<LastPhotosDTO> sellersAndPhotos = facadePhoto.getLastPhotosFromSellers(followerID, numberOfPhotos);
+		return Response.ok(sellersAndPhotos).build();
+	}
 
 	@DELETE
 	@Path("/delete/{id:[1-9][0-9]*}")
