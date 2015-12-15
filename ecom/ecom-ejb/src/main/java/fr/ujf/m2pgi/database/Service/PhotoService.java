@@ -2,6 +2,7 @@ package fr.ujf.m2pgi.database.Service;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
@@ -77,6 +78,10 @@ public class PhotoService implements IPhotoService {
 	@Inject
  	private ElasticsearchDao photoDaoES;
 
+  public List<PhotoContextSmallDTO> searchPhotosContext(String text, Long memberID) {
+		return photoDao.getPhotosContext(memberID, photoDaoES.searchIds(text));
+	}
+
 	/**
 	 *
 	 * @param id
@@ -111,7 +116,7 @@ public class PhotoService implements IPhotoService {
 
 	public PhotoContextBigDTO getPhotoById(Long photoID, Long memberID) {
 		PhotoContextBigDTO photo = photoDao.getPhotoContext(photoID, memberID);
-		photo.setBought(orderDAO.isPhotoBought(memberID, photoID));
+		//photo.setBought(orderDAO.isPhotoBought(memberID, photoID));
 		if (photo != null) viewPhoto(photoID, memberID);
 		return photo;
 	}
@@ -137,7 +142,7 @@ public class PhotoService implements IPhotoService {
 		  doc.setDescription(created.getDescription());
 			StringBuilder sb = new StringBuilder();
 			for (String tag : photo.getTags()) {
-				sb.append(tag).append(' ');
+				sb.append(tag.toLowerCase()).append(' ');
 			}
 			doc.setTags(sb.toString());
 		  doc.setLocation(created.getWebLocation());
@@ -210,9 +215,9 @@ public class PhotoService implements IPhotoService {
 
 	public List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID) {
 		List<PhotoContextSmallDTO> photos = photoDao.getAllPhotosContext(memberID);
-		for(PhotoContextSmallDTO photo : photos) {
+		/*for(PhotoContextSmallDTO photo : photos) {
 			photo.setBought(orderDAO.isPhotoBought(memberID, photo.getPhotoId()));
-		}
+		}*/
 		return photos;
 	}
 
@@ -291,6 +296,23 @@ public class PhotoService implements IPhotoService {
 	public List<ManagePhotoDTO> getUserPhotos(String login) {
 		return photoDao.getUserPhotos(login);
 	}
+	
+	public List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos) {
+		
+		List<LastPhotosDTO> result = new ArrayList<LastPhotosDTO>();
+    	LastPhotosDTO lastphotos;
+    	Collection<PhotoContextSmallDTO> photos;
+    	
+    	for(Member seller: memberDAO.getSellersFollowedBy(followerID)) {
+    		lastphotos=new LastPhotosDTO(seller.getLogin());
+    		photos = photoDao.getLastPhotosContext(followerID, seller.getMemberID(), numberOfPhotos);
+    		lastphotos.setPhotos(photos);
+    		result.add(lastphotos);
+    	}
+    	
+		return result;
+	}
+	
 
 	/**
 	 *
@@ -405,6 +427,7 @@ public class PhotoService implements IPhotoService {
 			if (member != null)
 			{
 				photo.getWishers().add(member);
+				photo.setWishes(photo.getWishes() + 1);
 				member.getWishedPhotos().add(photo);
 				photoDao.update(photo);
 			}
@@ -432,6 +455,7 @@ public class PhotoService implements IPhotoService {
 
 				if(exists) {
 					photo.getWishers().remove(member);
+					photo.setWishes(photo.getWishes() - 1);
 					member.getWishedPhotos().remove(photo);
 					photoDao.update(photo);
 				}

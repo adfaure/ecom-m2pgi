@@ -1,7 +1,7 @@
 var angular = require('angular');
 var ecomApp = require('./../app');
 
-var headerController = function($scope, $location, apiToken, authentificationService) {
+var headerController = function($rootScope, $scope, $location, $sce, apiToken, authentificationService, alertService, searchService) {
     $scope.auth = apiToken.isAuthentificated();
 
     $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
@@ -17,6 +17,8 @@ var headerController = function($scope, $location, apiToken, authentificationSer
         }
     );
 
+    $scope.placeholder = "Rechercher dans le site...";
+
     $scope.logout = authentificationService.logout;
 
     $scope.gotToProfil = function(subview) {
@@ -25,13 +27,22 @@ var headerController = function($scope, $location, apiToken, authentificationSer
         });
     };
 
+    $scope.goToAddPhoto = function() {
+        $location.path('/profil/addPhoto');
+    };
+
     $scope.goToSearch = function() {
         $location.path('/search').search( {
             'terms' : $scope.terms
         });
     };
-};
 
+    $scope.terms = '';
+
+    $scope.search = function() {
+      $rootScope.$broadcast('search', {query: $scope.terms});
+    }
+};
 
 ecomApp.controller('headerController', headerController);
 module.exports = headerController;

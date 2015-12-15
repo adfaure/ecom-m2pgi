@@ -30,6 +30,8 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 
 	List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
 
+	List<PhotoContextSmallDTO> getPhotosContext(Long memberID, List<Long> photos);
+
 	PhotoContextBigDTO getPhotoContext(Long photoID, Long memberID);
 
 	List<Photo> getPhotosSortByPrice(boolean ascending);
@@ -54,10 +56,13 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @param login
 	 * @return
 	 */
+	
+	List<PhotoContextSmallDTO> getLastPhotosContext(Long memberID, Long sellerID, int numberOfPics);
+
 	List<ManagePhotoDTO> getUserPhotos(String login);
 
 	List<Photo> getUserPhotosEntity(String login);
-
+	
 	/**
 	 *
 	 * @return number of photos in the DB
@@ -71,4 +76,8 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	void incrementLikes(Long id);
 
 	void decrementLikes(Long id);
+
+	void incrementWishes(Long id);
+
+	void decrementWishes(Long id);
 }

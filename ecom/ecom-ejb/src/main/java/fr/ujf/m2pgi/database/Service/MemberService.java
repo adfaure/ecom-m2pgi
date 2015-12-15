@@ -6,8 +6,10 @@ import fr.ujf.m2pgi.database.DAO.IFollowDAO;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicSeller;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPublicPhotoMapper;
+import fr.ujf.m2pgi.database.Mappers.MapperWrapper;
 import fr.ujf.m2pgi.database.entities.*;
 
 import javax.ejb.Stateless;
@@ -22,6 +24,9 @@ import java.util.List;
  */
 @Stateless
 public class MemberService implements IMemberService {
+
+    @Inject
+    private MapperWrapper mapperWrapper;
 
     /**
      *
@@ -103,6 +108,16 @@ public class MemberService implements IMemberService {
             return  memberMapper.getDTO(member);
         return  null;
     }
+
+    @Override
+    public PublicSeller getPublicSellerById(long id) {
+        Member member = memberDao.getSellerById(id);
+        if(member != null)
+            return  mapperWrapper.getMapper().map(member, PublicSeller.class);
+        return  null;
+    }
+
+
 
     /**
      * @param id
@@ -226,11 +241,21 @@ public class MemberService implements IMemberService {
 	}
 
     @Override
-    public MemberDTO updateMember(MemberDTO memberdto) {
+    public MemberDTO updateMember(MemberDTO memberdto) throws EcomException{
         Member entity = memberMapper.getentity(memberdto);
+        
+        //It means the person wants to change his/her email
+        Member mem = memberDao.findMemberByLogin(memberdto.getLogin());
+        if(!mem.getEmail().equalsIgnoreCase(memberdto.getEmail())){
+        	Member m = memberDao.findMemberByEmail(memberdto.getEmail());
+            if(m != null) throw  new EcomException("Email already in use");
+        }
+        
         if(memberdto.getSellerInfo() != null){
         	memberdto.setSellerInfo(null);
         }
+        
+        System.out.println("This will be executed");
         memberDao.update(entity);
         return memberdto;
     }

@@ -114,7 +114,13 @@ public class RESTPhotosServlet {
 	@GET
 	@Path("/search/{text}")
 	@Produces("application/json")
-	public Response searchPhotosES(@PathParam("text") String text) {
+	public Response searchPhotosES(@PathParam("text") String text, @HeaderParam("userID") Long requesterID) {
+
+		if(requesterID != null) {
+			List<PhotoContextSmallDTO> contextPhotos = facadePhoto.searchPhotosContext(text, requesterID);
+			return Response.ok(contextPhotos).build();
+		}
+
 		SearchResult photos = photoServiceES.searchPhotos(text);
 		return Response.ok(photos).build();
 	}
@@ -189,6 +195,14 @@ public class RESTPhotosServlet {
 	public Response getUserWishedPhotos(@PathParam("login") String login) {
 		List<PublicPhotoDTO> photos = facadePhoto.getUserWishedPhotos(login);
 		return Response.ok(photos).build();
+	}
+	
+	@GET
+	@Path("/user/id/{id:[1-9][0-9]*}/maxNum/{numberMax}")
+	@Produces("application/json")
+	public Response getLastPhotosFromSellers(@PathParam("id") Long followerID, @PathParam("numberMax") int numberOfPhotos) {
+		List<LastPhotosDTO> sellersAndPhotos = facadePhoto.getLastPhotosFromSellers(followerID, numberOfPhotos);
+		return Response.ok(sellersAndPhotos).build();
 	}
 
 	@DELETE

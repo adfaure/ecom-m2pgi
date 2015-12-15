@@ -12,6 +12,8 @@ import java.util.List;
 @Local
 public interface IPhotoService {
 
+    List<PhotoContextSmallDTO> searchPhotosContext(String text, Long memberID);
+
     PublicPhotoDTO deletePhoto(Long id);
 
     PublicPhotoDTO getPhotoById(Long id);
@@ -39,6 +41,8 @@ public interface IPhotoService {
     List<PublicPhotoDTO> getPhotosSortByDate(boolean ascending);
 
     List<ManagePhotoDTO> getUserPhotos(Long id);
+    
+    List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos);
 
     List<ManagePhotoDTO> getUserPhotos(String login);
 

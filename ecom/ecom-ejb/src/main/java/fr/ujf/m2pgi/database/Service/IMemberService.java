@@ -3,6 +3,7 @@ package fr.ujf.m2pgi.database.Service;
 import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
+import fr.ujf.m2pgi.database.DTO.PublicSeller;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public interface IMemberService {
 
     MemberDTO getSellerById(long id);
 
+    PublicSeller getPublicSellerById(long id);
+
     MemberDTO getMemberbyId(long id);
 
     MemberDTO addToCart(MemberDTO member, PublicPhotoDTO publicPhotoDTO);
@@ -34,7 +37,7 @@ public interface IMemberService {
 
     MemberDTO deleteCart(MemberDTO memberDTO);
 
-    MemberDTO updateMember(MemberDTO memberdto);
+    MemberDTO updateMember(MemberDTO memberdto) throws EcomException;
 
     MemberDTO updateSeller(MemberDTO memberdto);
     

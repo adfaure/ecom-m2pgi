@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var manage = function($scope, $location , $routeParams, $interval,TagsService, publicPhoto, apiToken) {
+var manage = function($scope, $location , $routeParams, $filter,  $interval, TagsService, publicPhoto, apiToken) {
 
 	$scope.form = {
 			id : '',
@@ -9,12 +9,13 @@ var manage = function($scope, $location , $routeParams, $interval,TagsService, p
 			tags : [],
 			price : 0
 	};
-
+	var cachedPhotos = [];
 	$scope.photos = [];
 	$scope.highlight = -1;
+	$scope.query = '';
 
 	publicPhoto.GetUserPhotos(apiToken.getUser().login).then(function(res) {
-		$scope.photos = res;
+		$scope.photos = cachedPhotos = res;
 
 		if($routeParams.photo) {
 			var paramPhoto = JSON.parse($routeParams.photo);
@@ -98,11 +99,18 @@ var manage = function($scope, $location , $routeParams, $interval,TagsService, p
 		}
 	};
 
+	$scope.$on('search', function(event, data) {
+		$scope.query = data.query;
+		if($scope.editIndex != -1 || $scope.processing) return;
+		if (!data.query) $scope.photos = cachedPhotos;
+		//$scope.photos = $filter('filter')(cachedPhotos, {description: data.query});
+		$scope.photos = $filter('matchQueries')(cachedPhotos, data.query);
+	});
+
 	var autoComp = new  TagsService.autoComplete();
 	$scope.load = function(query) {
 		return autoComp.get(query);
 	}
-
 };
 
 module.exports = manage;

@@ -1,31 +1,35 @@
 <div data-ng-controller="wishListController">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                  Vous avez <strong>{{ photos.length }}</strong> photo(s) dans votre wishlist
-                </div>
-                <div class="panel-body">
-                    <div class=row ng-repeat="photo in photos track by $index" ng-if="$index % 4 == 0">
-                        <div class="col-xs-6 col-md-3"
-                             ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3]"
-                             ng-if="photos[i] != null">
-                            <div class="thumbnail">
-                              <div class="caption">
-                                <p>{{photos[i].description | limitTo : 20 }}</p>
-                                  <a href="" class="label label-danger" data-ng-click="unwish($index)"
-                                  rel="tooltip" title="Enlever de la wishlist">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                  Enlever
-                                  </a>
-                                  <!--<a ng-show="photos[i].inCart == false" href="" class="label label-success"
-                                  rel="tooltip" title="Acheter la photo">
-                                  <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                                  Acheter
-                                </a>-->
-                              </div>
-                                <img ng-src="{{photos[i].webLocation}}" alt="{{photos[i].name}}">
+    <div class="panel panel-default">
+        <div ng-show="query" class="panel-heading">
+            La recherche a retourné <strong>{{ photos.length }}</strong> photo(s)
+        </div>
+        <div ng-show="!query" class="panel-heading">
+            Vous avez <strong>{{ photos.length }}</strong> photo(s) dans votre wishlist
+        </div>
+        <div class="panel-body">
+            <div class=row ng-repeat="photo in photos track by $index" ng-if="$index % 4 == 0">
+                <div class="col-xs-6 col-md-3"
+                     ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3]"
+                     ng-if="photos[i] != null">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <p>{{photos[i].description | limitTo : 20 }}</p>
+                            <a href="" class="label label-danger" data-ng-click="unwish($index)"
+                               rel="tooltip" title="Enlever de la wishlist">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                Enlever
                             </a>
+                            <!--<a ng-show="photos[i].inCart == false" href="" class="label label-success"
+                            rel="tooltip" title="Acheter la photo">
+                            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                            Acheter
+                          </a>-->
                         </div>
+                        <img ng-src="{{photos[i].webLocation}}" alt="{{photos[i].name}}">
+                        </a>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 </div>

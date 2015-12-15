@@ -1,6 +1,10 @@
 var angular = require('angular');
 
-var InscriptionController = function ($scope, memberService, sellerService, $location, authentificationService, alertService) {
+var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memberService, sellerService, $location, authentificationService, alertService) {
+
+	if(apiToken.isAuthentificated()) {
+		$location.path('/');
+	};
 
 	$scope.sellerTemplate = './js/templates/sellerInscription.html';
 
@@ -15,9 +19,9 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 		}
     };
 
-    $scope.sellerCheckBox = false;
-	$scope.existingLogin  = false;
-	$scope.checkPass      = {
+	$scope.sellerCheckBox  = $routeParams.type == 'seller';
+	$scope.existingLogin   = false;
+	$scope.checkPass       = {
 		valide : true,
 		message : ""
 	};
@@ -35,15 +39,20 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
     	if(res != null) {
 	    		res.then(function (res) {
 		            if (res.success == false) {
-						alertService.add("alert-danger", " Erreur, lors de l'inscription ", 1000);
+						alertService.add("alert-danger", $sce.trustAsHtml("<strong>Erreur, lors de l'inscription</strong>"), 1000);
 						return false;
 		            } else {
-						alertService.add("alert-success", "Enregistré ! ", 2000);
+						alertService.add("alert-success", $sce.trustAsHtml("<strong>Enregistré !</strong>"), 2000);
 						return authentificationService.login($scope.user.login, $scope.user.password);
 		            }
 	        	}).then(function(res) {
                     if(res.success) {
-                        $location.path("/accueil");
+						if($routeParams.redirect) {
+							var payLoad = $routeParams.payLoad || JSON.stringify({});
+							$location.path($routeParams.redirect).search('payLoad', payLoad);
+						} else {
+							$location.path("/accueil");
+						}
                     } else {
 						$location.path("/inscription");
                     }
@@ -55,7 +64,12 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 		authentificationService.login($scope.login, $scope.password).then(
 				function(res) {
 					if(res.success) {
-						$location.path("/");
+						if($routeParams.redirect) {
+							var payLoad = $routeParams.payLoad || JSON.stringify({});
+							$location.path($routeParams.redirect).search('payLoad', payLoad);
+						} else {
+							$location.path("/accueil");
+						}
 					} else {
 						$location.path("/inscription");
 					}
@@ -79,11 +93,9 @@ var InscriptionController = function ($scope, memberService, sellerService, $loc
 		memberService.IsExisting($scope.user.login).then(
 			function(res) {
 				if(res) { //login found"
-					$location.path("/inscription");
 					$scope.existingLogin = true;
 					$scope.inscriptionform.loginInput.$setValidity("inscription login", false);
 				} else { //login not found"
-					$location.path("/inscription");
 					$scope.existingLogin = false;
 					$scope.inscriptionform.loginInput.$setValidity("inscription login", true);
 				}

@@ -1,20 +1,21 @@
 <div data-ng-controller="followController">
 
 	<h1>Je suis abonn&eacute;(e) &agrave;: </h1>
-	<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID vendeur</th>
-      <th>Pr&eacute;nom</th>
-      <th>Pseudo</th>
-    </tr>
-  </thead>
-  <tbody> 
-    <tr ng-repeat="user in users track by $index">
-      <td> <a href ng-click="goToSellerPage(user.memberID)">{{ user.memberID }}</a></td>
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.login }}</td>
-    </tr>
-  </tbody>
-</table>
+
+    <div ng-repeat="seller in followed track by $index">
+     
+      <div>
+      	<span class="glyphicon glyphicon-star"></span><a href class="sellerLoginFollowed" ng-click="goToSellerPage()">{{ seller.sellerLogin}}</a>
+      </div>
+      <div>
+      	<h4>Les derniers {{numberPhotos}} photos téléchargés:</h4>
+      </div>
+      <div class="row">
+      <div class="col-lg-3 col-md-4 col-xs-6" ng-repeat="photo in seller.photos track by $index">
+     	 <thumbnail photo = "photo"></thumbnail> 
+      </div>
+      </div>
+     
+    </div>
+ 
 </div>

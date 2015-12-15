@@ -24,6 +24,10 @@ public class FacadePhoto {
     @Inject
     private IPhotoService photoService;
 
+    public List<PhotoContextSmallDTO> searchPhotosContext(String text, Long memberID) {
+      return photoService.searchPhotosContext(text, memberID);
+    }
+
     public PublicPhotoDTO savePhoto(FullPhotoDTO publicPhotoDTO) {
         return photoService.createPhoto(publicPhotoDTO);
     }
@@ -82,6 +86,10 @@ public class FacadePhoto {
 
     public List<PublicPhotoDTO> getUserWishedPhotos(String login) {
         return photoService.getUserWishedPhotos(login);
+    }
+    
+    public List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos) {
+        return photoService.getLastPhotosFromSellers(followerID, numberOfPhotos);
     }
 
     public PublicPhotoDTO deletePhoto(Long id) {
