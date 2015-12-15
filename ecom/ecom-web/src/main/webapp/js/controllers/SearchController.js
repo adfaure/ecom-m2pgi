@@ -1,27 +1,6 @@
 var angular = require('angular');
 
 var searchController = function($scope, $location, $routeParams, apiToken, publicPhoto) {
-  var cachedPhotos = [];
-  var searchTerms = "";
-
-  var user;
-
-  if(apiToken.isAuthentificated()) {
-    user = apiToken.getUser();
-  }
-
-  publicPhoto.GetAll().then(function(res) {
-    $scope.photos = cachedPhotos = res;
-  });
-
-  if($routeParams.terms) {
-    searchTerms = $routeParams.terms;
-  }
-
-  $scope.details = function(photoId) {
-    if(isNaN(photoId)) return;
-    $location.path('/photos/details/' + photoId);
-  };
 
   $scope.search = {
     terms : '',
@@ -29,21 +8,29 @@ var searchController = function($scope, $location, $routeParams, apiToken, publi
     took : 0
   };
 
-  $scope.photosFromCache = function() {
-    $scope.terms = '';
-    $scope.search.hitCount = null;
-    $scope.photos = cachedPhotos;
+  $scope.photos = [];
+
+  var user;
+
+  if(apiToken.isAuthentificated()) {
+    user = apiToken.getUser();
   }
 
-  publicPhoto.Search(searchTerms).then(function(res) {
-    $scope.search.terms = searchTerms;
-    $scope.search.hitCount = res.totalHits;
-    $scope.search.took = res.took;
-    $scope.photos = res.hits;
-  });
-  console.log("reloaded");
+  if($routeParams.terms) {
+    $scope.search.terms = $routeParams.terms;
+  }
 
-  $scope.$on('search', function(event, mass) { console.log(mass); });
+  if(!$scope.search.terms) {
+    publicPhoto.GetAll().then(function(res) {
+      $scope.photos = res;
+    });
+  } else {
+    publicPhoto.Search($scope.search.terms).then(function(res) {
+      $scope.search.hitCount = res.totalHits;
+      $scope.search.took = res.took;
+      $scope.photos = res.hits;
+    });
+  }
 };
 
 module.exports = searchController;

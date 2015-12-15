@@ -18,7 +18,7 @@ public class PhotoDocument {
 	@XmlElement
 	private String tags;
 
-	@XmlElement(name = "webLocation")
+	@XmlElement(name = "thumbnail")
 	private String location;
 
 	public Long getId() {

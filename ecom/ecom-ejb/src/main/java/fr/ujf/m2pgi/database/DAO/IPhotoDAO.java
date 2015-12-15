@@ -56,13 +56,13 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	 * @param login
 	 * @return
 	 */
-	
+
 	List<PhotoContextSmallDTO> getLastPhotosContext(Long memberID, Long sellerID, int numberOfPics);
 
 	List<ManagePhotoDTO> getUserPhotos(String login);
 
 	List<Photo> getUserPhotosEntity(String login);
-	
+
 	/**
 	 *
 	 * @return number of photos in the DB
@@ -70,14 +70,4 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
 	Long getPhotoCount();
 
 	List<Photo> getAllAvailablePhotos();
-
-	void incrementViews(Long id);
-
-	void incrementLikes(Long id);
-
-	void decrementLikes(Long id);
-
-	void incrementWishes(Long id);
-
-	void decrementWishes(Long id);
 }
