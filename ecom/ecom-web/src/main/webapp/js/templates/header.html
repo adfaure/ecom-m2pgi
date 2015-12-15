@@ -27,12 +27,12 @@
         <button type="submit" class="btn btn-default">Chercher</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li class="cursorPointer" title="Uploader une photo">
+        <li data-ng-show="!auth || (auth && !admin)" class="cursorPointer" title="Uploader une photo">
           <a class="fa" data-ng-click="goToAddPhoto()" >
             <i class="fa fa-cloud-upload fa-2x"></i><span class="sr-only">(current)</span>
           </a>
         </li>
-        <li data-ng-show="auth" class="cursorPointer">
+        <li data-ng-show="!admin" class="cursorPointer">
           <a class="fa" data-ng-click="gotToProfil('myCart')" >
             <i data-ng-class="{'greenIcon': user.cart.length }" class="fa fa-cart-arrow-down fa-2x"></i>
             <strong ng-show="user.cart.length">({{ user.cart.length }})</strong>
@@ -44,9 +44,13 @@
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <strong>{{ user.firstName }} {{ user.lastName }}</strong><span class="caret"></span></a>
           <ul class="dropdown-menu">
-		    <li data-ng-show="auth"><a href="#/profil/details"> Mon compte </a></li>
+		    <li data-ng-show="!admin && auth">
+              <a href="#/profil/details"> Mon compte </a>
+            </li>
             <li role="separator" class="divider"></li>
-		    <li data-ng-show="auth"><a href="#/" ng-click="logout()"> Déconnexion </a></li>
+		    <li data-ng-show="auth">
+              <a href="#/" ng-click="logout()"> Déconnexion </a>
+            </li>
           </ul>
         </li>
       </ul>
