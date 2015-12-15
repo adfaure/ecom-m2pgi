@@ -5,12 +5,12 @@ var upload = function($scope, $sce, $http, $q ,$location ,uploadPhoto , apiToken
     var user = {};
     if(!apiToken.isAuthentificated()) {
         alertService.add("alert-info", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour uploader une photo ...</strong>"), 3000);
-        $location.path('/inscription/seller').search('redirect', '/profil/addPhoto');
+        //$location.path('/inscription/seller').search('redirect', '/profil/addPhoto');
     } else {
         user = apiToken.getUser();
         if($scope.user.accountType == 'M') {
-            alertService.add("alert-info", $sce.trustAsHtml("<strong>Il faut posseder un compte vendeur pour uploader un photo</strong>"), 3000);
-            $location.path('/profil/upgrade').search('redirect', '/profil/addPhoto');
+            alertService.add("alert-info", $sce.trustAsHtml("<strong>Il faut posseder un <a href='#/profil/upgrade'>compte vendeur</a> pour uploader un photo</strong>"), 3000);
+            //$location.path('/profil/upgrade').search('redirect', '/profil/addPhoto');
         }
     }
 
