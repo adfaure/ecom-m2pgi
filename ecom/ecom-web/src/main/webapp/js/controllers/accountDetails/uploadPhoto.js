@@ -14,6 +14,7 @@ var upload = function($scope, $sce, $http, $q ,$location ,uploadPhoto , apiToken
         }
     }
 
+    $scope.loading = false;
     $scope.submit = submit;
     $scope.photoData = {
       description: '',
@@ -26,7 +27,7 @@ var upload = function($scope, $sce, $http, $q ,$location ,uploadPhoto , apiToken
 
 
     function submit(redirect) {
-
+        $scope.loading = true;
         $scope.photoData.tags = $scope.inputTags.map(function(currentValue) {
             return currentValue.name;
         }).join(" ");
@@ -36,6 +37,7 @@ var upload = function($scope, $sce, $http, $q ,$location ,uploadPhoto , apiToken
             data : $scope.photoData
         }, $scope.user.memberID).then(
             function(res) {
+                $scope.loading = false;
                 if(res.success) {
                     $scope.setView(redirect);
                     alertService.add("alert-success", $sce.trustAsHtml("<strong>Photo chargée avec succès !</strong>"), 2000);
