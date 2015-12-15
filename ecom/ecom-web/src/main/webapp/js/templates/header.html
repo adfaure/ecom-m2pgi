@@ -19,9 +19,9 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form id="searchnavbar"  class="navbar-form navbar-left" role="search" name="searchForm" data-ng-submit="search();">
+      <form id="searchnavbar"  class="navbar-form navbar-left" role="search" name="searchForm" data-ng-submit="search()">
         <div class="form-group">
-          <input id="searchInput" type="text" class="form-control" data-ng-model="terms" data-ng-change="search();"
+          <input id="searchInput" type="text" class="form-control" data-ng-model="terms" data-ng-change="search()"
           placeholder="{{placeholder}}" focus-on-load>
         </div>
         <button type="submit" class="btn btn-default">Chercher</button>
@@ -34,7 +34,9 @@
         </li>
         <li data-ng-show="auth" class="cursorPointer">
           <a class="fa" data-ng-click="gotToProfil('myCart')" >
-            <i data-ng-class="{'greenIcon': user.cart.length }" class="fa fa-cart-arrow-down fa-2x"></i>({{ user.cart.length }})<span class="sr-only">(current)</span>
+            <i data-ng-class="{'greenIcon': user.cart.length }" class="fa fa-cart-arrow-down fa-2x"></i>
+            <strong ng-show="user.cart.length">({{ user.cart.length }})</strong>
+            <span class="sr-only">(current)</span>
           </a>
         </li>
         <li data-ng-show="!auth"><a href="#/inscription"> Authentification </a></li>

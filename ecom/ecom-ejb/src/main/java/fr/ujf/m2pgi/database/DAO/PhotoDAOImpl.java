@@ -132,7 +132,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		query.setParameter("id", memberID);
 		return query.getResultList();
 	}
-	
+
 	public List<PhotoContextSmallDTO> getLastPhotosContext(Long memberID, Long sellerID, int numberOfPics) {
 		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO" +
 				"(p.photoID, p.author.memberID, p.name, p.webLocation, p.thumbnail, p.price, p.views, p.likes, " +
@@ -268,39 +268,5 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery("SELECT p FROM Photo p where p.available = true");
 		return (List<Photo>)query.getResultList();
 
-	}
-
-	public void incrementViews(Long id) {
-		Query query = entityManager.createQuery("UPDATE Photo p SET p.views = p.views + 1 WHERE p.photoID = :id");
-		query.setParameter("id", id);
-		int updateCount = query.executeUpdate();
-	}
-
-	@Override
-	public void incrementLikes(Long id) {
-		Query query = entityManager.createQuery("UPDATE Photo p SET p.likes = p.likes + 1 WHERE p.photoID = :id");
-		query.setParameter("id", id);
-		int updateCount = query.executeUpdate();
-	}
-
-	@Override
-	public void decrementLikes(Long id) {
-		Query query = entityManager.createQuery("UPDATE Photo p SET p.likes = p.likes - 1 WHERE p.photoID = :id");
-		query.setParameter("id", id);
-		int updateCount = query.executeUpdate();
-	}
-
-	@Override
-	public void incrementWishes(Long id) {
-		Query query = entityManager.createQuery("UPDATE Photo p SET p.wishes = p.wishes + 1 WHERE p.photoID = :id");
-		query.setParameter("id", id);
-		int updateCount = query.executeUpdate();
-	}
-
-	@Override
-	public void decrementWishes(Long id) {
-		Query query = entityManager.createQuery("UPDATE Photo p SET p.wishes = p.wishes - 1 WHERE p.photoID = :id");
-		query.setParameter("id", id);
-		int updateCount = query.executeUpdate();
 	}
 }

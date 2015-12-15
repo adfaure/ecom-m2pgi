@@ -27,7 +27,7 @@ var manage = function($scope, $location , $routeParams, $filter,  $interval, Tag
 				$scope.highlight = idx;
 				$interval(function() {
 					$scope.highlight = -1;
-				}, 1500, 1);
+				}, 2000, 1);
 			}
 		}
 	});
@@ -94,7 +94,6 @@ var manage = function($scope, $location , $routeParams, $filter,  $interval, Tag
 	$scope.test = function() {
 		$scope.valid = true;
 		if(!$scope.form.name || !$scope.form.description || $scope.form.price === undefined) {
-			console.log("tes jambon!");
 			$scope.valid = false;
 		}
 	};

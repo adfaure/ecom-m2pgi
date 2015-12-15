@@ -1,21 +1,18 @@
 var angular = require('angular');
 
 var accueilController = function($scope, $location, apiToken, publicPhoto) {
-    var cachedPhotos = [];
-    $scope.hovering = false;
+  var cachedPhotos = [];
+  $scope.photos = [];
 
+  var user;
 
-    var user;
+  if(apiToken.isAuthentificated()) {
+    user = apiToken.getUser();
+  }
 
-    if(apiToken.isAuthentificated()) {
-        user = apiToken.getUser();
-    }
-
-    publicPhoto.GetAll().then(function(res) {
-            $scope.photos = cachedPhotos = res;
-        }
-    );
-
+  publicPhoto.GetAll().then(function(res) {
+    $scope.photos = cachedPhotos = res;
+  });
 };
 
 module.exports = accueilController;

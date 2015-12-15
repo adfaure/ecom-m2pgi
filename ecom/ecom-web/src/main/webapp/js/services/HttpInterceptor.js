@@ -4,7 +4,7 @@ function headerTokenInterceptor($q, $location, apiToken, localService) {
   return {
     'request': function (config) {
       if(apiToken.isAuthentificated()) {
-        config.headers['auth_token'] = apiToken.getToken();
+        config.headers['authtoken'] = apiToken.getToken();
       }
       return config;
     },
@@ -13,7 +13,7 @@ function headerTokenInterceptor($q, $location, apiToken, localService) {
       if (rejection.status === 401) {
         apiToken.setToken(null);
         apiToken.setUser(null);
-        localService.unset('auth_token');
+        localService.unset('authtoken');
         localService.unset('user');
         $location.path("/login");
       }

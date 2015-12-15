@@ -4,7 +4,7 @@
 
         <div class="headerCaption BGField">
             <div class="floatLeft cursorPointer">
-                <span class="fa fa-flag redSignalIcon brightOnHover" title="Signaler cette photo"></span>
+                <span class="fa fa-flag redSignalIcon brightOnHover" title="Signaler cette photo" data-ng-click="flag(photo.photoID)" data-ng-class="{colorRed: photo.flagged == true}"></span>
             </div>
             <div class="floatRight">
                 <div>

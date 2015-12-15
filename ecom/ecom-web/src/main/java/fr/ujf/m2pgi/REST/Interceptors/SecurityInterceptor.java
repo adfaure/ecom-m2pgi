@@ -65,7 +65,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 
 		Method method = resourceInfo.getResourceMethod();
-    String jwtToken = httpRequest.getHeader("auth_token");
+    String jwtToken = httpRequest.getHeader("authtoken");
     JwtInfo userInfo = null;
     if(jwtToken != null)
     {

@@ -52,6 +52,17 @@ var thumbnailElementDirective = function ($compile, $location, apiToken, publicP
                     });
                 }
             }
+
+            $scope.flag = function (photoID){
+                if(apiToken.isAuthentificated()) {
+                    var user = apiToken.getUser();
+                    if(!$scope.photo.flagged)  {
+                      publicPhoto.Flag(photoID, user.memberID).then(function(res) {
+                          $scope.photo.flagged = true;
+                      });
+                    }
+                }
+            };
         }
     };
 
