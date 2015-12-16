@@ -65,8 +65,13 @@ public class RESTAuthentification {
       MemberDTO member = memberService.getMemberByLogin(username);
 
       if(member == null) {
-        return Response.status(401).entity(
-   			 new CustomServerResponse(false, "Authentification failed: invalid username or password!")).build();
+        member = memberService.getMemberByEmail(username);
+
+        if(member == null)
+        {
+          return Response.status(401).entity(
+     			 new CustomServerResponse(false, "Authentification failed: invalid username/email or password!")).build();
+        }
       }
 
       if(member.getPassword().equals(stringDigest.digest(password))) {
@@ -103,7 +108,7 @@ public class RESTAuthentification {
         return Response.ok().entity(new CustomServerResponse(true, "Authentification successed!", resJson)).build();
       } else {
           return Response.status(401).entity(
-        		  new CustomServerResponse(false, "Authentification failed: invalid username or password!")).build();
+        		  new CustomServerResponse(false, "Authentification failed: invalid username/email or password!")).build();
       }
     }
 

@@ -1,20 +1,38 @@
 <div data-ng-controller="reportedPhotosController">
 
-<h3>{{ photos.length }} photo(s) signalée(s)</h3>
+<h3 ng-show="query">
+  La recherche a retourné <strong>{{ photos.length }}</strong> photo(s) !
+</h3>
+<h3 ng-show="!query">
+  Il y a {{ photos.length }} photo(s) signalée(s)
+</h3>
 
-<table class="table">
+<table class="table" ng-show="photos.length > 0">
   <tbody>
+    <tr>
+      <th>Photo</th>
+      <th>Nom</th>
+      <th>Description</th>
+      <th>Prix</th>
+      <th>Signalements</th>
+      <th>Action</th>
+    </tr>
     <tr ng-repeat="photo in photos">
       <td>
         <a href="" data-ng-click="goto(photo.photoID)">
-          <img width="128" data-ng-src="{{ photo.webLocation }}" alt="{{ photo.name }}">
+          <img width="128" data-ng-src="{{ photo.thumbnail }}" alt="{{ photo.name }}">
         </a>
       </td>
-      <td><strong>{{ photo.name | limitTo : 20 }}</strong></td>
       <td>
-        <span>{{ photo.description }}</span>
+        <strong><span ng-bind-html="photo.name | highlight:query"></span></strong>
+      </td>
+      <td>
+        <span ng-bind-html="photo.description | highlight:query"></span>
       </td>
       <td>{{ photo.price | currency:"&euro;" }}</td>
+      <td>
+        <span class="label" ng-class="{'label-warning': photo.reports < 5,'label-danger': photo.reports > 5}">{{ photo.reports }}</span>
+      </td>
       <td>
         <button class="btn  btn-success" data-ng-click="validate($index)">
           <span class="glyphicon glyphicon-ok-sign"></span> Valider

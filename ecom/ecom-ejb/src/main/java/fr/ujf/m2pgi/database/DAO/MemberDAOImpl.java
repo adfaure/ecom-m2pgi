@@ -47,7 +47,7 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Member findMemberByEmail(String email) {
 		Query query = entityManager.createQuery("select m FROM Member m WHERE m.email=:email");
@@ -70,13 +70,13 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		attachedMember.setCart(attachedCart );
 		return super.update(attachedMember);
 	}
-	
+
 	public List<Member> getAllMembers(){
 		Query query = entityManager.createQuery("SELECT m FROM Member m ORDER BY m.memberID");
 		List<Member> members = query.getResultList();
 		return members;
 	}
-	
+
 	public List<Member> getSellersFollowedBy(long id){
 		Query query = entityManager.createQuery("SELECT m FROM Member m WHERE m IN (SELECT f.followed FROM Follow f WHERE f.follower.memberID=:memID)");
 		query.setParameter("memID", id);
@@ -90,13 +90,13 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		if(member == null || member.getSellerInfo() == null) return null;
 		return member;
 	}
-	
+
 	public Long getSellerCount(){
 		String q = "SELECT count(e) FROM Member e where e.accountType = 'S'";
 		Query query = entityManager.createQuery(q);
 		return (Long) query.getSingleResult();
 	}
-	
+
 	public Long getMemberCount(){
 		String q = "SELECT count(e) FROM Member e where e.accountType <> 'A'";
 		Query query = entityManager.createQuery(q);
@@ -110,4 +110,3 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		return members;
 	}
 }
-

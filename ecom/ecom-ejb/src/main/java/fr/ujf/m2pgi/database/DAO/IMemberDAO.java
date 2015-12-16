@@ -19,21 +19,20 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	 * @return
 	 */
 	Member findMemberByLogin(String login);
-	
+
+	Member findMemberByEmail(String email);
+
 	Member updateCart(Member member);
 
 	List<Member> getAllMembers();
-	
+
 	List<Member> getTopSellers();
-	
+
 	List<Member> getSellersFollowedBy(long id);
 
 	Member getSellerById(long id);
-	
-	Long getSellerCount();
-	
-	Long getMemberCount();
-	
-	Member findMemberByEmail(String email);
 
+	Long getSellerCount();
+
+	Long getMemberCount();
 }
