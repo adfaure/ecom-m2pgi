@@ -1,5 +1,7 @@
 package fr.ujf.m2pgi.database.DTO;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,7 +19,7 @@ public class PhotoContextSmallDTO {
 
 	private String name;
 
-	private String webLocation;
+	private Date dateCreated;
 
 	private long sellerID;
 
@@ -32,20 +34,20 @@ public class PhotoContextSmallDTO {
 	private Integer likes;
 
 	private boolean inCart;
-	
+
 	private boolean isBought;
 
 	private boolean liked;
 
 	private boolean flagged;
 
-	public PhotoContextSmallDTO(long photoID, long sellerID,  String name, String webLocation, String thumbnail, float price, Integer views, Integer likes,
+	public PhotoContextSmallDTO(long photoID, long sellerID,  String name, Date dateCreated, String thumbnail, float price, Integer views, Integer likes,
 			boolean wishlisted, boolean inCart, boolean isBought, boolean liked, boolean flagged) {
 		super();
 		this.setSellerID(sellerID);
 		this.photoID = photoID;
 		this.name = name;
-		this.webLocation = webLocation;
+		this.dateCreated = dateCreated;
 		this.thumbnail = thumbnail;
 		this.price = price;
 		this.views = views;
@@ -73,12 +75,12 @@ public class PhotoContextSmallDTO {
 		this.photoID = photoID;
 	}
 
-	public String getWebLocation() {
-		return webLocation;
+	public Date getDateCreated() {
+		return dateCreated;
 	}
 
-	public void setWebLocation(String webLocation) {
-		this.webLocation = webLocation;
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	public String getName() {

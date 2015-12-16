@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Date;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
@@ -151,6 +152,9 @@ public class PhotoService implements IPhotoService {
 			doc.setPrice(created.getPrice());
 			doc.setViews(0);
 			doc.setLikes(0);
+			// Since at this time we dont have the dateCreated (null). We only need this value for ES to sort by date.
+			doc.setDateCreated(System.currentTimeMillis());
+
 		  try {
 			    photoDaoES.index(doc);
 		  } catch (IOException e) {

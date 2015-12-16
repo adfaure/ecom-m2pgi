@@ -45,12 +45,19 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
 
     $scope.terms = '';
 
+    $scope.elasticsearch = function() {
+      if($scope.terms) {
+        $location.path('/accueil').search( {
+          'terms' : $scope.terms
+        });
+      } else {
+        $location.path('/accueil');
+      }
+
+    };
+
     $scope.search = function() {
       $rootScope.$broadcast('search', {query: $scope.terms});
-    }
-
-    $scope.elastic = function() {
-      $rootScope.$broadcast('elastic', {query: $scope.terms});
     }
 
     $scope.change = function() {
