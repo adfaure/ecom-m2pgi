@@ -2,7 +2,7 @@ var angular = require('angular');
 
 module.exports = function ($scope, $location, $sce, $routeParams, apiToken, publicPhoto, alertService, cartService) {
 
-/*    console.log($routeParams);
+    console.log($routeParams);
     if($routeParams.payLoad) {
         var init = JSON.parse($routeParams.payLoad);
         if($routeParams.newAccount) {
@@ -12,7 +12,7 @@ module.exports = function ($scope, $location, $sce, $routeParams, apiToken, publ
         }
         console.log(init);
     }
-*/
+
     $scope.totalPrice = 0;
     var cart = $scope.cart = cartService.getCart();
 

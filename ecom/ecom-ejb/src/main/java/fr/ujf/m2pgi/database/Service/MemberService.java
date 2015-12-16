@@ -144,6 +144,10 @@ public class MemberService implements IMemberService {
             System.err.println("no cart --- creating");
             cart = new ArrayList<Photo>();
         }
+        if(publicPhotoDTO.getSellerID() == member.getMemberID()) {
+            System.err.println("cannot add own photo"); // on verify que le seller n'ajoute pas ses propres photo
+            return member;
+        }
         boolean exist = false;
         for (Photo photo : cart) {
             if (photo.getPhotoID() == publicPhotoDTO.getPhotoID()) {

@@ -7,15 +7,15 @@ function loginService($http, apiToken, localService, cartService) {
     return service;
 
     function login(username, password) {
-        var data = angular.element.param(
-            {password: password}
-        );
-
+        var cart = cartService.getCart();
         return $http({
             method: 'POST',
             url: 'api/auth/login/' + username,
-            data: data,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            data: {
+                password : password,
+                cart : cart
+            },
+            headers: {'Content-Type': 'application/json'}
         }).then(handleLoginSuccess, handleError('cannot login'));
     };
 
