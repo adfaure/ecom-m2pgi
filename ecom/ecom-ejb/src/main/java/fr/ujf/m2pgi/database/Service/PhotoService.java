@@ -136,7 +136,7 @@ public class PhotoService implements IPhotoService {
 			}
 		  Photo photoEntity = photoMapper.getentity(photo);
 		  photoEntity.setAuthor(seller);
-			photoEntity.setTags(tagDAO.getTags(photo.getTags()));
+		  photoEntity.setTags(tagDAO.getTags(photo.getTags()));
 		  PublicPhotoDTO created = publicPhotoMapper.getDTO(photoDao.create(photoEntity));
 		  PhotoDocument doc = new PhotoDocument();
 		  doc.setPhotoId(created.getPhotoID());
