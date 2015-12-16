@@ -214,6 +214,11 @@
     font-size:40px;
 }
 
+#searchnavbar {
+    position: absolute;
+    right: 25%;
+    left: 25%;
+}
 
 
 /* Sidebar styles */
@@ -259,4 +264,9 @@
     z-index: 1;
     left: 15px;
     right: 0px;
+}
+
+.navbar-toggle{
+    margin-left: 5px;
+    margin-right: 5px;
 }
