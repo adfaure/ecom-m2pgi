@@ -248,20 +248,20 @@
 
 
 .navbar {
-    margin-bottom: 0px;
+    margin-bottom: 15px;
 }
 
 .alert {
-    padding:0px;
+    padding: 7px;
 }
 
 .ngViewsContainer{
-    padding-top: 25px;
+    padding-top: 45px;
 }
 
 .alertContainer{
     position: absolute;
-    z-index: 1;
+    z-index: 10;
     left: 15px;
     right: 0px;
 }
