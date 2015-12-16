@@ -61,6 +61,9 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 	}
 
 	function emptyPSWvalues(){
+		
+		$scope.userPSWForm.$setPristine();
+		
 		$scope.user1.pswActuel = "";
 		$scope.user1.pswNouveau = "";
 		$scope.user1.pswConfirmation = "";
@@ -71,6 +74,7 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 			emptyPSWvalues();
 			$scope.editPSW = false;
 		}else if($scope.addRIB){
+			$scope.userRIBForm.$setPristine();
 			$scope.user1.sellerInfo.rib = "";
 			$scope.addRIB = false;
 		}else{
@@ -195,6 +199,7 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 				memb = res;
 			}
 		}
+		
 		fillOutInfo();
 		
 	}

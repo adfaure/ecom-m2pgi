@@ -15,16 +15,16 @@
 				<form class="css-form" name="loginform" novalidate ng-submit="loginform.$valid && logInto()">
 
 					<div class="form-group">
-						<label for="inputLogin">Login</label>
+						<label for="inputLogin" class="reqField">Pseudo</label>
 						<input required name="inputLogin" ng-model="login" type="text" class="form-control " id="inputLogin" placeholder="Pseudo" focus-on-load/>
-						<div class="alert-danger" ng-messages="loginform.inputLogin.$error" role="alert" ng-show="loginform.inputLogin.$touched">
+						<div class="alert-danger" ng-messages="loginform.inputLogin.$error" role="alert" ng-show="loginform.inputLogin.$dirty">
 							<div ng-messages-include="error-messages"></div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="inputPassword">Password</label>
-						<input required name="password" ng-model="password" type="password" class="form-control" id="inputPassword" placeholder="Mot de passe"/>
-						<div class="alert-danger" ng-messages="loginform.password.$error" role="alert" ng-show="loginform.password.$touched">
+						<label for="inputPassword" class="reqField">Mot de passe</label>
+						<input required name="password" ng-model="password" type="password" class="form-control" id="inputPassword" placeholder="Mot de passe" minlength="5"/>
+						<div class="alert-danger" ng-messages="loginform.password.$error" role="alert" ng-show="loginform.password.$dirty">
 							<div ng-messages-include="error-messages"></div>
 						</div>
 					</div>
@@ -57,18 +57,18 @@
 					<div class="row">
 						<div class="col-xs-12 col-md-6">
 							<div class="form-group">
-								<label for="inputFirstName">Prénom</label>
+								<label for="inputFirstName" class="reqField">Prénom</label>
 								<input required name="inputFirstName" ng-model="user.firstName" type="text" class="form-control" id="inputFirstName" placeholder="Prénom">
-								<div class="alert-danger" ng-messages="inscriptionform.inputFirstName.$error" role="alert" ng-show="inscriptionform.inputFirstName.$touched">
+								<div class="alert-danger" ng-messages="inscriptionform.inputFirstName.$error" role="alert" ng-show="inscriptionform.inputFirstName.$dirty">
 								  <div ng-messages-include="error-messages"></div>
 								</div>
 							</div>
 						</div>
 						<div class="col-xs-12 col-md-6">
 							<div class="form-group">
-								<label for="inputLastname">Nom</label>
+								<label for="inputLastname" class="reqField">Nom</label>
 								<input required name="inputLastname" ng-model="user.lastName" type="text" class="form-control" id="inputLastname" placeholder="Nom">
-								<div class="alert-danger" ng-messages="inscriptionform.inputLastname.$error" role="alert" ng-show="inscriptionform.inputLastname.$touched">
+								<div class="alert-danger" ng-messages="inscriptionform.inputLastname.$error" role="alert" ng-show="inscriptionform.inputLastname.$dirty">
 								  <div ng-messages-include="error-messages"></div>
 								</div>
 							</div>
@@ -76,28 +76,28 @@
 					</div>
 
 					<div class="form-group">
-						<label for="inputEmail">Email</label>
+						<label for="inputEmail" class="reqField">Email</label>
 						<input required ng-model="user.email" type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Adresse mail">
-						 <div class="alert-danger" ng-messages="inscriptionform.inputEmail.$error" role="alert" ng-show="inscriptionform.inputEmail.$touched">
+						 <div class="alert-danger" ng-messages="inscriptionform.inputEmail.$error" role="alert" ng-show="inscriptionform.inputEmail.$dirty">
 						    <div ng-messages-include="error-messages"></div>
 						</div>
 						<div role="alert" class="alert-danger" ng-show="existingEmail">Cet email existe déjà</div>
 					</div>
 
 					<div class="form-group">
-						<label for="inputLoginInscription">Login</label>
+						<label for="inputLoginInscription" class="reqField">Pseudo</label>
 						<input required name="loginInput" ng-model="user.login" ng-mouseleave="checkLogin()" ng-blur="checkLogin()" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo">
-						<div class="alert-danger" ng-messages="inscriptionform.loginInput.$error" role="alert" ng-show="inscriptionform.loginInput.$touched">
+						<div class="alert-danger" ng-messages="inscriptionform.loginInput.$error" role="alert" ng-show="inscriptionform.loginInput.$dirty">
 						    <div ng-messages-include="error-messages"></div>
 						</div>
 						<div role="alert" class="alert-danger" ng-show="existingLogin">Ce pseudo existe déjà</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="inputPasswordInscription">Mot de passe</label>
+						<label for="inputPasswordInscription" class="reqField">Mot de passe</label>
 						<input required ng-model="user.password" type="password" class="form-control" id="inputPasswordInscription" name="inputPassword" placeholder="Mot de passe" minlength='5'>
 						<!-- <div role="alert" class="alert-danger" data-ng-show="!checkPass.valide">{{ checkPass.message }}</div> data-ng-blur="checkPassword()" data-ng-change="checkPassword()"-->
-						<div class="alert-danger" ng-messages="inscriptionform.inputPassword.$error" role="alert" ng-show="inscriptionform.inputPassword.$touched">
+						<div class="alert-danger" ng-messages="inscriptionform.inputPassword.$error" role="alert" ng-show="inscriptionform.inputPassword.$dirty">
 						   <div ng-messages-include="error-messages"></div>
 						</div>
 					</div>
