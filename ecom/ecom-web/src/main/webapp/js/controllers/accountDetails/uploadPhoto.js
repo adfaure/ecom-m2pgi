@@ -39,8 +39,8 @@ var upload = function($scope, $sce, $http, $q ,$location ,uploadPhoto , apiToken
             function(res) {
                 $scope.loading = false;
                 if(res.success) {
-                    $scope.setView(redirect);
-                    alertService.add("alert-success", $sce.trustAsHtml("<strong>Photo chargée avec succès !</strong>"), 2000);
+                    //$scope.setView(redirect);
+                    alertService.add("alert-success", $sce.trustAsHtml("<strong>Photo chargée avec succès dans votre <a href='#/profil/managePhotos'>magasin</a> !</strong>"), 5000);
                 }else{
                     alertService.add("alert-danger", $sce.trustAsHtml("<strong>Erreur lors du chargement de la photo !</strong>"), 1000);
                 }
