@@ -126,6 +126,7 @@ var cartService =  function($http, $q, $sce, $location ,apiToken, alertService) 
             return {
                 sellerID: photo.sellerID,
                 photoID : photo.photoID,
+                price : photo.price
             }
         });
     }
