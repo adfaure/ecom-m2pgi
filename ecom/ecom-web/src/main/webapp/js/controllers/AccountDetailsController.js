@@ -30,10 +30,7 @@ var accountDetails = function($scope, $routeParams, $location, apiToken) {
         $scope.subview = $routeParams.section;
     }
 
-    
-    if(!apiToken.isAuthentificated()) {
-        $location.path("/");
-    } else {
+    if(apiToken.isAuthentificated()) {
         $scope.user  = apiToken.getUser();
     }
 

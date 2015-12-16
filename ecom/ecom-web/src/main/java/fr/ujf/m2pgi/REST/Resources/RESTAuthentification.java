@@ -6,7 +6,12 @@ import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.Security.JwtSingleton;
 import fr.ujf.m2pgi.Security.IStringDigest;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
+import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Service.IMemberService;
+import org.hibernate.validator.internal.xml.XmlMappingParser;
+import org.jose4j.json.internal.json_simple.JSONArray;
+import org.jose4j.json.internal.json_simple.JSONObject;
+import org.jose4j.json.internal.json_simple.parser.JSONParser;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +20,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,17 +45,18 @@ public class RESTAuthentification {
 
     @POST
     @Path("/login/{username}")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes("application/json")
     @Produces("application/json")
     @Deny(groups="sellers;members;admin")
-    public Response login(@PathParam("username") String username)  {
+    public Response login(Map<String, Object> body, @PathParam("username") String username)  {
+
 
       if (username == null || username.equals("")) {
     	 return Response.status(401).entity(
     			 new CustomServerResponse(false, "Authentification failed: username and password required!")).build();
       }
 
-      String password = httpServletRequest.getParameter("password");
+      String password = (String) body.get("password");
       if (password == null || password.equals("")) {
     	 return Response.status(401).entity(
     			 new CustomServerResponse(false, "Authentification failed: username and password required!")).build();
@@ -80,7 +88,20 @@ public class RESTAuthentification {
           group = "admin";
             break;
         }
-        Map<String, Object> resJson = new HashMap<String, Object>();
+
+          List<Map<String, Object>>  cart = (List<Map<String, Object>>) body.get("cart");
+          List<PublicPhotoDTO> photos = new ArrayList<>();
+          if (cart != null) {
+              for(Map<String, Object> photoMap : cart) {
+                  PublicPhotoDTO photo = new PublicPhotoDTO();
+                  photo.setPhotoID(new Long((Integer) photoMap.get("photoID")));
+                  photo.setSellerID(new Long((Integer) photoMap.get("sellerID")));
+                  member = memberService.addToCart(member, photo);
+              }
+          }
+
+
+          Map<String, Object> resJson = new HashMap<String, Object>();
         resJson.put("token", jwtSingleton.generateToken(id, group));
         member.setPassword("");
         resJson.put("user", member);

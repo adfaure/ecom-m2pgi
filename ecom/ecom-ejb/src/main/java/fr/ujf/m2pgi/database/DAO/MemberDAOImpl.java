@@ -25,10 +25,17 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		if (id.getSequence() == 1) {
 			entity.setAccountType('A');
 		} else {
-			SellerInfo sellerInfo = entity.getSellerInfo();
+            SellerInfo sellerInfo = entity.getSellerInfo();
 			if(sellerInfo != null) {
 				sellerInfo.setId(id.getSequence());
 			}
+            List<Photo> attachedPhoto = new ArrayList<>();
+            if(entity.getCart() != null) {
+                for (Photo photo : entity.getCart()) {
+                    attachedPhoto.add(entityManager.getReference(Photo.class, photo.getPhotoID()));
+                }
+            }
+            entity.setCart(attachedPhoto);
 		}
 		return super.create(entity);
 	}

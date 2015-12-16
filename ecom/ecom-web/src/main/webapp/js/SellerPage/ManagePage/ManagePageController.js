@@ -2,7 +2,7 @@ var angular = require('angular');
 
 var pageTemplate = "./js/SellerPage/Page/PageTemplate.html";
 
-var controller = function($scope, $filter, $sce, pageService, alertService, apiToken, publicPhoto) {
+var controller = function($scope, $filter, $sce, pageService, sellerService, alertService, apiToken, publicPhoto) {
 
     var user = {};
     $scope.pageTemplate = pageTemplate;
@@ -10,10 +10,16 @@ var controller = function($scope, $filter, $sce, pageService, alertService, apiT
     $scope.modeView     = true;
     $scope.submit       = submit;
     $scope.toogleMode   = toogleMode;
+    $scope.followerCount = 0;
 
     var cachedPhotos = [];
     $scope.photos = [];
     $scope.query = '';
+
+
+    sellerService.GetFollowerCount($routeParams.id).then(function(res) {
+        $scope.followerCount = res;
+    });
 
     pageService.getPage($scope.user.memberID).then(function (res) {
         $scope.page = page = res.data;
