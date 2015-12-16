@@ -8,7 +8,7 @@
                             <i class="fa fa-euro" title="Prix">{{photo.price}}</i>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6">
+                    <div data-ng-show="!isAdmin" class="col-md-6 col-sm-6 col-lg-6">
                         <div data-ng-if="!alreadyInCart" class="cursorPointer">
                             <i class="fa fa-cart-plus brightOnHover" title="Ajouter au panier"></i>
                         </div>

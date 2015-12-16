@@ -12,6 +12,17 @@ var addToCart = function ($compile, $location, apiToken, cartService) {
         controller: function ($scope) {
             var user;
 
+            $scope.isAdmin = false;
+
+            $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
+                    if(isAuth) {
+                        $scope.$watch(apiToken.getUser, function(user) {
+                            $scope.isAdmin  = (user && user.accountType == "A");
+                        });
+                    }
+                }
+            );
+
             if (apiToken.isAuthentificated()) {
                 var updateCart = $scope.$watch(apiToken.getUser, function () {
                         if (!apiToken.isAuthentificated()) {
@@ -32,7 +43,7 @@ var addToCart = function ($compile, $location, apiToken, cartService) {
             }
 
             $scope.clicked = function() {
-                if(!$scope.photo.isBought) {
+                if(!$scope.photo.isBought && !$scope.isAdmin) {
                     if ($scope.owned) {
                         $scope.goToMyPhoto();
                     } else if ($scope.alreadyInCart) {
