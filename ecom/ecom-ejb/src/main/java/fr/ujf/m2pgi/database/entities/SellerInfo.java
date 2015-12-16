@@ -23,8 +23,8 @@ public class SellerInfo {
         if(this.page == null) {
             page = new SellerPage();
             page.setId(getId());
-            page.setContent("autogenrated default page");
-            page.setTitle("seller's page");
+            page.setContent("Page vendeur autogénérée par défaut");
+            page.setTitle("Titre de page vendeur");
         }
     }
 
