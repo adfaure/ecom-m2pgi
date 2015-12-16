@@ -184,4 +184,12 @@ public class RESTSellerServlet {
     	Long sellerCount = customerService.getSellerCount();
     	return Response.ok(sellerCount).build();
     }
+
+    @GET
+    @Path("id/{id}/followercount")
+    @Produces("application/json")
+    public Response getFollowerCount(@PathParam("id") long id) {
+      Long followerCount = memberService.getSellerFollowerCount(id);
+      return Response.ok(followerCount).build();
+    }
 }
