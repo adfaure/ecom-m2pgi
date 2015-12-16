@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memberService, sellerService, $location, authentificationService, alertService) {
+var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memberService, sellerService, cartService, $location, authentificationService, alertService) {
 
 	if(apiToken.isAuthentificated()) {
 		$location.path('/');
@@ -28,6 +28,7 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
 
 	$scope.submitInscription = function () {
     	var res = null;
+		$scope.user.cart = cartService.getCart();
     	if($scope.sellerCheckBox) {
     		res = sellerService.Create($scope.user);
     		$scope.user.accountType = 'S';
@@ -48,8 +49,10 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
 	        	}).then(function(res) {
                     if(res.success) {
 						if($routeParams.redirect) {
-							var payLoad = $routeParams.payLoad || JSON.stringify({});
-							$location.path($routeParams.redirect).search('payLoad', payLoad);
+							if($routeParams.payLoad) {
+								$location.search('payLoad', $routeParams.payLoad)
+							}
+							$location.path($routeParams.redirect);
 						} else {
 							$location.path("/accueil");
 						}
@@ -65,8 +68,10 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
 				function(res) {
 					if(res.success) {
 						if($routeParams.redirect) {
-							var payLoad = $routeParams.payLoad || JSON.stringify({});
-							$location.path($routeParams.redirect).search('payLoad', payLoad);
+							if($routeParams.payLoad) {
+								$location.search('payLoad', $routeParams.payLoad)
+							}
+							$location.path($routeParams.redirect);
 						} else {
 							$location.path("/accueil");
 						}

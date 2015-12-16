@@ -1,11 +1,12 @@
 var angular = require('angular');
 var ecomApp = require('./../app');
 
-var headerController = function($rootScope, $scope, $location, $sce, apiToken, authentificationService, alertService, searchService) {
+var headerController = function($rootScope, $scope, $location, $sce, apiToken, authentificationService, alertService,cartService ,searchService) {
     $scope.auth = apiToken.isAuthentificated();
-
+    $scope.cart = cartService.getCart();
     $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
             $scope.auth = isAuth;
+            $scope.cart = cartService.getCart();
             if($scope.auth) {
                 $scope.user = apiToken.getUser();
                 var userWatch = $scope.$watch(apiToken.getUser, function(user) {
@@ -21,6 +22,10 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
             }
         }
     );
+
+    $scope.$watch(cartService.getCart, function(cart) {
+        $scope.cart = cart;
+    });
 
     $scope.placeholder = "Rechercher dans le site...";
 

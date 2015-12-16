@@ -6,33 +6,30 @@ var addToCart = function ($compile, $location, apiToken, cartService) {
         restrict: 'E',
         scope: {
             photo: "=photo",
-            isButton : "="
+            isButton: "="
         },
         templateUrl: './js/Cart/addToCart/addToCartTemplate.html',
         controller: function ($scope) {
             var user;
+            $scope.$watchCollection(cartService.getCart, function (cart) {
+                    $scope.alreadyInCart = (cart.find(function (elem, idx, array) {
+                        return (elem.photoID == $scope.photo.photoID);
+                    }) != undefined);
+                    if (!apiToken.isAuthentificated()) {
 
-            if (apiToken.isAuthentificated()) {
-                var updateCart = $scope.$watch(apiToken.getUser, function () {
-                        if (!apiToken.isAuthentificated()) {
-                            updateCart(); //stop the watch if the user is not logged in anymore
-                            return;
-                        }
+                    } else {
                         user = apiToken.getUser();
                         if (user.memberID == $scope.photo.sellerID) {
                             $scope.owned = true;
                         } else {
                             $scope.owned = false;
-                            $scope.alreadyInCart = (user.cart.find(function (elem, idx, array) {
-                                return (elem.photoID == $scope.photo.photoID);
-                            }) != undefined);
                         }
                     }
-                );
-            }
+                }
+            );
 
-            $scope.clicked = function() {
-                if(!$scope.photo.isBought) {
+            $scope.clicked = function () {
+                if (!$scope.photo.isBought) {
                     if ($scope.owned) {
                         $scope.goToMyPhoto();
                     } else if ($scope.alreadyInCart) {
@@ -40,12 +37,12 @@ var addToCart = function ($compile, $location, apiToken, cartService) {
                     } else {
                         clickAdd($scope.photo);
                     }
-                } else  {
+                } else {
                     $location.path('/photos/details/' + $scope.photo.photoID);
                 }
             };
 
-            $scope.clickAdd    = clickAdd;
+            $scope.clickAdd = clickAdd;
             $scope.clickRemove = clickRemove;
             $scope.goToMyPhoto = function () {
                 $location.path('/profil/managePhotos').search({
@@ -56,23 +53,11 @@ var addToCart = function ($compile, $location, apiToken, cartService) {
     };
 
     function clickAdd(photo) {
-        if(!apiToken.isAuthentificated()) {
-            var currentPath = $location.path();
-            $location.path('/inscription').search('redirect', currentPath);
-        } else {
-            cartService.addToCart(photo).then(function (res) {
-                    if (res.success)
-                        apiToken.setUser(res.data);
-                }
-            );
-        }
+        cartService.addToCart(photo);
     }
 
     function clickRemove(photo) {
-        cartService.removeToCart(photo).then(function (res) {
-            if (res.success)
-                apiToken.setUser(res.data);
-        })
+        cartService.removeToCart(photo);
     }
 
 };
