@@ -55,11 +55,12 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
                             $location.search('payLoad', $routeParams.payLoad)
                         }
                         $location.path($routeParams.redirect);
-                        if ($scope.user.accountType == 'S') {
-                            $location.path("/profil/myPage").search('first');
-                        } else {
-                            $location.path("/accueil");
-                        }
+                    } else   {
+                            if ($scope.user.accountType == 'S') {
+                                $location.path("/profil/myPage").search('first');
+                            } else {
+                                $location.path("/accueil");
+                            }
                     }
                 } else {
                     $location.path("/inscription");
