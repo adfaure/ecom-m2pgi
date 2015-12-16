@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PhotoDocument {
 
-	private long photoID;
+	private Long photoID;
 
 	private String name;
 
@@ -19,13 +19,13 @@ public class PhotoDocument {
 
 	private String thumbnail;
 
-	private float price;
+	private Float price;
 
-	private int views;
+	private Integer views;
 
-	private int likes;
+	private Integer likes;
 
-	public long getPhotoId() {
+	public Long getPhotoId() {
 		return photoID;
 	}
 
@@ -65,27 +65,27 @@ public class PhotoDocument {
 		this.thumbnail = thumbnail;
 	}
 
-	public float getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 
-	public int getViews() {
+	public Integer getViews() {
 		return views;
 	}
 
-	public void setViews(int views) {
+	public void setViews(Integer views) {
 		this.views = views;
 	}
 
-	public int getLikes() {
+	public Integer getLikes() {
 		return likes;
 	}
 
-	public void setLikes(int likes) {
+	public void setLikes(Integer likes) {
 		this.likes = likes;
 	}
 }

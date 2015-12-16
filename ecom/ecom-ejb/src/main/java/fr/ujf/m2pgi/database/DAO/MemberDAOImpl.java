@@ -22,9 +22,13 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		MemberIdGenerator id = new MemberIdGenerator();
 		this.entityManager.persist(id);
 		entity.setMemberID(id.getSequence());
-		SellerInfo sellerInfo = entity.getSellerInfo();
-		if(sellerInfo != null) {
-			sellerInfo.setId(id.getSequence());
+		if (id.getSequence() == 1) {
+			entity.setAccountType('A');
+		} else {
+			SellerInfo sellerInfo = entity.getSellerInfo();
+			if(sellerInfo != null) {
+				sellerInfo.setId(id.getSequence());
+			}
 		}
 		return super.create(entity);
 	}
@@ -75,6 +79,13 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		query.setParameter("memID", id);
 		List<Member> sellers = query.getResultList();
 		return sellers;
+	}
+
+	public Long getSellerFollowerCount(Long sellerID) {
+		String q = "SELECT count(f.id) FROM Follow f where f.followed.memberID = :sellerid";
+		Query query = entityManager.createQuery(q);
+		query.setParameter("sellerid", sellerID);
+		return (Long) query.getSingleResult();
 	}
 
 	@Override

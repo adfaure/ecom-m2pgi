@@ -8,14 +8,14 @@
                         {{ page.content }}
                     </p>
                 </div>
-                <div class="col-md-12" ng-show="logged && !sameSeller">
-
-                    <button class="btn btn-default" ng-show="!followed" ng-click="follow()">
-			          <span class="glyphicon glyphicon-plus"></span>Follow
-			        </button>
-			        <button class="btn btn-success" ng-show="followed" ng-click="unfollow()">
-			          <span class="glyphicon glyphicon-ok"></span>Following
-			        </button>
+                <span class="glyphicon glyphicon-star">{{ followerCount }}</span>
+                <div ng-show="logged && !sameSeller">
+                  <button class="btn btn-default" ng-show="!followed" ng-click="follow()">
+                    <span class="glyphicon glyphicon-plus"></span>Follow
+                  </button>
+                  <button class="btn btn-success" ng-show="followed" ng-click="unfollow()">
+                    <span class="glyphicon glyphicon-ok"></span>Following
+                  </button>
                 </div>
 
             </div>

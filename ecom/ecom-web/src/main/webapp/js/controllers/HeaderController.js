@@ -36,16 +36,19 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
         $location.path('/profil/addPhoto');
     };
 
-    $scope.goToSearch = function() {
-        $location.path('/search').search( {
-            'terms' : $scope.terms
-        });
-    };
-
     $scope.terms = '';
 
     $scope.search = function() {
       $rootScope.$broadcast('search', {query: $scope.terms});
+    }
+
+    $scope.elastic = function() {
+      $rootScope.$broadcast('elastic', {query: $scope.terms});
+    }
+
+    $scope.change = function() {
+      $rootScope.$broadcast('search', {query: $scope.terms});
+      if(!$scope.terms) $rootScope.$broadcast('elastic', {query: $scope.terms});
     }
 };
 

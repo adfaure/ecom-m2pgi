@@ -19,9 +19,9 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form id="searchnavbar"  class="navbar-form navbar-left" role="search" name="searchForm" data-ng-submit="search()">
+      <form id="searchnavbar"  class="navbar-form navbar-left" role="search" name="searchForm" data-ng-submit="search();elastic();">
         <div class="form-group">
-          <input id="searchInput" type="text" class="form-control" data-ng-model="terms" data-ng-change="search()"
+          <input id="searchInput" type="text" class="form-control" data-ng-model="terms" data-ng-change="change();"
           placeholder="{{placeholder}}" focus-on-load>
         </div>
         <button type="submit" class="btn btn-default">Chercher</button>

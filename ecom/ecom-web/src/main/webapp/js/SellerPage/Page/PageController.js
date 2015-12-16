@@ -1,12 +1,13 @@
 var angular = require('angular');
 
 
-var controller = function($scope, $location, $filter, alertService, $routeParams, memberService, pageService, publicPhoto, apiToken) {
+var controller = function($scope, $location, $filter, alertService, $routeParams, memberService, sellerService, pageService, publicPhoto, apiToken) {
 
     var cachedPhotos = [];
     $scope.photos = [];
     $scope.query = '';
 
+    $scope.followerCount = 0;
     $scope.followed = false;
     $scope.logged = false;
     $scope.sameSeller = false;
@@ -15,7 +16,6 @@ var controller = function($scope, $location, $filter, alertService, $routeParams
         publicPhoto.GetUserPhotosWithId($routeParams.id).then(
             function (res) {
                 $scope.photos = cachedPhotos = res;
-                $scope.photos = res;
             }
         );
         pageService.getPage($routeParams.id).then(function (res) {
@@ -23,26 +23,25 @@ var controller = function($scope, $location, $filter, alertService, $routeParams
         });
     }
 
+    sellerService.GetFollowerCount($routeParams.id).then(function(res) {
+      $scope.followerCount = res;
+    });
+
     var userIDFollower = 0;
     var followedID = $routeParams.id;
-	if(apiToken.isAuthentificated()) {
-		userIDFollower  = apiToken.getUser().memberID;
-		$scope.logged = true;
-		if(userIDFollower == followedID){
-			$scope.sameSeller = true;
-		}else{
-			memberService.IsFollowedBy(followedID, userIDFollower).then(function(res){
-		    	var isFollowed = res;
-		    	$scope.followed = isFollowed;
-		    });
-		}
-    } 
+    if(apiToken.isAuthentificated()) {
+      userIDFollower  = apiToken.getUser().memberID;
+      $scope.logged = true;
+      if(userIDFollower == followedID){
+        $scope.sameSeller = true;
+      }else{
+        memberService.IsFollowedBy(followedID, userIDFollower).then(function(res){
+          var isFollowed = res;
+          $scope.followed = isFollowed;
+        });
+      }
+    }
 
-	    memberService.IsFollowedBy(followedID, userIDFollower).then(function(res){
-	    	var isFollowed = res;
-	    	$scope.followed = isFollowed;
-	    });
-    
 
     $scope.follow = function(){
     	memberService.follow(userIDFollower, followedID).then(function(res){
