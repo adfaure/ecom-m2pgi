@@ -92,7 +92,8 @@ var cartService =  function($http, $q, $sce, $location ,apiToken, alertService) 
                 defer.resolve();
                 return defer.promise.then(handleError("Attention, vous ne pouvez pas valider un panier vide"));
             }
-            return $http.post(route, usr.cart).then(handleSuccess("Panier validé avec succès"),
+            var cart = parseCart( usr.cart);
+            return $http.post(route, cart).then(handleSuccess("Panier validé avec succès"),
                 handleError("Erreur lors de la validation du panier")
             )
         }
@@ -113,10 +114,20 @@ var cartService =  function($http, $q, $sce, $location ,apiToken, alertService) 
         }
     }
 
+
     function promiseResolver(elem) {
         var pr = $q.defer();
         pr.resolve(elem);
         return pr.promise;
+    }
+
+    function parseCart(cart) {
+        return cart.map(function(photo) {
+            return {
+                sellerID: photo.sellerID,
+                photoID : photo.photoID,
+            }
+        });
     }
 };
 
