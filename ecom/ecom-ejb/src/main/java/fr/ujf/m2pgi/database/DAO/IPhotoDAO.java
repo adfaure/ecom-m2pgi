@@ -9,6 +9,7 @@ import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.ManagePhotoDTO;
+import fr.ujf.m2pgi.database.DTO.ReportedPhotoDTO;
 
 /**
  *
@@ -24,7 +25,7 @@ public interface IPhotoDAO extends IGeneriqueDAO<Photo> {
      */
 	List<Photo> getAllPhotos();
 
-	List<Photo> getReportedPhotos();
+	List<ReportedPhotoDTO> getReportedPhotos();
 
 	List<Photo> getTop10Photos();
 

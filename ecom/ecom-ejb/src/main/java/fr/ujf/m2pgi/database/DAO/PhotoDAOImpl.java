@@ -9,6 +9,7 @@ import fr.ujf.m2pgi.database.DTO.PhotoContextBigDTO;
 import fr.ujf.m2pgi.database.DTO.PhotoContextSmallDTO;
 import fr.ujf.m2pgi.database.DTO.WishListPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.ManagePhotoDTO;
+import fr.ujf.m2pgi.database.DTO.ReportedPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.TagCustomDTO;
 import fr.ujf.m2pgi.database.entities.Photo;
 import fr.ujf.m2pgi.database.entities.Member;
@@ -107,10 +108,14 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Photo> getReportedPhotos() {
-		Query query = entityManager.createQuery("SELECT p FROM Photo p WHERE p.available = true " +
-		"AND EXISTS (SELECT r FROM Signal r WHERE r.photo.photoID = p.photoID)");
-	  return (List<Photo>)query.getResultList();
+	public List<ReportedPhotoDTO> getReportedPhotos() {
+
+		String str = "SELECT NEW fr.ujf.m2pgi.database.DTO.ReportedPhotoDTO" +
+		"(p.photoID, p.name, p.description, p.thumbnail, p.price, p.reports, p.dateCreated) "+
+		"FROM Photo p WHERE p.available = true AND p.reports > 0 ORDER BY p.reports DESC";
+		Query query = entityManager.createQuery(str, ReportedPhotoDTO.class);
+		List<ReportedPhotoDTO> photos = query.getResultList();
+		return photos;
 	}
 
 	@Override
@@ -127,7 +132,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		"THEN true ELSE false END AS liked, " +
 		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
 		"THEN true ELSE false END AS flagged) " +
-		"FROM Photo p WHERE p.available = true";
+		"FROM Photo p WHERE p.available = true AND p.reports < 3";
 		Query query = entityManager.createQuery(str, PhotoContextSmallDTO.class);
 		query.setParameter("id", memberID);
 		return query.getResultList();
@@ -146,7 +151,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 				"THEN true ELSE false END AS liked, " +
 				"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
 				"THEN true ELSE false END AS flagged) " +
-				"FROM Photo p WHERE p.available = true AND p.author.memberID = :sellerid ORDER BY p.dateCreated DESC";
+				"FROM Photo p WHERE p.available = true AND p.reports < 3 AND p.author.memberID = :sellerid ORDER BY p.dateCreated DESC";
 				Query query = entityManager.createQuery(str, PhotoContextSmallDTO.class);
 				query.setParameter("id", memberID);
 				query.setParameter("sellerid", sellerID);
@@ -172,7 +177,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		"THEN true ELSE false END AS liked, " +
 		"CASE WHEN EXISTS (SELECT s FROM Signal s WHERE p.photoID = s.photo.photoID AND s.member.memberID = :id)" +
 		"THEN true ELSE false END AS flagged) " +
-		"FROM Photo p WHERE p.available = true AND p.photoID IN " + sj.toString();
+		"FROM Photo p WHERE p.available = true AND p.reports < 3 AND p.photoID IN " + sj.toString();
 		Query query = entityManager.createQuery(str, PhotoContextSmallDTO.class);
 		query.setParameter("id", memberID);
 		return query.getResultList();
@@ -211,7 +216,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 	}
 
 	public List<Photo> getTop10Photos() {
-		Query query = entityManager.createQuery("SELECT p FROM Photo p WHERE  p.available = true ORDER BY p.sales DESC").setMaxResults(10);
+		Query query = entityManager.createQuery("SELECT p FROM Photo p WHERE  p.available = true AND p.reports < 3 ORDER BY p.sales DESC").setMaxResults(10);
 	    return (List<Photo>) query.getResultList();
 	}
 
@@ -220,7 +225,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		String order = ascending == true ? "ASC" : "DESC";
 
 		Query query = entityManager.createQuery
-		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.price " + order);
+		("SELECT p FROM Photo p WHERE p.available = true AND p.reports < 3 ORDER BY p.price " + order);
 		return (List<Photo>)query.getResultList();
 	}
 
@@ -229,7 +234,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		String order = ascending == true ? "ASC" : "DESC";
 
 		Query query = entityManager.createQuery
-		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.views " + order);
+		("SELECT p FROM Photo p WHERE p.available = true AND p.reports < 3 ORDER BY p.views " + order);
 		return (List<Photo>)query.getResultList();
 	}
 
@@ -238,7 +243,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		String order = ascending == true ? "ASC" : "DESC";
 
 		Query query = entityManager.createQuery
-		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.likes " + order);
+		("SELECT p FROM Photo p WHERE p.available = true AND p.reports < 3 ORDER BY p.likes " + order);
 		return (List<Photo>)query.getResultList();
 	}
 
@@ -247,7 +252,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		String order = ascending == true ? "ASC" : "DESC";
 
 		Query query = entityManager.createQuery
-		("SELECT p FROM Photo p WHERE p.available = true ORDER BY p.dateCreated " + order);
+		("SELECT p FROM Photo p WHERE p.available = true AND p.reports < 3 ORDER BY p.dateCreated " + order);
 		return (List<Photo>)query.getResultList();
 	}
 
@@ -265,7 +270,7 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 
 	@Override
 	public List<Photo> getAllAvailablePhotos() {
-		Query query = entityManager.createQuery("SELECT p FROM Photo p where p.available = true");
+		Query query = entityManager.createQuery("SELECT p FROM Photo p where p.available = true AND p.reports < 3");
 		return (List<Photo>)query.getResultList();
 
 	}

@@ -1,6 +1,13 @@
-
-<div class="row" data-ng-controller="accueilController"> 
-  <div class="col-lg-3 col-md-4 col-xs-6" data-ng-repeat="photo in photos track by $index">
-    <thumbnail photo = "photo"></thumbnail>
+<div data-ng-controller="accueilController">
+  <div class="jumbotron" ng-show="!connected">
+    <h1>Bonjour !</h1>
+    <p>Ce site est un prototype en accès anticipé pour des raisons de tests! Si vous avez le temps, pourriez-vous le tester et nous envoyer votre feedback sur cette adresse marwen.azouzi@gmail.com</p>
+    <p>Sinon ci-desous le bouton pour s'inscrire. Bonne navigation !</p>
+    <p><a class="btn btn-primary btn-lg" href="" ng-click="register()" role="button">Inscription</a></p>
+  </div>
+  <div class="row" >
+    <div class="col-lg-3 col-md-4 col-xs-6" data-ng-repeat="photo in photos track by $index">
+      <thumbnail photo = "photo"></thumbnail>
+    </div>
   </div>
 </div>

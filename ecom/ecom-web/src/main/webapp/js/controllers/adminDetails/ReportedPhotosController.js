@@ -1,11 +1,13 @@
 var angular = require('angular');
 
-var reportedController = function($scope, $location, publicPhoto) {
+var reportedController = function($scope, $location, $filter, publicPhoto) {
 
+	var cachedPhotos = [];
 	$scope.photos = [];
+	$scope.query = '';
 
 	publicPhoto.GetReportedPhotos().then(function(res) {
-       $scope.photos = res;
+       $scope.photos = cachedPhotos = res;
   });
 
 	$scope.delete = function(index) {
@@ -23,6 +25,12 @@ var reportedController = function($scope, $location, publicPhoto) {
 	$scope.goto = function(id) {
 		$location.path('/photos/details/' + id)
 	};
+
+	$scope.$on('search', function(event, data) {
+		$scope.query = data.query;
+		if (!data.query) $scope.photos = cachedPhotos;
+		$scope.photos = $filter('matchQueries')(cachedPhotos, data.query);
+	});
 };
 
 module.exports = reportedController;
