@@ -25,7 +25,7 @@
             <div class="floatLeft">
                 <add-to-cart-component photo="photo" class="floatRight"></add-to-cart-component>
             </div>
-            <div class="floatRight">
+            <div data-ng-show="!isAdmin" class="floatRight">
                 <span class="fa fa-heart cursorPointer marginRight5px brightOnHover" data-ng-class="{colorRed: photo.wishlisted == true}" data-ng-click="(photo.wishlisted == true) ? unwish(photo.photoID) : wish(photo.photoID)" title="Ajouter aux favories" >
                 </span>
 

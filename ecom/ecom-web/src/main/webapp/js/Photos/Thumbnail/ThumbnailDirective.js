@@ -9,6 +9,18 @@ var thumbnailElementDirective = function ($compile, $location, apiToken, publicP
         templateUrl: './js/Photos/Thumbnail/photoThumbnailTemplate.html',
         controller : function ($scope ) {
 
+            $scope.isAdmin = false;
+
+
+            $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
+                    if(isAuth) {
+                        $scope.$watch(apiToken.getUser, function(user) {
+                            $scope.isAdmin  = (user && user.accountType == "A");
+                        });
+                    }
+                }
+            );
+
 
             $scope.details = function (photoId) {
                 $location.path('/photos/details/' + photoId);
