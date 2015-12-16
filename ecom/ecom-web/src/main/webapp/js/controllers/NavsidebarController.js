@@ -27,8 +27,6 @@ var navsidebarController = function($scope, $location, $routeParams, apiToken) {
 
     $scope.$on('$routeChangeSuccess', function(event){
         $scope.url = $location.url();
-            //params = $location.search();
-        console.log(event+" : "+$scope.url);
     })
 
     $scope.isActiveClass = function(checkedUrl) {
