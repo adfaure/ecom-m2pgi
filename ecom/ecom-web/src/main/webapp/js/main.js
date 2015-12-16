@@ -41,6 +41,7 @@ var uploadPhoto  = require('./services/uploadPhoto');
 var publicPhoto  = require('./services/PublicPhotoService');
 var properties  = require('./services/propertiesService');
 var alertService = require('./services/AlertService');
+var tokenRefresh = require('./services/tokenRefresh');
 
 /**
  * Directives
@@ -121,6 +122,7 @@ ecomApp.factory('httpInterceptor', httpInterceptor);
 ecomApp.factory('uploadPhoto', uploadPhoto);
 ecomApp.factory('publicPhoto', publicPhoto);
 ecomApp.factory('properties', properties);
+ecomApp.factory('tokenRefresh', tokenRefresh);
 ecomApp.factory('alertService', alertService);
 
 ecomApp.controller('inscriptionController', inscriptionController);
@@ -181,4 +183,20 @@ ecomApp.filter('shorten', function () {
 
     return value + (tail || ' …');
   };
+});
+
+
+ecomApp.run(function(apiToken, tokenRefresh) {
+
+    if(apiToken.isAuthentificated()) {
+        tokenRefresh.refresh().then(function(res) {
+            apiToken.setToken(res.data.token);
+            apiToken.setUser(res.data.user);
+        }, function(res){
+            console.log("error");
+            console.log(res);
+            apiToken.setToken(null);
+            apiToken.setUser(null);
+        });
+    }
 });
