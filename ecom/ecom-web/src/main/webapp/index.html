@@ -52,6 +52,14 @@
 
 <script src="node_modules/chart.js/Chart.min.js"></script>
 <script src="js/dist.js"></script>
-
+<script type="text/ng-template" id="error-messages">
+  <div ng-message="required">Champ requis</div>
+  <div ng-message="minlength">Necessite au moins 5 caracteres</div>
+  <div ng-message="email">L'adresse mail n'est pas correcte</div>
+  <div ng-message="max">Le prix maximal est 999.99 euros</div>
+  <div ng-message="min">Le prix minimum est de 0.50 euros</div>
+  <div ng-message="number">Le nombre n'est pas correct</div>
+  <div ng-message="pattern">Le format n'est pas correct</div>
+</script>
 </body>
 </html>

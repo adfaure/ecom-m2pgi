@@ -11,6 +11,18 @@ var addToCart = function ($compile, $location, apiToken, cartService) {
         templateUrl: './js/Cart/addToCart/addToCartTemplate.html',
         controller: function ($scope) {
             var user;
+
+            $scope.isAdmin = false;
+
+            $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
+                    if(isAuth) {
+                        $scope.$watch(apiToken.getUser, function(user) {
+                            $scope.isAdmin  = (user && user.accountType == "A");
+                        });
+                    }
+                }
+            );
+
             $scope.$watchCollection(cartService.getCart, function (cart) {
                     $scope.alreadyInCart = (cart.find(function (elem, idx, array) {
                         return (elem.photoID == $scope.photo.photoID);
@@ -28,8 +40,8 @@ var addToCart = function ($compile, $location, apiToken, cartService) {
                 }
             );
 
-            $scope.clicked = function () {
-                if (!$scope.photo.isBought) {
+            $scope.clicked = function() {
+                if(!$scope.photo.isBought && !$scope.isAdmin) {
                     if ($scope.owned) {
                         $scope.goToMyPhoto();
                     } else if ($scope.alreadyInCart) {
@@ -37,12 +49,12 @@ var addToCart = function ($compile, $location, apiToken, cartService) {
                     } else {
                         clickAdd($scope.photo);
                     }
-                } else {
+                } else  {
                     $location.path('/photos/details/' + $scope.photo.photoID);
                 }
             };
 
-            $scope.clickAdd = clickAdd;
+            $scope.clickAdd    = clickAdd;
             $scope.clickRemove = clickRemove;
             $scope.goToMyPhoto = function () {
                 $location.path('/profil/managePhotos').search({

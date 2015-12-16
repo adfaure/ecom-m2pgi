@@ -63,6 +63,7 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
                             }
                     }
                 } else {
+                	alertService.add("alert-danger", $sce.trustAsHtml("<strong>Error lors de l'inscription</strong>"), 5000);
                     $location.path("/inscription");
                 }
             });
@@ -81,23 +82,24 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
                         $location.path("/accueil");
                     }
                 } else {
+                	alertService.add("alert-danger", $sce.trustAsHtml("<strong>Erreur lors de l'authentification </strong>"), 5000);
                     $location.path("/inscription");
                 }
             }
         );
     };
-
-    $scope.checkPassword = function () {
-        if (!$scope.user.password) {
-            $scope.checkPass.valide = false;
-            $scope.checkPass.message = "Le champs mot de passe est obligatoire !";
-        } else if ($scope.user.password.length <= 4) {
-            $scope.checkPass.valide = false;
-            $scope.checkPass.message = "Le mot de passe est très court !";
-        } else {
-            $scope.checkPass.valide = true
-        }
-    };
+    
+    /*$scope.checkPassword = function() {
+		if(!$scope.user.password) {
+			$scope.checkPass.valide = false;
+			$scope.checkPass.message = "Le champs mot de passe est obligatoire !";
+		} else if($scope.user.password.length <= 4) {
+			$scope.checkPass.valide = false;
+			$scope.checkPass.message = "Le mot de passe est très court !";
+		} else {
+			$scope.checkPass.valide = true
+		}
+	};*/
 
     $scope.checkLogin = function () {
         if ($scope.user.login) {

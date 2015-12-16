@@ -50,11 +50,11 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 		}
 	};
 
-	$scope.$watch('inEditMember.email',function() {$scope.test();});
-	$scope.$watch('inEditMember.login',function() {$scope.test();});
-	$scope.$watch('inEditMember.password', function() {$scope.test();});
+	//$scope.$watch('inEditMember.email',function() {$scope.test();});
+	//$scope.$watch('inEditMember.login',function() {$scope.test();});
+	//$scope.$watch('inEditMember.password', function() {$scope.test();});
 
-	$scope.test = function() {
+	/*$scope.test = function() {
 		
 
 		$scope.incomplete = false;
@@ -71,23 +71,28 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 		else{
 			$scope.creationForm.loginInput.$setValidity("incomplete fields", true);
 		}
-	};
+	};*/
 	
 	
 	$scope.checkLogin = function() {
-		memberService.IsExisting($scope.inEditMember.login).then(
-			function(res) {
-				if(res) { //login found"
-					//$location.path("/inscription");
-					$scope.existingLogin = true;
-					$scope.creationForm.loginInput.$setValidity("inscription login", false);
-				} else { //login not found"
-					//$location.path("/inscription");
-					$scope.existingLogin = false;
-					$scope.creationForm.loginInput.$setValidity("inscription login", true);
-				}
-			}
-		);
+		
+		$scope.creationForm.loginInput.$setValidity("inscription login", true);
+		if($scope.edit && ($scope.inEditMember.login != $scope.users[$scope.indexMemberList].login) || (!$scope.edit) ){
+			memberService.IsExisting($scope.inEditMember.login).then(
+					function(res) {
+						if(res) { 
+							
+							$scope.existingLogin = true;
+							$scope.creationForm.loginInput.$setValidity("inscription login", false);
+						} else { //login not found"
+							
+							$scope.existingLogin = false;
+							$scope.creationForm.loginInput.$setValidity("inscription login", true);
+						}
+					}
+				);
+		}
+		
 	}
 
 
@@ -154,6 +159,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 		emptyFields();
 		if (index == 'new') {
 			$scope.edit = false;
+			$scope.creationForm.$setPristine();
 		} else {
 			$scope.edit = true;
 			$scope.inEditMember.accountType = $scope.users[index].accountType;
@@ -205,6 +211,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 		else{
 			$scope.users.push(res);
 			emptyFields();
+			$scope.creationForm.$setPristine();
 		}
 	}
 	
@@ -217,6 +224,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 			$scope.users[index] = res;
 			$scope.edit = false;
 			emptyFields();
+			$scope.creationForm.$setPristine();
 		}
 	}
 	

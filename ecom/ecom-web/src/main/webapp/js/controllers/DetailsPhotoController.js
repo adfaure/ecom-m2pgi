@@ -11,6 +11,18 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
   var seller = {};
   $scope.photo = {};
   $scope.loaded = false;
+  $scope.isAdmin = false;
+
+
+  $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
+        if(isAuth) {
+          $scope.$watch(apiToken.getUser, function(user) {
+            $scope.isAdmin  = (user && user.accountType == "A");
+          });
+        }
+      }
+  );
+
   publicPhoto.GetById(photoID).then(function(res) {
     $scope.photo = res;
     $scope.loaded = true;
