@@ -332,7 +332,7 @@ public class PhotoService implements IPhotoService {
 
 		if (photo == null) return;
 
-    boolean exists = false;
+		boolean exists = false;
 		for(Member member: photo.getViewers())
 		{
 			if (member.getMemberID() == memberID)
