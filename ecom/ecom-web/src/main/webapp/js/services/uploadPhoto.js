@@ -27,7 +27,7 @@ function photoService($http, properties) {
     }
 
     function handleError(error) {
-        return {success: false, data: res};
+        return { success: false, data: error};
     }
 }
 

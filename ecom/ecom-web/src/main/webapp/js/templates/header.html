@@ -1,59 +1,64 @@
 <nav class="navbar navbar-default" data-ng-controller="headerController">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed floatLeft" data-toggle="collapse" data-target="#sideBarTemplContainer" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#/accueil">Shopics</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form id="searchnavbar"  class="navbar-form navbar-left textAlignCenter" role="search" name="searchForm" data-ng-submit="search()">
-        <div class="form-group">
-          <input id="searchInput" type="text" class="form-control" data-ng-model="terms" data-ng-change="search()"
-          placeholder="{{placeholder}}" focus-on-load>
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed floatLeft" data-toggle="collapse"
+                    data-target="#sideBarTemplContainer" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/accueil">Shopics</a>
         </div>
-        <button type="submit" class="btn btn-default" title="Chercher"><i class="fa fa-search"></i></button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li data-ng-show="!auth || (auth && !admin)" class="cursorPointer" title="Uploader une photo">
-          <a class="fa" data-ng-click="goToAddPhoto()" >
-            <i class="fa fa-cloud-upload fa-2x"></i><span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li data-ng-show="!admin" class="cursorPointer">
-          <a class="fa" data-ng-click="gotToProfil('myCart')" >
-            <i data-ng-class="{'greenIcon': user.cart.length }" class="fa fa-cart-arrow-down fa-2x"></i>
-            <strong ng-show="user.cart.length">({{ user.cart.length }})</strong>
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li data-ng-show="!auth"><a href="#/inscription"> Authentification </a></li>
-        <li class="dropdown" data-ng-show="auth">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <strong>{{ user.firstName }} {{ user.lastName }}</strong><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-		    <li data-ng-show="!admin && auth">
-              <a href="#/profil/details"> Mon compte </a>
-            </li>
-            <li role="separator" class="divider"></li>
-		    <li data-ng-show="auth">
-              <a href="#/" ng-click="logout()"> Déconnexion </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form id="searchnavbar" class="navbar-form navbar-left textAlignCenter" role="search" name="searchForm"
+                  data-ng-submit="search()">
+                <div class="form-group">
+                    <input id="searchInput" type="text" class="form-control" data-ng-model="terms"
+                           data-ng-change="search()"
+                           placeholder="{{placeholder}}" focus-on-load>
+                </div>
+                <button type="submit" class="btn btn-default">Chercher</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li data-ng-show="!auth || (auth && !admin)" class="cursorPointer" title="Uploader une photo">
+                    <a class="fa" data-ng-click="goToAddPhoto()">
+                        <i class="fa fa-cloud-upload fa-2x"></i><span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li data-ng-show="!admin" class="cursorPointer">
+                    <a class="fa" data-ng-click="gotToProfil('myCart')">
+                        <i data-ng-class="{'greenIcon': cart.length }" class="fa fa-cart-arrow-down fa-2x"></i>
+                        <strong ng-show="cart.length">({{ cart.length }})</strong>
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li data-ng-show="!auth"><a href="#/inscription"> Authentification </a></li>
+                <li class="dropdown" data-ng-show="auth">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <strong>{{ user.firstName }} {{ user.lastName }}</strong><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li data-ng-show="!admin && auth">
+                            <a href="#/profil/details"> Mon compte </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li data-ng-show="auth">
+                            <a href="#/" ng-click="logout()"> Déconnexion </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
 </nav>
