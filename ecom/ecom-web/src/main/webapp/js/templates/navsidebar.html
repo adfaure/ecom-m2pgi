@@ -2,7 +2,7 @@
 <div id="sidebar-wrapper" class="navbar-default magrinLeftSideBar">
     <ul class="sidebar-nav nav-pills nav-stacked">
         <li>
-            <a href="#/accueil">
+            <a href="#/accueil" ng-class="isActiveClass('/accueil')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-home fa-stack-1x "> </i>
                 <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>-->
@@ -15,7 +15,7 @@
 
     <!-- Admin section -->
         <li ng-show="admin">
-            <a  href="#/profil/stats">
+            <a  href="#/profil/stats"  ng-class="isActiveClass('/profil/stats')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-bar-chart fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>-->
@@ -24,7 +24,7 @@
             </a>
         </li>
         <li ng-show="admin">
-            <a href="#/profil/members">
+            <a href="#/profil/members"  ng-class="isActiveClass('/profil/members')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-users fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>-->
@@ -33,7 +33,7 @@
             </a>
         </li>
         <li ng-show="admin">
-            <a href="#/profil/reportedPhotos">
+            <a href="#/profil/reportedPhotos" ng-class="isActiveClass('/profil/reportedPhotos')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-flag fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-flag floatLeft"> </i>>-->
@@ -46,7 +46,7 @@
 
     <!-- Seller section -->
         <li ng-show="!admin && seller">
-            <a href="#/profil/myPage">
+            <a href="#/profil/myPage" ng-class="isActiveClass('/profil/myPage')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-user fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-user floatLeft"> </i>>-->
@@ -55,7 +55,7 @@
             </a>
         </li>
         <li ng-show="!admin && seller">
-            <a href="#/profil/managePhotos">
+            <a href="#/profil/managePhotos" ng-class="isActiveClass('/profil/managePhotos')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-folder-open fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>>-->
@@ -64,7 +64,7 @@
             </a>
         </li>
         <li ng-show="!admin && seller">
-            <a href="#/profil/sellerAnalytics">
+            <a href="#/profil/sellerAnalytics" ng-class="isActiveClass('/profil/sellerAnalytics')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-line-chart fa-stack-1x "> </i>
                     <!--<i class="fa fa-line-chart floatLeft"></i>>-->
@@ -73,7 +73,7 @@
             </a>
         </li>
         <li ng-show="!admin && seller">
-            <a href="#/profil/addPhoto">
+            <a href="#/profil/addPhoto" ng-class="isActiveClass('/profil/addPhoto')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-cloud-upload fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>>-->
@@ -86,7 +86,7 @@
 
         <!-- Simple member section -->
         <li ng-show="!admin && auth">
-            <a href="#/profil/gallery">
+            <a href="#/profil/gallery" ng-class="isActiveClass('/profil/gallery')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-photo fa-stack-1x "> </i>
                     <!--<i class="fa fa-heart floatLeft"></i>>-->
@@ -95,7 +95,7 @@
             </a>
         </li>
         <li ng-show="!admin && auth">
-            <a href="#/profil/wishList">
+            <a href="#/profil/wishList" ng-class="isActiveClass('/profil/wishList')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-heart fa-stack-1x "> </i>
                     <!--<i class="fa fa-heart floatLeft"></i>>-->
@@ -112,7 +112,7 @@
             </a>
         </li>-->
         <li ng-show="!admin && auth">
-            <a href="#/profil/following" >
+            <a href="#/profil/following"  ng-class="isActiveClass('/profil/following')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-star fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-menu-right floatLeft"></i>>-->
@@ -129,7 +129,7 @@
             </a>
         </li>-->
         <li ng-show="!admin && auth">
-            <a href="#/profil/history">
+            <a href="#/profil/history" ng-class="isActiveClass('/profil/history')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-credit-card fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-plus floatLeft"> </i>>-->
@@ -143,7 +143,7 @@
 
     <!-- Visitor section -->
         <li ng-show="!admin && auth">
-            <a href="#/profil/details">
+            <a href="#/profil/details" ng-class="isActiveClass('/profil/details')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-cog fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-home floatLeft"></i>>-->
@@ -152,7 +152,7 @@
             </a>
         </li>
         <li ng-show="!admin">
-            <a href="#/contactUs" >
+            <a href="#/contactUs"  ng-class="isActiveClass('/contactUs')">
                 <span class="fa-stack fa-lg pull-left">
                     <i class="fa fa-envelope-o fa-stack-1x "> </i>
                     <!--<i class="glyphicon glyphicon-envelope floatLeft"></i>-->

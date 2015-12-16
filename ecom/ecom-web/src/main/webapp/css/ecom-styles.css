@@ -215,13 +215,33 @@
 }
 
 #searchnavbar {
-    position: absolute;
+    /*position: absolute;*/
     right: 25%;
     left: 25%;
+}
+.overflowHidden{
+    overflow: hidden !important;
+}
+
+@media (min-width: 768px) {
+    #searchnavbar {
+        position: absolute;
+    }
+}
+
+.inlineFlex{
+    display: inline-flex;
 }
 
 
 /* Sidebar styles */
+
+.sidebar-nav li a.activeTab {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+    border-left: red 2px solid;
+}
 
 #sideBarTemplContainer.collapse:not(.in) + #page-content-wrapper {
     margin-left: -65px;
