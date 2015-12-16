@@ -230,26 +230,33 @@
     #sideBarTemplContainer.collapse {
         display: block !important;
     }
-}
-/*
-@media(min-width:768px) {
-    #sideBarTemplContainer{
-        width: 25%;
+
+    #sideBarTemplContainer.collapse:not(.in) + #page-content-wrapper {
+        margin-left: 0px;
     }
 }
 
-@media(min-width:1024px) {
-    #sideBarTemplContainer{
-        width: 20%;
-    }
+
+
+
+/* ------------------ BOOTSTRAP CSS THEME OVERWRITE TO FIT OUR SITE ------------------ */
+
+
+.navbar {
+    margin-bottom: 0px;
 }
 
-#sideBarTemplContainer ul.nav-sidebar span {
+.alert {
+    padding:0px;
+}
+
+.ngViewsContainer{
+    padding-top: 25px;
+}
+
+.alertContainer{
     position: absolute;
-    left: 250px;
-    width: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}*/
+    z-index: 1;
+    left: 15px;
+    right: 0px;
+}
