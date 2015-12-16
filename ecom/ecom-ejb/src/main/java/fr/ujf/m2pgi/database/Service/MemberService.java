@@ -253,6 +253,11 @@ public class MemberService implements IMemberService {
 
     }
 
+    @Override
+    public Long getSellerFollowerCount(Long sellerID) {
+      return memberDao.getSellerFollowerCount(sellerID);
+    }
+
 
 	@Override
     public Long getMemberCount() {

@@ -49,6 +49,8 @@ public interface IMemberService {
 
     List<MemberDTO> getFollowedSellersBy(long followerID);
 
+    Long getSellerFollowerCount(Long sellerID);
+
     boolean follow(Long followerID, Long followedID);
 
     boolean unfollow(Long followerID, Long followedID);

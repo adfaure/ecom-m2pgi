@@ -48,16 +48,19 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
             alertService.add("alert-info", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour uploader une photo ...</strong>"), 3000);
     };
 
-    $scope.goToSearch = function() {
-        $location.path('/search').search( {
-            'terms' : $scope.terms
-        });
-    };
-
     $scope.terms = '';
 
     $scope.search = function() {
       $rootScope.$broadcast('search', {query: $scope.terms});
+    }
+
+    $scope.elastic = function() {
+      $rootScope.$broadcast('elastic', {query: $scope.terms});
+    }
+
+    $scope.change = function() {
+      $rootScope.$broadcast('search', {query: $scope.terms});
+      if(!$scope.terms) $rootScope.$broadcast('elastic', {query: $scope.terms});
     }
 };
 

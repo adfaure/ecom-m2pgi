@@ -1,6 +1,8 @@
 package fr.ujf.m2pgi.elasticsearch;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class ElasticsearchDao {
 															.field("description", doc.getDescription())
 															.field("tags", doc.getTags())
 															.field("location", doc.getThumbnail())
+															.field("price", doc.getPrice())
+															.field("views", doc.getViews())
+															.field("likes", doc.getLikes())
 			                    .endObject()
 			                  )
 			        .get();
@@ -70,78 +75,98 @@ public class ElasticsearchDao {
 	 */
 	public boolean update(PhotoDocument doc) throws IOException, InterruptedException, ExecutionException {
 		UpdateRequest updateRequest = new UpdateRequest();
-  	    updateRequest.index("ecom");
-  	    updateRequest.type("photo");
-  	    updateRequest.id(String.valueOf(doc.getPhotoId()));
+		updateRequest.index("ecom");
+		updateRequest.type("photo");
+		updateRequest.id(String.valueOf(doc.getPhotoId()));
 
-  	    updateRequest.doc(jsonBuilder()
-  	    		.startObject()
-							.field("name", doc.getName())
-							.field("description", doc.getDescription())
-							.field("tags", doc.getTags())
-							.field("location", doc.getThumbnail())
-			    .endObject());
+		updateRequest.doc(jsonBuilder()
+				.startObject()
+					.field("name", doc.getName())
+					.field("description", doc.getDescription())
+					.field("tags", doc.getTags())
+					.field("price", doc.getPrice())
+				.endObject());
 
 		UpdateResponse resp = connection.getClient().update(updateRequest).get();
 		return resp.isCreated();
 	}
 
-	public SearchResult getAll() {
+	public boolean updateViews(Long id, Integer views) throws IOException, InterruptedException, ExecutionException {
+		UpdateRequest updateRequest = new UpdateRequest();
+		updateRequest.index("ecom");
+		updateRequest.type("photo");
+		updateRequest.id(String.valueOf(id));
+		updateRequest.doc(jsonBuilder().startObject().field("views", views).endObject());
+		UpdateResponse resp = connection.getClient().update(updateRequest).get();
+		return resp.isCreated();
+	}
+
+	public boolean updateLikes(Long id, Integer likes) throws IOException, InterruptedException, ExecutionException {
+		UpdateRequest updateRequest = new UpdateRequest();
+		updateRequest.index("ecom");
+		updateRequest.type("photo");
+		updateRequest.id(String.valueOf(id));
+		updateRequest.doc(jsonBuilder().startObject().field("likes", likes).endObject());
+		UpdateResponse resp = connection.getClient().update(updateRequest).get();
+		return resp.isCreated();
+	}
+
+	public List<PhotoDocument> getAll() {
 		Client client = connection.getClient();
 		SearchResponse response = client.prepareSearch("ecom")
-				.setTypes("photo").setQuery(QueryBuilders.matchAllQuery()).execute().actionGet();
-		SearchResult result = new SearchResult();
-		result.setTotalHits(response.getHits().totalHits());
-		result.setTook(response.getTook().getMillis());
+		.setTypes("photo").setQuery(QueryBuilders.matchAllQuery()).execute().actionGet();
 
 		List<PhotoDocument> hits = new ArrayList<PhotoDocument>();
-        for (SearchHit hit: response.getHits().hits()) {
-        	PhotoDocument document = new PhotoDocument();
-        	document.setPhotoId(Long.parseLong(hit.getId()));
-        	document.setName((String)hit.getSource().get("name"));
-        	document.setDescription((String)hit.getSource().get("description"));
-					document.setTags((String)hit.getSource().get("tags"));
-        	document.setThumbnail((String)hit.getSource().get("location"));
-        	hits.add(document);
-        }
+		for (SearchHit hit: response.getHits().hits()) {
+			PhotoDocument document = new PhotoDocument();
+			document.setPhotoId(Long.parseLong(hit.getId()));
+			document.setName((String)hit.getSource().get("name"));
+			document.setDescription((String)hit.getSource().get("description"));
+			document.setTags((String)hit.getSource().get("tags"));
+			document.setThumbnail((String)hit.getSource().get("location"));
+			document.setPrice(new Float((double)hit.getSource().get("price")));
+			document.setViews((int)hit.getSource().get("views"));
+			document.setLikes((int)hit.getSource().get("likes"));
+			hits.add(document);
+		}
 
-        result.setHits(hits);
-
-		return result;
+		return hits;
 	}
 
 	/**
 	 * Allows to execute a search query and get back search hits that match the query.
 	 */
-	public SearchResult search(String text, int first, int pageSize) {
+	public List<PhotoDocument> search(String text, int first, int pageSize) {
 		Client client = connection.getClient();
 		SearchResponse response = client.prepareSearch("ecom")
 				.setTypes("photo").setQuery(QueryBuilders.matchQuery("_all", text)).execute().actionGet();
 
-		SearchResult result = new SearchResult();
-		result.setTotalHits(response.getHits().totalHits());
-		result.setTook(response.getTook().getMillis());
+		//SearchResult result = new SearchResult();
+		//result.setTotalHits(response.getHits().totalHits());
+		//result.setTook(response.getTook().getMillis());
 
 		List<PhotoDocument> hits = new ArrayList<PhotoDocument>();
-        for (SearchHit hit: response.getHits().hits()) {
-        	PhotoDocument document = new PhotoDocument();
-        	document.setPhotoId(Long.parseLong(hit.getId()));
-        	document.setName((String)hit.getSource().get("name"));
-        	document.setDescription((String)hit.getSource().get("description"));
-					document.setTags((String)hit.getSource().get("tags"));
-        	document.setThumbnail((String)hit.getSource().get("location"));
-        	hits.add(document);
-        }
+		for (SearchHit hit: response.getHits().hits()) {
+			PhotoDocument document = new PhotoDocument();
+			document.setPhotoId(Long.parseLong(hit.getId()));
+			document.setName((String)hit.getSource().get("name"));
+			document.setDescription((String)hit.getSource().get("description"));
+			document.setTags((String)hit.getSource().get("tags"));
+			document.setThumbnail((String)hit.getSource().get("location"));
+			document.setPrice(new Float((double)hit.getSource().get("price")));
+			document.setViews((int)hit.getSource().get("views"));
+			document.setLikes((int)hit.getSource().get("likes"));
+			hits.add(document);
+		}
 
-        result.setHits(hits);
-
-		return result;
+		//result.setHits(hits);
+		return hits;
 	}
 
 	public List<Long> searchIds(String text) {
 		Client client = connection.getClient();
 		SearchResponse response = client.prepareSearch("ecom")
-				.setTypes("photo").setQuery(QueryBuilders.matchQuery("description", text)).execute().actionGet();
+				.setTypes("photo").setQuery(QueryBuilders.matchQuery("_all", text)).execute().actionGet();
 
 		List<Long> hits = new ArrayList<Long>();
 		for (SearchHit hit: response.getHits().hits()) {
@@ -153,7 +178,7 @@ public class ElasticsearchDao {
 	/**
 	 * Allows to execute a search query and get back search hits that match the query.
 	 */
-	public SearchResult search(String text) {
+	public List<PhotoDocument> search(String text) {
 		return search(text, 0, Integer.MAX_VALUE);
 	}
 }

@@ -14,6 +14,7 @@ function sellerService($http) {
     service.Update = Update;
     service.Delete = Delete;
     service.getOrderBySellerId = getOrderBySellerId;
+    service.GetFollowerCount = GetFollowerCount;
     return service;
 
     function GetById(id) {
@@ -66,6 +67,10 @@ function sellerService($http) {
         return $http.delete('api/sellers/id/' + id).then(handleSuccess, handleError('Error deleting user'));
     }
 
+    function GetFollowerCount(id) {
+      return $http.get('api/sellers/id/'+id+'/followercount').then(handleSuccess, handleError('Error getting the total number of sellers followers'));
+    }
+
     // private functions
 
     function handleSuccess(res) {
@@ -108,6 +113,8 @@ function sellerService($http) {
     		return true;
 
     }
+
+
 };
 
 module.exports = sellerService;
