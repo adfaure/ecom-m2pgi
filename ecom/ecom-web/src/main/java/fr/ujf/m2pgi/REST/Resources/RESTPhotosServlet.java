@@ -107,8 +107,7 @@ public class RESTPhotosServlet {
 	@Path("/search")
 	@Produces("application/json")
 	public Response getAllPhotosES() {
-		SearchResult photos = photoServiceES.getAllPhotos();
-		return Response.ok(photos).build();
+		return Response.ok(photoServiceES.getAllPhotos()).build();
 	}
 
 	@GET
@@ -116,13 +115,12 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	public Response searchPhotosES(@PathParam("text") String text, @HeaderParam("userID") Long requesterID) {
 
-		//if(requesterID != null) {
-		//	List<PhotoContextSmallDTO> contextPhotos = facadePhoto.searchPhotosContext(text, requesterID);
-		//	return Response.ok(contextPhotos).build();
-		//}
+		if(requesterID != null) {
+			List<PhotoContextSmallDTO> contextPhotos = facadePhoto.searchPhotosContext(text, requesterID);
+			return Response.ok(contextPhotos).build();
+		}
 
-		SearchResult photos = photoServiceES.searchPhotos(text);
-		return Response.ok(photos).build();
+		return Response.ok(photoServiceES.searchPhotos(text)).build();
 	}
 
 	@GET

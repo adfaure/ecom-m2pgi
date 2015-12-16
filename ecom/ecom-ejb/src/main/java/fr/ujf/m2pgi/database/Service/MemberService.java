@@ -4,6 +4,7 @@ import fr.ujf.m2pgi.EcomException;
 import fr.ujf.m2pgi.Security.IStringDigest;
 import fr.ujf.m2pgi.database.DAO.IFollowDAO;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
+import fr.ujf.m2pgi.database.DAO.IOrderDAO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.PublicSeller;
@@ -45,6 +46,9 @@ public class MemberService implements IMemberService {
      */
     @Inject
     private IMemberDAO memberDao;
+
+    @Inject
+    private IOrderDAO orderDAO;
 
     /**
      *
@@ -168,14 +172,19 @@ public class MemberService implements IMemberService {
             System.err.println("no cart --- creating");
             cart = new ArrayList<Photo>();
         }
+        if(publicPhotoDTO.getSellerID() == member.getMemberID()) {
+            System.err.println("cannot add own photo"); // on verify que le seller n'ajoute pas ses propres photo
+            return member;
+        }
         boolean exist = false;
         for (Photo photo : cart) {
-            if (photo.getPhotoID() == publicPhotoDTO.getPhotoID()) {
+            if (photo.getPhotoID() == publicPhotoDTO.getPhotoID()) { // on a joute pas deux fois une photo dans le cadi
                 exist = true;
                 break;
             }
         }
-        if (!exist) {
+        boolean bought = orderDAO.isPhotoBought(member.getMemberID(), publicPhotoDTO.getPhotoID());
+        if (!exist && !bought) {
             cart.add(publicPhotoMapper.getentity(publicPhotoDTO));
             attachedEntity.setCart(cart);
             return memberMapper.getDTO(memberDao.updateCart(attachedEntity));
@@ -242,6 +251,11 @@ public class MemberService implements IMemberService {
 
     	return result;
 
+    }
+
+    @Override
+    public Long getSellerFollowerCount(Long sellerID) {
+      return memberDao.getSellerFollowerCount(sellerID);
     }
 
 

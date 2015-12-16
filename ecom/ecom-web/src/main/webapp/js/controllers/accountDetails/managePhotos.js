@@ -102,8 +102,7 @@ var manage = function($scope, $location , $routeParams, $filter,  $interval, Tag
 		$scope.query = data.query;
 		if($scope.editIndex != -1 || $scope.processing) return;
 		if (!data.query) $scope.photos = cachedPhotos;
-		//$scope.photos = $filter('filter')(cachedPhotos, {description: data.query});
-		$scope.photos = $filter('matchQueries')(cachedPhotos, data.query);
+		else $scope.photos = $filter('matchQueries')(cachedPhotos, data.query);
 	});
 
 	var autoComp = new  TagsService.autoComplete();

@@ -78,6 +78,9 @@ var controller = function($scope, $location, $sce, alertService, publicPhoto, ap
         var selectedPhotos = photos.filter(function(elem) { return elem.selected });
 
         photoChart.labels = selectedPhotos.map(function(elem) {
+            if(elem.name.length > 8) {
+                return elem.name.substring(0, 5) + elem.name.substring(elem.name.length - 4, elem.name.length);
+            }
             return elem.name;
         });
 

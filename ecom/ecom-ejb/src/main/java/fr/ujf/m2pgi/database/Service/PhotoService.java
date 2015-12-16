@@ -116,8 +116,10 @@ public class PhotoService implements IPhotoService {
 
 	public PhotoContextBigDTO getPhotoById(Long photoID, Long memberID) {
 		PhotoContextBigDTO photo = photoDao.getPhotoContext(photoID, memberID);
-		//photo.setBought(orderDAO.isPhotoBought(memberID, photoID));
-		if (photo != null) viewPhoto(photoID, memberID);
+		if (photo != null)
+		{
+			viewPhoto(photoID, memberID);
+		}
 		return photo;
 	}
 
@@ -146,6 +148,9 @@ public class PhotoService implements IPhotoService {
 			}
 			doc.setTags(sb.toString());
 		  doc.setThumbnail(created.getThumbnail());
+			doc.setPrice(created.getPrice());
+			doc.setViews(0);
+			doc.setLikes(0);
 		  try {
 			    photoDaoES.index(doc);
 		  } catch (IOException e) {
@@ -174,6 +179,7 @@ public class PhotoService implements IPhotoService {
 		doc.setName(photo.getName());
 		doc.setDescription(photo.getDescription());
 		doc.setTags(photo.getTags());
+		doc.setPrice(photo.getPrice());
 
 		try {// Needs better handling!
 			photoDaoES.update(doc);
@@ -343,6 +349,12 @@ public class PhotoService implements IPhotoService {
 			{
 				photo.getViewers().add(member);
 				photo.setViews(photo.getViews() + 1);
+				try {// Needs better handling!
+					photoDaoES.updateViews(photoID, photo.getViews());
+				} catch (IOException | InterruptedException | ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				member.getViewedPhotos().add(photo);
 				photoDao.update(photo);
 			}
@@ -370,6 +382,12 @@ public class PhotoService implements IPhotoService {
 			{
 				photo.getLikers().add(member);
 				photo.setLikes(photo.getLikes() + 1);
+				try {// Needs better handling!
+					photoDaoES.updateLikes(photoID, photo.getLikes());
+				} catch (IOException | InterruptedException | ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				member.getLikedPhotos().add(photo);
 				photoDao.update(photo);
 			}
@@ -397,6 +415,12 @@ public class PhotoService implements IPhotoService {
 			{
 				photo.getLikers().remove(member);
 				photo.setLikes(photo.getLikes() - 1);
+				try {// Needs better handling!
+					photoDaoES.updateLikes(photoID, photo.getLikes());
+				} catch (IOException | InterruptedException | ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				member.getLikedPhotos().remove(photo);
 				photoDao.update(photo);
 			}

@@ -30,6 +30,8 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 
 	List<Member> getSellersFollowedBy(long id);
 
+	Long getSellerFollowerCount(Long sellerID);
+
 	Member getSellerById(long id);
 
 	Long getSellerCount();
