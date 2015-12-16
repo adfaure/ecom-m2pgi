@@ -17,7 +17,7 @@ var controller = function($scope, $filter, $sce, pageService, sellerService, ale
     $scope.query = '';
 
 
-    sellerService.GetFollowerCount($routeParams.id).then(function(res) {
+    sellerService.GetFollowerCount($scope.user.memberID).then(function(res) {
         $scope.followerCount = res;
     });
 
