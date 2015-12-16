@@ -80,7 +80,6 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
                     } else {
                         $location.path("/accueil");
                     }
-                    $location.path("/accueil");
                 } else {
                     $location.path("/inscription");
                 }
