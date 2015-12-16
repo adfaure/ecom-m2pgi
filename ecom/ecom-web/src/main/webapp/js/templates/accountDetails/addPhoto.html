@@ -8,7 +8,7 @@
         <div class="form-group">
             <label for="description">Description</label>
             <input required ng-model="photoData.description" type="text" class="form-control" name="description" id="description" placeholder="description">
-            <div class="alert-danger" ng-messages="upload.description.$error" role="alert" ng-show="upload.description.$dirty">
+            <div class="alert-danger" ng-messages="upload.description.$error" role="alert" ng-show="upload.description.$touched">
 				<div ng-messages-include="error-messages"></div>
 			</div>
         </div>
@@ -23,7 +23,7 @@
             <input required ng-model="photoData.price" type="number"
             min="0.50" max="999.99" step="0.1" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
             class="form-control" name="price" id="price" placeholder="prix de la photo" data-required>
-            <div class="alert-danger" ng-messages="upload.price.$error" role="alert" ng-show="upload.price.$dirty">
+            <div class="alert-danger" ng-messages="upload.price.$error" role="alert" ng-show="upload.price.$touched">
 				<div ng-messages-include="error-messages"></div>
 			</div>
         </div>

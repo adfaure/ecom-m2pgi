@@ -1,10 +1,13 @@
 <div data-ng-controller="upgradeController">
   <div class="jumbotron">
     <h1>Cool !</h1>
-    <p>Nous proposons des services de ouf ! Tous ce qu'il faut est de renseigner ton RIB ;)</p>
+    <p>Nous proposons des services de ouf ! Tous ce qu'il faut est de renseigner votre RIB ;)</p>
     <form class="css-form" name="loginform" novalidate ng-submit="loginform.$valid && submit()">
         <div class="form-group">
-            <input required ng-model="RIB" type="text" class="form-control" id="inputRIB" placeholder="RIB" required focus-on-load>
+            <input required ng-model="RIB" type="text" class="form-control" id="inputRIB" name="inputRIB" placeholder="RIB" required focus-on-load>
+            <div class="alert-danger" ng-messages="loginform.inputRIB.$error" role="alert" ng-show="loginform.inputRIB.$touched">
+			<div ng-messages-include="error-messages"></div>
+		</div>
         </div>
         <button type="submit" class="btn btn-primary btn-lg">Devenir vendeur</button>
     </form>

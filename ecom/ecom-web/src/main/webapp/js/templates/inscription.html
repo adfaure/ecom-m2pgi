@@ -86,7 +86,7 @@
 
 					<div class="form-group">
 						<label for="inputLoginInscription" class="reqField">Pseudo</label>
-						<input required name="loginInput" ng-model="user.login" ng-mouseleave="checkLogin()" ng-blur="checkLogin()" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo">
+						<input required name="loginInput" ng-model="user.login" ng-mouseleave="checkLogin()" ng-blur="checkLogin()" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo" ng-pattern="/^[a-zA-Z0-9äöüÄÖÜ]*$/">
 						<div class="alert-danger" ng-messages="inscriptionform.loginInput.$error" role="alert" ng-show="inscriptionform.loginInput.$dirty">
 						    <div ng-messages-include="error-messages"></div>
 						</div>
