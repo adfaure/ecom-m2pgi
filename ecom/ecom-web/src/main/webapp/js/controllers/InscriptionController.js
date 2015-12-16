@@ -71,6 +71,7 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
 							$location.path("/accueil");
 						}
 					} else {
+						alertService.add("alert-danger", $sce.trustAsHtml("<strong>Le login entré ne correspond à aucun compte</strong>"), 5000);
 						$location.path("/inscription");
 					}
 				}

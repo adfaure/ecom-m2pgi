@@ -38,12 +38,6 @@ var controller = function($scope, $location, $filter, alertService, $routeParams
 		}
     } 
 
-	    memberService.IsFollowedBy(followedID, userIDFollower).then(function(res){
-	    	var isFollowed = res;
-	    	$scope.followed = isFollowed;
-	    });
-    
-
     $scope.follow = function(){
     	memberService.follow(userIDFollower, followedID).then(function(res){
     		if(res){

@@ -52,6 +52,10 @@
 
 <script src="node_modules/chart.js/Chart.min.js"></script>
 <script src="js/dist.js"></script>
-
+<script type="text/ng-template" id="error-messages">
+  <div ng-message="required">Champ requis</div>
+  <div ng-message="minlength">Necessite au moins 5 caracteres</div>
+  <div ng-message="email">L'adresse mail n'est pas correcte</div>
+</script>
 </body>
 </html>

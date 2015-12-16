@@ -80,7 +80,7 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 
 	}
 
-	$scope.$watch('user1.pswActuel',function() {$scope.test();});
+	//$scope.$watch('user1.pswActuel',function() {$scope.test();});
 	$scope.$watch('user1.pswNouveau',function() {$scope.test();});
 	$scope.$watch('user1.pswConfirmation',function() {$scope.test();});
 	
@@ -90,25 +90,23 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 	$scope.test = function() {
 		//$scope.equalsPSW = false;
 		//$scope.actPSWfilled = false;
-		$scope.userPSWForm.pswConfirmation.$setValidity("the passwords don't match", false);
 		
-		if($scope.editPSW){
-			if(!$scope.user1.pswNouveau || !$scope.user1.pswConfirmation){
-				//$scope.equalsPSW = false;
+		$scope.pswTheSame = true;
+		
+		if($scope.editPSW && ($scope.user1.pswNouveau && $scope.user1.pswConfirmation)){
+		
+			//If the passwords are not the same or if one of them is empty (and therefore the other as well)
+			if(($scope.user1.pswNouveau.replace(/\s+/g, '') !== '' && $scope.user1.pswConfirmation.replace(/\s+/g, '') !== '') 
+					&& ($scope.user1.pswNouveau === $scope.user1.pswConfirmation)){
+				$scope.userPSWForm.pswConfirmation.$setValidity("the passwords don't match", true);
+				$scope.pswTheSame = true;
+			}else{
 				$scope.userPSWForm.pswConfirmation.$setValidity("the passwords don't match", false);
 				$scope.pswTheSame = false;
 			}
-			//If the passwords are not the same or if one of them is empty (and therefore the other as well)
-			else if(($scope.user1.pswNouveau.replace(/\s+/g, '') !== '' && $scope.user1.pswConfirmation.replace(/\s+/g, '') !== '') 
-					&& ($scope.user1.pswNouveau === $scope.user1.pswConfirmation) && $scope.user1.pswNouveau !== ''){
-				//$scope.equalsPSW = true;
-				$scope.userPSWForm.pswConfirmation.$setValidity("the passwords don't match", true);
-				$scope.pswTheSame = true;
-			}
-			
 		}
+		
 	};
-
 
 	$scope.save = function(){
 
