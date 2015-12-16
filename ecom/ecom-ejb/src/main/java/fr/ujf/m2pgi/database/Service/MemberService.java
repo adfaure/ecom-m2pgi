@@ -46,6 +46,9 @@ public class MemberService implements IMemberService {
     @Inject
     private IMemberDAO memberDao;
 
+    /**
+     *
+     */
     @Inject
     private IOrderDAO orderDAO;
 
@@ -55,11 +58,23 @@ public class MemberService implements IMemberService {
     @Inject
     private IStringDigest stringDigest;
 
+    /**
+     *
+     */
     @Inject
     private IPhotoDAO photoDAO;
 
+    /**
+     *
+     */
     @Inject
     private IFollowDAO followDao;
+
+    /**
+     *
+     */
+    @Inject
+    private IPhotoService photoService;
 
     /**
      * @param member
@@ -81,7 +96,7 @@ public class MemberService implements IMemberService {
         List<ManagePhotoDTO> photos = photoDAO.getUserPhotos(id);
         if(photos != null) {
             for(ManagePhotoDTO photo : photos)
-                photoDAO.delete(photo.getPhotoID());
+                photoService.deletePhoto(photo.getPhotoID());
         }
         //return res;
     }
