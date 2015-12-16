@@ -1,25 +1,19 @@
 package fr.ujf.m2pgi.REST.Resources;
 
+import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Deny;
-import fr.ujf.m2pgi.REST.CustomServerResponse;
-import fr.ujf.m2pgi.Security.JwtSingleton;
 import fr.ujf.m2pgi.Security.IStringDigest;
+import fr.ujf.m2pgi.Security.JwtSingleton;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Service.IMemberService;
-import org.hibernate.validator.internal.xml.XmlMappingParser;
-import org.jose4j.json.internal.json_simple.JSONArray;
-import org.jose4j.json.internal.json_simple.JSONObject;
-import org.jose4j.json.internal.json_simple.parser.JSONParser;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -126,7 +120,7 @@ public class RESTAuthentification {
     @Produces("application/json")
     @Allow(groups="sellers;members;admin")
     public Response refresh(@HeaderParam("userID") Long id) {
-      MemberDTO member = memberService.getSellerById(id);
+      MemberDTO member = memberService.getMemberbyId(id);
       if (member == null) {
         return Response.status(401).entity(
             new CustomServerResponse(false, "Something went wrong! Try to reconnect!")).build();
