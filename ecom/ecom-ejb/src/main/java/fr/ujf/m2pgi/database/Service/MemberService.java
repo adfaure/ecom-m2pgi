@@ -69,7 +69,7 @@ public class MemberService implements IMemberService {
         MemberDTO res = memberMapper.getDTO(memberEntity);
         return res;
     }
-    
+
     @Override
     public void deleteMember(Long id) {
         memberDao.delete(id);
@@ -94,8 +94,32 @@ public class MemberService implements IMemberService {
      * @return
      */
     @Override
+    public MemberDTO getMemberByEmail(String email) {
+        Member memberEntity = memberDao.findMemberByEmail(email);
+        if (memberEntity != null)
+            return memberMapper.getDTO(memberEntity);
+        return null;
+    }
+
+    /**
+     * @param login
+     * @return
+     */
+    @Override
     public Boolean isExistingMemberByLogin(String login) {
         Member memberEntity = memberDao.findMemberByLogin(login);
+        if (memberEntity == null)
+            return false;
+        return true;
+    }
+
+    /**
+     * @param email
+     * @return
+     */
+    @Override
+    public Boolean isExistingMemberByEmail(String email) {
+        Member memberEntity = memberDao.findMemberByEmail(email);
         if (memberEntity == null)
             return false;
         return true;
@@ -194,8 +218,8 @@ public class MemberService implements IMemberService {
         memberDao.update(member);
         return  memberMapper.getDTO(member);
     }
-    
-    
+
+
     @Override
     public List<MemberDTO> getAllMembers(){
     	List<MemberDTO> result = new ArrayList<MemberDTO>();
@@ -207,7 +231,7 @@ public class MemberService implements IMemberService {
     	return result;
 
     }
-    
+
     @Override
     public List<MemberDTO> getFollowedSellersBy(long followerID){
     	List<MemberDTO> result = new ArrayList<MemberDTO>();
@@ -243,47 +267,47 @@ public class MemberService implements IMemberService {
     @Override
     public MemberDTO updateMember(MemberDTO memberdto) throws EcomException{
         Member entity = memberMapper.getentity(memberdto);
-        
+
         //It means the person wants to change his/her email
         Member mem = memberDao.findMemberByLogin(memberdto.getLogin());
         if(!mem.getEmail().equalsIgnoreCase(memberdto.getEmail())){
         	Member m = memberDao.findMemberByEmail(memberdto.getEmail());
             if(m != null) throw  new EcomException("Email already in use");
         }
-        
+
         if(memberdto.getSellerInfo() != null){
         	memberdto.setSellerInfo(null);
         }
-        
+
         System.out.println("This will be executed");
         memberDao.update(entity);
         return memberdto;
     }
-    
+
     @Override
     public MemberDTO updateSeller(MemberDTO memberdto) {
-       
+
         Member member = memberMapper.getentity(memberdto);
-        
+
         SellerPage page = new SellerPage();
         page.setId(memberdto.getMemberID());
-        
+
         SellerInfo info = new SellerInfo();
         info.setId(memberdto.getMemberID());
         info.setRIB(memberdto.getSellerInfo().getRIB());
         info.setPage(page);
-        
+
         member.setSellerInfo(info);
         memberDao.update(member);
         return  memberMapper.getDTO(member);
     }
-    
-    
+
+
     public MemberDTO changePassword(MemberDTO member, String newPSW){
-    	
+
     	MemberDTO result = null;
     	Member memberEntity = memberDao.find(member.getMemberID());
-    	
+
         if (memberEntity != null)
         {
         	String actualPSW = memberEntity.getPassword();
@@ -311,7 +335,7 @@ public class MemberService implements IMemberService {
         }
         return false;
     }
-    
+
     public boolean unfollow(Long followerID, Long followedID)
     {
         Follow follow = followDao.findFollowbyCoupleId(followerID,followedID);
@@ -321,7 +345,7 @@ public class MemberService implements IMemberService {
         }
         return false;
     }
-    
+
     public boolean isFollowedBy(Long followerID, Long memberID)
     {
         if(followDao.findFollowbyCoupleId(followerID, memberID) != null){

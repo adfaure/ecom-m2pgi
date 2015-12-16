@@ -21,23 +21,23 @@ public class ReportedPhotoDTO {
 
 	private String description;
 
-	private String webLocation;
+	private String thumbnail;
 
 	private float price;
 
+	private int reports;
+
 	private Date dateCreated;
 
-	private Integer reportCount;
-
-	public ReportedPhotoDTO(long photoID, String name, String description, String webLocation, float price,
-		 Date dateCreated) {
+	public ReportedPhotoDTO(long photoID, String name, String description, String thumbnail, float price,
+		 int reports, Date dateCreated) {
 		this.photoID = photoID;
 		this.name = name;
 		this.description = description;
-		this.webLocation = webLocation;
+		this.thumbnail = thumbnail;
 		this.price = price;
+		this.reports = reports;
 		this.dateCreated = dateCreated;
-		this.reportCount = reportCount;
 	}
 
 	public long getPhotoId() {
@@ -48,12 +48,12 @@ public class ReportedPhotoDTO {
 		this.photoID = photoID;
 	}
 
-	public String getWebLocation() {
-		return webLocation;
+	public String getThumbnail() {
+		return thumbnail;
 	}
 
-	public void setWebLocation(String webLocation) {
-		this.webLocation = webLocation;
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getName() {
@@ -88,11 +88,11 @@ public class ReportedPhotoDTO {
 		this.dateCreated = dateCreated;
 	}
 
-	public Integer getReportCount() {
-		return reportCount;
+	public int getReports() {
+		return reports;
 	}
 
-	public void setgetReportCount(Integer reportCount) {
-		this.reportCount = reportCount;
+	public void setReports(int reports) {
+		this.reports = reports;
 	}
 }

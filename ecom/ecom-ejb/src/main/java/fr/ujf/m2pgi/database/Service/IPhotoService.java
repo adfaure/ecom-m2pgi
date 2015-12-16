@@ -26,7 +26,7 @@ public interface IPhotoService {
 
     List<PublicPhotoDTO> getAllPhotos();
 
-    List<PublicPhotoDTO> getReportedPhotos();
+    List<ReportedPhotoDTO> getReportedPhotos();
 
     List<PhotoContextSmallDTO> getAllPhotosContext(Long memberID);
 
@@ -41,7 +41,7 @@ public interface IPhotoService {
     List<PublicPhotoDTO> getPhotosSortByDate(boolean ascending);
 
     List<ManagePhotoDTO> getUserPhotos(Long id);
-    
+
     List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos);
 
     List<ManagePhotoDTO> getUserPhotos(String login);

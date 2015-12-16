@@ -44,7 +44,7 @@ public class FacadePhoto {
         return photoService.getAllPhotos();
     }
 
-  public List<PublicPhotoDTO> getReportedPhotos() {
+  public List<ReportedPhotoDTO> getReportedPhotos() {
     return photoService.getReportedPhotos();
   }
 
@@ -87,7 +87,7 @@ public class FacadePhoto {
     public List<PublicPhotoDTO> getUserWishedPhotos(String login) {
         return photoService.getUserWishedPhotos(login);
     }
-    
+
     public List<LastPhotosDTO> getLastPhotosFromSellers(Long followerID, int numberOfPhotos) {
         return photoService.getLastPhotosFromSellers(followerID, numberOfPhotos);
     }
