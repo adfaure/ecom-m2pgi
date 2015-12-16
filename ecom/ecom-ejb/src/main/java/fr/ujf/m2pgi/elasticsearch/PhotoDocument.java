@@ -2,31 +2,35 @@ package fr.ujf.m2pgi.elasticsearch;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PhotoDocument {
 
-	@XmlElement(name = "photoID")
-	private Long id;
+	private long photoID;
 
-	@XmlElement
-	private String description;
-
-	@XmlElement
 	private String name;
 
-	@XmlElement
+	private String description;
+
 	private String tags;
 
-	@XmlElement(name = "thumbnail")
-	private String location;
+	private String thumbnail;
 
-	public Long getId() {
-		return id;
+	private float price;
+
+	private int views;
+
+	private int likes;
+
+	public long getPhotoId() {
+		return photoID;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setPhotoId(long photoID) {
+		this.photoID = photoID;
 	}
 
 	public String getDescription() {
@@ -53,11 +57,35 @@ public class PhotoDocument {
 		this.tags = tags;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getThumbnail() {
+		return thumbnail;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
+	}
+
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 }

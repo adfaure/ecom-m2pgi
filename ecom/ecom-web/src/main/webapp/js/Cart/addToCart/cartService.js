@@ -15,8 +15,8 @@ var cartService =  function($http, $q, $sce, apiToken, alertService) {
             var usr = apiToken.getUser();
             var route = 'api/members/id/' + usr.memberID + "/cart/photo/id/" + photo.photoID;
             return $http.post(route).then(
-                handleSuccess("Photo ajouté au panier avec success"),
-                handleError("Erreur l'ors de l'ajout au panier")
+                handleSuccess("Photo ajoutée au panier avec succès"),
+                handleError("Erreur lors de l'ajout au panier")
             );
         }
     }
@@ -27,7 +27,7 @@ var cartService =  function($http, $q, $sce, apiToken, alertService) {
         } else {
             var usr = apiToken.getUser();
             var route = 'api/members/id/' + usr.memberID + "/cart/photo/id/" + photo.photoID;
-            return $http.delete(route).then(handleSuccess("Photo supprimé au panier avec success"),
+            return $http.delete(route).then(handleSuccess("Photo supprimée du panier avec succès"),
                 handleError("Erreur lors de la suppression de l'article au panier")
             );
         }
@@ -39,8 +39,8 @@ var cartService =  function($http, $q, $sce, apiToken, alertService) {
         } else {
             var usr = apiToken.getUser();
             var route = 'api/members/id/' + usr.memberID + "/cart";
-            return $http.delete(route).then(handleSuccess("Panier vidé avec success"),
-                handleError("Erreur l'ors de la du panier")
+            return $http.delete(route).then(handleSuccess("Panier vidé avec succès"),
+                handleError("Erreur lors de la suppression du panier")
             );
         }
     }
@@ -56,7 +56,7 @@ var cartService =  function($http, $q, $sce, apiToken, alertService) {
                 defer.resolve();
                 return defer.promise.then(handleError("Attention, vous ne pouvez pas valider un panier vide"));
             }
-            return $http.post(route, usr.cart).then(handleSuccess("Panier validé avec success"),
+            return $http.post(route, usr.cart).then(handleSuccess("Panier validé avec succès"),
                 handleError("Erreur lors de la validation du panier")
             )
         }

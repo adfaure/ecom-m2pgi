@@ -81,11 +81,12 @@
 						 <div class="alert-danger" ng-messages="inscriptionform.inputEmail.$error" role="alert" ng-show="inscriptionform.inputEmail.$touched">
 						    <div ng-messages-include="error-messages"></div>
 						</div>
+						<div role="alert" class="alert-danger" ng-show="existingEmail">Cet email existe déjà</div>
 					</div>
 
 					<div class="form-group">
 						<label for="inputLoginInscription">Login</label>
-						<input required name="loginInput"  ng-change="checkLogin()"  ng-model="user.login" ng-blur="checkLogin()" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo">
+						<input required name="loginInput" ng-model="user.login" ng-mouseleave="checkLogin()" ng-blur="checkLogin()" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo">
 						<div class="alert-danger" ng-messages="inscriptionform.loginInput.$error" role="alert" ng-show="inscriptionform.loginInput.$touched">
 						    <div ng-messages-include="error-messages"></div>
 						</div>
@@ -93,7 +94,7 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="inputPasswordInscription">Password</label>
+						<label for="inputPasswordInscription">Mot de passe</label>
 						<input required ng-model="user.password" type="password" class="form-control" id="inputPasswordInscription" name="inputPassword" placeholder="Mot de passe" minlength='5'>
 						<!-- <div role="alert" class="alert-danger" data-ng-show="!checkPass.valide">{{ checkPass.message }}</div> data-ng-blur="checkPassword()" data-ng-change="checkPassword()"-->
 						<div class="alert-danger" ng-messages="inscriptionform.inputPassword.$error" role="alert" ng-show="inscriptionform.inputPassword.$touched">

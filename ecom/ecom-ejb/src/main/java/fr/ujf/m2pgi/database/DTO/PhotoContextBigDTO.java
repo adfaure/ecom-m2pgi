@@ -20,8 +20,6 @@ public class PhotoContextBigDTO {
 
 	private String name;
 
-	private boolean isBought;
-
 	private String description;
 
 	private String webLocation;
@@ -45,6 +43,8 @@ public class PhotoContextBigDTO {
 	private Integer likes;
 
 	private boolean wishlisted;
+
+	private boolean isBought;
 
 	private boolean inCart;
 

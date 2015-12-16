@@ -33,7 +33,14 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
     };
 
     $scope.goToAddPhoto = function() {
-        $location.path('/profil/addPhoto');
+        if($scope.auth) {
+            if ($scope.seller)
+                $location.path('/profil/addPhoto');
+            else
+                alertService.add("alert-info", $sce.trustAsHtml("<strong>Il faut posseder un <a href='#/profil/upgrade'>compte vendeur</a> pour uploader un photo</strong>"), 3000);
+        }
+        else
+            alertService.add("alert-info", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour uploader une photo ...</strong>"), 3000);
     };
 
     $scope.goToSearch = function() {

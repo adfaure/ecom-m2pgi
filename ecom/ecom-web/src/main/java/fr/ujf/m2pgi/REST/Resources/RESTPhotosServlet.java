@@ -70,7 +70,7 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	@Allow(groups="admin")
 	public Response getReportedPhotos() {
-		List<PublicPhotoDTO> photos = facadePhoto.getReportedPhotos();
+		List<ReportedPhotoDTO> photos = facadePhoto.getReportedPhotos();
 		return Response.ok(photos).build();
 	}
 
@@ -196,7 +196,7 @@ public class RESTPhotosServlet {
 		List<PublicPhotoDTO> photos = facadePhoto.getUserWishedPhotos(login);
 		return Response.ok(photos).build();
 	}
-	
+
 	@GET
 	@Path("/user/id/{id:[1-9][0-9]*}/maxNum/{numberMax}")
 	@Produces("application/json")

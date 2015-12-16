@@ -33,8 +33,8 @@
 }
 
 #page-content-wrapper {
-    position: absolute;
-    padding: 15px;
+    /*position: absolute;*/
+    /*padding: 15px;*/
     /*width: 100%;*/
     overflow-x: hidden;
 }
@@ -132,7 +132,7 @@ li.divider{
 
 
     #page-content-wrapper {
-        padding: 20px;
+        /*padding: 20px;*/
         position: relative;
         -webkit-transition: all 0.5s ease;
         -moz-transition: all 0.5s ease;
