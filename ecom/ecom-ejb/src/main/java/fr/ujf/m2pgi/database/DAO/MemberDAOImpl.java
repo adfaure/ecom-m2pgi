@@ -24,8 +24,10 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		entity.setMemberID(id.getSequence());
 		SellerInfo sellerInfo = entity.getSellerInfo();
 		List<Photo> attachedPhoto = new ArrayList<>();
-		for(Photo photo : entity.getCart()) {
-			attachedPhoto.add(entityManager.getReference(Photo.class, photo.getPhotoID()));
+		if(entity.getCart() != null) {
+			for (Photo photo : entity.getCart()) {
+				attachedPhoto.add(entityManager.getReference(Photo.class, photo.getPhotoID()));
+			}
 		}
 		entity.setCart(attachedPhoto);
 		if(sellerInfo != null) {
