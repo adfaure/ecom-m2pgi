@@ -101,7 +101,6 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
 
     $scope.checkLogin = function () {
         if ($scope.user.login) {
-            console.log($scope.user.login);
             memberService.IsExisting($scope.user.login).then(function (res) {
                 if (res) {
                     $scope.existingLogin = true;
@@ -117,7 +116,6 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
 
     $scope.checkEmail = function () {
         if ($scope.user.email) {
-            console.log($scope.user.email);
             memberService.IsExistingByEmail($scope.user.email).then(function (res) {
                 if (res) {
                     $scope.existingEmail = true;

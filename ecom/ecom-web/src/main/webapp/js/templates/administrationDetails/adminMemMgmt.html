@@ -27,12 +27,16 @@
       <td>{{ user.email }}</td>
       <td>{{ user.login }}</td>
       <td>
-        <button class="btn btn-default" data-ng-click="editUser($index)">
+        <button data-ng-if="!user.active" class="btn  btn-default" data-ng-disabled="true" >Edit</button>
+        <button data-ng-if="user.active" class="btn btn-default" data-ng-click="editUser($index)">
           <span class="glyphicon glyphicon-pencil"></span> Edit
         </button>
       </td>
       <td>
-        <button class="btn btn-danger btn-default" data-ng-click="deleteUser($index)">
+
+        <button data-ng-if="!user.active" class="btn  btn-default" data-ng-disabled="true" >Compte inactif</button>
+
+        <button data-ng-if="user.active" class="btn btn-danger btn-default" data-ng-click="deleteUser($index)">
           <span class="glyphicon glyphicon-remove"></span>Delete
         </button>
       </td>

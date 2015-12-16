@@ -62,10 +62,10 @@ public class RESTAuthentification {
     			 new CustomServerResponse(false, "Authentification failed: username and password required!")).build();
       }
 
-      MemberDTO member = memberService.getMemberByLogin(username);
+      MemberDTO member = memberService.getMemberByLogin(username , true);
 
       if(member == null) {
-        member = memberService.getMemberByEmail(username);
+        member = memberService.getMemberByEmail(username , true);
 
         if(member == null)
         {

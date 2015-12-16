@@ -130,7 +130,7 @@ public class RESTSellerServlet {
     @Produces("application/json")
 
     public Response getSellerPagebyLogin(@PathParam("login") String login) {
-        MemberDTO memberdto = memberService.getMemberByLogin(login);
+        MemberDTO memberdto = memberService.getMemberByLogin(login, true);
         if(memberdto != null && memberdto.getSellerInfo() != null) {
             SellerPageDTO page = memberdto.getSellerInfo().getPage();
             return  Response.status(Response.Status.OK).entity(page).build();

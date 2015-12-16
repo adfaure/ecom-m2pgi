@@ -52,6 +52,7 @@ public class TestMemberDao extends AbstactDaoTest {
         Member member = new Member();
         member.setLogin("Dadou");
         member.setFirstName("Dadou");
+        member.setLastName("dadoulastname");
         member.setPassword("Dadou");
         member.setEmail("dadou@dadou");
         member.setAccountType('M');
@@ -59,6 +60,7 @@ public class TestMemberDao extends AbstactDaoTest {
         Member seller = new Member();
         seller.setLogin("seller");
         seller.setFirstName("seller");
+        seller.setLastName("dadoulastname");
         seller.setPassword("seller");
         seller.setEmail("seller@seller");
         member.setAccountType('S');
@@ -78,6 +80,7 @@ public class TestMemberDao extends AbstactDaoTest {
         Member member = new Member();
         member.setLogin("Marwen");
         member.setFirstName("Marwen");
+        member.setLastName("Marwen");
         member.setPassword("Marwen");
         member.setEmail("marwen@marwen");
         Member created = memberDao.create(member);
@@ -90,6 +93,7 @@ public class TestMemberDao extends AbstactDaoTest {
         Member member = new Member();
         member.setLogin("Marwen");
         member.setFirstName("Marwen");
+        member.setLastName("Marwen");
         member.setPassword("Marwen");
         member.setEmail("marwen@marwen");
         Member created = memberDao.create(member);
@@ -116,6 +120,7 @@ public class TestMemberDao extends AbstactDaoTest {
             member.setLogin("lePap" + i);
             member.setFirstName("lePap"+i);
             member.setPassword("lePap"+i);
+            member.setLastName("Marwen");
             member.setEmail("lePap@lePap"+i);
             memberDao.create(member);
         }
@@ -164,6 +169,7 @@ public class TestMemberDao extends AbstactDaoTest {
             member.setLogin("lePap" + i);
             member.setFirstName("lePap"+i);
             member.setPassword("lePap"+i);
+            member.setLastName("Marwen");
             member.setEmail("lePap@lePap"+i);
             if(i % 3 == 0) {
                 numberOfSellers++;
