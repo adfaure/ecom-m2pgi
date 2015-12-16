@@ -57,7 +57,7 @@
     </div>
   </div>
   <div class="form-group">
-  <label class="col-sm-2 control-label">Type de compte:</label>
+  <label class="col-sm-2 control-label reqField">Type de compte:</label>
   	<div class="col-sm-10">
 	  <select name="singleSelect" id="singleSelect" data-ng-model="data.singleSelect" data-ng-change="reset()" focus-on-load>
 	      <option value="M">Membre</option> <!-- not selected / blank option -->
@@ -66,53 +66,53 @@
     </div>
   </div>
   <div class="form-group" data-ng-show="sellerSelected">
-    <label class="col-sm-2 control-label">RIB:</label>
+    <label class="col-sm-2 control-label reqField">RIB:</label>
     <div class="col-sm-10">
     <input type="text" name="rib" class="form-control" data-ng-model="inEditMember.sellerInfo.rib" placeholder="RIB">
     </div>
   </div> 
   <div class="form-group">
-    <label class="col-sm-2 control-label">Prénom:</label>
+    <label class="col-sm-2 control-label reqField">Prénom:</label>
     <div class="col-sm-10"> 
     <input required type="text" class="form-control" name="firstName" data-ng-model="inEditMember.firstName" placeholder="First Name">
-    <div class="alert-danger" ng-messages="creationForm.firstName.$error" role="alert" ng-show="creationForm.firstName.$touched">
+    <div class="alert-danger" ng-messages="creationForm.firstName.$error" role="alert" ng-show="creationForm.firstName.$dirty">
 		<div ng-messages-include="error-messages"></div>
 	</div>
     </div>
   </div> 
   <div class="form-group">
-    <label class="col-sm-2 control-label">Nom:</label>
+    <label class="col-sm-2 control-label reqField">Nom:</label>
     <div class="col-sm-10">
     <input required type="text" class="form-control" name="lastName" data-ng-model="inEditMember.lastName" placeholder="Last Name">
-    <div class="alert-danger" ng-messages="creationForm.lastName.$error" role="alert" ng-show="creationForm.lastName.$touched">
+    <div class="alert-danger" ng-messages="creationForm.lastName.$error" role="alert" ng-show="creationForm.lastName.$dirty">
 		<div ng-messages-include="error-messages"></div>
 	</div>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Email:</label>
+    <label class="col-sm-2 control-label reqField">Email:</label>
     <div class="col-sm-10">
     <input required type="email" class="form-control" name="email" data-ng-model="inEditMember.email" placeholder="E-mail address">
-    <div class="alert-danger" ng-messages="creationForm.email.$error" role="alert" ng-show="creationForm.email.$touched">
+    <div class="alert-danger" ng-messages="creationForm.email.$error" role="alert" ng-show="creationForm.email.$dirty">
 		<div ng-messages-include="error-messages"></div>
 	</div>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Pseudo:</label>
+    <label class="col-sm-2 control-label reqField">Pseudo:</label>
     <div class="col-sm-10">
-    <input required type="text" class="form-control" name="loginInput" data-ng-model="inEditMember.login" placeholder="Login" ng-change="checkLogin()">
-    <div class="alert-danger" ng-messages="creationForm.loginInput.$error" role="alert" ng-show="creationForm.loginInput.$touched">
+    <input required type="text" class="form-control" name="loginInput" data-ng-model="inEditMember.login" placeholder="Login" ng-change="checkLogin()" ng-pattern="/^[a-zA-Z0-9äöüÄÖÜ]*$/">
+    <div class="alert-danger" ng-messages="creationForm.loginInput.$error" role="alert" ng-show="creationForm.loginInput.$dirty">
 		<div ng-messages-include="error-messages"></div>
 	</div>
-    <div role="alert" ng-show="existingLogin">Ce pseudo existe déjà</div>
+    <div class="alert-danger" role="alert" ng-show="existingLogin">Ce pseudo existe déjà</div>
     </div>
   </div>
   <div class="form-group"  data-ng-hide="edit">
-    <label class="col-sm-2 control-label">Mot de passe:</label>
+    <label class="col-sm-2 control-label reqField">Mot de passe:</label>
     <div class="col-sm-10">
     <input required type="password" class="form-control" name="password" data-ng-model="inEditMember.password" placeholder="Password" minlength='5'>
-    <div class="alert-danger" ng-messages="creationForm.password.$error" role="alert" ng-show="creationForm.password.$touched">
+    <div class="alert-danger" ng-messages="creationForm.password.$error" role="alert" ng-show="creationForm.password.$dirty">
 		<div ng-messages-include="error-messages"></div>
 	</div>
     </div>
