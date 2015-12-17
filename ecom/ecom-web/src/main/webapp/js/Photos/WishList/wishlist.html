@@ -4,7 +4,7 @@
             La recherche a retourné <strong>{{ photos.length }}</strong> photo(s)
         </div>
         <div ng-show="!query" class="panel-heading">
-            Vous avez <strong>{{ photos.length }}</strong> photo(s) dans votre wishlist
+          <span class="fa fa-star-o"></span> Vous avez <strong>{{ photos.length }}</strong> photo(s) dans votre wishlist
         </div>
         <div class="panel-body">
             <div class=row ng-repeat="photo in photos track by $index" ng-if="$index % 4 == 0">

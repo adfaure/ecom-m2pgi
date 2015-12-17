@@ -1,7 +1,8 @@
 <div data-ng-controller="detailsCartController">
-    <h3>Mon panier</h3>
+    <h3  data-ng-show="!panierVide" >Mon panier</h3>
+    <h3  data-ng-show="panierVide" >Mon panier est vide.</h3>
     <hr>
-    <div ng-repeat="photo in cart">
+    <div data-ng-show="!panierVide" ng-repeat="photo in cart">
         <div class="row">
             <div class="col-md-4">
                 <a href=""  class="thumbnail">
@@ -18,7 +19,7 @@
         <hr>
     </div>
 
-    <div class="panel panel-default">
+    <div data-ng-show="!panierVide"  class="panel panel-default">
 
         <div class="panel-heading"><h4>Récapitulatif</h4></div>
         <div class="panel-body">

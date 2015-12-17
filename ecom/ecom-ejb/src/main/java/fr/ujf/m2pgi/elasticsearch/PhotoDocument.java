@@ -25,6 +25,8 @@ public class PhotoDocument {
 
 	private Integer likes;
 
+	private Long dateCreated;
+
 	public Long getPhotoId() {
 		return photoID;
 	}
@@ -87,5 +89,13 @@ public class PhotoDocument {
 
 	public void setLikes(Integer likes) {
 		this.likes = likes;
+	}
+
+	public Long getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Long dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 }
