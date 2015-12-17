@@ -5,6 +5,7 @@ import fr.ujf.m2pgi.database.DTO.MemberDTO;
 /**
  * Created by FAURE Adrien on 25/10/15.
  */
+@Deprecated
 public class PrincipalUser {
 
     /**
