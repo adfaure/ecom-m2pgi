@@ -1,7 +1,7 @@
 <div data-ng-controller="followController">
 
     <h3 ng-show="followed.length != 0">Vous êtes abonné à <strong>{{followed.length}}</strong> vendeurs</h3>
-    <h3 ng-show="followed.length == 0">Vous n'êtes abonné à aucun vendeurs.</h3>
+    <h3 ng-show="followed.length == 0">Vous n'êtes abonné à aucun vendeur.</h3>
 
 
 
@@ -10,7 +10,7 @@
       <div class="divider"></div>
 
       <div>
-      	<span class="glyphicon glyphicon-star"></span><a href class="sellerLoginFollowed" ng-click="goToSellerPage($index)">{{ seller.sellerLogin}}</a>
+      	<span class="glyphicon glyphicon-star"></span><a href class="sellerLoginFollowed" ng-click="goToSellerPage($index)"> {{ seller.sellerLogin}}</a>
       </div>
       <div>
       	<h4>Ses {{numberPhotos}} dernières photos uploadées :</h4>

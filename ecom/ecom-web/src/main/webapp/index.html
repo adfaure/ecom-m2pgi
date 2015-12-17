@@ -2,64 +2,84 @@
 
 <html lang="fr" data-ng-app="ecomApp">
 <head>
-  <meta charset="utf-8">
-  <title ng-bind="pageTitle + 'Shopics'"></title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ecomm">
-  <meta name="author" content="m2pgi">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="css/bootstrap/theme.min.css">
-  <!-- Angular-chart CSS -->
-  <link rel="stylesheet" href="node_modules/angular-chart.js/dist/angular-chart.min.css">
-  <!-- Font-Awesome CSS -->
-  <link rel="stylesheet" href="css/css/font-awesome.min.css">
-  <!-- Our Own CSS -->
+    <link rel="apple-touch-icon" sizes="57x57" href="img/ico/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/ico/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/ico/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/ico/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/ico/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/ico/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/ico/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/ico/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/ico/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/ico/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/ico/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/ico/favicon-16x16.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <meta charset="utf-8">
+    <title ng-bind="pageTitle + 'Shopics'"></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ecomm">
+    <meta name="author" content="m2pgi">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/theme.min.css">
+    <!-- Angular-chart CSS -->
+    <link rel="stylesheet" href="node_modules/angular-chart.js/dist/angular-chart.min.css">
+    <!-- Font-Awesome CSS -->
+    <link rel="stylesheet" href="css/css/font-awesome.min.css">
+    <!-- Our Own CSS -->
     <link rel="stylesheet" href="css/sideBarStyles.css">
     <link rel="stylesheet" href="css/ecom-styles.css">
-  <link rel="stylesheet" href="node_modules/ng-tags-input/build/ng-tags-input.min.css">
-  <link rel="stylesheet" href="node_modules/ng-tags-input/build/ng-tags-input.bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/ng-tags-input/build/ng-tags-input.min.css">
+    <link rel="stylesheet" href="node_modules/ng-tags-input/build/ng-tags-input.bootstrap.min.css">
 
 
 <body ng-controller="mainController">
 
-    <div class="container-fluid" data-ng-include="templates.headerTemplate"></div>
+<div class="container-fluid" data-ng-include="templates.headerTemplate"></div>
 
-    <div class="container-fluid">
+<div class="container-fluid">
 
-        <div id="wrapper">
-            <!-- Sidebar -->
-            <div id="sideBarTemplContainer" class="floatLeft fullHeight collapse in" data-ng-include="templates.navsidebarTemplate" ng-controller="navsidebarController"></div>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sideBarTemplContainer" class="floatLeft fullHeight collapse in"
+             data-ng-include="templates.navsidebarTemplate" ng-controller="navsidebarController"></div>
 
 
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
-                <div class="container-fluid xyz">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="alertContainer" data-ng-include="templates.alertTemplate"></div>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid xyz">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alertContainer" data-ng-include="templates.alertTemplate"></div>
 
-                            <div class="ngViewsContainer" data-ng-view></div>
-                        </div>
+                        <div class="ngViewsContainer" data-ng-view></div>
                     </div>
                 </div>
             </div>
-            <!-- /#page-content-wrapper -->
         </div>
-        <!-- /#wrapper -->
-
+        <!-- /#page-content-wrapper -->
     </div>
+    <!-- /#wrapper -->
+
+</div>
 
 <script src="node_modules/chart.js/Chart.min.js"></script>
 <script src="js/dist.js"></script>
 <script type="text/ng-template" id="error-messages">
-  <div ng-message="required">Champ requis</div>
-  <div ng-message="minlength">Necessite au moins 5 caracteres</div>
-  <div ng-message="email">L'adresse mail n'est pas correcte</div>
-  <div ng-message="max">Le prix maximal est 999.99 euros</div>
-  <div ng-message="min">Le prix minimum est de 0.50 euros</div>
-  <div ng-message="number">Le nombre n'est pas correct</div>
-  <div ng-message="pattern">Le format n'est pas correct</div>
+    <div ng-message="required">Champ requis</div>
+    <div ng-message="minlength">Necessite au moins 5 caracteres</div>
+    <div ng-message="email">L'adresse mail n'est pas correcte</div>
+    <div ng-message="max">Le prix maximal est 999.99 euros</div>
+    <div ng-message="min">Le prix minimum est de 0.50 euros</div>
+    <div ng-message="number">Le nombre n'est pas correct</div>
+    <div ng-message="pattern">Le format n'est pas correct</div>
 </script>
 </body>
 </html>
