@@ -58,7 +58,6 @@ var manage = function($scope, $location , $routeParams, $filter,  $interval, Tag
 		photo.name = $scope.form.name;
 		photo.description = $scope.form.description;
 		photo.tags = $scope.form.tags.map(function(tag) {return tag.name}).join(" ").trim();
-		console.log(photo.tags);
 		photo.price = $scope.form.price;
 
 

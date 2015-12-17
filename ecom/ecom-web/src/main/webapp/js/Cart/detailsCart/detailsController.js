@@ -43,7 +43,6 @@ module.exports = function ($scope, $location, $sce, $routeParams, apiToken, publ
                 if (res.success)
                     apiToken.setUser(res.data);
             }, function (err) {
-                console.log(err);
             });
         } else {
             alertService.add("alert-info", $sce.trustAsHtml("<strong>Pour valider votre panier, veuillez d'abors vous authentifier ou creer un compte <strong>"), 3000);

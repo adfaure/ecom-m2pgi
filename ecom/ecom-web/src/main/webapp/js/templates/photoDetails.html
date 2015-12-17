@@ -1,7 +1,8 @@
 <div class="row">
     
     <div class="col-md-8 col-lg-8 col-sm-8">
-        <img class="img-responsive" ng-src="{{photo.webLocation}}" alt="{{photo.name}}">
+        <img data-ng-if="!photo.privateLocation" class="img-responsive" ng-src="{{photo.webLocation}}" alt="{{photo.name}}">
+        <img data-ng-if="photo.privateLocation" class="img-responsive" ng-src="{{photo.privateLocation}}" alt="{{photo.name}}">
     </div>
 
     <div class="col-md-4 col-lg-4 col-sm-4">
