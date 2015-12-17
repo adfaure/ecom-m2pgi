@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var memMgmtController = function($scope, memberService, sellerService, alertService) {
+var memMgmtController = function($scope, $sce, memberService, sellerService, alertService) {
 
 	$scope.error = false;
 	$scope.incomplete = false;
@@ -229,7 +229,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 	function showCreatedUser(res){
 		
 		if(res.success != null && !res.success){
-			alertService.add("alert-danger", " Erreur, le membre n'as pas pu été ajouté", 2000);
+			alertService.add("alert-danger", $sce.trustAsHtml(" Erreur, le membre n'as pas pu été ajouté", 2000));
 		}
 		else{
 			res.active = true;
@@ -242,7 +242,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 	
 	function addEditedUser(res, index){
 		if(res.success != null && res.success == false){
-			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre édité", 2000);
+			alertService.add("alert-danger", $sce.trustAsHtml("Erreur, le membre n'as pas pu etre édité", 2000));
 		}
 		else{
 			res.active=true;
@@ -258,7 +258,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 		
 		
 		if(res.success != null && res.success == false){
-			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre supprimé", 2000);
+			alertService.add("alert-danger", $sce.trustAsHtml(" Erreur, le membre n'as pas pu etre supprimé", 2000));
 		}
 		else{
 			//$scope.users.splice(index, 1);
