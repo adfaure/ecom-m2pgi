@@ -19,7 +19,9 @@
                 </div>
             </div>
             <div data-ng-if="photo.isBought">
-                <i class="fa fa-check greenIcon" title="Déjà achetée"></i>
+                <a data-ng-if="photo.isBought" href="{{photo.privateLocation}}" download="{{photo.privateLocation}}">
+                    <i class="fa fa-download greenIcon" title="Télécharger"></i>
+                </a>
             </div>
         </div>
     </div>
