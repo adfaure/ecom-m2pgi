@@ -1,5 +1,5 @@
-<div data-ng-controller="accueilController">
-  <div class="jumbotron" ng-hide="connected || !welcome">
+<div>
+  <div class="jumbotron" ng-show="welcome">
     <h1>Bonjour !</h1>
     <p>Ce site est un prototype en accès anticipé pour des raisons de tests! Si vous avez le temps, pourriez-vous le tester et nous envoyer votre feedback sur cette adresse marwen.azouzi@gmail.com</p>
     <p>Sinon ci-desous le bouton pour s'inscrire. Bonne navigation !</p>
@@ -8,16 +8,47 @@
       <a class="btn btn-info btn-lg" href="" ng-click="hideWelcome()" role="button">Plus tard</a>
     </p>
   </div>
-  <p ng-if="search.searching">
-    Recherche en cours...
-  </p>
-  <p ng-if="search.terms && !search.searching && photos.length">
-    {{ photos.length }} résultat(s) trouvé(s) pour <strong>{{ search.terms }}</strong>
-  </p>
-  <p ng-if="search.terms && !search.searching && !photos.length">
-    Aucun résultat pour la recherche <strong>{{ search.terms }}</strong>. Essayez une autre recherche.
-  </p>
-  </p>
+  <div class="row">
+    <div class="col-xs-8 col-sm-9 col-md-10">
+      <div class="input-group">
+        <input type="text" class="form-control" data-ng-model="search.terms" data-ng-change="reset()" placeholder="Rechercher par tags...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" data-ng-click="elasticsearch()">
+            Chercher
+          </button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+    <div class="col-xs-4 col-sm-3 col-md-2">
+      <div class="input-group">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Trier par
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li><a href="" ng-click="sort('date')">Nouveauté</a></li>
+            <li><a href="" ng-click="sort('price')">Moins chères</a></li>
+            <li><a href="" ng-click="sort('priceDesc')">Plus chères</a></li>
+            <li><a href="" ng-click="sort('views')">Nombre de vues</a></li>
+            <li><a href="" ng-click="sort('likes')">Nombre de likes</a></li>
+          </ul>
+        </div>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+  <div>
+    <p ng-if="search.searching">
+      Recherche en cours...
+    </p>
+    <p ng-if="search.lastTerms && !search.searching && photos.length">
+      {{ photos.length }} résultat(s) trouvé(s) pour <strong>{{ search.lastTerms }}</strong>
+    </p>
+    <p ng-if="search.lastTerms && !search.searching && !photos.length">
+      Aucun résultat pour la recherche <strong>{{ search.lastTerms }}</strong>. Essayez une autre recherche.
+    </p>
+  </div>
+  <br>
   <div class="row" >
     <div class="col-lg-3 col-md-4 col-xs-6" data-ng-repeat="photo in photos track by $index">
       <thumbnail photo = "photo"></thumbnail>

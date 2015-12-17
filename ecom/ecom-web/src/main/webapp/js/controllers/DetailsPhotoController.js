@@ -70,6 +70,12 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
   $scope.goToSellerPage = function(){
     $location.path("/seller/page/"+ $scope.photo.sellerID);
   }
+
+  $scope.search = function(tag){
+    $location.path('/accueil').search( {
+        'terms' : tag
+    });
+  }
 };
 
 module.exports = detailsPhotoController;

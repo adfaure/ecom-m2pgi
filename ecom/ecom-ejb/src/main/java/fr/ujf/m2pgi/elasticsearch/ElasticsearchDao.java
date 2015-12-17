@@ -37,10 +37,11 @@ public class ElasticsearchDao {
 			                        .field("name", doc.getName())
 															.field("description", doc.getDescription())
 															.field("tags", doc.getTags())
-															.field("location", doc.getThumbnail())
+															.field("thumbnail", doc.getThumbnail())
 															.field("price", doc.getPrice())
 															.field("views", doc.getViews())
 															.field("likes", doc.getLikes())
+															.field("created", doc.getDateCreated())
 			                    .endObject()
 			                  )
 			        .get();
@@ -62,9 +63,9 @@ public class ElasticsearchDao {
 		GetResponse response = connection.getClient().prepareGet("ecom", "photo", id).get();
 		if (!response.isExists()) return null;
 		PhotoDocument document = new PhotoDocument();
-    	document.setPhotoId(Long.parseLong(response.getId()));
-    	document.setDescription((String)response.getSource().get("description"));
-    	return document;
+    document.setPhotoId(Long.parseLong(response.getId()));
+    document.setDescription((String)response.getSource().get("description"));
+    return document;
 	}
 
 	/**
@@ -123,10 +124,11 @@ public class ElasticsearchDao {
 			document.setName((String)hit.getSource().get("name"));
 			document.setDescription((String)hit.getSource().get("description"));
 			document.setTags((String)hit.getSource().get("tags"));
-			document.setThumbnail((String)hit.getSource().get("location"));
+			document.setThumbnail((String)hit.getSource().get("thumbnail"));
 			document.setPrice(new Float((double)hit.getSource().get("price")));
-			document.setViews((int)hit.getSource().get("views"));
-			document.setLikes((int)hit.getSource().get("likes"));
+			document.setViews((Integer)hit.getSource().get("views"));
+			document.setLikes((Integer)hit.getSource().get("likes"));
+			document.setDateCreated((Long)hit.getSource().get("created"));
 			hits.add(document);
 		}
 
@@ -152,10 +154,11 @@ public class ElasticsearchDao {
 			document.setName((String)hit.getSource().get("name"));
 			document.setDescription((String)hit.getSource().get("description"));
 			document.setTags((String)hit.getSource().get("tags"));
-			document.setThumbnail((String)hit.getSource().get("location"));
+			document.setThumbnail((String)hit.getSource().get("thumbnail"));
 			document.setPrice(new Float((double)hit.getSource().get("price")));
 			document.setViews((int)hit.getSource().get("views"));
 			document.setLikes((int)hit.getSource().get("likes"));
+			document.setDateCreated((Long)hit.getSource().get("created"));
 			hits.add(document);
 		}
 

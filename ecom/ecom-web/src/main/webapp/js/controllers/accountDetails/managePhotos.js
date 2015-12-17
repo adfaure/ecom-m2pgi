@@ -13,9 +13,11 @@ var manage = function($scope, $location , $routeParams, $filter,  $interval, Tag
 	$scope.photos = [];
 	$scope.highlight = -1;
 	$scope.query = '';
+	$scope.photoCount = 0;
 
 	publicPhoto.GetUserPhotos(apiToken.getUser().login).then(function(res) {
 		$scope.photos = cachedPhotos = res;
+		$scope.photoCount = res.length;
 
 		if($routeParams.photo) {
 			var paramPhoto = JSON.parse($routeParams.photo);
@@ -87,6 +89,7 @@ var manage = function($scope, $location , $routeParams, $filter,  $interval, Tag
 			$scope.removeIndex = -1;
 			$scope.editIndex = -1;
 			$scope.photos.splice(index, 1);
+			$scope.photoCount = $scope.photos.length;
 		});
 	};
 
@@ -96,6 +99,14 @@ var manage = function($scope, $location , $routeParams, $filter,  $interval, Tag
 			$scope.valid = false;
 		}
 	};
+
+	$scope.submit = function() {
+		$location.path('/profil/addPhoto');
+	}
+
+	$scope.goToPhoto = function(id) {
+		$location.path('/photos/details/'+id);
+	}
 
 	$scope.$on('search', function(event, data) {
 		$scope.query = data.query;
