@@ -1,7 +1,7 @@
 var angular = require('angular');
 var ecomApp = require('./../app');
 
-var navsidebarController = function($scope, $location, $routeParams, apiToken) {
+var navsidebarController = function($scope, $location, $rootScope, $routeParams, apiToken) {
   $scope.auth = false;
   $scope.seller = false;
   $scope.admin = false;
@@ -29,11 +29,15 @@ var navsidebarController = function($scope, $location, $routeParams, apiToken) {
         $scope.url = $location.url();
     })
 
-    $scope.isActiveClass = function(checkedUrl) {
-        if($scope.url == checkedUrl)
+    $scope.isActiveClass = function(checkedUrl, pageTitle) {
+        console.log(pageTitle);
+        if ($scope.url.indexOf(checkedUrl) > -1) {
+            $rootScope.pageTitle = pageTitle+" | ";
             return "activeTab";
-        else
+        }else{
+            //$rootScope.pageTitle = "";
             return "";
+        }
     };
 };
 
