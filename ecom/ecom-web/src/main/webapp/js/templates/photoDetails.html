@@ -1,13 +1,29 @@
 <div class="row">
-    
+
     <div class="col-md-8 col-lg-8 col-sm-8">
-        <img class="img-responsive" ng-src="{{photo.webLocation}}" alt="{{photo.name}}">
+        <img data-ng-if="!photo.privateLocation" class="img-responsive" ng-src="{{photo.webLocation}}"
+             alt="{{photo.name}}">
+        <img data-ng-if="photo.privateLocation" class="img-responsive" ng-src="{{photo.privateLocation}}"
+             alt="{{photo.name}}">
     </div>
 
     <div class="col-md-4 col-lg-4 col-sm-4">
         <div class="row bs-callout bs-callout-info">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <p>Mise en vente par <a href="" ng-click="goToSellerPage()"> {{seller.login}} </a></p>
+                <p>
+                    <span title="{{ photo.name }}"><strong>{{ photo.name | shorten:true:20:'...' }}</strong></span> : {{
+                    photo.description }}
+                </p>
+                <p>
+                    Mise en vente il y a {{ photo.dateCreated | elapsed }} par <a href="" ng-click="goToSellerPage()">
+                    {{seller.login}} </a>
+                </p>
+                <p>
+                <div>
+                    <span class="fa fa-eye" title="Nombre de vues">{{photo.views}}</span>
+                    <span class="fa fa-thumbs-o-up" title="Nombre de likes">{{photo.likes}}</span>
+                </div>
+                </p>
             </div>
         </div>
         <div class="row ">
@@ -17,9 +33,11 @@
                         <p>tags: </p>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9">
-                        <span ng-repeat="tag in photo.tags"><span
-                                class="label label-primary">{{tag.name}}</span>
-                        </span>
+                        <h4><span ng-repeat="tag in photo.tags"
+                                data-ng-click="search(tag.name)"
+                                class="label label-primary cursorPointer">
+                            {{tag.name}}
+                        </span></h4>
                     </div>
                 </div>
                 <div data-ng-if="loaded" class="row padding-4pc">
@@ -29,7 +47,7 @@
                 </div>
                 <div data-ng-show="!isAdmin" class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 ">
-                        <p data-ng-if="!photo.isBought"> Ajouter au panier </p>
+                        <!--<p data-ng-if="!photo.isBought"> Ajouter au panier </p>-->
                         <p data-ng-if="photo.isBought"> Vous avez déja acheté cette photo </p>
                     </div>
                 </div>
@@ -45,15 +63,16 @@
                         </button>
                     </div>
                 </div>
-                <div class="row  padding-4pc">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <button class="btn btn-default" ng-show="!photo.flagged" ng-click="flag(photo.photoID)">
-                            <span class="glyphicon glyphicon-flag"></span>Signaler
-                        </button>
+                <div data-ng-if="loaded" class="row padding-4pc">
+                    <div ng-show="!owned" class="row  padding-4pc">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <button class="btn btn-default" ng-show="!photo.flagged" ng-click="flag(photo.photoID)">
+                                <span class="glyphicon glyphicon-flag"></span>Signaler
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

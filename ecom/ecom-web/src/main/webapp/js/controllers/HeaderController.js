@@ -4,6 +4,8 @@ var ecomApp = require('./../app');
 var headerController = function($rootScope, $scope, $location, $sce, apiToken, authentificationService, alertService,cartService ,searchService) {
     $scope.auth = apiToken.isAuthentificated();
     $scope.cart = cartService.getCart();
+    $scope.url = "";
+
     $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
             $scope.auth = isAuth;
             $scope.cart = cartService.getCart();
@@ -54,14 +56,22 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
       $rootScope.$broadcast('search', {query: $scope.terms});
     }
 
-    $scope.elastic = function() {
-      $rootScope.$broadcast('elastic', {query: $scope.terms});
-    }
 
-    $scope.change = function() {
-      $rootScope.$broadcast('search', {query: $scope.terms});
-      if(!$scope.terms) $rootScope.$broadcast('elastic', {query: $scope.terms});
-    }
+    $scope.$on('$routeChangeSuccess', function(event){
+        $scope.url = $location.url();
+    });
+
+    $scope.searchVisibility = function() {
+        if ($scope.url.indexOf("/profil/managePhotos") > -1
+            || $scope.url.indexOf("/profil/myPage") > -1
+            || $scope.url.indexOf("/profil/gallery") > -1
+            || $scope.url.indexOf("/profil/wishList") > -1
+            || $scope.url.indexOf("/profil/reportedPhotos") > -1) {
+            return true;
+        }else{
+            return false;
+        }
+    };
 };
 
 ecomApp.controller('headerController', headerController);

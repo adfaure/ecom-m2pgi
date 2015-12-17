@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed floatLeft" data-toggle="collapse" data-target="#sideBarTemplContainer" aria-expanded="false">
+      <button type="button" class="navbar-toggle sidebar-toggle collapsed floatLeft" data-toggle="collapse" data-target="#sideBarTemplContainer" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -18,29 +18,29 @@
     </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form id="searchnavbar" class="navbar-form navbar-left textAlignCenter" role="search" name="searchForm" data-ng-submit="search();elastic();">
-                <div class="form-group">
-                    <input id="searchInput" type="text" class="form-control" data-ng-model="terms" data-ng-change="change();"
+        <div class="collapse navbar-collapse overflowHidden" id="bs-example-navbar-collapse-1">
+            <form data-ng-show="auth && searchVisibility()" id="searchnavbar" class="navbar-form navbar-left textAlignCenter" role="search" name="searchForm" data-ng-submit="search();">
+                <div class="form-group inlineFlex">
+                    <input id="searchInput" type="text" class="form-control" data-ng-model="terms" data-ng-change="search();"
                            placeholder="{{placeholder}}" focus-on-load>
+                    <button type="submit" class="btn btn-default" title="Chercher"><i class="fa fa-search"></i></button>
                 </div>
-                <button type="submit" class="btn btn-default" title="Chercher"><i class="fa fa-search"></i></button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li data-ng-show="!auth || (auth && !admin)" class="cursorPointer" title="Uploader une photo">
+                <li data-ng-show="!auth || (auth && !admin)" class="cursorPointer floatLeft" title="Uploader une photo">
                     <a class="fa" data-ng-click="goToAddPhoto()">
                         <i class="fa fa-cloud-upload fa-2x"></i><span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li data-ng-show="!admin" class="cursorPointer">
+                <li data-ng-show="!admin" class="cursorPointer floatLeft">
                     <a class="fa" data-ng-click="gotToProfil('myCart')">
                         <i data-ng-class="{'greenIcon': cart.length }" class="fa fa-cart-arrow-down fa-2x"></i>
                         <strong ng-show="cart.length">({{ cart.length }})</strong>
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li data-ng-show="!auth"><a href="#/inscription"> Authentification </a></li>
-                <li class="dropdown" data-ng-show="auth">
+                <li data-ng-show="!auth" class="floatRight"><a href="#/inscription"> Authentification </a></li>
+                <li class="dropdown floatRight" data-ng-show="auth">
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <strong>{{ user.firstName }} {{ user.lastName }}</strong><span class="caret"></span></a>
                     <ul class="dropdown-menu">

@@ -1,17 +1,31 @@
 <div data-ng-controller="managePhotos">
 
-<h3 ng-show="query">
+  <div data-ng-if="!photoCount" class="jumbotron">
+    <h1>Bonjour !</h1>
+    <p>Vous n'avez aucune photo dans votre magasin ! </p>
+    <form class="css-form" name="loginform" novalidate ng-submit="loginform.$valid && submit()">
+      <button type="submit" class="btn btn-primary btn-lg">Uploader une photo</button>
+    </form>
+  </div>
+
+<h3 ng-show="query && photoCount">
   La recherche a retourné <strong>{{ photos.length }}</strong> photo(s) !
 </h3>
-<h3 ng-show="!query">
+<h3 ng-show="!query && photoCount">
   Vous avez <strong>{{ photos.length }}</strong> photo(s) dans votre magasin !
 </h3>
 
 <table class="table">
   <tbody>
     <tr ng-repeat-start="photo in photos track by $index" data-ng-class="{'bg-info': $index == highlight }">
-      <td rowspan="5" class="col-md-2">
-        <img width="128" ng-src="{{ photo.thumbnail }}" alt="{{ photo.name }}">
+      <td rowspan="4" class="col-md-2">
+        <img width="128" ng-click="goToPhoto(photo.photoID)" ng-src="{{ photo.thumbnail }}" alt="{{ photo.name }}" cursorPointer>
+        <br>
+        <h4>
+        <span class="fa fa-eye" title="Nombre de vues">{{photo.views}}</span>
+        <span class="fa fa-thumbs-o-up" title="Nombre de likes">{{photo.likes}}</span>
+        <span class="fa fa-heart-o" title="Nombre de wishes">{{photo.wishes}}</span>
+      </h4>
       </td>
       <td class="col-md-2">Nom : </td>
       <td ng-if="editIndex != $index">
@@ -33,7 +47,9 @@
     <tr data-ng-class="{'bg-info': $index == highlight }">
       <td class="col-md-2">Mots-clés : </td>
       <td ng-if="editIndex != $index">
-        <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
+        <h4>
+          <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
+        </h4>
       </td>
       <td ng-if="editIndex == $index">
         <tags-input on-tag-removing="test()" on-tag-added="test()" ng-model="form.tags" display-property="name" add-on-paste="true">
