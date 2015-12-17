@@ -3,6 +3,10 @@ package fr.ujf.m2pgi.REST;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * In order to fit 'application/json' request, sometimes we give feedback to the front end thanks to this custom response.
+ * It will send a response formated as a json and an internal error status code.
+ */
 @XmlRootElement
 public class CustomServerResponse {
 	

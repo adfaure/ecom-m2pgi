@@ -21,22 +21,46 @@ import java.util.Map;
 
 /**
  * Created by FAURE Adrien on 25/10/15.
+ * The route /auth will provide an autentification service.
+ * The application will give an UNIQUE token to each client which need be identified to the application
  */
 @Path("/auth")
 public class RESTAuthentification {
 
+    /**
+     * The member service provided by the EJB application. Will allow to get member from database.
+     */
     @EJB
     private IMemberService memberService;
 
+    /**
+     * The string digest to hash password from client and compare it to the database hashed password
+     */
     @EJB
     private IStringDigest stringDigest;
 
+    /**
+     * The pi provided  by the EJB container which perform the security check.
+     */
     @EJB
     private JwtSingleton jwtSingleton;
 
+    /**
+     *  The current request
+     */
     @Context
     private HttpServletRequest httpServletRequest;
 
+    /**
+     * the authentication route.
+     * Each client which need to be identified will provide to this a route their password. If the information provided are correct
+     * the application return a JWT token. After that, the client have to send the token into a http header (authtoken). This token will allow to identify and sign each request.
+     * If a cart is provided into the body; it will be merge with the user cart.
+     * If the information are not correct or if the member is not active anymore, the authentication will fail.
+     * @param body
+     * @param username
+     * @return
+     */
     @POST
     @Path("/login/{username}")
     @Consumes("application/json")
@@ -106,6 +130,10 @@ public class RESTAuthentification {
       }
     }
 
+    /**
+     * Not useful anymore, because we are stateless if the client want to log out it just need to destroy his token
+     * @return
+     */
     @POST
     @Path("/logout")
     @Produces("application/json")
@@ -114,6 +142,11 @@ public class RESTAuthentification {
       return Response.ok().entity(new CustomServerResponse(true, "Logout successed!")).build();
     }
 
+    /**
+     * The client can give his token to this route an if the token is valide the client know he have a correct token.
+     * @param id
+     * @return
+     */
     @POST
     @Path("/refresh")
     @Consumes("application/json")

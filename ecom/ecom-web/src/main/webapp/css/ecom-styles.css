@@ -214,7 +214,7 @@
 }
 .bs-callout {
     padding: 20px;
-    margin: 20px 0px;
+    margin: 20px 0px 20px 15px;
     border-width: 1px 1px 1px 5px;
     border-style: solid;
     border-color: #EEE;
@@ -249,6 +249,13 @@
     display: inline-flex;
 }
 
+.inlineBlock{
+    display: inline-block;
+}
+
+div.divider {
+    border-bottom: 1px solid #999999;
+}
 
 /* Sidebar styles */
 
@@ -307,8 +314,19 @@
     margin-right: 5px;
 }
 
+.navbar-brand{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-top: 3px;
+}
+
 @media (min-width: 768px) {
     .navbar-toggle.sidebar-toggle {
         display: block;
     }
+}
+
+#logoShopics {
+    /*width: 66%;*/
+    height: 100%;
 }

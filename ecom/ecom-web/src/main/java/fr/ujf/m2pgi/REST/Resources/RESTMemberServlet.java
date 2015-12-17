@@ -20,26 +20,45 @@ import java.util.List;
 
 /**
  * Created by FAURE Adrien 22/10/15
+ * Member servlet will perform all action possible with the members
+ * such as create, get, update and more.
+ * the base route is api/members/
  */
 @Path("/members")
 public class RESTMemberServlet {
 
+	/**
+	 * The EJB member service, will allow to interact will the EJB application
+	 */
 	@EJB
 	private IMemberService memberService;
 
+	/**
+	 *  The current servlet which handle the request.
+	 */
 	@Context
 	private HttpServletRequest httpServletRequest;
 
+	/**
+	 * Get all members of the application
+	 * Only the admin can access this resource because some information are confidential (memberID, email ...).
+	 * The password will not be given.
+	 * @return
+     */
 	@GET
 	@Path("/")
 	@Produces("application/json")
 	@Allow(groups = "admin")
 	public Response getAllMembers() {
-
 		List<AdminMemberDTO> members = memberService.getAllMembers();
 		return Response.ok(members).build();
 	}
 
+	/**
+	 * get a member with his login
+	 * @param login
+	 * @return
+     */
 	@GET
 	@Path("/login/{login}")
 	@Produces("application/json")
@@ -49,6 +68,11 @@ public class RESTMemberServlet {
 		return Response.ok(member).build();
 	}
 
+	/**
+	 * Return boolean based json.the response will be true if the member exist in the database. Otherwise it will be  false.
+	 * @param login the login of the user
+	 * @return
+     */
 	@GET
 	@Path("/exists/{login}")
 	@Produces("application/json")
@@ -56,6 +80,11 @@ public class RESTMemberServlet {
 		return Response.ok(memberService.isExistingMemberByLogin(login)).build();
 	}
 
+	/**
+	 * Return boolean based json.the response will be true if the email exist in the database. Otherwise it will be  false.
+	 * @param email the email
+	 * @return
+     */
 	@GET
 	@Path("/exists/email/{email}")
 	@Produces("application/json")
@@ -63,6 +92,11 @@ public class RESTMemberServlet {
 		return Response.ok(memberService.isExistingMemberByEmail(email)).build();
 	}
 
+	/**
+	 * Access member information with his id
+	 * @param id the id of the user
+	 * @return
+     */
 	@GET
 	@Path("/id/{id}")
 	@Produces("application/json")
@@ -73,6 +107,11 @@ public class RESTMemberServlet {
 	}
 
 
+	/**
+	 * //TODO AngieMoomin
+	 * @param id
+	 * @return
+     */
 	@GET
 	@Path("id/{id}/follows")
 	@Produces("application/json")
@@ -82,6 +121,12 @@ public class RESTMemberServlet {
 		return Response.ok(members).build();
 	}
 
+	/**
+	 * Inscription route.
+	 * Everyone can create an account on our website
+	 * @param member A json representing a member {@link }
+	 * @return
+     */
 	@POST
 	@Path("/")
 	@Produces("application/json")
@@ -95,7 +140,13 @@ public class RESTMemberServlet {
 		}
 	}
 
-
+	/**
+	 * Delete an user from the application.
+	 * The user is not removed from the database but is account will be disable and so his photos.
+	 * Only the admin can perform this action. (member cannot remove their account yet)
+	 * @param id
+	 * @return
+     */
 	@DELETE
 	@Path("id/{id}")
 	@Produces("application/json")
@@ -106,6 +157,12 @@ public class RESTMemberServlet {
 		return  Response.status(Status.ACCEPTED).build();
 	}
 
+	/**
+	 * Route which update a member with the provided json member
+	 * @param id
+	 * @param memberDTO
+     * @return
+     */
 	@PUT
 	@Path("/update/id/{id}")
 	@Produces("application/json")
@@ -123,9 +180,17 @@ public class RESTMemberServlet {
 		}
 	}
 
+	/**
+	 * Change the password of an user
+	 * @param id the id of the member to update
+	 * @param memberDTO
+	 * @param newPSW
+     * @return
+     */
 	@PUT
 	@Path("id/{id}/pwd/{newPSW}")
 	@Produces("application/json")
+	//FIXME add the proper rigth
 	public Response updateUserPSW(@PathParam("id") Long id, MemberDTO memberDTO, @PathParam("newPSW") String newPSW) {
 		MemberDTO m = memberService.getMemberbyId(id);
 		if(m == null) return Response.status(Status.BAD_REQUEST).build();
@@ -135,6 +200,11 @@ public class RESTMemberServlet {
 		return Response.ok(updatedMember).build();
 	}
 
+	/**
+	 * Get the number of member in the application.
+	 * Allthe account will be counted unless the admin. But the result will also include all disabled account.
+	 * @return a response http
+     */
 	@GET
 	@Path("/count")
 	@Produces("application/json")
@@ -144,6 +214,13 @@ public class RESTMemberServlet {
 		return Response.ok(pCount).build();
 	}
 
+	/**
+	 * Add a photo to the cart.
+	 * @param id the id of the user to add the photo to his cart
+	 * @param photoId the id of the photo to add
+	 * @param requesterID the id of the client (for the security checking)
+     * @return
+     */
 	@POST
 	@Path("id/{id}/cart/photo/id/{photoId}")
 	@Produces("application/json")
@@ -160,6 +237,14 @@ public class RESTMemberServlet {
 		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
 
+	/**
+	 * Remove a photo to the cart.
+	 * @param id the id of the user to add the photo to his cart
+	 * @param photoId the id of the photo to add
+	 * @param requesterID the id of the client (for the security checking)
+	 * @return
+     * @return
+     */
 	@DELETE
 	@Path("id/{id}/cart/photo/id/{photoId}")
 	@Produces("application/json")
@@ -175,6 +260,12 @@ public class RESTMemberServlet {
 		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
 
+	/**
+	 * Clear the cart
+	 * @param id the if of the user to delete the cart
+	 * @param requesterID the id of the current identified user (security checking)
+     * @return
+     */
 	@DELETE
 	@Path("id/{id}/cart")
 	@Produces("application/json")
@@ -188,6 +279,13 @@ public class RESTMemberServlet {
 		return  Response.status(Status.ACCEPTED).entity(res).build();
 	}
 
+	/**
+	 * Allow user to follow an other user
+	 * @param memberId the id of the member who want to follow an user
+	 * @param followedId the id of the (future) followed member
+	 * @param requesterID the id of the identified user (security checking)
+     * @return
+     */
 	@POST
 	@Path("id/{memberId}/follow/{followedId}")
 	@Produces("application/json")
@@ -204,6 +302,13 @@ public class RESTMemberServlet {
 		return Response.status(405).build();
 	}
 
+	/**
+	 * Allow user to unfollow an other user
+	 * @param memberId the id of the member who want to follow an user
+	 * @param followedId the id of the (future) followed member
+	 * @param requesterID the id of the identified user (security checking)
+	 * @return
+	 */
 	@POST
 	@Path("id/{memberId}/unfollow/{followedId}")
 	@Produces("application/json")
@@ -216,6 +321,12 @@ public class RESTMemberServlet {
 		return  Response.ok(response).build();
 	}
 
+	/**
+	 * boolean route which return if a iuser follow an other user
+	 * @param memberId the member to ask for
+	 * @param followerId the (maybe) followed member
+     * @return
+     */
 	@GET
 	@Path("id/{memberId}/isfollowedby/{followerId}")
 	@Produces("application/json")

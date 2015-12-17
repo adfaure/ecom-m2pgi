@@ -14,11 +14,13 @@ public class LastPhotosDTO {
 
 	//private long photoID;
 
-	public LastPhotosDTO(String sellerLogin){
+	public LastPhotosDTO(String sellerLogin, long sellerID){
 		this.sellerLogin = sellerLogin;
+		this.setSellerID(sellerID);
 	}
 	
 	private String sellerLogin;
+	private long sellerID;
 	
 	private Collection<PhotoContextSmallDTO> photos;
 
@@ -36,6 +38,14 @@ public class LastPhotosDTO {
 
 	public void setPhotos(Collection<PhotoContextSmallDTO> photos) {
 		this.photos = photos;
+	}
+
+	public long getSellerID() {
+		return sellerID;
+	}
+
+	public void setSellerID(long sellerID) {
+		this.sellerID = sellerID;
 	}
 	
 	

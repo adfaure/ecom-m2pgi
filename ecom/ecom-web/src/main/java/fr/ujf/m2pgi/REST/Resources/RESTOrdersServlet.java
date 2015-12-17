@@ -21,30 +21,51 @@ import fr.ujf.m2pgi.database.Service.OrderService;
 
 /**
  * Created by AZOUZI Marwen 23/10/15
+ * The base route to interact with the order and allow user to buy photos.
  */
 @Path("/orders")
 public class RESTOrdersServlet {
 
+	/**
+	 * The application order service
+	 */
 	@EJB
 	private OrderService orderService;
 
+	/**
+	 * the application member service
+	 */
 	@EJB
 	private IMemberService memberService;
 
+	/**
+	 * the customer service (basically the same as orderservice)
+	 */
 	@EJB
 	private ICustomerService customerService;
 
+	/**
+	 *	Return all orders from the application
+	 * @return
+     */
 	@GET
 	@Path("/")
 	@Produces("application/json")
+	//FIXME admin route only with this route open no need to buy photo because we all can acces to order which contains the private location
 	public Response getAllOrders() {
 		List<OrderDTO> orders = orderService.getAllOrders();
 		return Response.ok(orders).build();
 	}
 
+	/**
+	 * Get all orders performed by one user (access by login).
+	 * @param login the login of the user
+	 * @return a json with all orders related to the user which own the parameter login
+     */
 	@GET
 	@Path("/customer/login/{login}")
 	@Produces("application/json")
+	//FIXME member;sellers route only. with this open route if only one user buy a photo everyone can also access to it easily
 	public Response getUserOrders(@PathParam("login") String login) {
 		MemberDTO member = memberService.getMemberByLogin(login, true);
 		if(member == null) {
@@ -54,9 +75,16 @@ public class RESTOrdersServlet {
 		return Response.ok(photos).build();
 	}
 
+	/**
+	 * Create an order to the user with login login
+	 * @param login the login of the user
+	 * @param order A collections of photo to add to the order
+     * @return
+     */
     @POST
     @Path("/customer/login/{login}")
     @Produces("application/json")
+	//FIXME You can create an order for any member you want
     public Response createOrders(@PathParam("login") String login, Collection<PublicPhotoDTO> order) {
         MemberDTO member = memberService.getMemberByLogin(login, true);
         if(member == null) {
@@ -75,6 +103,10 @@ public class RESTOrdersServlet {
 		return Response.ok(member).build();
     }
 
+	/**
+	 * get the number of order in the whole application.
+	 * @return
+     */
 	@GET
 	@Path("/count")
 	@Produces("application/json")
@@ -84,6 +116,10 @@ public class RESTOrdersServlet {
 		return Response.ok(orderCount).build();
 	}
 
+	/**
+	 * get the total sum of each orders.
+	 * @return
+     */
 	@GET
 	@Path("/totalPurchaseCost")
 	@Produces("application/json")

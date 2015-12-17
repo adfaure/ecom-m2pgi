@@ -6,8 +6,9 @@ server {
     underscores_in_headers on;
     ignore_invalid_headers off;
     proxy_pass_request_headers on;
+
     location / {
-	proxy_pass http://127.0.0.1:8080/ecom-web/;
+	     proxy_pass http://127.0.0.1:8080/ecom-web/;
     }
 
     location /upload/ {
@@ -18,5 +19,3 @@ server {
         proxy_pass http://152.77.78.10/images/;
     }
 }
-
-

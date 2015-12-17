@@ -36,21 +36,42 @@ import fr.ujf.m2pgi.elasticsearch.SearchResult;
 @Path("/photos")
 public class RESTPhotosServlet {
 
+	/**
+	 * the facede photo (not very needed the service could be as good)
+	 */
 	@EJB
 	private FacadePhoto facadePhoto;
 
+	/**
+	 * the member service of the application
+	 */
 	@EJB
 	private IMemberService memberService;
 
+	/**
+	 * the photo service of elastic search
+	 */
 	@EJB
 	private PhotoServiceES photoServiceES;
 
+	/**
+	 * the customer service
+	 */
 	@EJB
 	private ICustomerService customerService;
 
+	/**
+	 * the servlet which handle the current request
+	 */
 	@Context
 	private HttpServletRequest httpServletRequest;
 
+	/**
+	 * Get all photo from the web site.
+	 * If the user is identified, additionnals data will be added to the photo (like liked, wishes, isbought ...)
+	 * @param requesterID
+	 * @return
+     */
 	@GET
 	@Path("/")
 	@Produces("application/json")
@@ -64,6 +85,10 @@ public class RESTPhotosServlet {
 		return Response.ok(photos).build();
 	}
 
+	/**
+	 * get all reported photos
+	 * @return
+     */
 	@GET
 	@Path("/reported")
 	@Produces("application/json")
@@ -73,6 +98,10 @@ public class RESTPhotosServlet {
 		return Response.ok(photos).build();
 	}
 
+	/**
+	 * Return the 10 most sales photo off all times
+	 * @return
+     */
 	@GET
 	@Path("/top10")
 	@Produces("application/json")
@@ -81,6 +110,12 @@ public class RESTPhotosServlet {
 		return Response.ok(photos).build();
 	}
 
+	/**
+	 * Get all photo ordered by an incoming parameter
+	 * @param criteria the criteria of order : price, data, likes, views
+	 * @param order DESC or ASC
+     * @return
+     */
 	@GET
 	@Path("/orderby")
 	@Produces("application/json")
@@ -102,6 +137,10 @@ public class RESTPhotosServlet {
 		return Response.ok(photos).build();
 	}
 
+	/**
+	 * Get all photo from Elastic search service
+	 * @return
+     */
 	@GET
 	@Path("/search")
 	@Produces("application/json")
@@ -109,6 +148,12 @@ public class RESTPhotosServlet {
 		return Response.ok(photoServiceES.getAllPhotos()).build();
 	}
 
+	/**
+	 * Search a photo into the application. Elastic search will first handle the request and if the client is identified he will get more information.
+	 * @param text
+	 * @param requesterID
+     * @return
+     */
 	@GET
 	@Path("/search/{text}")
 	@Produces("application/json")
@@ -122,6 +167,12 @@ public class RESTPhotosServlet {
 		return Response.ok(photoServiceES.searchPhotos(text)).build();
 	}
 
+	/**
+	 * Get photo by id, if the client is identified he will get more information.
+	 * @param id the id of the photo
+	 * @param requesterID the id of the current client (if exist)
+     * @return
+     */
 	@GET
 	@Path("/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -134,6 +185,12 @@ public class RESTPhotosServlet {
 		return Response.ok(photo).build();
 	}
 
+	/**
+	 * Get all bought photo by a user.
+	 * @param id the id of the user to search photo for
+	 * @param requesterID the id of the identified user (security checking)
+     * @return
+     */
 	@GET
 	@Path("/bought/user/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -148,6 +205,13 @@ public class RESTPhotosServlet {
 		}
 	}
 
+	/**
+	 * Boolean route to check if an user have bougth a photo.
+	 * @param id the id of the user
+	 * @param photoId the id of the photo
+	 * @param requesterID the id of the requester
+     * @return
+     */
 	@GET
 	@Path("/id/{photoId:[1-9][0-9]*}/user/id/{id:[1-9][0-9]*}/isBought")
 	@Produces("application/json")
@@ -162,6 +226,11 @@ public class RESTPhotosServlet {
 		}
 	}
 
+	/**
+	 * Get all photos in sale by an user
+	 * @param id the id of the user
+	 * @return
+     */
 	@GET
 	@Path("/user/id/{id:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -170,6 +239,11 @@ public class RESTPhotosServlet {
 		return Response.ok(photos).build();
 	}
 
+	/**
+	 * Get all photos in sale by an user
+	 * @param login the login of the user
+	 * @return
+	 */
 	@GET
 	@Path("/user/login/{login}")
 	@Produces("application/json")
@@ -178,22 +252,40 @@ public class RESTPhotosServlet {
 		return Response.ok(photos).build();
 	}
 
+	/**
+	 * Get all photo wished by an user
+	 * @param id the id of the user.
+	 * @return
+     */
 	@GET
 	@Path("/user/id/{id:[1-9][0-9]*}/wishes")
 	@Produces("application/json")
+	//FIXME everybody can access to other user whish list
 	public Response getUserWishedPhotos(@PathParam("id") Long id) {
 		List<WishListPhotoDTO> photos = facadePhoto.getUserWishedPhotos(id);
 		return Response.ok(photos).build();
 	}
 
+	/**
+	 * Get all photo wished by an user
+	 * @param login the login of the user.
+	 * @return
+	 */
 	@GET
 	@Path("/user/login/{login}/wishes")
 	@Produces("application/json")
+	//FIXME everybody can access to other user whish list
 	public Response getUserWishedPhotos(@PathParam("login") String login) {
 		List<PublicPhotoDTO> photos = facadePhoto.getUserWishedPhotos(login);
 		return Response.ok(photos).build();
 	}
 
+	/**
+	 * Get numberOfPhotos last photo added by a seller.
+	 * @param followerID the id of the user to get the photo
+	 * @param numberOfPhotos the number of photo to get
+     * @return
+     */
 	@GET
 	@Path("/user/id/{id:[1-9][0-9]*}/maxNum/{numberMax}")
 	@Produces("application/json")
@@ -202,6 +294,13 @@ public class RESTPhotosServlet {
 		return Response.ok(sellersAndPhotos).build();
 	}
 
+	/**
+	 * Delete a photo with its id
+	 * The photo will not be "deleted" of the database but it will not be in sale anymore.
+	 * @param id the id of the photo
+	 * @param requesterID the id of the owner.
+     * @return
+     */
 	@DELETE
 	@Path("/delete/{id:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -218,6 +317,11 @@ public class RESTPhotosServlet {
 		return Response.ok(photo).build();
 	}
 
+	/**
+	 * //TODO roughbits01
+	 * @param id
+	 * @return
+     */
 	@DELETE
 	@Path("/reported/{id:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -227,6 +331,11 @@ public class RESTPhotosServlet {
 		return Response.ok().build();
 	}
 
+	/**
+	 * //TODO roughbits01
+	 * @param id
+	 * @return
+     */
 	@POST
 	@Path("/reported/validate/{id:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -236,6 +345,12 @@ public class RESTPhotosServlet {
 		return Response.ok().build();
 	}
 
+	/**
+	 * Update a photo
+	 * @param photo the json representation of the photo (the id must mbe specified)
+	 * @param requesterID the id of the request.(security check)
+     * @return
+     */
 	@PUT
 	@Path("/update")
 	@Produces("application/json")
@@ -254,11 +369,18 @@ public class RESTPhotosServlet {
 		return Response.ok(updated).build();
 	}
 
+	/**
+	 * Since the uploda is performed by a nodejs sever, this route will just create the entity
+	 * @param input
+	 * @param id
+     * @return
+     */
 	@POST
 	@Path("/seller/{id:[1-9][0-9]*}")
 	@Consumes("application/json")
 	@Produces("application/json")
 	@AllowAll // Everyone could upload photos but guests
+	//FIXME only sellers can upload
 	public Response uploadFile(FullPhotoDTO input, @PathParam("id") long id) {
 		//FIXME check if the photo have the id of the connected seller
 		PublicPhotoDTO created = facadePhoto.savePhoto(input);
@@ -266,6 +388,10 @@ public class RESTPhotosServlet {
 		return Response.status(Status.CREATED).entity(created).build();
 	}
 
+	/**
+	 * get the total number of photo in the website
+	 * @return
+     */
 	@GET
 	@Path("/count")
 	@Produces("application/json")
@@ -275,6 +401,12 @@ public class RESTPhotosServlet {
 		return Response.ok(pCount).build();
 	}
 
+	/**
+	 * this request will increse the number of view for this photo (only once by user)
+	 * @param photoID
+	 * @param requesterID
+     * @return
+     */
 	@POST
 	@Path("/view/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -284,6 +416,12 @@ public class RESTPhotosServlet {
 		return Response.status(200).build();
 	}
 
+	/**
+	 * The identified user will like the photo photoID
+	 * @param photoID the photo id
+	 * @param requesterID the identified user
+     * @return
+     */
 	@POST
 	@Path("/like/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -293,6 +431,12 @@ public class RESTPhotosServlet {
 		return Response.ok(200).build();
 	}
 
+	/**
+	 * The identified user will not like the photo anymore
+	 * @param photoID
+	 * @param requesterID
+     * @return
+     */
 	@POST
 	@Path("/unlike/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -302,6 +446,12 @@ public class RESTPhotosServlet {
 		return Response.status(200).build();
 	}
 
+	/**
+	 * Add a photo to the user wishlist
+	 * @param photoID
+	 * @param requesterID
+     * @return
+     */
 	@POST
 	@Path("/wish/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -311,6 +461,12 @@ public class RESTPhotosServlet {
 		return Response.status(200).build();
 	}
 
+	/**
+	 * remove a photo from the user wishlist
+	 * @param photoID
+	 * @param requesterID
+     * @return
+     */
 	@POST
 	@Path("/unwish/{photoID:[1-9][0-9]*}/{memberID:[1-9][0-9]*}")
 	@Produces("application/json")
@@ -320,6 +476,12 @@ public class RESTPhotosServlet {
 		return Response.status(200).build();
 	}
 
+	/**
+	 * A member will signal a photo if he think it's content is not appropriate
+	 * @param photoID
+	 * @param requesterID
+     * @return
+     */
 	@POST
 	@Path("flag/{photoID}/{memberID}")
 	@Produces("application/json")
@@ -343,6 +505,7 @@ public class RESTPhotosServlet {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+
 
 	// Parse Content-Disposition header to get the original file name.
 	private String parseFileName(MultivaluedMap<String, String> headers) {

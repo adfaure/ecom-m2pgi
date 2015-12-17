@@ -16,7 +16,8 @@ import fr.ujf.m2pgi.REST.Resources.RESTSellerServlet;
 import fr.ujf.m2pgi.REST.Resources.RESTTagServlet;
 
 /**
- *
+ * Main Rest application
+ * All applicationresources will be accessible through the path /api/{resources}
  */
 @ApplicationPath("api")
 public class RESTWebService extends Application {
