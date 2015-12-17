@@ -1,4 +1,4 @@
-<div data-ng-controller="managePhotos">
+<div>
   <div data-ng-if="!photoCount" class="jumbotron">
     <h1>Bonjour !</h1>
     <p>Vous n'avez aucune photo dans votre magasin ! </p>
@@ -62,9 +62,9 @@
     <tr data-ng-class="{'bg-info': $index == highlight }">
       <td class="col-md-2">Mots-clés</td>
       <td ng-if="editIndex != $index">
-        <h3>
+        <h5>
           <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
-        </h3>
+        </h5>
       </td>
       <td ng-if="editIndex == $index">
         <tags-input on-tag-removing="test()" on-tag-added="test()" ng-model="form.tags" display-property="name" add-on-paste="true">

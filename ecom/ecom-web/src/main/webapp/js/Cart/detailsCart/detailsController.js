@@ -54,4 +54,8 @@ module.exports = function ($scope, $location, $sce, $routeParams, apiToken, publ
             $location.path('/inscription').search('redirect', '/profil/myCart').search('payLoad', JSON.stringify(cartService.getCart()));
         }
     }
+
+    $scope.goToPhoto = function(id) {
+      $location.path('/photos/details/'+id);
+    }
 };
