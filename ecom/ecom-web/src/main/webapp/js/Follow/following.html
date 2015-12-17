@@ -1,14 +1,19 @@
 <div data-ng-controller="followController">
 
-	<h3>Vous êtes abonez à <strong>{{followed.length}}</strong> vendeurs</h3>
+    <h3 ng-show="followed.length != 0">Vous êtes abonné à <strong>{{followed.length}}</strong> vendeurs</h3>
+    <h3 ng-show="followed.length == 0">Vous n'êtes abonné à aucun vendeurs.</h3>
+
+
 
     <div ng-repeat="seller in followed track by $index">
-     
+
+      <div class="divider"></div>
+
       <div>
       	<span class="glyphicon glyphicon-star"></span><a href class="sellerLoginFollowed" ng-click="goToSellerPage($index)">{{ seller.sellerLogin}}</a>
       </div>
       <div>
-      	<h4>Les derniers {{numberPhotos}} photos téléchargés:</h4>
+      	<h4>Ses {{numberPhotos}} dernières photos uploadées :</h4>
       </div>
       <div class="row">
       <div class="col-lg-3 col-md-4 col-xs-6" ng-repeat="photo in seller.photos track by $index">
