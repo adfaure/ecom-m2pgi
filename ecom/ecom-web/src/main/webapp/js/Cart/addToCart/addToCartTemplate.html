@@ -20,7 +20,7 @@
             </div>
             <div data-ng-if="photo.isBought">
                 <a data-ng-if="photo.isBought" href="{{photo.privateLocation}}" download="{{photo.privateLocation}}">
-                    <i class="fa fa-download greenIcon" title="Télécharger"></i>
+                    <i data-ng-class="{'fa-2x': isButton}" class="fa fa-download greenIcon" title="Télécharger"></i>
                 </a>
             </div>
         </div>
