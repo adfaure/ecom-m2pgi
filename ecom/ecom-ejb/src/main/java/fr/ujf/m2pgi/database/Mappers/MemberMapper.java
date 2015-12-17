@@ -32,6 +32,7 @@ public class MemberMapper extends GeneriqueMapperImpl<MemberDTO, Member> impleme
             }
             member.setCart(photos);
         }
+        member.setActive(true);
         return member;
     }
 }
