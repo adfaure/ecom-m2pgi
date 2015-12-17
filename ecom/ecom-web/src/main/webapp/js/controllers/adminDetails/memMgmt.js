@@ -209,6 +209,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 			alertService.add("alert-danger", " Erreur, le membre n'as pas pu été ajouté", 2000);
 		}
 		else{
+			res.active = true;
 			$scope.users.push(res);
 			emptyFields();
 			$scope.creationForm.$setPristine();
@@ -221,6 +222,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre édité", 2000);
 		}
 		else{
+			res.active=true;
 			$scope.users[index] = res;
 			$scope.edit = false;
 			emptyFields();
@@ -230,11 +232,14 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 	
 	function takeOutUser(res, index){
 		
+		
+		
 		if(res.success != null && res.success == false){
 			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre supprimé", 2000);
 		}
 		else{
-			$scope.users.splice(index, 1);
+			//$scope.users.splice(index, 1);
+			$scope.users[index].active=false;
 		}
 	}
 
