@@ -200,18 +200,22 @@ public class PhotoDAOImpl extends GeneriqueDAOImpl<Photo> implements IPhotoDAO {
 		Query query = entityManager.createQuery(str, PhotoContextBigDTO.class);
 		query.setParameter("id", memberID);
 		query.setParameter("photoid", photoID);
-		PhotoContextBigDTO photo = (PhotoContextBigDTO)query.getSingleResult();
+		List<PhotoContextBigDTO> photos = (List<PhotoContextBigDTO>)query.getResultList();
 
-		str = "SELECT NEW fr.ujf.m2pgi.database.DTO.TagCustomDTO (t.id, t.name) " +
-		"FROM Tags ts LEFT JOIN ts.tag t WHERE ts.photo.photoID = :photoid";
+    if (photos != null && photos.size() == 1) {
+			PhotoContextBigDTO photo = photos.get(0);
+			str = "SELECT NEW fr.ujf.m2pgi.database.DTO.TagCustomDTO (t.id, t.name) " +
+			"FROM Tags ts LEFT JOIN ts.tag t WHERE ts.photo.photoID = :photoid";
 
-		query = entityManager.createQuery(str, TagCustomDTO.class);
-		query.setParameter("photoid", photoID);
-		List<TagCustomDTO> tags = query.getResultList();
+			query = entityManager.createQuery(str, TagCustomDTO.class);
+			query.setParameter("photoid", photoID);
+			List<TagCustomDTO> tags = query.getResultList();
 
-		photo.setTags(tags);
+			photo.setTags(tags);
 
-		return photo;
+			return photo;
+    }
+    return null;
 	}
 
 	public List<Photo> getTop10Photos() {
