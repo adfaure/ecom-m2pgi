@@ -260,12 +260,12 @@
 }
 
 @media (min-width: 768px){
-    #sideBarTemplContainer.collapse {
+    /*#sideBarTemplContainer.collapse {
         display: block !important;
-    }
+    }*/
 
     #sideBarTemplContainer.collapse:not(.in) + #page-content-wrapper {
-        margin-left: 0px;
+        margin-left: -265px;
     }
 }
 
@@ -297,4 +297,10 @@
 .navbar-toggle{
     margin-left: 5px;
     margin-right: 5px;
+}
+
+@media (min-width: 768px) {
+    .navbar-toggle.sidebar-toggle {
+        display: block;
+    }
 }

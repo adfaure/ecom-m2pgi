@@ -11,13 +11,16 @@ module.exports = function ($scope, $location, $sce, $routeParams, apiToken, publ
         }
     }
 
+    $scope.panierVide = true;
     $scope.totalPrice = 0;
     var cart = $scope.cart = cartService.getCart();
 
     var updateCart = $scope.$watch(cartService.getCart, function () {
             $scope.cart = cart = cartService.getCart();
             $scope.totalPrice = 0;
+            $scope.panierVide = true;
             if ($scope.cart.length > 0) {
+                $scope.panierVide = false;
                 $scope.cart.forEach(function (elem) {
                     $scope.totalPrice += elem.price;
                 });

@@ -6,11 +6,11 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
   var cachedPhotos = [];
   $scope.welcome = true;
 
-  /*if(localService.get('welcome') !== null) {
+  if(localService.get('welcome') !== null) {
     $scope.welcome = false;
   } else {
     localService.set('welcome', true);
-  }*/
+  }
 
   $scope.search = {
     active : false,
