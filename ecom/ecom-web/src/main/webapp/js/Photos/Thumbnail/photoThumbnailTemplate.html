@@ -4,7 +4,7 @@
 
         <div class="headerCaption BGField">
             <div class="floatLeft cursorPointer">
-                <span class="fa fa-flag redSignalIcon brightOnHover" title="Signaler cette photo" data-ng-click="flag(photo.photoID)" data-ng-class="{colorRed: photo.flagged == true}"></span>
+                <span ng-show="!mine" class="fa fa-flag redSignalIcon brightOnHover" title="Signaler cette photo" data-ng-click="flag(photo.photoID)" data-ng-class="{colorRed: photo.flagged == true}"></span>
             </div>
             <div class="floatRight">
                 <div>
@@ -25,8 +25,8 @@
             <div class="floatLeft">
                 <add-to-cart-component photo="photo" class="floatRight"></add-to-cart-component>
             </div>
-            <div class="floatRight">
-                <span class="fa fa-heart cursorPointer marginRight5px brightOnHover" data-ng-class="{colorRed: photo.wishlisted == true}" data-ng-click="(photo.wishlisted == true) ? unwish(photo.photoID) : wish(photo.photoID)" title="Ajouter aux favories" >
+            <div data-ng-show="!isAdmin" class="floatRight">
+                <span class="fa fa-heart cursorPointer marginRight5px brightOnHover" data-ng-class="{colorPink: photo.wishlisted == true}" data-ng-click="(photo.wishlisted == true) ? unwish(photo.photoID) : wish(photo.photoID)" title="Ajouter aux favories" >
                 </span>
 
                 <span class="fa fa-thumbs-up cursorPointer brightOnHover" data-ng-class="{colorBlue: photo.liked == true}" data-ng-click="(photo.liked == true) ? unlike(photo.photoID) :like(photo.photoID)" title="Liker cette photo">

@@ -41,6 +41,7 @@ var uploadPhoto  = require('./services/uploadPhoto');
 var publicPhoto  = require('./services/PublicPhotoService');
 var properties  = require('./services/propertiesService');
 var alertService = require('./services/AlertService');
+var tokenRefresh = require('./services/tokenRefresh');
 
 /**
  * Directives
@@ -121,6 +122,7 @@ ecomApp.factory('httpInterceptor', httpInterceptor);
 ecomApp.factory('uploadPhoto', uploadPhoto);
 ecomApp.factory('publicPhoto', publicPhoto);
 ecomApp.factory('properties', properties);
+ecomApp.factory('tokenRefresh', tokenRefresh);
 ecomApp.factory('alertService', alertService);
 
 ecomApp.controller('inscriptionController', inscriptionController);
@@ -163,6 +165,28 @@ ecomApp.filter('matchQueries', function() {
   };
 });
 
+ecomApp.filter('matchQueriesMember', function() {
+  return function(items, phrase) {
+    var tokens = phrase.toLowerCase().split(/\b\s+/);
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      var matched = false;
+      angular.forEach(tokens, function(token) {
+        if(!matched &&
+          (item.firstName.toLowerCase().indexOf(token) > -1
+          || item.lastName.toLowerCase().indexOf(token) > -1
+          || item.login.toLowerCase().indexOf(token) > -1
+          || item.email.toLowerCase().indexOf(token) > -1
+          || item.sellerInfo.rib.toLowerCase().indexOf(token) > -1)) {
+          filtered.push(item);
+          matched = true;
+        }
+      });
+    });
+    return filtered;
+  };
+});
+
 ecomApp.filter('shorten', function () {
   return function (value, wordwise, max, tail) {
     if (!value) return '';
@@ -181,4 +205,46 @@ ecomApp.filter('shorten', function () {
 
     return value + (tail || ' …');
   };
+});
+
+ecomApp.filter('elapsed', function(){
+    return function(date){
+        if (!date) return;
+        var time = date,
+            timeNow = new Date().getTime(),
+            difference = timeNow - time,
+            seconds = Math.floor(difference / 1000),
+            minutes = Math.floor(seconds / 60),
+            hours = Math.floor(minutes / 60),
+            days = Math.floor(hours / 24);
+        if (days > 1) {
+            return days + " jours";
+        } else if (days == 1) {
+            return "1 jour"
+        } else if (hours > 1) {
+            return hours + " heures";
+        } else if (hours == 1) {
+            return "une heure";
+        } else if (minutes > 1) {
+            return minutes + " minutes";
+        } else if (minutes == 1){
+            return "une minute";
+        } else {
+            return "quelques secondes";
+        }
+    }
+});
+
+
+ecomApp.run(function(apiToken, tokenRefresh) {
+
+    if(apiToken.isAuthentificated()) {
+        tokenRefresh.refresh().then(function(res) {
+            apiToken.setToken(res.data.token);
+            apiToken.setUser(res.data.user);
+        }, function(res){
+            apiToken.setToken(null);
+            apiToken.setUser(null);
+        });
+    }
 });

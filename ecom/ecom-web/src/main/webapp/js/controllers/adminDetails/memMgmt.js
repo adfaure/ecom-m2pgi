@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var memMgmtController = function($scope, memberService, sellerService, alertService) {
+var memMgmtController = function($scope, $filter, memberService, sellerService, alertService) {
 
 	$scope.error = false;
 	$scope.incomplete = false;
@@ -26,15 +26,17 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 			}
 	};
 
-	
+	$scope.users = [];
+	var cachedUsers = [];
+
 	$scope.showUsers = function () {
 		memberService.GetAll().then(function(res){
-			$scope.users = res.filter( function(member) {
+			$scope.users = cachedUsers = res.filter( function(member) {
 				return member.accountType != 'A';
 			})
 		});
 	};
-	
+
 
 	$scope.showUsers();
 
@@ -50,44 +52,49 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 		}
 	};
 
-	$scope.$watch('inEditMember.email',function() {$scope.test();});
-	$scope.$watch('inEditMember.login',function() {$scope.test();});
-	$scope.$watch('inEditMember.password', function() {$scope.test();});
+	//$scope.$watch('inEditMember.email',function() {$scope.test();});
+	//$scope.$watch('inEditMember.login',function() {$scope.test();});
+	//$scope.$watch('inEditMember.password', function() {$scope.test();});
 
-	$scope.test = function() {
-		
+	/*$scope.test = function() {
+
 
 		$scope.incomplete = false;
 		if ((!$scope.edit && (!$scope.inEditMember.email.length ||
 				!$scope.inEditMember.login.length ||
 				!$scope.inEditMember.password.length)) ||
-				
+
 				($scope.edit && (!$scope.inEditMember.email.length ||
 				!$scope.inEditMember.login.length))) {
-			
+
 			$scope.creationForm.loginInput.$setValidity("incomplete fields", false);
 			$scope.incomplete = true;
 		}
 		else{
 			$scope.creationForm.loginInput.$setValidity("incomplete fields", true);
 		}
-	};
-	
-	
+	};*/
+
+
 	$scope.checkLogin = function() {
-		memberService.IsExisting($scope.inEditMember.login).then(
-			function(res) {
-				if(res) { //login found"
-					//$location.path("/inscription");
-					$scope.existingLogin = true;
-					$scope.creationForm.loginInput.$setValidity("inscription login", false);
-				} else { //login not found"
-					//$location.path("/inscription");
-					$scope.existingLogin = false;
-					$scope.creationForm.loginInput.$setValidity("inscription login", true);
-				}
-			}
-		);
+
+		$scope.creationForm.loginInput.$setValidity("inscription login", true);
+		if($scope.edit && ($scope.inEditMember.login != $scope.users[$scope.indexMemberList].login) || (!$scope.edit) ){
+			memberService.IsExisting($scope.inEditMember.login).then(
+					function(res) {
+						if(res) {
+
+							$scope.existingLogin = true;
+							$scope.creationForm.loginInput.$setValidity("inscription login", false);
+						} else { //login not found"
+
+							$scope.existingLogin = false;
+							$scope.creationForm.loginInput.$setValidity("inscription login", true);
+						}
+					}
+				);
+		}
+
 	}
 
 
@@ -116,7 +123,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 				memberService.Create(user).then(function(res) {
 					//user.memberID = res.memberID;
 					showCreatedUser(res);
-				});	
+				});
 
 
 			}else{
@@ -126,7 +133,7 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 					showCreatedUser(res);
 				});
 			}
-		
+
 		}
 		else{
 
@@ -136,17 +143,17 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 				delete user.sellerInfo;
 				memberService.Update(user).then(function(res) {
 					addEditedUser(res, $scope.indexMemberList);
-					
+
 				});
 			}else{
 				sellerService.Update(user).then(function(res) {
 					addEditedUser(res, $scope.indexMemberList);
-					
+
 				});
 			}
 		}
 
-		
+
 
 	}
 
@@ -154,12 +161,13 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 		emptyFields();
 		if (index == 'new') {
 			$scope.edit = false;
+			$scope.creationForm.$setPristine();
 		} else {
 			$scope.edit = true;
 			$scope.inEditMember.accountType = $scope.users[index].accountType;
 			$scope.inEditMember.memberID = $scope.users[index].memberID;
 			$scope.inEditMember.firstName = $scope.users[index].firstName;
-			$scope.inEditMember.lastName = $scope.users[index].lastName; 
+			$scope.inEditMember.lastName = $scope.users[index].lastName;
 			$scope.inEditMember.email = $scope.users[index].email;
 			$scope.inEditMember.login = $scope.users[index].login;
 			$scope.inEditMember.password = $scope.users[index].password;
@@ -196,19 +204,20 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 		$scope.inEditMember.password = "";
 		$scope.inEditMember.sellerInfo.rib = "";
 	}
-	
+
 	function showCreatedUser(res){
-		
+
 		if(res.success != null && !res.success){
-			alertService.add("alert-danger", " Erreur, le membre n'as pas pu été ajouté", 2000);
+			alertService.add("alert-danger", " Erreur, le membre n'a pas pu être créer", 2000);
 		}
 		else{
 			$scope.users.push(res);
 			emptyFields();
+			$scope.creationForm.$setPristine();
 		}
 	}
-	
-	
+
+
 	function addEditedUser(res, index){
 		if(res.success != null && res.success == false){
 			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre édité", 2000);
@@ -217,11 +226,12 @@ var memMgmtController = function($scope, memberService, sellerService, alertServ
 			$scope.users[index] = res;
 			$scope.edit = false;
 			emptyFields();
+			$scope.creationForm.$setPristine();
 		}
 	}
-	
+
 	function takeOutUser(res, index){
-		
+
 		if(res.success != null && res.success == false){
 			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre supprimé", 2000);
 		}

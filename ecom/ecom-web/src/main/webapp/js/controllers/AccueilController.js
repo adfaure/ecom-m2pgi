@@ -3,13 +3,13 @@ var angular = require('angular');
 var accueilController = function($scope, $location, $routeParams, $filter, localService, apiToken, publicPhoto) {
 
   $scope.photos = [];
-
+  var cachedPhotos = [];
   $scope.welcome = true;
 
-  if(localService.get('welcome')) {
+  if(localService.get('welcome') !== null) {
     $scope.welcome = false;
   } else {
-    localService.set('welcome', true)
+    localService.set('welcome', true);
   }
 
   $scope.search = {
@@ -19,16 +19,16 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
     lastTerms : ''
   };
 
+  publicPhoto.GetAll().then(function(res) {
+    $scope.photos = cachedPhotos = res;
+  });
+
   if($routeParams.terms) {
     $scope.search.lastTerms = $scope.search.terms = $routeParams.terms;
     $scope.search.searching = true;
     publicPhoto.Search($scope.search.terms).then(function(res) {
       $scope.photos = res;
       $scope.search.searching = false;
-    });
-  } else {
-    publicPhoto.GetAll().then(function(res) {
-      $scope.photos = res;
     });
   }
 
@@ -47,18 +47,20 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
   }
 
   $scope.elasticsearch = function() {
-    if(!$scope.search.terms) {
-      $location.path('/accueil');
-    } else {
-      $location.path('/accueil').search( {
-          'terms' : $scope.search.terms
+    if($scope.search.terms) {
+      $scope.search.lastTerms = $scope.search.terms;
+      $scope.search.searching = true;
+      publicPhoto.Search($scope.search.terms).then(function(res) {
+        $scope.photos = res;
+        $scope.search.searching = false;
       });
-    }    
+    }
   };
 
   $scope.reset = function() {
       if(!$scope.search.terms) {
-        $location.path('/accueil');
+        $scope.search.lastTerms = '';
+        $scope.photos = cachedPhotos;
       }
   };
 
@@ -70,11 +72,9 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
     } else if(order == 'priceDesc') {
       $scope.photos = $filter('orderBy')($scope.photos, 'price', true);
     } else if(order == 'views') {
-      $scope.photos = $filter('orderBy')($scope.photos, 'views');
+      $scope.photos = $filter('orderBy')($scope.photos, 'views', true);
     } else if(order == 'likes') {
-      $scope.photos = $filter('orderBy')($scope.photos, 'likes');
-      console.log(order);
-      console.log($scope.photos);
+      $scope.photos = $filter('orderBy')($scope.photos, 'likes', true);
     }
   }
 };

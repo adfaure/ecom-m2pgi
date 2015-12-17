@@ -44,7 +44,7 @@
 	background: #CCC;
 	opacity:0.6;
 }
- 
+
 .caption {
     position:absolute;
     top:0;
@@ -59,7 +59,7 @@
 }
 
 
-.caption {   
+.caption {
     opacity: 0;
     -webkit-transition: opacity 0.2s ease-in-out;
        -moz-transition: opacity 0.2s ease-in-out;
@@ -136,6 +136,10 @@
     color:red;
 }
 
+.colorPink {
+	color:#FF0080;
+}
+
 .colorBlue {
     color:rgb(0, 140, 255);
 }
@@ -153,7 +157,7 @@
 }
 
 .reqField:after{
-	position:absolute;
+	/*position:absolute;*/
     content:'*';
     color:red;
     right:-10px;

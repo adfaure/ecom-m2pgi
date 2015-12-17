@@ -10,8 +10,14 @@
 <table class="table">
   <tbody>
     <tr ng-repeat-start="photo in photos track by $index" data-ng-class="{'bg-info': $index == highlight }">
-      <td rowspan="5" class="col-md-2">
+      <td rowspan="4" class="col-md-2">
         <img width="128" ng-src="{{ photo.thumbnail }}" alt="{{ photo.name }}">
+        <br>
+        <h4>
+        <span class="fa fa-eye" title="Nombre de vues">{{photo.views}}</span>
+        <span class="fa fa-thumbs-o-up" title="Nombre de likes">{{photo.likes}}</span>
+        <span class="fa fa-star-o" title="Nombre de wishes">{{photo.wishes}}</span>
+      </h4>
       </td>
       <td class="col-md-2">Nom : </td>
       <td ng-if="editIndex != $index">
@@ -33,7 +39,9 @@
     <tr data-ng-class="{'bg-info': $index == highlight }">
       <td class="col-md-2">Mots-clés : </td>
       <td ng-if="editIndex != $index">
-        <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
+        <h4>
+          <span ng-repeat="tag in photo.tags.split(' ') track by $index"><span class="label label-primary">{{tag}}</span> </span>
+        </h4>
       </td>
       <td ng-if="editIndex == $index">
         <tags-input on-tag-removing="test()" on-tag-added="test()" ng-model="form.tags" display-property="name" add-on-paste="true">

@@ -1,11 +1,12 @@
 var angular = require('angular');
 var ecomApp = require('./../app');
 
-var headerController = function($rootScope, $scope, $location, $sce, apiToken, authentificationService, alertService, searchService) {
+var headerController = function($rootScope, $scope, $location, $sce, apiToken, authentificationService, alertService,cartService ,searchService) {
     $scope.auth = apiToken.isAuthentificated();
-
+    $scope.cart = cartService.getCart();
     $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
             $scope.auth = isAuth;
+            $scope.cart = cartService.getCart();
             if($scope.auth) {
                 $scope.user = apiToken.getUser();
                 var userWatch = $scope.$watch(apiToken.getUser, function(user) {
@@ -21,6 +22,10 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
             }
         }
     );
+
+    $scope.$watch(cartService.getCart, function(cart) {
+        $scope.cart = cart;
+    });
 
     $scope.placeholder = "Rechercher dans le site...";
 
@@ -45,24 +50,8 @@ var headerController = function($rootScope, $scope, $location, $sce, apiToken, a
 
     $scope.terms = '';
 
-    $scope.elasticsearch = function() {
-      if($scope.terms) {
-        $location.path('/accueil').search( {
-          'terms' : $scope.terms
-        });
-      } else {
-        $location.path('/accueil');
-      }
-
-    };
-
     $scope.search = function() {
       $rootScope.$broadcast('search', {query: $scope.terms});
-    }
-
-    $scope.change = function() {
-      $rootScope.$broadcast('search', {query: $scope.terms});
-      if(!$scope.terms) $rootScope.$broadcast('elastic', {query: $scope.terms});
     }
 };
 

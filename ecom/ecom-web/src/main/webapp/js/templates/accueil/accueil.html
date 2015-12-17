@@ -1,5 +1,5 @@
 <div data-ng-controller="accueilController">
-  <div class="jumbotron" ng-show="welcome">
+  <div class="jumbotron" ng-show="welcome == true">
     <h1>Bonjour !</h1>
     <p>Ce site est un prototype en accès anticipé pour des raisons de tests! Si vous avez le temps, pourriez-vous le tester et nous envoyer votre feedback sur cette adresse marwen.azouzi@gmail.com</p>
     <p>Sinon ci-desous le bouton pour s'inscrire. Bonne navigation !</p>
@@ -42,10 +42,10 @@
       Recherche en cours...
     </p>
     <p ng-if="search.lastTerms && !search.searching && photos.length">
-      {{ photos.length }} résultat(s) trouvé(s) pour <strong>{{ search.terms }}</strong>
+      {{ photos.length }} résultat(s) trouvé(s) pour <strong>{{ search.lastTerms }}</strong>
     </p>
     <p ng-if="search.lastTerms && !search.searching && !photos.length">
-      Aucun résultat pour la recherche <strong>{{ search.terms }}</strong>. Essayez une autre recherche.
+      Aucun résultat pour la recherche <strong>{{ search.lastTerms }}</strong>. Essayez une autre recherche.
     </p>
   </div>
   <br>
