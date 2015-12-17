@@ -21,8 +21,8 @@ var followController = function($scope, $location, apiToken, sellerService, memb
 		$scope.users = res;
 	});*/
 	
-	$scope.goToSellerPage = function(){
-  	  //$location.path("/seller/page/"+sellerID);
+	$scope.goToSellerPage = function(index){
+  	  $location.path("/seller/page/"+$scope.followed[index].sellerID);
     }
 	
 };

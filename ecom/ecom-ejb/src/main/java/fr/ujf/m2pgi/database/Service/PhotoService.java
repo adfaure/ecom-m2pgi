@@ -310,7 +310,7 @@ public class PhotoService implements IPhotoService {
     	Collection<PhotoContextSmallDTO> photos;
 
     	for(Member seller: memberDAO.getSellersFollowedBy(followerID)) {
-    		lastphotos=new LastPhotosDTO(seller.getLogin());
+    		lastphotos=new LastPhotosDTO(seller.getLogin(), seller.getMemberID());
     		photos = photoDao.getLastPhotosContext(followerID, seller.getMemberID(), numberOfPhotos);
     		lastphotos.setPhotos(photos);
     		result.add(lastphotos);
