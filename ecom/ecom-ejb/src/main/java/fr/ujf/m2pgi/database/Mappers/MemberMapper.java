@@ -1,6 +1,5 @@
 package fr.ujf.m2pgi.database.Mappers;
 
-import fr.ujf.m2pgi.database.DTO.FullPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.entities.Member;
@@ -32,6 +31,7 @@ public class MemberMapper extends GeneriqueMapperImpl<MemberDTO, Member> impleme
             }
             member.setCart(photos);
         }
+        member.setActive(true);
         return member;
     }
 }
