@@ -15,19 +15,20 @@ var detailsPhotoController = function($scope, $location, $routeParams, apiToken,
   $scope.owned = true;
 
 
-  $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
-        if(isAuth) {
-          $scope.$watch(apiToken.getUser, function(user) {
-            $scope.isAdmin  = (user && user.accountType == "A");
-            $scope.owned = (user && user.accountType == "S" && user.memberID == $scope.photo.sellerID);
-          });
-        }
-      }
-  );
-
   publicPhoto.GetById(photoID).then(function(res) {
     $scope.photo = res;
     $scope.loaded = true;
+
+    $scope.$watch(apiToken.isAuthentificated, function(isAuth) {
+          if(isAuth) {
+            $scope.$watch(apiToken.getUser, function(user) {
+              $scope.isAdmin  = (user && user.accountType == "A");
+              $scope.owned = (user && user.accountType == "S" && user.memberID == $scope.photo.sellerID);
+            });
+          }
+        }
+    );
+
     return sellerService.GetById(res.sellerID);
   }).then(function(seller) {
       $scope.seller = seller;

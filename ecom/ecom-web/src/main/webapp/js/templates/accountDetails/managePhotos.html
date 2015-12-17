@@ -1,5 +1,6 @@
 <div data-ng-controller="managePhotos">
-  <div data-ng-show="!photoCount" class="jumbotron">
+
+  <div data-ng-if="!photoCount" class="jumbotron">
     <h1>Bonjour !</h1>
     <p>Vous n'avez aucune photo dans votre magasin ! </p>
     <form class="css-form" name="loginform" novalidate ng-submit="loginform.$valid && submit()">
