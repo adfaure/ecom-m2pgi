@@ -10,7 +10,7 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 
 /**
- *
+ * Interceptor allow to receive correctly "text/plain"
  */
 @Provider
 public class MultiPartContentTypeFilter implements ContainerRequestFilter {

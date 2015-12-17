@@ -26,23 +26,41 @@ import java.util.Map;
 
 /**
  * Created by FAURE Adrien son 22/10/15.
+ * Seller resources route
  */
 @Path("/sellers")
 public class RESTSellerServlet {
 
-
+    /**
+     * the servlet which handle the current request
+     */
     @Context
     private HttpServletRequest httpServletRequest;
 
+    /**
+     * the member service
+     */
     @EJB
     private IMemberService memberService;
 
+    /**
+     *
+     */
     @EJB
     private ICustomerService customerService;
 
+    /**
+     *
+     */
     @EJB
     private JwtSingleton jwtSingleton;
 
+    /**
+     * create a seller
+     * @param seller the information of the new seller
+     * @return the seller
+     * @throws EcomException
+     */
     @POST
 	@Path("/")
 	@Produces("application/json")
@@ -52,6 +70,12 @@ public class RESTSellerServlet {
 		return Response.status(Response.Status.CREATED).entity(createdMember).build();
 	}
 
+    /**
+     * return a seller found with his id. The information will be different depends of the current user (anonymous, connected ...)
+     * @param sellerId the id of the seller
+     * @param requesterID the id of the identified user
+     * @return
+     */
     @GET
     @Path("id/{id}")
     @Produces("application/json")
@@ -69,18 +93,31 @@ public class RESTSellerServlet {
         }
     }
 
+    /**
+     * Delete a seller (not removing of the database) but the account will be disabled
+     * @param id
+     * @return
+     */
     @DELETE
 	@Path("id/{id}")
 	@Produces("application/json")
 	@Consumes("application/json")
+    //FIXME Everybody can delete a seller ...
 	public Response deleteUser(@PathParam("id") Long id) {
 		memberService.deleteMember(id);
 		return  Response.ok().build();
 	}
 
+    /**
+     * Update the informations of a seller
+     * @param id
+     * @param memberDTO
+     * @return
+     */
     @PUT
 	@Path("/update/id/{id}")
 	@Produces("application/json")
+    //FIXME add the proper rights (admin,sellers) and check the sellers id
 	public Response updateUser(@PathParam("id") Long id, MemberDTO memberDTO) {
 		MemberDTO m = memberService.getMemberbyId(id);
 		if(m == null) return Response.status(Status.BAD_REQUEST).build();
@@ -90,12 +127,17 @@ public class RESTSellerServlet {
 		return Response.ok(updatedMember).build();
 	}
 
-
+    /**
+     * Upgrade a seller from a member account
+     * @param seller the new information (the rib and the current id)
+     * @return
+     */
     @POST
     @Path("/upgrade")
     @Produces("application/json")
     @Consumes("application/json")
     @Allow(groups="members")
+    //FIXME Check the id of the identified user or any member can upgrade an other account.
     public Response upgradeMemberToSeller(MemberDTO seller) {
         Map resJson = new HashMap<String, Object>();
         MemberDTO newDTO = memberService.createSellerFromMember(seller);
@@ -113,6 +155,11 @@ public class RESTSellerServlet {
         return  Response.ok().entity(resJson).build();
     }
 
+    /**
+     * return the seller page of a seller
+     * @param sellerId the id of the seller
+     * @return
+     */
     @GET
     @Path("page/{id}")
     @Produces("application/json")
@@ -125,10 +172,14 @@ public class RESTSellerServlet {
         return Response.status(Response.Status.NO_CONTENT).entity(null).build();
     }
 
+    /**
+     * return the seller page of a seller
+     * @param login the login of the seller
+     * @return
+     */
     @GET
     @Path("page/login/{login}")
     @Produces("application/json")
-
     public Response getSellerPagebyLogin(@PathParam("login") String login) {
         MemberDTO memberdto = memberService.getMemberByLogin(login, true);
         if(memberdto != null && memberdto.getSellerInfo() != null) {
@@ -139,6 +190,14 @@ public class RESTSellerServlet {
 
     }
 
+    /**
+     * Create a seller page
+     * @param sellerId the id of the seller
+     * @param pageDTO the information of the page
+     * @param requesterID the current identified user
+     * @return
+     * @throws EcomException
+     */
     @POST
     @Path("page/{id}")
     @Produces("application/json")
@@ -161,14 +220,24 @@ public class RESTSellerServlet {
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 
+    /**
+     * Get all orders related to the sellers, others sellers information will be removed
+     * @param id the id of the seller
+     * @return
+     */
     @GET
     @Path("id/{id}/orders")
     @Produces("application/json")
+    //FIXME put the proper right
     public Response getOrderTotalPurchase(@PathParam("id") long id) {
         List<OrderSellerDTO> list = customerService.getOrdersBySeller(id);
         return Response.ok().entity(list).build();
     }
 
+    /**
+     * Get the top sellers (by number of sales)
+     * @return
+     */
     @GET
     @Path("/top10")
     @Produces("application/json")
@@ -177,6 +246,10 @@ public class RESTSellerServlet {
         return Response.ok().entity(list).build();
     }
 
+    /**
+     * get the number total of seller
+     * @return
+     */
     @GET
     @Path("/count")
     @Produces("application/json")
@@ -185,6 +258,11 @@ public class RESTSellerServlet {
     	return Response.ok(sellerCount).build();
     }
 
+    /**
+     * get the number of follower to a seller
+     * @param id
+     * @return
+     */
     @GET
     @Path("id/{id}/followercount")
     @Produces("application/json")
