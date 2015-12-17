@@ -28,6 +28,8 @@ public class MemberServiceTest extends AbstractTestArquillian {
         dto.setLogin("test");
         dto.setPassword("pass");
         dto.setEmail("test@mail");
+        dto.setLastName("test");
+        dto.setFirstName("test");
         MemberDTO res = memberService.createMember(dto);
         assertNotNull(res);
     }
@@ -39,6 +41,8 @@ public class MemberServiceTest extends AbstractTestArquillian {
         dto.setLogin("findMember");
         dto.setPassword("findMember");
         dto.setEmail("findMember@mail");
+        dto.setLastName("test");
+        dto.setFirstName("test");
         MemberDTO res = memberService.createMember(dto);
         MemberDTO found = memberService.getMemberbyId(res.getMemberID());
         assertNotNull(found);
@@ -54,6 +58,9 @@ public class MemberServiceTest extends AbstractTestArquillian {
         dto.setLogin("createSellerFromMember");
         dto.setPassword("createSellerFromMember");
         dto.setEmail("createSellerFromMember@mail");
+        dto.setLastName("test");
+        dto.setFirstName("test");
+
         MemberDTO res = memberService.createMember(dto);
 
         SellerInfoDTO info = new SellerInfoDTO();
@@ -71,8 +78,11 @@ public class MemberServiceTest extends AbstractTestArquillian {
         dto.setLogin("getMemberByID");
         dto.setPassword("getMemberByID");
         dto.setEmail("getMemberByID@mail");
+        dto.setLastName("ln");
+        dto.setFirstName("test");
+
         memberService.createMember(dto);
-        MemberDTO res = memberService.getMemberByLogin("getMemberByID");
+        MemberDTO res = memberService.getMemberByLogin("getMemberByID", false);
         assertNotNull(res);
         assertEquals(res.getLogin(), "getMemberByID");
     }
@@ -83,6 +93,10 @@ public class MemberServiceTest extends AbstractTestArquillian {
         dto.setAccountType('M');
         dto.setLogin("insertExistingMember");
         dto.setPassword("insertExistingMember");
+        dto.setLastName("ln");
+        dto.setLastName("test");
+        dto.setFirstName("test");
+
         dto.setEmail("insertExistingMember@mail");
         memberService.createMember(dto);
         memberService.createMember(dto);

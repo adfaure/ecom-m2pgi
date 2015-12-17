@@ -73,10 +73,12 @@ public class TestOrderDao extends AbstactDaoTest {
         member.setFirstName("Dadou");
         member.setPassword("Dadou");
         member.setEmail("dadou@dadou");
+        member.setLastName("dadoulastname");
         member.setAccountType('M');
         memberDao.create(member);
         Member member2 = new Member();
         member2.setLogin("Marwen");
+        member2.setLastName("Marwen");
         member2.setFirstName("Marwen");
         member2.setPassword("Marwen");
         member2.setEmail("marwen@marwen");
@@ -84,6 +86,7 @@ public class TestOrderDao extends AbstactDaoTest {
         memberDao.create(member2);
         Member seller = new Member();
         seller.setLogin("seller");
+        seller.setLastName("seller");
         seller.setFirstName("seller");
         seller.setPassword("seller");
         seller.setEmail("seller@seller");

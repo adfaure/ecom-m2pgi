@@ -1,0 +1,1223 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] ecom
+[INFO] ecom: EJB Module
+[INFO] ecom: WAR Module
+[INFO] ecom: EAR Module
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building ecom 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building ecom: EJB Module 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ ecom-ejb ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ ecom-ejb ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ ecom-ejb ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 3 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ ecom-ejb ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 8 source files to /home/dadou/Documents/Projets/ECOM-M2PGI/ecom/ecom-ejb/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ ecom-ejb ---
+[INFO] Surefire report directory: /home/dadou/Documents/Projets/ECOM-M2PGI/ecom/ecom-ejb/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running fr.ujf.m2pgi.test.service.MemberServiceTest
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256m; support was removed in 8.0
+[0m22:46:31,116 INFO  [org.jboss.modules] (main) JBoss Modules version 1.4.3.Final
+[0m[0m22:46:31,320 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.6.Final
+[0m[0m22:46:31,393 INFO  [org.jboss.as] (MSC service thread 1-7) WFLYSRV0049: WildFly Full 9.0.2.Final (WildFly Core 1.0.2.Final) starting
+[0m[0m22:46:32,979 INFO  [org.jboss.as.controller.management-deprecated] (ServerService Thread Pool -- 18) WFLYCTL0028: Attribute 'job-repository-type' in the resource at address '/subsystem=batch' is deprecated, and may be removed in future version. See the attribute description in the output of the read-resource-description operation to learn more about the deprecation.
+[0m[0m22:46:32,989 INFO  [org.jboss.as.controller.management-deprecated] (ServerService Thread Pool -- 20) WFLYCTL0028: Attribute 'enabled' in the resource at address '/subsystem=datasources/data-source=PgDsAui' is deprecated, and may be removed in future version. See the attribute description in the output of the read-resource-description operation to learn more about the deprecation.
+[0m[0m22:46:33,060 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0039: Creating http management service using socket-binding (management-http)
+[0m[0m22:46:33,089 INFO  [org.xnio] (MSC service thread 1-5) XNIO version 3.3.1.Final
+[0m[0m22:46:33,118 INFO  [org.xnio.nio] (MSC service thread 1-5) XNIO NIO Implementation Version 3.3.1.Final
+[0m[0m22:46:33,196 INFO  [org.jboss.remoting] (MSC service thread 1-5) JBoss Remoting version 4.0.9.Final
+[0m[0m22:46:33,206 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 38) WFLYCLINF0001: Activating Infinispan subsystem.
+[0m[0m22:46:33,207 INFO  [org.wildfly.extension.io] (ServerService Thread Pool -- 37) WFLYIO001: Worker 'default' has auto-configured to 8 core threads with 64 task threads based on your 4 available processors
+[0m[0m22:46:33,306 INFO  [org.jboss.as.jsf] (ServerService Thread Pool -- 44) WFLYJSF0007: Activated the following JSF Implementations: [main]
+[0m[0m22:46:33,317 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 53) WFLYSEC0002: Activating Security Subsystem
+[0m[33m22:46:33,321 WARN  [org.jboss.as.txn] (ServerService Thread Pool -- 54) WFLYTX0013: Node identifier property is set to the default value. Please make sure it is unique.
+[0m[0m22:46:33,326 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 46) WFLYNAM0001: Activating Naming Subsystem
+[0m[0m22:46:33,337 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 33) WFLYJCA0005: Deploying non-JDBC-compliant driver class org.postgresql.Driver (version 9.4)
+[0m[0m22:46:33,342 INFO  [org.jboss.as.connector] (MSC service thread 1-5) WFLYJCA0009: Starting JCA Subsystem (IronJacamar 1.2.5.Final)
+[0m[0m22:46:33,349 INFO  [org.jboss.as.security] (MSC service thread 1-3) WFLYSEC0001: Current PicketBox version=4.9.2.Final
+[0m[0m22:46:33,365 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 33) WFLYJCA0004: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+[0m[0m22:46:33,382 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-5) WFLYJCA0018: Started Driver service with driver-name = postgresql
+[0m[0m22:46:33,382 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-1) WFLYJCA0018: Started Driver service with driver-name = h2
+[0m[0m22:46:33,414 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 56) WFLYWS0002: Activating WebServices Extension
+[0m[0m22:46:33,485 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) WFLYUT0003: Undertow 1.2.9.Final starting
+[0m[0m22:46:33,486 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-6) WFLYUT0003: Undertow 1.2.9.Final starting
+[0m[0m22:46:33,500 INFO  [org.jboss.as.naming] (MSC service thread 1-7) WFLYNAM0003: Starting Naming Service
+[0m[0m22:46:33,627 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-7) WFLYMAIL0001: Bound mail session [java:jboss/mail/Default]
+[0m[0m22:46:33,767 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) WFLYUT0014: Creating file handler for path /opt/wildfly-9.0.2.Final/welcome-content
+[0m[0m22:46:33,815 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) WFLYUT0014: Creating file handler for path /opt/wildfly-9.0.2.Final/standalone/data
+[0m[0m22:46:33,818 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0012: Started server default-server.
+[0m[0m22:46:33,826 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) WFLYUT0014: Creating file handler for path /opt/wildfly-9.0.2.Final/standalone/data/thumb
+[0m[31m22:46:33,917 ERROR [io.undertow.client] (ServerService Thread Pool -- 55) UT005026: Jetty ALPN support not found on boot class path, SPDY client will not be available.
+[0m[31m22:46:33,919 ERROR [io.undertow.client] (ServerService Thread Pool -- 55) UT005026: Jetty ALPN support not found on boot class path, HTTP2 client will not be available.
+[0m[0m22:46:33,952 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0018: Host default-host starting
+[0m[0m22:46:34,032 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) WFLYUT0006: Undertow HTTP listener default listening on /127.0.0.1:8080
+[0m[0m22:46:34,147 INFO  [org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService$AS7DataSourceDeployer] (MSC service thread 1-4) IJ020018: Enabling <validate-on-match> for java:jboss/datasources/postgresDS
+[0m[0m22:46:34,238 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) WFLYJCA0001: Bound data source [java:jboss/datasources/postgresDS]
+[0m[0m22:46:34,372 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-7) WFLYDS0013: Started FileSystemDeploymentService for directory /opt/wildfly-9.0.2.Final/standalone/deployments
+[0m[0m22:46:34,588 INFO  [org.jboss.ws.common.management] (MSC service thread 1-8) JBWS022052: Starting JBoss Web Services - Stack CXF Server 5.0.0.Final
+[0m[0m22:46:34,968 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0060: Http management interface listening on http://127.0.0.1:9990/management
+[0m[0m22:46:34,969 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0051: Admin console listening on http://127.0.0.1:9990
+[0m[0m22:46:34,970 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Full 9.0.2.Final (WildFly Core 1.0.2.Final) started in 4213ms - Started 212 of 388 services (214 services are lazy, passive or on-demand)
+[0m[0m22:46:44,687 INFO  [org.jboss.as.repository] (management-handler-thread - 2) WFLYDR0001: Content added at location /opt/wildfly-9.0.2.Final/standalone/data/content/32/1991fac0ad15878c6772f4e3e29d7e6e284d10/content
+[0m[0m22:46:44,724 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+[0m[0m22:46:47,475 INFO  [org.jboss.as.jpa] (MSC service thread 1-1) WFLYJPA0002: Read persistence.xml for primary
+[0m[33m22:46:47,497 WARN  [org.jboss.as.connector] (MSC service thread 1-1) WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+[0m[0m22:46:47,898 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) WFLYJCA0001: Bound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:46:47,902 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 58) WFLYJPA0010: Starting Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:46:47,921 INFO  [org.hibernate.jpa.internal.util.LogHelper] (ServerService Thread Pool -- 58) HHH000204: Processing PersistenceUnitInfo [
+	name: primary
+	...]
+[0m[0m22:46:48,028 INFO  [org.hibernate.Version] (ServerService Thread Pool -- 58) HHH000412: Hibernate Core {4.3.10.Final}
+[0m[0m22:46:48,034 INFO  [org.hibernate.cfg.Environment] (ServerService Thread Pool -- 58) HHH000206: hibernate.properties not found
+[0m[0m22:46:48,037 INFO  [org.hibernate.cfg.Environment] (ServerService Thread Pool -- 58) HHH000021: Bytecode provider name : javassist
+[0m[0m22:46:48,057 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) WFLYWELD0003: Processing weld deployment test.war
+[0m[0m22:46:48,557 INFO  [org.hibernate.validator.internal.util.Version] (MSC service thread 1-7) HV000001: Hibernate Validator 5.1.3.Final
+[0m[0m22:46:48,684 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named CustomerService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:app/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:module/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:global/test/CustomerService
+	java:app/test/CustomerService
+	java:module/CustomerService
+
+[0m[0m22:46:48,685 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named FileService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:app/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:module/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:global/test/FileService
+	java:app/test/FileService
+	java:module/FileService
+
+[0m[0m22:46:48,685 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named MemberService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:app/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:module/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:global/test/MemberService
+	java:app/test/MemberService
+	java:module/MemberService
+
+[0m[0m22:46:48,686 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named PhotoService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:app/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:module/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:global/test/PhotoService
+	java:app/test/PhotoService
+	java:module/PhotoService
+
+[0m[0m22:46:48,686 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named TagService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:app/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:module/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:global/test/TagService
+	java:app/test/TagService
+	java:module/TagService
+
+[0m[0m22:46:48,686 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named JwtSingleton in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:app/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:module/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:global/test/JwtSingleton
+	java:app/test/JwtSingleton
+	java:module/JwtSingleton
+
+[0m[0m22:46:48,687 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named TokenGenerator in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:app/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:module/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:global/test/TokenGenerator
+	java:app/test/TokenGenerator
+	java:module/TokenGenerator
+
+[0m[0m22:46:48,688 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named MapperWrapper in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:app/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:module/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:global/test/MapperWrapper
+	java:app/test/MapperWrapper
+	java:module/MapperWrapper
+
+[0m[0m22:46:48,688 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named MD5Digest in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:app/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:module/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:global/test/MD5Digest
+	java:app/test/MD5Digest
+	java:module/MD5Digest
+
+[0m[0m22:46:48,697 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named ElasticsearchBridge in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:app/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:module/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:global/test/ElasticsearchBridge
+	java:app/test/ElasticsearchBridge
+	java:module/ElasticsearchBridge
+
+[0m[0m22:46:48,697 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named ApplicationProperties in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:app/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:module/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:global/test/ApplicationProperties
+	java:app/test/ApplicationProperties
+	java:module/ApplicationProperties
+
+[0m[0m22:46:48,697 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named PhotoServiceES in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:app/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:module/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:global/test/PhotoServiceES
+	java:app/test/PhotoServiceES
+	java:module/PhotoServiceES
+
+[0m[0m22:46:48,698 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named OrderService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:app/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:module/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:global/test/OrderService
+	java:app/test/OrderService
+	java:module/OrderService
+
+[0m[0m22:46:48,698 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named FacadePhoto in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:app/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:module/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:global/test/FacadePhoto
+	java:app/test/FacadePhoto
+	java:module/FacadePhoto
+
+[0m[0m22:46:49,111 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0006: Starting Services for CDI deployment: test.war
+[0m[0m22:46:49,148 INFO  [org.jboss.weld.Version] (MSC service thread 1-8) WELD-000900: 2.2.16 (SP1)
+[0m[0m22:46:49,204 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) WFLYWELD0009: Starting weld service for deployment test.war
+[0m[0m22:46:49,399 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 58) WFLYJPA0010: Starting Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:46:49,453 INFO  [org.hibernate.annotations.common.Version] (ServerService Thread Pool -- 58) HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+[0m[0m22:46:49,621 INFO  [org.hibernate.dialect.Dialect] (ServerService Thread Pool -- 58) HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[0m[33m22:46:49,629 WARN  [org.hibernate.dialect.H2Dialect] (ServerService Thread Pool -- 58) HHH000431: Unable to determine H2 database version, certain features may not work
+[0m[33m22:46:49,824 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:46:49,824 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:46:49,825 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:46:49,825 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:46:49,826 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:46:49,826 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:46:49,826 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:46:49,826 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:46:49,826 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:46:49,827 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:46:49,827 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Cart
+[0m[33m22:46:49,827 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Cart
+[0m[0m22:46:49,833 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (ServerService Thread Pool -- 58) HHH000397: Using ASTQueryTranslatorFactory
+[0m[0m22:46:50,232 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) HHH000227: Running hbm2ddl schema export
+[0m[31m22:46:50,249 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) HHH000389: Unsuccessful: create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid))
+[0m[31m22:46:50,250 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) Table "orderentry" already exists; SQL statement:
+create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid)) [42101-173]
+[0m[0m22:46:50,302 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) HHH000230: Schema export complete
+[0m[0m22:46:51,535 INFO  [org.elasticsearch.plugins] (ServerService Thread Pool -- 6) [Moon-Boy] loaded [], sites []
+[0m[0m22:46:52,393 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 6) WFLYUT0021: Registered web context: /test
+[0m[0m22:46:52,457 INFO  [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
+[0m[0m22:46:54,176 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 6) WFLYUT0022: Unregistered web context: /test
+[0m[0m22:46:54,231 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 6) WFLYJPA0011: Stopping Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:46:54,239 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) WFLYWELD0010: Stopping weld service for deployment test.war
+[0m[0m22:46:54,245 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 6) WFLYJPA0011: Stopping Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:46:54,298 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) WFLYJCA0010: Unbound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:46:54,356 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 188ms
+[0m[0m22:46:54,384 INFO  [org.jboss.as.repository] (management-handler-thread - 2) WFLYDR0002: Content removed from location /opt/wildfly-9.0.2.Final/standalone/data/content/32/1991fac0ad15878c6772f4e3e29d7e6e284d10/content
+[0m[0m22:46:54,385 INFO  [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
+[0mTests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 24.416 sec
+Running fr.ujf.m2pgi.test.database.dao.TestMemberDao
+[0m22:47:00,804 INFO  [org.jboss.as.repository] (management-handler-thread - 3) WFLYDR0001: Content added at location /opt/wildfly-9.0.2.Final/standalone/data/content/a5/ce3494e1f2acc67970c15ff3f4d971fbfa7cf2/content
+[0m[0m22:47:00,809 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+[0m[0m22:47:02,330 INFO  [org.jboss.as.jpa] (MSC service thread 1-7) WFLYJPA0002: Read persistence.xml for primary
+[0m[33m22:47:02,333 WARN  [org.jboss.as.connector] (MSC service thread 1-7) WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+[0m[0m22:47:02,471 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) WFLYJCA0001: Bound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:47:02,472 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 6) WFLYJPA0010: Starting Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:47:02,474 INFO  [org.hibernate.jpa.internal.util.LogHelper] (ServerService Thread Pool -- 6) HHH000204: Processing PersistenceUnitInfo [
+	name: primary
+	...]
+[0m[0m22:47:02,522 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0003: Processing weld deployment test.war
+[0m[0m22:47:02,552 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named CustomerService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:app/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:module/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:global/test/CustomerService
+	java:app/test/CustomerService
+	java:module/CustomerService
+
+[0m[0m22:47:02,553 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named FileService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:app/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:module/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:global/test/FileService
+	java:app/test/FileService
+	java:module/FileService
+
+[0m[0m22:47:02,553 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named MemberService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:app/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:module/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:global/test/MemberService
+	java:app/test/MemberService
+	java:module/MemberService
+
+[0m[0m22:47:02,553 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named PhotoService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:app/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:module/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:global/test/PhotoService
+	java:app/test/PhotoService
+	java:module/PhotoService
+
+[0m[0m22:47:02,553 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named TagService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:app/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:module/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:global/test/TagService
+	java:app/test/TagService
+	java:module/TagService
+
+[0m[0m22:47:02,554 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named JwtSingleton in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:app/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:module/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:global/test/JwtSingleton
+	java:app/test/JwtSingleton
+	java:module/JwtSingleton
+
+[0m[0m22:47:02,554 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named TokenGenerator in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:app/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:module/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:global/test/TokenGenerator
+	java:app/test/TokenGenerator
+	java:module/TokenGenerator
+
+[0m[0m22:47:02,554 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named MapperWrapper in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:app/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:module/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:global/test/MapperWrapper
+	java:app/test/MapperWrapper
+	java:module/MapperWrapper
+
+[0m[0m22:47:02,554 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named MD5Digest in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:app/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:module/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:global/test/MD5Digest
+	java:app/test/MD5Digest
+	java:module/MD5Digest
+
+[0m[0m22:47:02,555 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named ElasticsearchBridge in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:app/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:module/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:global/test/ElasticsearchBridge
+	java:app/test/ElasticsearchBridge
+	java:module/ElasticsearchBridge
+
+[0m[0m22:47:02,555 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named ApplicationProperties in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:app/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:module/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:global/test/ApplicationProperties
+	java:app/test/ApplicationProperties
+	java:module/ApplicationProperties
+
+[0m[0m22:47:02,555 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named PhotoServiceES in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:app/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:module/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:global/test/PhotoServiceES
+	java:app/test/PhotoServiceES
+	java:module/PhotoServiceES
+
+[0m[0m22:47:02,555 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named OrderService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:app/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:module/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:global/test/OrderService
+	java:app/test/OrderService
+	java:module/OrderService
+
+[0m[0m22:47:02,556 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named FacadePhoto in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:app/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:module/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:global/test/FacadePhoto
+	java:app/test/FacadePhoto
+	java:module/FacadePhoto
+
+[0m[0m22:47:02,752 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0006: Starting Services for CDI deployment: test.war
+[0m[0m22:47:02,761 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) WFLYWELD0009: Starting weld service for deployment test.war
+[0m[0m22:47:02,780 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 6) WFLYJPA0010: Starting Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:47:02,794 INFO  [org.hibernate.dialect.Dialect] (ServerService Thread Pool -- 6) HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[0m[33m22:47:02,795 WARN  [org.hibernate.dialect.H2Dialect] (ServerService Thread Pool -- 6) HHH000431: Unable to determine H2 database version, certain features may not work
+[0m[33m22:47:02,844 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:47:02,845 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:47:02,845 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:47:02,846 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:47:02,846 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:47:02,846 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:47:02,847 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:47:02,847 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:47:02,847 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:47:02,848 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:47:02,848 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Cart
+[0m[33m22:47:02,848 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 6) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Cart
+[0m[0m22:47:02,849 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (ServerService Thread Pool -- 6) HHH000397: Using ASTQueryTranslatorFactory
+[0m[0m22:47:03,369 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 6) HHH000227: Running hbm2ddl schema export
+[0m[31m22:47:03,391 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 6) HHH000389: Unsuccessful: create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid))
+[0m[31m22:47:03,392 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 6) Table "orderentry" already exists; SQL statement:
+create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid)) [42101-173]
+[0m[0m22:47:03,430 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 6) HHH000230: Schema export complete
+[0m[0m22:47:04,205 INFO  [org.elasticsearch.plugins] (ServerService Thread Pool -- 27) [Auntie Freeze] loaded [], sites []
+[0m[0m22:47:05,152 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 10) WFLYUT0021: Registered web context: /test
+[0m[0m22:47:05,171 INFO  [org.jboss.as.server] (management-handler-thread - 3) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
+[0m[0m22:47:05,331 INFO  [stdout] (default task-18) Dumping old records...
+[0m[0m22:47:05,342 INFO  [stdout] (default task-18) Inserting records...
+[0m[0m22:47:05,389 INFO  [stdout] (default task-21) Dumping old records...
+[0m[0m22:47:05,393 INFO  [stdout] (default task-21) Inserting records...
+[0m[0m22:47:05,429 INFO  [stdout] (default task-23) Dumping old records...
+[0m[0m22:47:05,432 INFO  [stdout] (default task-23) Inserting records...
+[0m[0m22:47:05,456 INFO  [stdout] (default task-24) Dumping old records...
+[0m[0m22:47:05,459 INFO  [stdout] (default task-24) Inserting records...
+[0m[0m22:47:05,480 INFO  [stdout] (default task-26) Dumping old records...
+[0m[0m22:47:05,485 INFO  [stdout] (default task-26) Inserting records...
+[0m[0m22:47:05,706 INFO  [stdout] (default task-26) Dumping old records...
+[0m[0m22:47:05,736 INFO  [stdout] (default task-30) Dumping old records...
+[0m[0m22:47:05,739 INFO  [stdout] (default task-30) Inserting records...
+[0m[31m22:47:05,976 ERROR [stderr] (default task-30) 35 35
+[0m[0m22:47:06,002 INFO  [stdout] (default task-34) Dumping old records...
+[0m[0m22:47:06,008 INFO  [stdout] (default task-34) Inserting records...
+[0m[0m22:47:06,045 INFO  [stdout] (default task-36) Dumping old records...
+[0m[0m22:47:06,050 INFO  [stdout] (default task-36) Inserting records...
+[0m[0m22:47:06,072 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 10) WFLYUT0022: Unregistered web context: /test
+[0m[0m22:47:06,131 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 10) WFLYJPA0011: Stopping Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:47:06,139 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 10) WFLYJPA0011: Stopping Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:47:06,141 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) WFLYWELD0010: Stopping weld service for deployment test.war
+[0m[0m22:47:06,158 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) WFLYJCA0010: Unbound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:47:06,197 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 127ms
+[0m[0m22:47:06,226 INFO  [org.jboss.as.repository] (management-handler-thread - 1) WFLYDR0002: Content removed from location /opt/wildfly-9.0.2.Final/standalone/data/content/a5/ce3494e1f2acc67970c15ff3f4d971fbfa7cf2/content
+[0m[0m22:47:06,226 INFO  [org.jboss.as.server] (management-handler-thread - 1) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
+[0mTests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.805 sec
+Running fr.ujf.m2pgi.test.database.dao.TestTagDao
+[0m22:47:11,480 INFO  [org.jboss.as.repository] (management-handler-thread - 2) WFLYDR0001: Content added at location /opt/wildfly-9.0.2.Final/standalone/data/content/34/04723a1e9d635889881b00bdcc234edfbd4eaa/content
+[0m[0m22:47:11,483 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+[0m[0m22:47:13,001 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) WFLYJPA0002: Read persistence.xml for primary
+[0m[33m22:47:13,004 WARN  [org.jboss.as.connector] (MSC service thread 1-4) WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+[0m[0m22:47:13,089 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-3) WFLYJCA0001: Bound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:47:13,089 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 10) WFLYJPA0010: Starting Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:47:13,090 INFO  [org.hibernate.jpa.internal.util.LogHelper] (ServerService Thread Pool -- 10) HHH000204: Processing PersistenceUnitInfo [
+	name: primary
+	...]
+[0m[0m22:47:13,121 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0003: Processing weld deployment test.war
+[0m[0m22:47:13,128 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named CustomerService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:app/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:module/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:global/test/CustomerService
+	java:app/test/CustomerService
+	java:module/CustomerService
+
+[0m[0m22:47:13,130 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named FileService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:app/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:module/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:global/test/FileService
+	java:app/test/FileService
+	java:module/FileService
+
+[0m[0m22:47:13,131 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named MemberService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:app/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:module/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:global/test/MemberService
+	java:app/test/MemberService
+	java:module/MemberService
+
+[0m[0m22:47:13,132 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named PhotoService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:app/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:module/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:global/test/PhotoService
+	java:app/test/PhotoService
+	java:module/PhotoService
+
+[0m[0m22:47:13,133 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named TagService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:app/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:module/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:global/test/TagService
+	java:app/test/TagService
+	java:module/TagService
+
+[0m[0m22:47:13,134 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named JwtSingleton in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:app/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:module/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:global/test/JwtSingleton
+	java:app/test/JwtSingleton
+	java:module/JwtSingleton
+
+[0m[0m22:47:13,135 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named TokenGenerator in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:app/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:module/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:global/test/TokenGenerator
+	java:app/test/TokenGenerator
+	java:module/TokenGenerator
+
+[0m[0m22:47:13,137 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named MapperWrapper in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:app/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:module/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:global/test/MapperWrapper
+	java:app/test/MapperWrapper
+	java:module/MapperWrapper
+
+[0m[0m22:47:13,138 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named MD5Digest in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:app/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:module/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:global/test/MD5Digest
+	java:app/test/MD5Digest
+	java:module/MD5Digest
+
+[0m[0m22:47:13,138 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named ElasticsearchBridge in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:app/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:module/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:global/test/ElasticsearchBridge
+	java:app/test/ElasticsearchBridge
+	java:module/ElasticsearchBridge
+
+[0m[0m22:47:13,138 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named ApplicationProperties in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:app/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:module/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:global/test/ApplicationProperties
+	java:app/test/ApplicationProperties
+	java:module/ApplicationProperties
+
+[0m[0m22:47:13,138 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named PhotoServiceES in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:app/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:module/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:global/test/PhotoServiceES
+	java:app/test/PhotoServiceES
+	java:module/PhotoServiceES
+
+[0m[0m22:47:13,139 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named OrderService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:app/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:module/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:global/test/OrderService
+	java:app/test/OrderService
+	java:module/OrderService
+
+[0m[0m22:47:13,139 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named FacadePhoto in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:app/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:module/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:global/test/FacadePhoto
+	java:app/test/FacadePhoto
+	java:module/FacadePhoto
+
+[0m[0m22:47:13,253 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0006: Starting Services for CDI deployment: test.war
+[0m[0m22:47:13,262 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) WFLYWELD0009: Starting weld service for deployment test.war
+[0m[0m22:47:13,288 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 10) WFLYJPA0010: Starting Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:47:13,300 INFO  [org.hibernate.dialect.Dialect] (ServerService Thread Pool -- 10) HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[0m[33m22:47:13,301 WARN  [org.hibernate.dialect.H2Dialect] (ServerService Thread Pool -- 10) HHH000431: Unable to determine H2 database version, certain features may not work
+[0m[33m22:47:13,336 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:47:13,337 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:47:13,337 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:47:13,338 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:47:13,338 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:47:13,339 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:47:13,339 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:47:13,339 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:47:13,340 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:47:13,340 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:47:13,340 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Cart
+[0m[33m22:47:13,341 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 10) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Cart
+[0m[0m22:47:13,341 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (ServerService Thread Pool -- 10) HHH000397: Using ASTQueryTranslatorFactory
+[0m[0m22:47:13,490 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 10) HHH000227: Running hbm2ddl schema export
+[0m[31m22:47:13,501 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 10) HHH000389: Unsuccessful: create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid))
+[0m[31m22:47:13,501 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 10) Table "orderentry" already exists; SQL statement:
+create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid)) [42101-173]
+[0m[0m22:47:13,527 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 10) HHH000230: Schema export complete
+[0m[0m22:47:13,980 INFO  [org.elasticsearch.plugins] (ServerService Thread Pool -- 16) [Hussar] loaded [], sites []
+[0m[0m22:47:14,547 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 16) WFLYUT0021: Registered web context: /test
+[0m[0m22:47:14,570 INFO  [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
+[0m[0m22:47:14,740 INFO  [stdout] (default task-38) Dumping old photos and members records...
+[0m[0m22:47:14,750 INFO  [stdout] (default task-38) Dumping Done
+[0m[0m22:47:14,751 INFO  [stdout] (default task-38) Inserting 10 sellers records...
+[0m[0m22:47:14,794 INFO  [stdout] (default task-41) Dumping old photos and members records...
+[0m[0m22:47:14,795 INFO  [stdout] (default task-41) Dumping Done
+[0m[0m22:47:14,797 INFO  [stdout] (default task-41) Inserting 10 sellers records...
+[0m[0m22:47:14,805 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:14,889 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:14,952 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,045 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,100 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,158 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,199 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,235 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,259 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,294 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,319 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,343 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,371 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,392 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,414 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,435 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,457 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,478 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,497 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,513 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,536 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,552 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,570 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,594 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,617 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,636 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,654 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,671 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,689 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,705 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,719 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,735 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,753 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,774 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,807 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,826 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,837 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,853 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,868 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,889 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,905 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,918 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,932 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,945 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,959 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,976 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:15,989 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:16,000 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:16,014 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:16,026 INFO  [stdout] (default task-41) Inserting 10 photos records by seller...
+[0m[0m22:47:16,042 INFO  [stdout] (default task-41) ici--
+[0m[31m22:47:16,042 ERROR [stderr] (default task-41) 91
+[0m[31m22:47:16,043 ERROR [stderr] (default task-41) tags0
+[0m[31m22:47:16,043 ERROR [stderr] (default task-41) 64
+[0m[31m22:47:16,043 ERROR [stderr] (default task-41) tags-4
+[0m[31m22:47:16,043 ERROR [stderr] (default task-41) 61
+[0m[31m22:47:16,044 ERROR [stderr] (default task-41) tags22
+[0m[31m22:47:16,044 ERROR [stderr] (default task-41) 61
+[0m[31m22:47:16,044 ERROR [stderr] (default task-41) tags7
+[0m[31m22:47:16,044 ERROR [stderr] (default task-41) 60
+[0m[31m22:47:16,044 ERROR [stderr] (default task-41) tags-24
+[0m[31m22:47:16,044 ERROR [stderr] (default task-41) 59
+[0m[31m22:47:16,045 ERROR [stderr] (default task-41) tags17
+[0m[31m22:47:16,045 ERROR [stderr] (default task-41) 59
+[0m[31m22:47:16,045 ERROR [stderr] (default task-41) tags8
+[0m[31m22:47:16,045 ERROR [stderr] (default task-41) 58
+[0m[31m22:47:16,045 ERROR [stderr] (default task-41) tags44
+[0m[31m22:47:16,046 ERROR [stderr] (default task-41) 58
+[0m[31m22:47:16,046 ERROR [stderr] (default task-41) tags33
+[0m[31m22:47:16,046 ERROR [stderr] (default task-41) 58
+[0m[31m22:47:16,046 ERROR [stderr] (default task-41) tags31
+[0m[0m22:47:16,047 INFO  [stdout] (default task-41) et la
+[0m[31m22:47:16,321 ERROR [stderr] (default task-41) tags-20
+[0m[31m22:47:16,321 ERROR [stderr] (default task-41) tags41
+[0m[31m22:47:16,322 ERROR [stderr] (default task-41) tags45
+[0m[31m22:47:16,322 ERROR [stderr] (default task-41) tags-16
+[0m[31m22:47:16,322 ERROR [stderr] (default task-41) tags21
+[0m[31m22:47:16,323 ERROR [stderr] (default task-41) tags-3
+[0m[31m22:47:16,323 ERROR [stderr] (default task-41) tags-15
+[0m[31m22:47:16,323 ERROR [stderr] (default task-41) tags35
+[0m[31m22:47:16,324 ERROR [stderr] (default task-41) tags-15
+[0m[31m22:47:16,324 ERROR [stderr] (default task-41) tags12
+[0m[0m22:47:16,422 INFO  [stdout] (default task-59) Dumping old photos and members records...
+[0m[0m22:47:16,494 INFO  [stdout] (default task-59) Dumping Done
+[0m[0m22:47:16,495 INFO  [stdout] (default task-59) Inserting 10 sellers records...
+[0m[0m22:47:16,518 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 16) WFLYUT0022: Unregistered web context: /test
+[0m[0m22:47:16,599 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 58) WFLYJPA0011: Stopping Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:47:16,603 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0010: Stopping weld service for deployment test.war
+[0m[0m22:47:16,602 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 58) WFLYJPA0011: Stopping Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:47:16,613 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-3) WFLYJCA0010: Unbound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:47:16,666 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 149ms
+[0m[0m22:47:16,689 INFO  [org.jboss.as.repository] (management-handler-thread - 4) WFLYDR0002: Content removed from location /opt/wildfly-9.0.2.Final/standalone/data/content/34/04723a1e9d635889881b00bdcc234edfbd4eaa/content
+[0m[0m22:47:16,690 INFO  [org.jboss.as.server] (management-handler-thread - 4) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
+[0mTests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.466 sec
+Running fr.ujf.m2pgi.test.database.dao.TestOrderDao
+[0m22:47:21,871 INFO  [org.jboss.as.repository] (management-handler-thread - 1) WFLYDR0001: Content added at location /opt/wildfly-9.0.2.Final/standalone/data/content/d8/39c8f61daf726beea3cc9a09486e06cd710182/content
+[0m[0m22:47:21,873 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+[0m[0m22:47:23,245 INFO  [org.jboss.as.jpa] (MSC service thread 1-1) WFLYJPA0002: Read persistence.xml for primary
+[0m[33m22:47:23,247 WARN  [org.jboss.as.connector] (MSC service thread 1-1) WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+[0m[0m22:47:23,341 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) WFLYJCA0001: Bound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:47:23,342 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 58) WFLYJPA0010: Starting Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:47:23,342 INFO  [org.hibernate.jpa.internal.util.LogHelper] (ServerService Thread Pool -- 58) HHH000204: Processing PersistenceUnitInfo [
+	name: primary
+	...]
+[0m[0m22:47:23,375 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0003: Processing weld deployment test.war
+[0m[0m22:47:23,391 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named CustomerService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:app/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:module/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:global/test/CustomerService
+	java:app/test/CustomerService
+	java:module/CustomerService
+
+[0m[0m22:47:23,395 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named FileService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:app/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:module/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:global/test/FileService
+	java:app/test/FileService
+	java:module/FileService
+
+[0m[0m22:47:23,395 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named MemberService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:app/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:module/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:global/test/MemberService
+	java:app/test/MemberService
+	java:module/MemberService
+
+[0m[0m22:47:23,396 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named PhotoService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:app/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:module/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:global/test/PhotoService
+	java:app/test/PhotoService
+	java:module/PhotoService
+
+[0m[0m22:47:23,397 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named TagService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:app/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:module/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:global/test/TagService
+	java:app/test/TagService
+	java:module/TagService
+
+[0m[0m22:47:23,397 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named JwtSingleton in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:app/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:module/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:global/test/JwtSingleton
+	java:app/test/JwtSingleton
+	java:module/JwtSingleton
+
+[0m[0m22:47:23,398 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named TokenGenerator in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:app/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:module/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:global/test/TokenGenerator
+	java:app/test/TokenGenerator
+	java:module/TokenGenerator
+
+[0m[0m22:47:23,399 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named MapperWrapper in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:app/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:module/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:global/test/MapperWrapper
+	java:app/test/MapperWrapper
+	java:module/MapperWrapper
+
+[0m[0m22:47:23,400 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named MD5Digest in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:app/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:module/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:global/test/MD5Digest
+	java:app/test/MD5Digest
+	java:module/MD5Digest
+
+[0m[0m22:47:23,404 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named ElasticsearchBridge in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:app/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:module/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:global/test/ElasticsearchBridge
+	java:app/test/ElasticsearchBridge
+	java:module/ElasticsearchBridge
+
+[0m[0m22:47:23,405 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named ApplicationProperties in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:app/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:module/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:global/test/ApplicationProperties
+	java:app/test/ApplicationProperties
+	java:module/ApplicationProperties
+
+[0m[0m22:47:23,405 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named PhotoServiceES in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:app/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:module/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:global/test/PhotoServiceES
+	java:app/test/PhotoServiceES
+	java:module/PhotoServiceES
+
+[0m[0m22:47:23,407 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named OrderService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:app/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:module/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:global/test/OrderService
+	java:app/test/OrderService
+	java:module/OrderService
+
+[0m[0m22:47:23,407 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named FacadePhoto in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:app/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:module/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:global/test/FacadePhoto
+	java:app/test/FacadePhoto
+	java:module/FacadePhoto
+
+[0m[0m22:47:23,518 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0006: Starting Services for CDI deployment: test.war
+[0m[0m22:47:23,527 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) WFLYWELD0009: Starting weld service for deployment test.war
+[0m[0m22:47:23,548 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 58) WFLYJPA0010: Starting Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:47:23,563 INFO  [org.hibernate.dialect.Dialect] (ServerService Thread Pool -- 58) HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[0m[33m22:47:23,564 WARN  [org.hibernate.dialect.H2Dialect] (ServerService Thread Pool -- 58) HHH000431: Unable to determine H2 database version, certain features may not work
+[0m[33m22:47:23,596 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:47:23,596 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:47:23,597 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:47:23,597 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:47:23,597 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:47:23,598 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:47:23,598 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:47:23,598 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:47:23,598 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:47:23,598 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:47:23,598 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Cart
+[0m[33m22:47:23,599 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 58) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Cart
+[0m[0m22:47:23,599 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (ServerService Thread Pool -- 58) HHH000397: Using ASTQueryTranslatorFactory
+[0m[0m22:47:23,721 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) HHH000227: Running hbm2ddl schema export
+[0m[31m22:47:23,730 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) HHH000389: Unsuccessful: create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid))
+[0m[31m22:47:23,731 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) Table "orderentry" already exists; SQL statement:
+create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid)) [42101-173]
+[0m[0m22:47:23,770 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) HHH000230: Schema export complete
+[0m[0m22:47:24,326 INFO  [org.elasticsearch.plugins] (ServerService Thread Pool -- 13) [Stranger] loaded [], sites []
+[0m[0m22:47:25,072 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 13) WFLYUT0021: Registered web context: /test
+[0m[0m22:47:25,097 INFO  [org.jboss.as.server] (management-handler-thread - 1) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
+[0m[0m22:47:25,290 INFO  [stdout] (default task-61) Dumping old records...
+[0m[0m22:47:25,307 INFO  [stdout] (default task-61) THE INSERT DATAAAAAAAAAA
+[0m[0m22:47:25,308 INFO  [stdout] (default task-61) Inserting records...
+[0m[31m22:47:25,329 ERROR [stderr] (default task-61) The test create order****************************
+[0m[0m22:47:25,382 INFO  [stdout] (default task-2) Dumping old records...
+[0m[0m22:47:25,393 INFO  [stdout] (default task-2) THE INSERT DATAAAAAAAAAA
+[0m[0m22:47:25,394 INFO  [stdout] (default task-2) Inserting records...
+[0m[31m22:47:25,409 ERROR [stderr] (default task-2) The test getSellersOrdersTest****************************
+[0m[0m22:47:25,478 INFO  [stdout] (default task-4) Dumping old records...
+[0m[0m22:47:25,482 INFO  [stdout] (default task-4) THE INSERT DATAAAAAAAAAA
+[0m[0m22:47:25,483 INFO  [stdout] (default task-4) Inserting records...
+[0m[31m22:47:25,487 ERROR [stderr] (default task-4) The test getAllOrdersTest****************************
+[0m[0m22:47:25,527 INFO  [stdout] (default task-7) Dumping old records...
+[0m[0m22:47:25,532 INFO  [stdout] (default task-7) THE INSERT DATAAAAAAAAAA
+[0m[0m22:47:25,532 INFO  [stdout] (default task-7) Inserting records...
+[0m[31m22:47:25,539 ERROR [stderr] (default task-7) The test getTotalPurchaseTest****************************
+[0m[0m22:47:25,581 INFO  [stdout] (default task-8) Dumping old records...
+[0m[0m22:47:25,587 INFO  [stdout] (default task-8) THE INSERT DATAAAAAAAAAA
+[0m[0m22:47:25,588 INFO  [stdout] (default task-8) Inserting records...
+[0m[31m22:47:25,593 ERROR [stderr] (default task-8) The test create AND FIND order****************************
+[0m[0m22:47:25,625 INFO  [stdout] (default task-10) Dumping old records...
+[0m[0m22:47:25,631 INFO  [stdout] (default task-10) THE INSERT DATAAAAAAAAAA
+[0m[0m22:47:25,631 INFO  [stdout] (default task-10) Inserting records...
+[0m[31m22:47:25,639 ERROR [stderr] (default task-10) The test getCustomerOrders****************************
+[0m[0m22:47:25,665 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 13) WFLYUT0022: Unregistered web context: /test
+[0m[31m22:47:25,679 ERROR [io.undertow.servlet.request] (default task-10) UT015005: Error invoking method requestDestroyed on listener class org.jboss.weld.servlet.WeldInitialListener: java.lang.NullPointerException
+	at org.jboss.weld.servlet.WeldInitialListener.requestDestroyed(WeldInitialListener.java:150)
+	at io.undertow.servlet.core.ApplicationListeners.requestDestroyed(ApplicationListeners.java:225)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:325)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:261)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:80)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:172)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:199)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:774)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+[0m[0m22:47:25,747 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 65) WFLYJPA0011: Stopping Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:47:25,750 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 65) WFLYJPA0011: Stopping Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:47:25,751 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) WFLYWELD0010: Stopping weld service for deployment test.war
+[0m[0m22:47:25,766 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) WFLYJCA0010: Unbound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:47:25,861 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 198ms
+[0m[0m22:47:25,880 INFO  [org.jboss.as.repository] (management-handler-thread - 3) WFLYDR0002: Content removed from location /opt/wildfly-9.0.2.Final/standalone/data/content/d8/39c8f61daf726beea3cc9a09486e06cd710182/content
+[0m[0m22:47:25,880 INFO  [org.jboss.as.server] (management-handler-thread - 3) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
+[0mTests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.185 sec
+Running fr.ujf.m2pgi.test.database.dao.TestPhotoDAO
+[0m22:47:31,639 INFO  [org.jboss.as.repository] (management-handler-thread - 4) WFLYDR0001: Content added at location /opt/wildfly-9.0.2.Final/standalone/data/content/47/45b12d7ccf95931b690b3e64ca842da434d448/content
+[0m[0m22:47:31,641 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+[0m[0m22:47:33,064 INFO  [org.jboss.as.jpa] (MSC service thread 1-3) WFLYJPA0002: Read persistence.xml for primary
+[0m[33m22:47:33,067 WARN  [org.jboss.as.connector] (MSC service thread 1-3) WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+[0m[0m22:47:33,150 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-8) WFLYJCA0001: Bound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:47:33,151 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 65) WFLYJPA0010: Starting Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:47:33,151 INFO  [org.hibernate.jpa.internal.util.LogHelper] (ServerService Thread Pool -- 65) HHH000204: Processing PersistenceUnitInfo [
+	name: primary
+	...]
+[0m[0m22:47:33,195 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) WFLYWELD0003: Processing weld deployment test.war
+[0m[0m22:47:33,213 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named CustomerService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:app/test/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:module/CustomerService!fr.ujf.m2pgi.database.Service.ICustomerService
+	java:global/test/CustomerService
+	java:app/test/CustomerService
+	java:module/CustomerService
+
+[0m[0m22:47:33,215 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named FileService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:app/test/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:module/FileService!fr.ujf.m2pgi.database.Service.IFileService
+	java:global/test/FileService
+	java:app/test/FileService
+	java:module/FileService
+
+[0m[0m22:47:33,216 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named MemberService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:app/test/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:module/MemberService!fr.ujf.m2pgi.database.Service.IMemberService
+	java:global/test/MemberService
+	java:app/test/MemberService
+	java:module/MemberService
+
+[0m[0m22:47:33,217 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named PhotoService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:app/test/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:module/PhotoService!fr.ujf.m2pgi.database.Service.IPhotoService
+	java:global/test/PhotoService
+	java:app/test/PhotoService
+	java:module/PhotoService
+
+[0m[0m22:47:33,217 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named TagService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:app/test/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:module/TagService!fr.ujf.m2pgi.database.Service.ITagService
+	java:global/test/TagService
+	java:app/test/TagService
+	java:module/TagService
+
+[0m[0m22:47:33,217 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named JwtSingleton in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:app/test/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:module/JwtSingleton!fr.ujf.m2pgi.Security.JwtSingleton
+	java:global/test/JwtSingleton
+	java:app/test/JwtSingleton
+	java:module/JwtSingleton
+
+[0m[0m22:47:33,222 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named TokenGenerator in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:app/test/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:module/TokenGenerator!fr.ujf.m2pgi.Security.ITokenGenerator
+	java:global/test/TokenGenerator
+	java:app/test/TokenGenerator
+	java:module/TokenGenerator
+
+[0m[0m22:47:33,223 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named MapperWrapper in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:app/test/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:module/MapperWrapper!fr.ujf.m2pgi.database.Mappers.MapperWrapper
+	java:global/test/MapperWrapper
+	java:app/test/MapperWrapper
+	java:module/MapperWrapper
+
+[0m[0m22:47:33,223 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named MD5Digest in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:app/test/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:module/MD5Digest!fr.ujf.m2pgi.Security.IStringDigest
+	java:global/test/MD5Digest
+	java:app/test/MD5Digest
+	java:module/MD5Digest
+
+[0m[0m22:47:33,224 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named ElasticsearchBridge in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:app/test/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:module/ElasticsearchBridge!fr.ujf.m2pgi.elasticsearch.ElasticsearchBridge
+	java:global/test/ElasticsearchBridge
+	java:app/test/ElasticsearchBridge
+	java:module/ElasticsearchBridge
+
+[0m[0m22:47:33,224 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named ApplicationProperties in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:app/test/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:module/ApplicationProperties!fr.ujf.m2pgi.properties.IProperties
+	java:global/test/ApplicationProperties
+	java:app/test/ApplicationProperties
+	java:module/ApplicationProperties
+
+[0m[0m22:47:33,224 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named PhotoServiceES in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:app/test/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:module/PhotoServiceES!fr.ujf.m2pgi.elasticsearch.PhotoServiceES
+	java:global/test/PhotoServiceES
+	java:app/test/PhotoServiceES
+	java:module/PhotoServiceES
+
+[0m[0m22:47:33,225 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named OrderService in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:app/test/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:module/OrderService!fr.ujf.m2pgi.database.Service.OrderService
+	java:global/test/OrderService
+	java:app/test/OrderService
+	java:module/OrderService
+
+[0m[0m22:47:33,225 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named FacadePhoto in deployment unit deployment "test.war" are as follows:
+
+	java:global/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:app/test/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:module/FacadePhoto!fr.ujf.m2pgi.facades.FacadePhoto
+	java:global/test/FacadePhoto
+	java:app/test/FacadePhoto
+	java:module/FacadePhoto
+
+[0m[0m22:47:33,339 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) WFLYWELD0006: Starting Services for CDI deployment: test.war
+[0m[0m22:47:33,346 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0009: Starting weld service for deployment test.war
+[0m[0m22:47:33,359 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 65) WFLYJPA0010: Starting Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:47:33,368 INFO  [org.hibernate.dialect.Dialect] (ServerService Thread Pool -- 65) HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[0m[33m22:47:33,369 WARN  [org.hibernate.dialect.H2Dialect] (ServerService Thread Pool -- 65) HHH000431: Unable to determine H2 database version, certain features may not work
+[0m[33m22:47:33,399 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:47:33,399 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.OrderEntry
+[0m[33m22:47:33,400 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:47:33,400 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Wish
+[0m[33m22:47:33,401 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:47:33,401 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Tags
+[0m[33m22:47:33,401 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:47:33,401 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Like
+[0m[33m22:47:33,402 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:47:33,402 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.View
+[0m[33m22:47:33,402 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000038: Composite-id class does not override equals(): fr.ujf.m2pgi.database.entities.Cart
+[0m[33m22:47:33,402 WARN  [org.hibernate.mapping.RootClass] (ServerService Thread Pool -- 65) HHH000039: Composite-id class does not override hashCode(): fr.ujf.m2pgi.database.entities.Cart
+[0m[0m22:47:33,403 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (ServerService Thread Pool -- 65) HHH000397: Using ASTQueryTranslatorFactory
+[0m[0m22:47:33,510 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 65) HHH000227: Running hbm2ddl schema export
+[0m[31m22:47:33,519 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 65) HHH000389: Unsuccessful: create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid))
+[0m[31m22:47:33,519 ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 65) Table "orderentry" already exists; SQL statement:
+create table orderentry (photoid bigint not null, orderid bigint not null, primary key (photoid, orderid)) [42101-173]
+[0m[0m22:47:33,538 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 65) HHH000230: Schema export complete
+[0m[0m22:47:34,014 INFO  [org.elasticsearch.plugins] (ServerService Thread Pool -- 65) [White Queen] loaded [], sites []
+[0m[0m22:47:34,847 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 65) WFLYUT0021: Registered web context: /test
+[0m[0m22:47:34,863 INFO  [org.jboss.as.server] (management-handler-thread - 4) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
+[0m[0m22:47:35,063 INFO  [stdout] (default task-12) Dumping old photos and members records...
+[0m[0m22:47:35,072 INFO  [stdout] (default task-12) Dumping Done
+[0m[0m22:47:35,074 INFO  [stdout] (default task-12) Inserting 10 sellers records...
+[0m[0m22:47:35,080 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,090 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,094 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,098 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,102 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,108 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,114 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,119 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,124 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,132 INFO  [stdout] (default task-12) Inserting 10 photos records by seller...
+[0m[0m22:47:35,225 INFO  [stdout] (default task-12) Dumping old photos and members records...
+[0m[0m22:47:35,230 INFO  [stdout] (default task-12) Dumping Done
+[0m[0m22:47:35,269 INFO  [stdout] (default task-16) Dumping old photos and members records...
+[0m[0m22:47:35,273 INFO  [stdout] (default task-16) Dumping Done
+[0m[0m22:47:35,275 INFO  [stdout] (default task-16) Inserting 10 sellers records...
+[0m[0m22:47:35,278 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,288 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,290 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,297 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,299 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,303 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,306 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,309 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,312 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,315 INFO  [stdout] (default task-16) Inserting 10 photos records by seller...
+[0m[0m22:47:35,324 INFO  [stdout] (default task-16) Dumping old photos and members records...
+[0m[0m22:47:35,327 INFO  [stdout] (default task-16) Dumping Done
+[0m[0m22:47:35,359 INFO  [stdout] (default task-19) Dumping old photos and members records...
+[0m[0m22:47:35,362 INFO  [stdout] (default task-19) Dumping Done
+[0m[0m22:47:35,366 INFO  [stdout] (default task-19) Inserting 10 sellers records...
+[0m[0m22:47:35,369 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[0m22:47:35,372 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[0m22:47:35,380 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[0m22:47:35,387 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[0m22:47:35,396 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[0m22:47:35,400 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[0m22:47:35,404 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[0m22:47:35,408 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[0m22:47:35,411 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[0m22:47:35,415 INFO  [stdout] (default task-19) Inserting 10 photos records by seller...
+[0m[31m22:47:35,555 ERROR [stderr] (default task-19) photoDAO.getUserPhotos( m.getMemberID()).size()) >>>>>>>> 9
+[0m[0m22:47:35,599 INFO  [stdout] (default task-19) Dumping old photos and members records...
+[0m[0m22:47:35,603 INFO  [stdout] (default task-19) Dumping Done
+[0m[0m22:47:35,617 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 65) WFLYUT0022: Unregistered web context: /test
+[0m[0m22:47:35,662 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 63) WFLYJPA0011: Stopping Persistence Unit (phase 2 of 2) Service 'test.war#primary'
+[0m[0m22:47:35,674 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) WFLYWELD0010: Stopping weld service for deployment test.war
+[0m[0m22:47:35,676 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 63) WFLYJPA0011: Stopping Persistence Unit (phase 1 of 2) Service 'test.war#primary'
+[0m[0m22:47:35,686 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) WFLYJCA0010: Unbound data source [java:jboss/datasources/ecomTestDS]
+[0m[0m22:47:35,782 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 168ms
+[0m[0m22:47:35,810 INFO  [org.jboss.as.repository] (management-handler-thread - 2) WFLYDR0002: Content removed from location /opt/wildfly-9.0.2.Final/standalone/data/content/47/45b12d7ccf95931b690b3e64ca842da434d448/content
+[0m[0m22:47:35,811 INFO  [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
+[0mTests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.932 sec
+[0m22:47:35,827 INFO  [org.jboss.as.server] (management-handler-thread - 3) WFLYSRV0211: Suspending server
+[0m[0m22:47:35,848 INFO  [org.jboss.as.server] (Thread-2) WFLYSRV0220: Server shutdown has been requested.
+[0m[0m22:47:35,871 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) WFLYJCA0010: Unbound data source [java:jboss/datasources/postgresDS]
+[0m[0m22:47:35,905 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0019: Host default-host stopping
+[0m[0m22:47:35,905 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-8) WFLYJCA0019: Stopped Driver service with driver-name = postgresql
+[0m[0m22:47:35,909 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-1) WFLYJCA0019: Stopped Driver service with driver-name = h2
+[0m[0m22:47:35,930 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0008: Undertow HTTP listener default suspending
+[0m[0m22:47:35,931 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0007: Undertow HTTP listener default stopped, was bound to /127.0.0.1:8080
+[0m[0m22:47:35,940 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0004: Undertow 1.2.9.Final stopping
+[0m[0m22:47:35,980 INFO  [org.jboss.as] (MSC service thread 1-7) WFLYSRV0050: WildFly Full 9.0.2.Final (WildFly Core 1.0.2.Final) stopped in 50ms
+[0m
+Results :
+
+Tests run: 25, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building ecom: WAR Module 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- frontend-maven-plugin:0.0.26:install-node-and-npm (install node and npm) @ ecom-web ---
+[INFO] Found proxies: []
+[INFO] Node v0.10.18 is already installed.
+[INFO] Found NPM version 1.3.8
+[INFO] 
+[INFO] --- frontend-maven-plugin:0.0.26:npm (npm install) @ ecom-web ---
+[INFO] Found proxies: []
+[INFO] Running 'npm install --color=false' in /home/dadou/Documents/Projets/ECOM-M2PGI/ecom/ecom-web/src/main/webapp
+[ERROR] npm WARN package.json webapp@0.0.0 No description
+[ERROR] npm WARN package.json webapp@0.0.0 No repository field.
+[ERROR] npm WARN package.json webapp@0.0.0 No README data
+[ERROR] npm WARN package.json dateformat@1.0.2-1.2.3 No repository field.
+[ERROR] npm WARN package.json faye-websocket@0.4.4 'repositories' (plural) Not supported.
+[ERROR] npm WARN package.json Please pick one as the 'repository' field
+[ERROR] npm WARN package.json indexof@0.0.1 No repository field.
+[ERROR] npm WARN prefer global jshint@2.8.0 should be installed with -g
+[INFO] 
+[INFO] --- frontend-maven-plugin:0.0.26:grunt (grunt build) @ ecom-web ---
+[INFO] Running 'grunt --no-color' in /home/dadou/Documents/Projets/ECOM-M2PGI/ecom/ecom-web/src/main/webapp
+[INFO] Running "browserify:./js/dist.js" (browserify) task
+[INFO] >> Bundle ./js/dist.js created.
+[INFO] 
+[INFO] Done, without errors.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ ecom-web ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/dadou/Documents/Projets/ECOM-M2PGI/ecom/ecom-web/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ ecom-web ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ ecom-web ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/dadou/Documents/Projets/ECOM-M2PGI/ecom/ecom-web/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ ecom-web ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ ecom-web ---
+[INFO] No tests to run.
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building ecom: EAR Module 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-ear-plugin:2.10:generate-application-xml (default-generate-application-xml) @ ecom-ear ---
+[INFO] Generating application.xml
+[INFO] 
+[INFO] --- maven-resources-plugin:2.4.3:resources (default-resources) @ ecom-ear ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/dadou/Documents/Projets/ECOM-M2PGI/ecom/ecom-ear/src/main/resources
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] ecom ............................................... SUCCESS [  0.003 s]
+[INFO] ecom: EJB Module ................................... SUCCESS [01:10 min]
+[INFO] ecom: WAR Module ................................... SUCCESS [  4.484 s]
+[INFO] ecom: EAR Module ................................... SUCCESS [  0.335 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 01:15 min
+[INFO] Finished at: 2015-12-16T22:47:40+01:00
+[INFO] Final Memory: 38M/274M
+[INFO] ------------------------------------------------------------------------

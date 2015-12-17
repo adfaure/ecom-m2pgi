@@ -5,9 +5,8 @@ import fr.ujf.m2pgi.Security.IStringDigest;
 import fr.ujf.m2pgi.database.DAO.IFollowDAO;
 import fr.ujf.m2pgi.database.DAO.IMemberDAO;
 import fr.ujf.m2pgi.database.DAO.IOrderDAO;
-import fr.ujf.m2pgi.database.DTO.MemberDTO;
-import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
-import fr.ujf.m2pgi.database.DTO.PublicSeller;
+import fr.ujf.m2pgi.database.DAO.IPhotoDAO;
+import fr.ujf.m2pgi.database.DTO.*;
 import fr.ujf.m2pgi.database.Mappers.IMemberMapper;
 import fr.ujf.m2pgi.database.Mappers.IPublicPhotoMapper;
 import fr.ujf.m2pgi.database.Mappers.MapperWrapper;
@@ -47,6 +46,9 @@ public class MemberService implements IMemberService {
     @Inject
     private IMemberDAO memberDao;
 
+    /**
+     *
+     */
     @Inject
     private IOrderDAO orderDAO;
 
@@ -56,9 +58,23 @@ public class MemberService implements IMemberService {
     @Inject
     private IStringDigest stringDigest;
 
+    /**
+     *
+     */
+    @Inject
+    private IPhotoDAO photoDAO;
 
+    /**
+     *
+     */
     @Inject
     private IFollowDAO followDao;
+
+    /**
+     *
+     */
+    @Inject
+    private IPhotoService photoService;
 
     /**
      * @param member
@@ -77,7 +93,11 @@ public class MemberService implements IMemberService {
     @Override
     public void deleteMember(Long id) {
         memberDao.delete(id);
-        System.out.println("Deleted user: "+id);
+        List<ManagePhotoDTO> photos = photoDAO.getUserPhotos(id);
+        if(photos != null) {
+            for(ManagePhotoDTO photo : photos)
+                photoService.deletePhoto(photo.getPhotoID());
+        }
         //return res;
     }
 
@@ -86,20 +106,30 @@ public class MemberService implements IMemberService {
      * @return
      */
     @Override
-    public MemberDTO getMemberByLogin(String login) {
-        Member memberEntity = memberDao.findMemberByLogin(login);
+    public MemberDTO getMemberByLogin(String login,boolean active) {
+        Member memberEntity=null;
+        if(active) {
+            memberEntity = memberDao.findActiveMemberByLogin(login);
+        } else {
+            memberEntity = memberDao.findMemberByLogin(login);
+        }
         if (memberEntity != null)
             return memberMapper.getDTO(memberEntity);
         return null;
     }
 
     /**
-     * @param login
+     * @param
      * @return
      */
     @Override
-    public MemberDTO getMemberByEmail(String email) {
-        Member memberEntity = memberDao.findMemberByEmail(email);
+    public MemberDTO getMemberByEmail(String email, boolean active) {
+        Member memberEntity=null;
+        if(active) {
+            memberEntity = memberDao.findActiveMemberByEmail(email);
+        } else {
+            memberEntity = memberDao.findMemberByEmail(email);
+        }
         if (memberEntity != null)
             return memberMapper.getDTO(memberEntity);
         return null;
@@ -230,16 +260,15 @@ public class MemberService implements IMemberService {
 
 
     @Override
-    public List<MemberDTO> getAllMembers(){
-    	List<MemberDTO> result = new ArrayList<MemberDTO>();
+    public List<AdminMemberDTO> getAllMembers(){
+    	List<AdminMemberDTO> result = new ArrayList<AdminMemberDTO>();
 
     	for(Member mem: memberDao.getAllMembers()) {
-    		result.add(memberMapper.getDTO(mem));
+    		result.add(mapperWrapper.getMapper().map(mem, AdminMemberDTO.class));
     	}
-
     	return result;
-
     }
+
 
     @Override
     public List<MemberDTO> getFollowedSellersBy(long followerID){

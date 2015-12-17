@@ -24,6 +24,8 @@ public class PhotoContextBigDTO {
 
 	private String webLocation;
 
+	private String privateLocation;
+
 	private String thumbnail;
 
 	private float price;
@@ -54,7 +56,7 @@ public class PhotoContextBigDTO {
 
 	private Collection<TagCustomDTO> tags;
 
-	public PhotoContextBigDTO(long photoID, boolean available, String name, String description, String webLocation, String thumbnail, float price,
+	public PhotoContextBigDTO(long photoID, boolean available, String name, String description, String webLocation,String privateLocation ,String thumbnail, float price,
 			long sellerID, String sellerLogin, int sales, Date dateCreated, Integer views, Integer likes, boolean wishlisted,
 			boolean inCart,boolean isBought, boolean liked, boolean flagged) {
 
@@ -76,6 +78,36 @@ public class PhotoContextBigDTO {
 		this.isBought = isBought;
 		this.liked = liked;
 		this.flagged = flagged;
+
+		if(isBought) {
+			this.privateLocation = privateLocation;
+		} else {
+			this.privateLocation = null;
+		}
+	}
+
+	public String getPrivateLocation() {
+		return privateLocation;
+	}
+
+	public void setPrivateLocation(String privateLocation) {
+		this.privateLocation = privateLocation;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 	public long getPhotoId() {

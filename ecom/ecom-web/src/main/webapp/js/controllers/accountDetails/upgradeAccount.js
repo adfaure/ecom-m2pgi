@@ -16,9 +16,7 @@ var upgrade = function($scope, $location, $sce, $routeParams,apiToken, alertServ
             user.sellerInfo = {};
             user.sellerInfo.rib = $scope.RIB;
             sellerService.CreateFromMember(user).then(function(data) {
-                console.log("avant");
                 if(data.success) {
-                    console.log("apres");
                     apiToken.setUser(data.user);
                     apiToken.setToken(data.token);
                     if($routeParams.redirect) {

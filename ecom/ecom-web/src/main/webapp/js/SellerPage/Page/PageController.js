@@ -42,7 +42,6 @@ var controller = function($scope, $location, $filter, alertService, $routeParams
       }
     }
 
-
     $scope.follow = function(){
     	memberService.follow(userIDFollower, followedID).then(function(res){
     		if(res){

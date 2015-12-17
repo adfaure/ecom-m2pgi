@@ -66,6 +66,7 @@ public class TestPhotoDAO extends AbstactDaoTest {
             seller.setFirstName("seller"+i);
             seller.setPassword("seller"+i);
             seller.setEmail("seller@seller"+i);
+            seller.setLastName("fname"+i);
             seller.setAccountType('S');
             SellerInfo info = new SellerInfo();
             info.setRIB("RIB"+i);
@@ -100,6 +101,7 @@ public class TestPhotoDAO extends AbstactDaoTest {
         seller.setLogin("angie");
         seller.setFirstName("angie");
         seller.setPassword("angie");
+        seller.setLastName("Ln");
         seller.setEmail("angie@angie");
         seller.setAccountType('S');
         SellerInfo info = new SellerInfo();
