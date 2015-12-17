@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var thumbnailElementDirective = function ($compile, $location, apiToken, publicPhoto) {
+var thumbnailElementDirective = function ($compile, $location, $sce, apiToken, publicPhoto, alertService) {
     return {
         restrict: 'E',
         scope : {
@@ -32,6 +32,8 @@ var thumbnailElementDirective = function ($compile, $location, apiToken, publicP
                     publicPhoto.AddPhotoToWishList(photoID, user.memberID).then(function (res) {
                         $scope.photo.wishlisted = true;
                     });
+                } else {
+                  alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour effectuer cette action ...</strong>"), 3000);
                 }
             };
 
@@ -52,6 +54,8 @@ var thumbnailElementDirective = function ($compile, $location, apiToken, publicP
                         $scope.photo.liked = true;
                         $scope.photo.likes++;
                     });
+                } else {
+                  alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour effectuer cette action ...</strong>"), 3000);
                 }
             };
 
@@ -75,6 +79,8 @@ var thumbnailElementDirective = function ($compile, $location, apiToken, publicP
                           $scope.photo.flagged = true;
                       });
                     }
+                } else {
+                  alertService.add("alert-danger", $sce.trustAsHtml("<strong>Vous devez être <a href='#/inscription'>authentifié</a> pour effectuer cette action ...</strong>"), 3000);
                 }
             };
         }

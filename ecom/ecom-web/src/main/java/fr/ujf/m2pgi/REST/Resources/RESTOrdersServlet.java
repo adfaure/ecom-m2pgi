@@ -46,7 +46,7 @@ public class RESTOrdersServlet {
 	@Path("/customer/login/{login}")
 	@Produces("application/json")
 	public Response getUserOrders(@PathParam("login") String login) {
-		MemberDTO member = memberService.getMemberByLogin(login);
+		MemberDTO member = memberService.getMemberByLogin(login, true);
 		if(member == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -58,7 +58,7 @@ public class RESTOrdersServlet {
     @Path("/customer/login/{login}")
     @Produces("application/json")
     public Response createOrders(@PathParam("login") String login, Collection<PublicPhotoDTO> order) {
-        MemberDTO member = memberService.getMemberByLogin(login);
+        MemberDTO member = memberService.getMemberByLogin(login, true);
         if(member == null) {
             return Response.status(Status.NO_CONTENT).build();
         }
@@ -71,7 +71,7 @@ public class RESTOrdersServlet {
 			e.printStackTrace();
 			return  Response.status(Status.BAD_REQUEST).entity(new CustomServerResponse(false, "duplicate photo order")).build();
 		}
-		member = memberService.getMemberByLogin(login);
+		member = memberService.getMemberByLogin(login, true);
 		return Response.ok(member).build();
     }
 

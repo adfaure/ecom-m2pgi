@@ -55,7 +55,6 @@ public class RESTPhotosServlet {
 	@Path("/")
 	@Produces("application/json")
 	public Response getAllPhotos(@HeaderParam("userID") Long requesterID) {
-
 		if(requesterID != null) {
 			List<PhotoContextSmallDTO> contextPhotos = facadePhoto.getAllPhotosContext(requesterID);
 			return Response.ok(contextPhotos).build();
@@ -247,7 +246,7 @@ public class RESTPhotosServlet {
 
 		if(publicPhotoDTO == null) return Response.status(Status.BAD_REQUEST).build();
 
-		if(!requesterID.equals(publicPhotoDTO.getSellerID())) {
+		if(!requesterID.equals(publicPhotoDTO.getSellerID())) { // If the photo is not owned by the seller
 			return Response.status(403).build();
 		}
 
@@ -261,6 +260,7 @@ public class RESTPhotosServlet {
 	@Produces("application/json")
 	@AllowAll // Everyone could upload photos but guests
 	public Response uploadFile(FullPhotoDTO input, @PathParam("id") long id) {
+		//FIXME check if the photo have the id of the connected seller
 		PublicPhotoDTO created = facadePhoto.savePhoto(input);
 		if (created == null) return Response.status(Status.BAD_REQUEST).entity("La photo n'a pas été enregistrée !").build();
 		return Response.status(Status.CREATED).entity(created).build();

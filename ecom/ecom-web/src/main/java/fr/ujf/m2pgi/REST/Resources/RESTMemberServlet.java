@@ -5,6 +5,7 @@ import fr.ujf.m2pgi.REST.CustomServerResponse;
 import fr.ujf.m2pgi.REST.Security.PrincipalUser;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.Allow;
 import fr.ujf.m2pgi.REST.Security.SecurityAnnotations.AllowAll;
+import fr.ujf.m2pgi.database.DTO.AdminMemberDTO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.Service.IMemberService;
@@ -34,7 +35,8 @@ public class RESTMemberServlet {
 	@Produces("application/json")
 	@Allow(groups = "admin")
 	public Response getAllMembers() {
-		List<MemberDTO> members = memberService.getAllMembers();
+
+		List<AdminMemberDTO> members = memberService.getAllMembers();
 		return Response.ok(members).build();
 	}
 
@@ -43,7 +45,7 @@ public class RESTMemberServlet {
 	@Produces("application/json")
 	@AllowAll
 	public Response getMemberByLogin(@PathParam("login") String login) {
-		MemberDTO member =  memberService.getMemberByLogin(login);
+		MemberDTO member =  memberService.getMemberByLogin(login, false);
 		return Response.ok(member).build();
 	}
 

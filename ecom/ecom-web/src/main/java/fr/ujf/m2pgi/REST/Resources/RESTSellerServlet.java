@@ -60,7 +60,7 @@ public class RESTSellerServlet {
             return Response.status(Status.OK).entity(memberService.getPublicSellerById(sellerId)).build();
         } else if(requesterID.equals(sellerId)) {
             MemberDTO memberdto = memberService.getSellerById(sellerId);
-            if (memberdto == null | memberdto.getSellerInfo() == null) {
+            if (memberdto == null || memberdto.getSellerInfo() == null) {
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
             return Response.status(Response.Status.OK).entity(memberdto).build();
@@ -130,7 +130,7 @@ public class RESTSellerServlet {
     @Produces("application/json")
 
     public Response getSellerPagebyLogin(@PathParam("login") String login) {
-        MemberDTO memberdto = memberService.getMemberByLogin(login);
+        MemberDTO memberdto = memberService.getMemberByLogin(login, true);
         if(memberdto != null && memberdto.getSellerInfo() != null) {
             SellerPageDTO page = memberdto.getSellerInfo().getPage();
             return  Response.status(Response.Status.OK).entity(page).build();

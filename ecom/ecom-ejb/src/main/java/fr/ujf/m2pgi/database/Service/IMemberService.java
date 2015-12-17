@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.Service;
 
 import fr.ujf.m2pgi.EcomException;
+import fr.ujf.m2pgi.database.DTO.AdminMemberDTO;
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.DTO.PublicPhotoDTO;
 import fr.ujf.m2pgi.database.DTO.PublicSeller;
@@ -15,9 +16,9 @@ public interface IMemberService {
 
     void deleteMember(Long id);
 
-    MemberDTO getMemberByLogin(String login);
+    MemberDTO getMemberByLogin(String login,boolean active);
 
-    MemberDTO getMemberByEmail(String email);
+    MemberDTO getMemberByEmail(String email,boolean active);
 
     Boolean isExistingMemberByLogin(String login);
 
@@ -35,7 +36,7 @@ public interface IMemberService {
 
     MemberDTO createSellerFromMember(MemberDTO memberdto);
 
-    List<MemberDTO> getAllMembers();
+    List<AdminMemberDTO> getAllMembers();
 
     Long getMemberCount();
 

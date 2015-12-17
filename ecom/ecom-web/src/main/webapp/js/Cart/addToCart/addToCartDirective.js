@@ -50,7 +50,7 @@ var addToCart = function ($compile, $location, apiToken, cartService) {
                         clickAdd($scope.photo);
                     }
                 } else  {
-                    $location.path('/photos/details/' + $scope.photo.photoID);
+                    //$location.path('/photos/details/' + $scope.photo.photoID);
                 }
             };
 

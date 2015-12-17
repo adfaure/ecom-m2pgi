@@ -6,11 +6,11 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
   var cachedPhotos = [];
   $scope.welcome = true;
 
-  if(localService.get('welcome') !== null) {
+  /*if(localService.get('welcome') !== null) {
     $scope.welcome = false;
   } else {
     localService.set('welcome', true);
-  }
+  }*/
 
   $scope.search = {
     active : false,
@@ -19,10 +19,6 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
     lastTerms : ''
   };
 
-  publicPhoto.GetAll().then(function(res) {
-    $scope.photos = cachedPhotos = res;
-  });
-
   if($routeParams.terms) {
     $scope.search.lastTerms = $scope.search.terms = $routeParams.terms;
     $scope.search.searching = true;
@@ -30,12 +26,17 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
       $scope.photos = res;
       $scope.search.searching = false;
     });
+  } else {
+    publicPhoto.GetAll().then(function(res) {
+      $scope.photos = cachedPhotos = res;
+    });
   }
 
   var user;
 
   if(apiToken.isAuthentificated()) {
     user = apiToken.getUser();
+    $scope.welcome = false;
   }
 
   $scope.register = function() {
@@ -60,7 +61,13 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
   $scope.reset = function() {
       if(!$scope.search.terms) {
         $scope.search.lastTerms = '';
-        $scope.photos = cachedPhotos;
+        if(cachedPhotos.length > 0) {
+          $scope.photos = cachedPhotos;
+        } else {
+          publicPhoto.GetAll().then(function(res) {
+            $scope.photos = cachedPhotos = res;
+          });
+        }
       }
   };
 

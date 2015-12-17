@@ -29,6 +29,7 @@ var cartService =  function($http, $q, $sce, $location ,apiToken, alertService) 
                     {
                         usr.cart.push(photo);
                     }
+                return elem;
             }, handleError("Erreur lors de l'ajout au panier")
           ).then(handleSuccess("Photo ajoutée au panier avec success"));
         }
