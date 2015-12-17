@@ -1,6 +1,6 @@
 var angular = require('angular');
 
-var memMgmtController = function($scope, memberService, sellerService, alertService) {
+var memMgmtController = function($scope, $sce,memberService, sellerService, alertService) {
 
 	$scope.error = false;
 	$scope.incomplete = false;
