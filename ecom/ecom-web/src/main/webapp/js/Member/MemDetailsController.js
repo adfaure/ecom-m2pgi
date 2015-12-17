@@ -11,6 +11,7 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 	//$scope.equalsPSW = false;
 	$scope.compteVendeur = false;
 	$scope.pswTheSame = true;
+	$scope.existingEmail = false;
 	
 
 	$scope.sellerCheckBox = false;
@@ -46,6 +47,7 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 
 
 	function fillOutInfo(){
+		$scope.userDataForm.$setPristine();
 		if(memb != null){
 			$scope.user1.memberID = memb.memberID;
 			$scope.user1.email = memb.email;
@@ -79,6 +81,7 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 			$scope.addRIB = false;
 		}else{
 			fillOutInfo();
+			$scope.existingEmail = false;
 			$scope.edit = false;
 		}
 
@@ -203,6 +206,25 @@ var MemDetailsController = function($scope, $location, $routeParams, $sce, apiTo
 		fillOutInfo();
 		
 	}
+	
+    $scope.checkEmail = function () {
+
+    	$scope.userDataForm.emailAddress.$setValidity("update email", true);
+    	$scope.existingEmail = false;
+    	
+        if ($scope.user1.email && ($scope.user1.email != memb.email)) {
+            memberService.IsExistingByEmail($scope.user1.email).then(function (res) {
+                if (res) {
+                    $scope.existingEmail = true;
+                    $scope.userDataForm.emailAddress.$setValidity("update email", false);
+                } else {
+                    $scope.existingEmail = false;
+                    $scope.userDataForm.emailAddress.$setValidity("update email", true);
+                }
+                return $scope.existingEmail;
+            });
+        }
+    }
 
 
 

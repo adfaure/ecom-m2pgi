@@ -102,6 +102,11 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
 	};*/
 
     $scope.checkLogin = function () {
+    	
+    	
+    	$scope.inscriptionform.loginInput.$setValidity("inscription login", true);
+    	$scope.existingLogin = false;
+    	
         if ($scope.user.login) {
             memberService.IsExisting($scope.user.login).then(function (res) {
                 if (res) {
@@ -117,18 +122,23 @@ var InscriptionController = function ($scope, $sce, $routeParams, apiToken, memb
     }
 
     $scope.checkEmail = function () {
+    	
+    	
+    	$scope.inscriptionform.inputEmail.$setValidity("inscription email", true);
+    	$scope.existingEmail = false;
         if ($scope.user.email) {
             memberService.IsExistingByEmail($scope.user.email).then(function (res) {
                 if (res) {
                     $scope.existingEmail = true;
-                    $scope.inscriptionform.emailInput.$setValidity("inscription email", false);
+                    $scope.inscriptionform.inputEmail.$setValidity("inscription email", false);
                 } else {
                     $scope.existingEmail = false;
-                    $scope.inscriptionform.emailInput.$setValidity("inscription email", true);
+                    $scope.inscriptionform.inputEmail.$setValidity("inscription email", true);
                 }
                 return $scope.existingEmail;
             });
         }
+        
     }
 };
 
