@@ -193,8 +193,6 @@ ecomApp.run(function(apiToken, tokenRefresh) {
             apiToken.setToken(res.data.token);
             apiToken.setUser(res.data.user);
         }, function(res){
-            console.log("error");
-            console.log(res);
             apiToken.setToken(null);
             apiToken.setUser(null);
         });

@@ -1,6 +1,7 @@
 package fr.ujf.m2pgi.database.DAO;
 
 import javax.ejb.Local;
+import javax.persistence.Query;
 
 import fr.ujf.m2pgi.database.DTO.MemberDTO;
 import fr.ujf.m2pgi.database.entities.Member;
@@ -26,6 +27,8 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 
 	List<Member> getAllMembers();
 
+	public List<Member> getAllAvailableMembers();
+
 	List<Member> getTopSellers();
 
 	List<Member> getSellersFollowedBy(long id);
@@ -37,4 +40,8 @@ public interface IMemberDAO extends IGeneriqueDAO<Member> {
 	Long getSellerCount();
 
 	Long getMemberCount();
+
+	Member findActiveMemberByLogin(String login);
+
+	Member findActiveMemberByEmail(String email);
 }

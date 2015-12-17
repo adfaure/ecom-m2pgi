@@ -157,7 +157,6 @@ function publicPhoto($http, localService, $q) {
         }
 
         return $http.get('api/photos/id/' + photo.photoID + '/user/id/' + memberID + '/isBought').then(function(res) {
-            console.log(res);
             return res;
         }).then(handleSuccess)
     }

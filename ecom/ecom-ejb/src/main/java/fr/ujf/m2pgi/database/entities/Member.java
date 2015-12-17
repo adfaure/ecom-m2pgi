@@ -15,25 +15,28 @@ import javax.persistence.*;
 public class Member {
 
 	@Id
-	@Column(name="memberID")
+	@Column(name="memberID", nullable = false)
 	private long memberID;
 
 	@Column(name="login", unique = true)
 	private String login;
 
-	@Column(name="password")
+	@Column(name="password", nullable = false)
 	private String password; //FIXME find a way to encrypte this
 
-	@Column(name="firstName")
+	@Column(name="firstName", nullable = false)
 	private String firstName;
 
-	@Column(name="lastName")
+	@Column(name="lastName", nullable = false)
 	private String lastName;
 
-	@Column(name="email" , unique = true)
+	@Column(name="active", nullable = false)
+	private boolean active;
+
+	@Column(name="email" , unique = true, nullable = false)
 	private String email;
 
-	@Column(name="accountType")
+	@Column(name="accountType", nullable = false)
 	private char accountType;
 
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -65,6 +68,19 @@ public class Member {
 
 	@OneToOne(cascade = {CascadeType.ALL})
 	private SellerInfo sellerInfo;
+
+	@PrePersist
+	public void setDefaultSellerPage() {
+		this.active = true;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 	public long getMemberID() {
 		return memberID;

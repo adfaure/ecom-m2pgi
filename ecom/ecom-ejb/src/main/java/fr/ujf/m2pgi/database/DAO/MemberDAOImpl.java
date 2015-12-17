@@ -41,6 +41,39 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 	}
 
 	@Override
+	public void delete(Object id) {
+		Member member = super.find(id);
+		if(member != null) {
+			member.setActive(false);
+			super.update(member);
+		}
+	}
+
+	@Override
+	public Member findActiveMemberByLogin(String login) {
+		Query query = entityManager.createQuery("select m FROM Member m WHERE m.login=:login and m.active = true ");
+		query.setParameter("login", login);
+		List<Member> members = query.getResultList();
+		if (members != null && members.size() == 1) {
+			Member member = members.get(0);
+			return member ;
+		}
+		return null;
+	}
+
+	@Override
+	public Member findActiveMemberByEmail(String email) {
+		Query query = entityManager.createQuery("select m FROM Member m WHERE m.email=:email and m.active = true ");
+		query.setParameter("email", email);
+		List<Member> members = query.getResultList();
+		if (members != null && members.size() == 1) {
+			Member member = members.get(0);
+			return member ;
+		}
+		return null;
+	}
+
+	@Override
 	public Member findMemberByLogin(String login) {
 		Query query = entityManager.createQuery("select m FROM Member m WHERE m.login=:login");
 		query.setParameter("login", login);
@@ -81,6 +114,13 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 		return members;
 	}
 
+
+	public List<Member> getAllAvailableMembers(){
+		Query query = entityManager.createQuery("SELECT m FROM Member m WHERE m.active = true ORDER BY m.memberID");
+		List<Member> members = query.getResultList();
+		return members;
+	}
+
 	public List<Member> getSellersFollowedBy(long id){
 		Query query = entityManager.createQuery("SELECT m FROM Member m WHERE m IN (SELECT f.followed FROM Follow f WHERE f.follower.memberID=:memID)");
 		query.setParameter("memID", id);
@@ -98,12 +138,12 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 	@Override
 	public Member getSellerById(long id) {
 		Member member = super.find(id);
-		if(member == null || member.getSellerInfo() == null) return null;
+		if(member == null || member.getSellerInfo() == null || !member.isActive()) return null;
 		return member;
 	}
 
 	public Long getSellerCount(){
-		String q = "SELECT count(e) FROM Member e where e.accountType = 'S'";
+		String q = "SELECT count(e) FROM Member e where e.accountType = 'S' and e.active = true";
 		Query query = entityManager.createQuery(q);
 		return (Long) query.getSingleResult();
 	}
@@ -115,7 +155,7 @@ public class MemberDAOImpl extends GeneriqueDAOImpl<Member> implements IMemberDA
 	}
 
 	public List<Member> getTopSellers() {
-		String q = "Select m FROM Member m where m.memberID in (Select p.author FROM Order o JOIN o.orderedPhotos p GROUP BY p.author ORDER BY count(p.author) DESC)" ;
+		String q = "Select m FROM Member m where m.active = true and m.memberID in (Select p.author FROM Order o JOIN o.orderedPhotos p GROUP BY p.author ORDER BY count(p.author) DESC)" ;
 		Query query = entityManager.createQuery(q).setMaxResults(10);
 		List<Member> members = query.getResultList();
 		return members;
