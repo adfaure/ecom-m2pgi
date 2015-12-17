@@ -27,10 +27,9 @@ var navsidebarController = function($scope, $location, $rootScope, $routeParams,
 
     $scope.$on('$routeChangeSuccess', function(event){
         $scope.url = $location.url();
-    })
+    });
 
     $scope.isActiveClass = function(checkedUrl, pageTitle) {
-        console.log(pageTitle);
         if ($scope.url.indexOf(checkedUrl) > -1) {
             $rootScope.pageTitle = pageTitle+" | ";
             return "activeTab";
