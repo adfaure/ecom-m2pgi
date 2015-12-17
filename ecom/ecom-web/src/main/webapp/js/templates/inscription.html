@@ -15,7 +15,7 @@
 				<form class="css-form" name="loginform" novalidate ng-submit="loginform.$valid && logInto()">
 
 					<div class="form-group">
-						<label for="inputLogin" class="reqField">Pseudo</label>
+						<label for="inputLogin" class="reqField">Pseudo ou Email</label>
 						<input required name="inputLogin" ng-model="login" type="text" class="form-control " id="inputLogin" placeholder="Pseudo" focus-on-load/>
 						<div class="alert-danger" ng-messages="loginform.inputLogin.$error" role="alert" ng-show="loginform.inputLogin.$dirty">
 							<div ng-messages-include="error-messages"></div>
@@ -77,7 +77,7 @@
 
 					<div class="form-group">
 						<label for="inputEmail" class="reqField">Email</label>
-						<input required ng-model="user.email" type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Adresse mail">
+						<input required ng-model="user.email" type="email" class="form-control" id="inputEmail" name="inputEmail" ng-change="checkEmail()" placeholder="Adresse mail">
 						 <div class="alert-danger" ng-messages="inscriptionform.inputEmail.$error" role="alert" ng-show="inscriptionform.inputEmail.$dirty">
 						    <div ng-messages-include="error-messages"></div>
 						</div>
@@ -86,7 +86,7 @@
 
 					<div class="form-group">
 						<label for="inputLoginInscription" class="reqField">Pseudo</label>
-						<input required name="loginInput" ng-model="user.login" ng-mouseleave="checkLogin()" ng-blur="checkLogin()" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo" ng-pattern="/^[a-zA-Z0-9äöüÄÖÜ]*$/">
+						<input required name="loginInput" ng-model="user.login" ng-change="checkLogin()" type="text" class="form-control " id="inputLoginInscription" placeholder="Pseudo" ng-pattern="/^[a-zA-Z0-9äöüÄÖÜ]*$/">
 						<div class="alert-danger" ng-messages="inscriptionform.loginInput.$error" role="alert" ng-show="inscriptionform.loginInput.$dirty">
 						    <div ng-messages-include="error-messages"></div>
 						</div>

@@ -70,10 +70,11 @@
     <label class="col-sm-2 control-label" for="email">{{user1.email}}</label>
     </div>
     <div class="col-sm-10" ng-show="edit">
-    <input type="email" id="email" class="form-control" name="emailAddress" data-ng-model="user1.email" placeholder="Address mail" required>
+    <input type="email" id="email" class="form-control" name="emailAddress" data-ng-model="user1.email" ng-change="checkEmail()" placeholder="Address mail" required>
     <div class="alert-danger" ng-messages="userDataForm.emailAddress.$error" role="alert" ng-show="userDataForm.emailAddress.$dirty">
 		<div ng-messages-include="error-messages"></div>
 	</div>
+	<div role="alert" class="alert-danger" ng-show="existingEmail">Cet email existe déjà</div>
     </div>
     <!--  <div class="col-sm-12 col-md-6" ng-messages="userDataForm.emailAddress.$error" role="alert" ng-show="userDataForm.emailAddress.$dirty">
 	    <div ng-message="required">Le champ doit être rempli</div>

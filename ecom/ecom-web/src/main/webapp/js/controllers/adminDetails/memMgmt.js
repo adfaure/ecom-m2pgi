@@ -7,6 +7,7 @@ var memMgmtController = function($scope, $filter, memberService, sellerService, 
 	$scope.sellerSelected = false;
 	$scope.edit = false;
 	$scope.existingLogin = false;
+	$scope.existingEmail = false;
 	$scope.indexMemberList = 0;
 
 	$scope.data = {
@@ -75,10 +76,30 @@ var memMgmtController = function($scope, $filter, memberService, sellerService, 
 		}
 	};*/
 
+	$scope.checkEmail = function () {
+
+		$scope.creationForm.email.$setValidity("creation email", true);
+		$scope.existingEmail = false;
+		if($scope.edit && ($scope.inEditMember.email != $scope.users[$scope.indexMemberList].email) || (!$scope.edit)){
+			if ($scope.inEditMember.email) {
+	            memberService.IsExistingByEmail($scope.inEditMember.email).then(function (res) {
+	                if (res) {
+	                    $scope.existingEmail = true;
+	                    $scope.creationForm.email.$setValidity("creation email", false);
+	                } else {
+	                    $scope.existingEmail = false;
+	                    $scope.creationForm.email.$setValidity("creation email", true);
+	                }
+	                return $scope.existingEmail;
+	            });
+	        }
+		}
+    }
 
 	$scope.checkLogin = function() {
 
 		$scope.creationForm.loginInput.$setValidity("inscription login", true);
+		$scope.existingLogin = false;
 		if($scope.edit && ($scope.inEditMember.login != $scope.users[$scope.indexMemberList].login) || (!$scope.edit) ){
 			memberService.IsExisting($scope.inEditMember.login).then(
 					function(res) {
@@ -161,7 +182,6 @@ var memMgmtController = function($scope, $filter, memberService, sellerService, 
 		emptyFields();
 		if (index == 'new') {
 			$scope.edit = false;
-			$scope.creationForm.$setPristine();
 		} else {
 			$scope.edit = true;
 			$scope.inEditMember.accountType = $scope.users[index].accountType;
@@ -195,6 +215,8 @@ var memMgmtController = function($scope, $filter, memberService, sellerService, 
 
 
 	function emptyFields(){
+
+
 		$scope.inEditMember.memberID = "";
 		//$scope.inEditMember.accountType = "M";
 		$scope.inEditMember.firstName = "";
@@ -203,40 +225,44 @@ var memMgmtController = function($scope, $filter, memberService, sellerService, 
 		$scope.inEditMember.login = "";
 		$scope.inEditMember.password = "";
 		$scope.inEditMember.sellerInfo.rib = "";
+
+		$scope.creationForm.$setPristine();
 	}
 
 	function showCreatedUser(res){
 
 		if(res.success != null && !res.success){
-			alertService.add("alert-danger", " Erreur, le membre n'a pas pu être créer", 2000);
+			alertService.add("alert-danger", $sce.trustAsHtml(" Erreur, le membre n'as pas pu été ajouté", 2000));
 		}
 		else{
+			res.active = true;
 			$scope.users.push(res);
 			emptyFields();
-			$scope.creationForm.$setPristine();
+			//$scope.creationForm.$setPristine();
 		}
 	}
 
 
 	function addEditedUser(res, index){
 		if(res.success != null && res.success == false){
-			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre édité", 2000);
+			alertService.add("alert-danger", $sce.trustAsHtml("Erreur, le membre n'as pas pu etre édité", 2000));
 		}
 		else{
+			res.active=true;
 			$scope.users[index] = res;
 			$scope.edit = false;
 			emptyFields();
-			$scope.creationForm.$setPristine();
+			//$scope.creationForm.$setPristine();
 		}
 	}
 
 	function takeOutUser(res, index){
-
 		if(res.success != null && res.success == false){
-			alertService.add("alert-danger", " Erreur, le membre n'as pas pu etre supprimé", 2000);
+			alertService.add("alert-danger", $sce.trustAsHtml(" Erreur, le membre n'as pas pu etre supprimé", 2000));
 		}
 		else{
-			$scope.users.splice(index, 1);
+			//$scope.users.splice(index, 1);
+			$scope.users[index].active=false;
 		}
 	}
 
