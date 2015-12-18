@@ -1,146 +1,171 @@
 <div data-ng-controller="MemDetailsController">
 
 
-<h1>Compte {{AccountType}}</h1>
+    <h1>Compte {{AccountType}}</h1>
 
 
-<!-- <form class="css-form" name="editform" novalidate  ng-submit="save()"> -->
+    <!-- <form class="css-form" name="editform" novalidate  ng-submit="save()"> -->
 
-	<h2> Mes infos:
-		<button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="edit=true">
-	          <span class="glyphicon glyphicon-star"></span>Modifier
-	  	</button>
-	  	<button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="editPSW=true;">
-	          <span class="glyphicon glyphicon-star"></span>Modifier mot de passe
-	  	</button>
+    <h2> Mes infos:
+        <button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="edit=true">
+            <span class="fa fa-edit"></span> Modifier
+        </button>
+        <button class="btn btn-default" ng-show="!edit && !editPSW && !addRIB" ng-click="editPSW=true;">
+            <span class="fa fa-edit"></span> Modifier mot de passe
+        </button>
 
-	  	<button class="btn btn-default" ng-show="!edit && !editPSW && !compteVendeur && !addRIB" ng-click="addRIB=true;">
-	          <span class="glyphicon glyphicon-star"></span>Devenir vendeur
-	  	</button>
-	</h2>
+        <button class="btn btn-default" ng-show="!edit && !editPSW && !compteVendeur && !addRIB"
+                ng-click="addRIB=true;">
+            <span class="fa fa-edit"></span> Devenir vendeur
+        </button>
+    </h2>
 
 
-<form class="form-horizontal ng-valid ng-dirty ng-valid-parse css-form" style="" name="userDataForm">
+    <form class="form-horizontal ng-valid ng-dirty ng-valid-parse css-form" style="" name="userDataForm">
 
-  <!--<div class="form-group">
-    <label class="col-sm-2 control-label">ID Membre</label>
-    <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label" for="memberID">{{user1.memberID}}</label>
-    </div>
-    <div class="col-sm-10" ng-show="edit">
-    <input type="text" id="memberID" class="form-control" data-ng-model="user1.memberID" data-ng-disabled="true" placeholder="ID Membre">
-    </div>
-  </div>-->
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Pseudo:</label>
-     <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label" for="login">{{user1.login}}</label>
-    </div>
-    <div class="col-sm-10" ng-show="edit">
-    <input type="text" name="login" id="login" class="form-control" data-ng-model="user1.login" data-ng-disabled="true" placeholder="Pseudo">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Prénom:</label>
-    <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label" for="firstName">{{user1.firstName}}</label>
-    </div>
-    <div class="col-sm-10" ng-show="edit">
-    <input type="text" name="firstName" id="firstName" class="form-control" data-ng-model="user1.firstName" placeholder="Prénom" required>
-     <div class="alert-danger" ng-messages="userDataForm.firstName.$error" role="alert" ng-show="userDataForm.firstName.$dirty">
-		<div ng-messages-include="error-messages"></div>
-	</div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Nom:</label>
-    <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label" for="lastName">{{user1.lastName}}</label>
-    </div>
-    <div class="col-sm-10" ng-show="edit">
-    <input type="text" name="lastName" id="lastName" class="form-control" data-ng-model="user1.lastName" placeholder="Nom" required>
-    <div class="alert-danger" ng-messages="userDataForm.lastName.$error" role="alert" ng-show="userDataForm.lastName.$dirty">
-		<div ng-messages-include="error-messages"></div>
-	</div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Address mail:</label>
-    <div class="col-sm-10" ng-show="!edit">
-    <label class="col-sm-2 control-label" for="email">{{user1.email}}</label>
-    </div>
-    <div class="col-sm-10" ng-show="edit">
-    <input type="email" id="email" class="form-control" name="emailAddress" data-ng-model="user1.email" ng-change="checkEmail()" placeholder="Address mail" required>
-    <div class="alert-danger" ng-messages="userDataForm.emailAddress.$error" role="alert" ng-show="userDataForm.emailAddress.$dirty">
-		<div ng-messages-include="error-messages"></div>
-	</div>
-	<div role="alert" class="alert-danger" ng-show="existingEmail">Cet email existe déjà</div>
-    </div>
-    <!--  <div class="col-sm-12 col-md-6" ng-messages="userDataForm.emailAddress.$error" role="alert" ng-show="userDataForm.emailAddress.$dirty">
-	    <div ng-message="required">Le champ doit être rempli</div>
-	</div>-->
-  </div>
-  </form>
+        <div class="row form-group">
+            <label class="col-xs-2 control-label">Pseudo:</label>
 
-  <form ng-show="addRIB || compteVendeur" class="form-horizontal ng-valid ng-dirty ng-valid-parse css-form" name="userRIBForm">
-  <div class="form-group" >
-    <label class="col-sm-2 control-label">RIB:</label>
-     <div class="col-sm-10" ng-show="!edit && !addRIB">
-    <label class="col-sm-2 control-label" for="rib">{{user1.sellerInfo.rib}}</label>
-    </div>
-    <div class="col-sm-10" ng-show="edit || addRIB">
-    <input type="text" id="rib" class="form-control" name="rib" data-ng-model="user1.sellerInfo.rib" placeholder="RIB" required>
-    <div class="alert-danger" ng-messages="userRIBForm.rib.$error" role="alert" ng-show="userRIBForm.rib.$dirty">
-		<div ng-messages-include="error-messages"></div>
-	</div>
-    </div>
-  </div>
-  </form>
+            <div class="col-xs-10" ng-show="!edit">
+                <label class="col-xs-2 control-label" for="login">{{user1.login}}</label>
+            </div>
+            <div class="col-xs-10" ng-show="edit">
+                <input type="text" name="login" id="login" class="form-control" data-ng-model="user1.login"
+                       data-ng-disabled="true" placeholder="Pseudo">
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-2 control-label">Prénom:</label>
 
-  <form ng-show="editPSW" class="form-horizontal ng-valid ng-dirty ng-valid-parse css-form" style="" name="userPSWForm">
-  <div class="form-group">
-    <label class="col-sm-2 control-label reqField" for="actuel">Actuel mot de passe:</label>
-    <div class="col-sm-10" >
-    <input type="password" id="actuel" class="form-control" data-ng-model="user1.pswActuel" placeholder="Actuel" name="pswActuel" required >
-    <div class="alert-danger" ng-messages="userPSWForm.pswActuel.$error" role="alert" ng-show="userPSWForm.pswActuel.$dirty">
-		<div ng-messages-include="error-messages"></div>
-	</div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label reqField" for="pswNouveau">Nouveau mot de passe:</label>
-    <div class="col-sm-10">
-    <input type="password" id="pswNouveau" class="form-control" name="pswNouveau" data-ng-model="user1.pswNouveau" placeholder="Nouveau" required minlength='5'>
-    <div class="alert-danger" ng-messages="userPSWForm.pswNouveau.$error" role="alert" ng-show="userPSWForm.pswNouveau.$dirty">
-		<div ng-messages-include="error-messages"></div>
-	</div>
-   	</div>
+            <div class="col-xs-10" ng-show="!edit">
+                <label class="col-xs-2 control-label" for="firstName">{{user1.firstName}}</label>
+            </div>
+            <div class="col-xs-10" ng-show="edit">
+                <input type="text" name="firstName" id="firstName" class="form-control" data-ng-model="user1.firstName"
+                       placeholder="Prénom" required>
 
-    </div>
-    <div class="form-group">
-    <label class="col-sm-2 control-label reqField" for="pswConfirmation">Confirmer:</label>
-    <div class="col-sm-10">
-    <input type="password" id="pswConfirmation" class="form-control" data-ng-model="user1.pswConfirmation" name="pswConfirmation" placeholder="Confirmer" required>
-    <div class="alert-danger" ng-messages="userPSWForm.pswConfirmation.$error" role="alert" ng-show="userPSWForm.pswConfirmation.$dirty">
-		<div ng-messages-include="error-messages"></div>
-	</div>
-	<div class="alert-danger" ng-show="!pswTheSame">
-    	La confirmation du mot de passe n'est pas la même.
-    </div>
-    </div>
-    
-  	</div>
+                <div class="alert-danger" ng-messages="userDataForm.firstName.$error" role="alert"
+                     ng-show="userDataForm.firstName.$dirty">
+                    <div ng-messages-include="error-messages"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-2 control-label">Nom:</label>
 
-</form>
+            <div class="col-xs-10" ng-show="!edit">
+                <label class="col-xs-2 control-label" for="lastName">{{user1.lastName}}</label>
+            </div>
+            <div class="col-xs-10" ng-show="edit">
+                <input type="text" name="lastName" id="lastName" class="form-control" data-ng-model="user1.lastName"
+                       placeholder="Nom" required>
 
-  <div ng-show="edit || editPSW || addRIB">
-	  <button class="btn btn-default" ng-disabled=" (edit && userDataForm.$invalid) || (editPSW && userPSWForm.$invalid) || (addRIB && userRIBForm.$invalid)
-	  												|| (edit && compteVendeur && userRIBForm.$invalid) " ng-click="save()">
-	          <span class="glyphicon glyphicon-ok"></span>Sauvegarder
-	  </button>
-	  <button class="btn btn-default btn-danger" ng-click="cancel()">
-	          <span class="glyphicon glyphicon-remove"></span>Annuler
-	  </button>
-  </div>
+                <div class="alert-danger" ng-messages="userDataForm.lastName.$error" role="alert"
+                     ng-show="userDataForm.lastName.$dirty">
+                    <div ng-messages-include="error-messages"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-2 control-label">Address mail:</label>
+
+            <div class="col-xs-10" ng-show="!edit">
+                <label class="col-xs-2 control-label" for="email">{{user1.email}}</label>
+            </div>
+            <div class="col-xs-10" ng-show="edit">
+                <input type="email" id="email" class="form-control" name="emailAddress" data-ng-model="user1.email"
+                       ng-change="checkEmail()" placeholder="Address mail" required>
+
+                <div class="alert-danger" ng-messages="userDataForm.emailAddress.$error" role="alert"
+                     ng-show="userDataForm.emailAddress.$dirty">
+                    <div ng-messages-include="error-messages"></div>
+                </div>
+                <div role="alert" class="alert-danger" ng-show="existingEmail">Cet email existe déjà</div>
+            </div>
+            <!--  <div class="col-sm-12 col-md-6" ng-messages="userDataForm.emailAddress.$error" role="alert" ng-show="userDataForm.emailAddress.$dirty">
+                <div ng-message="required">Le champ doit être rempli</div>
+            </div>-->
+        </div>
+    </form>
+
+    <form ng-show="addRIB || compteVendeur" class="form-horizontal ng-valid ng-dirty ng-valid-parse css-form"
+          name="userRIBForm">
+        <div class="row form-group">
+            <label class="col-xs-2 control-label">RIB:</label>
+
+            <div class="col-xs-10" ng-show="!edit && !addRIB">
+                <label class="col-xs-2 control-label" for="rib">{{user1.sellerInfo.rib}}</label>
+            </div>
+            <div class="col-xs-10" ng-show="edit || addRIB">
+                <input type="text" id="rib" class="form-control" name="rib" data-ng-model="user1.sellerInfo.rib"
+                       placeholder="RIB" required>
+
+                <div class="alert-danger" ng-messages="userRIBForm.rib.$error" role="alert"
+                     ng-show="userRIBForm.rib.$dirty">
+                    <div ng-messages-include="error-messages"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form ng-show="editPSW" class="form-horizontal ng-valid ng-dirty ng-valid-parse css-form" style=""
+          name="userPSWForm">
+        <div class="row form-group">
+            <label class="col-xs-2 control-label reqField" for="actuel">Actuel mot de passe:</label>
+
+            <div class="col-xs-10">
+                <input type="password" id="actuel" class="form-control" data-ng-model="user1.pswActuel"
+                       placeholder="Actuel" name="pswActuel" required>
+
+                <div class="alert-danger" ng-messages="userPSWForm.pswActuel.$error" role="alert"
+                     ng-show="userPSWForm.pswActuel.$dirty">
+                    <div ng-messages-include="error-messages"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-2 control-label reqField" for="pswNouveau">Nouveau mot de passe:</label>
+
+            <div class="col-xs-10">
+                <input type="password" id="pswNouveau" class="form-control" name="pswNouveau"
+                       data-ng-model="user1.pswNouveau" placeholder="Nouveau" required minlength='5'>
+
+                <div class="alert-danger" ng-messages="userPSWForm.pswNouveau.$error" role="alert"
+                     ng-show="userPSWForm.pswNouveau.$dirty">
+                    <div ng-messages-include="error-messages"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-2 control-label reqField" for="pswConfirmation">Confirmer:</label>
+
+            <div class="col-xs-10">
+                <input type="password" id="pswConfirmation" class="form-control" data-ng-model="user1.pswConfirmation"
+                       name="pswConfirmation" placeholder="Confirmer" required>
+
+                <div class="alert-danger" ng-messages="userPSWForm.pswConfirmation.$error" role="alert"
+                     ng-show="userPSWForm.pswConfirmation.$dirty">
+                    <div ng-messages-include="error-messages"></div>
+                </div>
+                <div class="alert-danger" ng-show="!pswTheSame">
+                    La confirmation du mot de passe n'est pas la même.
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+    <div ng-show="edit || editPSW || addRIB">
+        <button class="btn btn-default" ng-disabled=" (edit && userDataForm.$invalid) || (editPSW && userPSWForm.$invalid) || (addRIB && userRIBForm.$invalid)
+	  												|| (edit && compteVendeur && userRIBForm.$invalid) "
+                ng-click="save()">
+            <span class="glyphicon glyphicon-ok"></span>Sauvegarder
+        </button>
+        <button class="btn btn-default btn-danger" ng-click="cancel()">
+            <span class="glyphicon glyphicon-remove"></span>Annuler
+        </button>
+    </div>
 
 </div>
