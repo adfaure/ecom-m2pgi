@@ -1,5 +1,5 @@
 .highlighted {
-	background-color: rgb(250, 255, 189);
+	background-color: #5cb85c;
 }
 
 .posAbs {
@@ -29,6 +29,10 @@
 
 .greenIcon {
     color: lawngreen;
+}
+
+.searchGreen {
+	background-color: #5cb85c;
 }
 
 .uploadGreen {

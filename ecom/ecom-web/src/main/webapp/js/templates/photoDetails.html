@@ -33,11 +33,11 @@
                         <p>tags: </p>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9">
-                        <h4><span ng-repeat="tag in photo.tags"
-                                data-ng-click="search(tag.name)"
-                                class="label label-primary cursorPointer">
-                            {{tag.name}}
-                        </span></h4>
+                      <h4>
+                        <span ng-repeat="tag in photo.tags">
+                          <span class="label label-primary cursorPointer" data-ng-click="search(tag.name)">{{tag.name}}</span> 
+                        </span>
+                      </h4>
                     </div>
                 </div>
                 <div data-ng-if="loaded" class="row padding-4pc">
