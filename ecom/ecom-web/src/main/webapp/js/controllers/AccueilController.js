@@ -2,8 +2,11 @@ var angular = require('angular');
 
 var accueilController = function($scope, $location, $routeParams, $filter, localService, apiToken, publicPhoto) {
 
-  $scope.photos = [];
-  var cachedPhotos = [];
+  $scope.photos = [];// les photos photos à afficher après la pagination et les filtres.
+  var cachedPhotosAll = [];// Les photos recupérer de getALL
+  var cachedPhotosSearch = [];// Les photos recupérer de getALL
+  $scope.photosPerLoad = 20;
+  $scope.canLoadMore = false;
   $scope.welcome = true;
 
   if(localService.get('welcome') !== null) {
@@ -23,12 +26,16 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
     $scope.search.lastTerms = $scope.search.terms = $routeParams.terms;
     $scope.search.searching = true;
     publicPhoto.Search($scope.search.terms).then(function(res) {
-      $scope.photos = res;
+      cachedPhotosSearch = res;
+      $scope.canLoadMore = (cachedPhotosSearch.length > $scope.photosPerLoad);
+      $scope.loadmore();//Load from search
       $scope.search.searching = false;
     });
   } else {
     publicPhoto.GetAll().then(function(res) {
-      $scope.photos = cachedPhotos = res;
+      cachedPhotosAll = res;
+      $scope.canLoadMore = (cachedPhotosAll.length > $scope.photosPerLoad);
+      $scope.loadmore();//Load from get all
     });
   }
 
@@ -52,7 +59,10 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
       $scope.search.lastTerms = $scope.search.terms;
       $scope.search.searching = true;
       publicPhoto.Search($scope.search.terms).then(function(res) {
-        $scope.photos = res;
+        cachedPhotosSearch = res;
+        $scope.photos = [];
+        $scope.canLoadMore = (cachedPhotosSearch.length > $scope.photosPerLoad);
+        $scope.loadmore();//Load from search
         $scope.search.searching = false;
       });
     }
@@ -61,11 +71,14 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
   $scope.reset = function() {
       if(!$scope.search.terms) {
         $scope.search.lastTerms = '';
-        if(cachedPhotos.length > 0) {
-          $scope.photos = cachedPhotos;
+        if(cachedPhotosAll.length > 0) {
+          $scope.photos = cachedPhotosAll;
         } else {
           publicPhoto.GetAll().then(function(res) {
-            $scope.photos = cachedPhotos = res;
+            cachedPhotosAll = res;
+            $scope.photos = [];
+            $scope.canLoadMore = (cachedPhotosAll.length > $scope.photosPerLoad);
+            $scope.loadmore();//Load from get all
           });
         }
       }
@@ -82,6 +95,23 @@ var accueilController = function($scope, $location, $routeParams, $filter, local
       $scope.photos = $filter('orderBy')($scope.photos, 'views', true);
     } else if(order == 'likes') {
       $scope.photos = $filter('orderBy')($scope.photos, 'likes', true);
+    }
+  }
+
+  $scope.loadmore = function() {
+    var showedLength = $scope.photos.length;
+    if($scope.search.lastTerms) {
+      var cachedLength = cachedPhotosSearch.length;
+      if(showedLength < cachedLength) {
+        $scope.photos = $scope.photos.concat(cachedPhotosSearch.slice(showedLength, showedLength + $scope.photosPerLoad));
+        if($scope.photos.length == cachedLength) $scope.canLoadMore = false;
+      }
+    } else {
+      var cachedLength = cachedPhotosAll.length;
+      if(showedLength < cachedLength) {
+        $scope.photos = $scope.photos.concat(cachedPhotosAll.slice(showedLength, showedLength + $scope.photosPerLoad));
+        if($scope.photos.length == cachedLength) $scope.canLoadMore = false;
+      }
     }
   }
 };
