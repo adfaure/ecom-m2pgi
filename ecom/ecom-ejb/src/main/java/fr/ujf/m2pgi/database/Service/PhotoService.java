@@ -148,8 +148,9 @@ public class PhotoService implements IPhotoService {
 				sb.append(tag.toLowerCase()).append(' ');
 			}
 			doc.setTags(sb.toString());
-		  doc.setThumbnail(created.getThumbnail());
+		    doc.setThumbnail(created.getThumbnail());
 			doc.setPrice(created.getPrice());
+			doc.setSellerID(created.getSellerID());
 			doc.setViews(0);
 			doc.setLikes(0);
 			// Since at this time we dont have the dateCreated (null). We only need this value for ES to sort by date.

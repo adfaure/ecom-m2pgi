@@ -41,6 +41,7 @@ public class ElasticsearchDao {
 															.field("price", doc.getPrice())
 															.field("views", doc.getViews())
 															.field("likes", doc.getLikes())
+															.field("sellerID", doc.getSellerID())
 															.field("created", doc.getDateCreated())
 			                    .endObject()
 			                  )
@@ -127,6 +128,7 @@ public class ElasticsearchDao {
 			document.setThumbnail((String)hit.getSource().get("thumbnail"));
 			document.setPrice(new Float((double)hit.getSource().get("price")));
 			document.setViews((Integer)hit.getSource().get("views"));
+			document.setSellerID(new Long((Integer)hit.getSource().get("sellerID")));
 			document.setLikes((Integer)hit.getSource().get("likes"));
 			document.setDateCreated((Long)hit.getSource().get("created"));
 			hits.add(document);
@@ -155,6 +157,7 @@ public class ElasticsearchDao {
 			document.setDescription((String)hit.getSource().get("description"));
 			document.setTags((String)hit.getSource().get("tags"));
 			document.setThumbnail((String)hit.getSource().get("thumbnail"));
+			document.setSellerID(new Long((Integer)hit.getSource().get("sellerID")));
 			document.setPrice(new Float((double)hit.getSource().get("price")));
 			document.setViews((int)hit.getSource().get("views"));
 			document.setLikes((int)hit.getSource().get("likes"));

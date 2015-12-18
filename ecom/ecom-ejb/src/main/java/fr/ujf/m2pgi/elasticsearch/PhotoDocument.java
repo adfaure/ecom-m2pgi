@@ -21,11 +21,21 @@ public class PhotoDocument {
 
 	private Float price;
 
+	private long sellerID;
+
 	private Integer views;
 
 	private Integer likes;
 
 	private Long dateCreated;
+
+	public long getSellerID() {
+		return sellerID;
+	}
+
+	public void setSellerID(long sellerID) {
+		this.sellerID = sellerID;
+	}
 
 	public Long getPhotoId() {
 		return photoID;

@@ -88,7 +88,23 @@ function publicPhoto($http, localService, $q) {
     }
 
     function Search(text) {
-      return $http.get('api/photos/search/' + text).then(handleSuccess, handleError('Error when searching photos'));
+      return $http.get('api/photos/search/' + text).then(function(elem) {
+          var photos = elem.data;
+          if(photos) {
+              photos.forEach(function (photo) {
+                  if (photo.tags) {
+                      var array = photo.tags.split(" ");
+                      var tags = array.map(function (tag) {
+                          return {
+                              name: tag
+                          }
+                      });
+                      photo.tags = tags;
+                  }
+              });
+          }
+          return elem;
+        }).then(handleSuccess, handleError('Error when searching photos'));
     }
 
     function GetUserPhotos(login) {

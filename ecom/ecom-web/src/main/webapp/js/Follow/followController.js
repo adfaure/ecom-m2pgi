@@ -3,7 +3,7 @@ var angular = require('angular');
 
 var followController = function($scope, $location, apiToken, sellerService, memberService, publicPhoto) {
 	
-	$scope.numberPhotos = 5;
+	$scope.numberPhotos = 3;
 	
     var userIDFollower = 0;
 	if(apiToken.isAuthentificated()) {
