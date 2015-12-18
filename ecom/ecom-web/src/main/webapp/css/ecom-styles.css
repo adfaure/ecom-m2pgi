@@ -314,11 +314,16 @@ div.divider {
     padding-top: 4px;
     padding-bottom: 4px;
     margin-top: 3px;
+    margin-left: -15px;
 }
 
 @media (min-width: 768px) {
     .navbar-toggle.sidebar-toggle {
         display: block;
+    }
+    .container-fluid > .navbar-header {
+        margin-right: -15px;
+        margin-left: -15px;
     }
 }
 

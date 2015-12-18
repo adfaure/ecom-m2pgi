@@ -102,8 +102,8 @@ ecomApp.config(function ($routeProvider, $httpProvider) {
             controller : 'pageController'
         })
         .when('/contactUs', {
-            templateUrl : './js/templates/contactUs.html',
-            controller : 'pageController'
+            templateUrl : './js/templates/contactUs.html'
+        //    controller : 'pageController'
         })
         .otherwise({
         	redirectTo: '/accueil'
